@@ -21,7 +21,9 @@
     "preview": "vite preview",
     "test": "vitest",
     "type-check": "tsc --noEmit",
-    "deploy": "npm run build && npx firebase deploy --only hosting"
+    "deploy": "npm run build && npx firebase deploy --only hosting",
+    "deploy:rules": "npx firebase deploy --only firestore:rules",
+    "deploy:all": "npm run build && npx firebase deploy"
   },
   "dependencies": {
     "firebase": "^12.4.0",

@@ -162,6 +162,78 @@ export interface UpdateShapeData {
 }
 
 // ============================================================================
+// Firestore Document Types (PR4)
+// ============================================================================
+
+/**
+ * Canvas Document
+ *
+ * Represents the Firestore document structure for a canvas session
+ * Path: /canvases/{canvasId}
+ */
+export interface CanvasDocument {
+  /** Canvas ID (e.g., "global-canvas-v1") */
+  canvasId: string;
+
+  /** Array of all shapes on this canvas */
+  shapes: Shape[];
+
+  /** Canvas metadata */
+  metadata: {
+    /** When canvas was created */
+    createdAt: number;
+
+    /** Last update timestamp */
+    lastModifiedAt: number;
+
+    /** Number of active users */
+    activeUsers: number;
+
+    /** Total shape count */
+    shapeCount: number;
+  };
+}
+
+/**
+ * Firestore Shape Data
+ *
+ * Shape data as stored in Firestore (within shapes array)
+ */
+export type FirestoreShape = Shape;
+
+/**
+ * Shape Lock Status
+ *
+ * Represents the locking state of a shape
+ */
+export interface LockStatus {
+  /** Whether shape is locked */
+  isLocked: boolean;
+
+  /** User ID who holds the lock */
+  lockedBy: string | null;
+
+  /** When lock was acquired */
+  lockedAt: number | null;
+}
+
+/**
+ * Shape Operation Result
+ *
+ * Result of a shape create/update/delete operation
+ */
+export interface ShapeOperationResult {
+  /** Whether operation succeeded */
+  success: boolean;
+
+  /** Shape ID (for create operations) */
+  shapeId?: string;
+
+  /** Error message if failed */
+  error?: string;
+}
+
+// ============================================================================
 // User Presence Types (PR5)
 // ============================================================================
 
@@ -338,6 +410,15 @@ export const CONSTANTS = {
 
   /** Maximum concurrent users (MVP limit) */
   MAX_USERS: 3,
+
+  /** Global canvas ID (MVP uses single shared canvas) */
+  GLOBAL_CANVAS_ID: 'global-canvas-v1',
+
+  /** Firestore collection names */
+  COLLECTIONS: {
+    CANVASES: 'canvases',
+    SESSIONS: 'sessions',
+  },
 } as const;
 
 /**

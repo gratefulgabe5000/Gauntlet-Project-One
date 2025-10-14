@@ -1,10 +1,11 @@
 import { Rect } from 'react-konva';
+import type { Shape } from '../services/types';
 import { constrainShapePosition } from '../utils/helpers';
 
 /**
  * Rectangle Component - Individual draggable rectangle shape
  *
- * PR3.2 & PR3.6: Local Canvas Functionality with utility helpers
+ * PR3.2 & PR3.6 & PR4.5: Real-time collaborative rectangles
  *
  * Features:
  * - Renders a single rectangle with Konva
@@ -12,21 +13,14 @@ import { constrainShapePosition } from '../utils/helpers';
  * - Drag to move (Task 3.2.4)
  * - Visual selection feedback (Task 3.2.2)
  * - Boundary validation (Task 3.6.3)
+ * - Lock indicators (Task 4.4)
  */
 
-export interface RectangleShape {
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  fill: string;
-  createdBy?: string;
-  createdAt?: number;
-}
+// Re-export Shape type as RectangleShape for backwards compatibility
+export type RectangleShape = Shape;
 
 interface RectangleProps {
-  shape: RectangleShape;
+  shape: Shape;
   isSelected: boolean;
   onSelect: () => void;
   onDragStart: () => void;

@@ -4,35 +4,38 @@ import { useAuth } from './auth/AuthContext'
 import AuthGuard from './auth/AuthGuard'
 import Canvas from './components/Canvas'
 import Toolbar from './components/Toolbar'
-import { useCanvas } from './hooks/useCanvas'
+import { useShapes } from './hooks/useShapes'
 import { createRectangleShape } from './utils/helpers'
 
 /**
  * CollabCanvas MVP - Main Application Component
  *
- * Sprint Status: PR3.4 - Toolbar and Shape Creation
+ * Sprint Status: PR4.5 - Real-Time Collaboration
  * - AuthGuard protects the entire canvas (Task 2.5.2)
  * - User display shows authenticated user info (Task 2.5.3)
  * - Logout button with confirmation (Task 2.5.4)
  * - Add Rectangle button creates shapes (Task 3.4.3)
+ * - Real-time Firestore sync (Task 4.5)
  *
  * Architecture:
  * - Toolbar: Shape creation controls, user info, and logout
  * - Canvas: Konva.js rendering workspace (2000x2000px)
- * - useCanvas: Local state management for shapes
- * - Real-time: Firebase sync (coming in PR4)
+ * - useShapes: Real-time Firestore state management
+ * - Multi-user: Changes sync between all connected clients
  */
 function App() {
   const { user, logout } = useAuth()
   const {
     shapes,
     selectedShapeId,
+    isLoading,
+    error,
     addShape,
     selectShape,
     updateShapePosition,
     clearSelection,
     removeSelectedShape,
-  } = useCanvas()
+  } = useShapes()
 
   // Ensure body has proper class for full-screen canvas
   useEffect(() => {
@@ -73,11 +76,15 @@ function App() {
     }
   }, [selectedShapeId, removeSelectedShape, clearSelection])
 
-  // Task 3.4.3 & 3.6.2: Create rectangle at canvas center using helper
-  const handleAddRectangle = () => {
+  // Task 3.4.3 & 3.6.2 & 4.5: Create rectangle at canvas center using helper
+  const handleAddRectangle = async () => {
     const newShape = createRectangleShape()
-    const shapeId = addShape(newShape)
-    console.log('✅ Rectangle created:', shapeId)
+    const shapeId = await addShape(newShape)
+    if (shapeId) {
+      console.log('✅ Rectangle created (Firestore):', shapeId)
+    } else {
+      console.error('❌ Failed to create rectangle')
+    }
   }
 
   // Task 3.4.4: Zoom controls
@@ -117,6 +124,18 @@ function App() {
           user={user}
           onLogout={handleLogout}
         />
+
+        {/* Task 4.6: Loading & Error States */}
+        {isLoading && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-blue-500 text-white px-4 py-2 rounded shadow-lg">
+            🔄 Loading canvas...
+          </div>
+        )}
+        {error && (
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-4 py-2 rounded shadow-lg">
+            ❌ {error}
+          </div>
+        )}
 
         {/* Main Canvas Area - Konva Stage Component */}
         <div className="canvas-wrapper">
