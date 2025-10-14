@@ -16,45 +16,103 @@ To create the most intuitive and powerful collaborative canvas platform that emp
 
 ## User Personas & User Stories
 
-### **1. The Designer (Canvas Owner)**
+### **1. The Space Curator (Initiator Archetype)**
 
-*"I create and control the collaborative workspace"*
+*"I create containers for collective thinking"*
 
-**Profile**: The team member who initiates a collaborative session by creating a new canvas. They own the workspace, control access, and guide the overall session direction. They're responsible for inviting collaborators and maintaining the canvas.
+**Profile**: The person who turns chaos into collaborative possibility. They see potential connections others miss and feel responsible for group success. They're relationship builders and context creators who care more about facilitating others' success than their own productivity.
 
-**Core Need**: To create an effective collaborative workspace where their team can work together visually.
-
-**User Stories:**
-
-- As a Designer, I want to **create a new canvas quickly** so that I can start a collaborative session immediately
-- As a Designer, I want to **invite collaborators by sharing a URL** so that my team can join easily
-- As a Designer, I want to **see who is currently active on the canvas** so that I know who's participating
-- As a Designer, I want to **add shapes to organize ideas** so that we can structure our thinking visually
-- As a Designer, I want to **see real-time changes from collaborators** so that I can track our progress together
-
-### **2. The Collaborator (Invited User)**
-
-*"I join the workspace to contribute and build on ideas"*
-
-**Profile**: A team member who receives an invitation to join an existing canvas. They contribute to the collaborative session by adding shapes, moving elements, and building on others' ideas. They respect the Designer's leadership while actively participating.
-
-**Core Need**: To join seamlessly and contribute meaningfully to the collaborative workspace.
+**Core Emotional Need**: To feel like they're enabling others to do their best work together.
 
 **User Stories:**
 
-- As a Collaborator, I want to **join a canvas using a shared URL** so that I can participate without complex setup
-- As a Collaborator, I want to **see other participants' cursors** so that I know where everyone is working
-- As a Collaborator, I want to **add and move shapes** so that I can contribute my ideas visually
-- As a Collaborator, I want to **see changes in real-time** so that I can build on others' work immediately
-- As a Collaborator, I want to **avoid conflicts when editing** so that our work doesn't interfere with each other
+- As a Space Curator, I want to **instantly create a welcoming digital space** so that my team feels invited rather than intimidated
+- As a Space Curator, I want to **see the energy and engagement levels** of participants so that I can adjust the session dynamics
+- As a Space Curator, I want to **gently guide attention without controlling** so that collaboration feels organic, not managed
+- As a Space Curator, I want to **preserve the "magic moments" of collaboration** so that breakthrough insights don't get lost
+- As a Space Curator, I want to **see who's participating vs. just present** so that I can draw in quiet voices without putting them on the spot
 
-### **24-Hour MVP Success Criteria (Concrete & Deliverable)**
+**Strategic Implication**: These users drive adoption because they invite others. They're your growth engine.
+
+### **2. The Deep Diver (Flow-State Worker)**
+
+*"I need to think with my hands while staying connected"*
+
+**Profile**: Someone who does their best work in flow state but values the subtle presence of teammates. They think visually and need to externalize their mental process. They want productive solitude within company—the ability to be deeply focused while still being "present" with their team.
+
+**Core Emotional Need**: To maintain deep focus while feeling supported by their team's presence.
+
+**User Stories:**
+
+- As a Deep Diver, I want to **feel others' presence without interruption** so that I can work deeply while staying connected
+- As a Deep Diver, I want to **claim visual territory temporarily** so that I can develop ideas without collision anxiety
+- As a Deep Diver, I want to **see the evolution of others' thinking** so that I can build on their ideas when I surface from focus
+- As a Deep Diver, I want to **signal my current state (focused/open/stuck)** so that others know how to interact with me appropriately
+- As a Deep Diver, I want to **seamlessly transition between solo and collaborative modes** so that I never have to choose between depth and connection
+
+**Strategic Implication**: If you break their flow with poor performance or distracting UI, you lose them immediately.
+
+### **3. The Pattern Reader (Context Absorber)**
+
+*"I understand by watching, then contribute by connecting"*
+
+**Profile**: The team member who joins to understand the full picture before contributing. They see connections across different perspectives and help synthesize group thinking. They are sense-makers and quality guardians who want non-intrusive understanding.
+
+**Core Emotional Need**: To fully understand the context and relationships before adding their voice.
+
+**User Stories:**
+
+- As a Pattern Reader, I want to **absorb the full context invisibly** so that I understand without disrupting the flow
+- As a Pattern Reader, I want to **see the history of decisions** so that I can understand the thinking behind current state
+- As a Pattern Reader, I want to **observe different working styles** so that I can adapt my contributions appropriately
+- As a Pattern Reader, I want to **surface connections others might miss** so that I can add unique value to the collaboration
+- As a Pattern Reader, I want to **choose my moment to contribute** so that my input lands when it's most valuable
+
+**Strategic Implication**: Your onboarding and "joining" experience will make or break adoption.
+
+## **User Stories: The Social Layer**
+
+### **Relationship Stories (Hidden Needs)**
+
+**Trust Building:**
+
+- "I want to see others making mistakes and recovering so that I feel safe to experiment"
+- "I want to contribute something small first so that I can test how the group receives my input"
+
+**Belonging Signals:**
+
+- "I want others to build on my ideas so that I know I'm contributing value"
+- "I want to see my cursor acknowledged by others so that I feel present in the space"
+
+**Group Intelligence:**
+
+- "I want to see multiple perspectives developing simultaneously so that we can discover emergent solutions"
+- "I want to sense the group's energy and momentum so that I can contribute at the right rhythm"
+
+**Psychological Safety:**
+
+- "I want to experiment without permanent consequences so that I can think out loud visually"
+- "I want to see others' incomplete thoughts so that I know perfection isn't expected"
+
+### **Key Insight: MVP-Focused Success Metrics**
+
+**Traditional Metrics**: Features used, time on platform, objects created
+**24-Hour MVP Success Criteria (Concrete & Deliverable)**:
 
 - **CORE VALIDATION**: 2+ users can simultaneously create, move, and see rectangles for 5+ minutes
 - **TECHNICAL PROOF**: Real-time sync working reliably in Chrome browser
 - **USER EXPERIENCE**: New user can create first rectangle within 30 seconds of joining
 - **DEPLOYMENT PROOF**: Publicly accessible via Firebase Hosting URL
 - **AUTHENTICATION PROOF**: Multiple users can join via Firebase Auth (email/Google)
+
+**MVP Success = Prove Collaborative Thinking Works Technically**
+
+**Post-MVP Metrics (Revolutionary)**:
+
+- **Connection depth**: How long after someone leaves do others reference their contributions?
+- **Cognitive safety**: How quickly do new joiners start experimenting?
+- **Emergence rate**: How often do ideas build on each other vs. exist in isolation?
+- **Energy sustainability**: How many return for follow-up sessions?
 
 ## Finalized Technology Stack
 
@@ -102,7 +160,7 @@ To create the most intuitive and powerful collaborative canvas platform that emp
 **Core MVP Features**:
 
 1. **Canvas Workspace**
-   - **Size**: 2000x2000px bounded canvas
+   - **Size**: 5000x5000px bounded canvas
    - **Constraints**: Objects cannot be placed or moved outside boundaries
    - **Navigation**: Pan and zoom with hard boundaries
    - **Grid**: Optional overlay for alignment assistance
@@ -139,7 +197,7 @@ To create the most intuitive and powerful collaborative canvas platform that emp
 - Real-time cursors show user presence with names and colors
 - Users can create, move, and delete rectangles
 - Object locking prevents simultaneous edits (first user to drag locks object)
-- Canvas supports pan and zoom with 2000x2000px boundaries
+- Canvas supports pan and zoom with 5000x5000px boundaries
 - Work persists when users leave and rejoin
 
 **Development Timeline** (24-Hour Sprint):
@@ -395,7 +453,7 @@ To create the most intuitive and powerful collaborative canvas platform that emp
 - Caching strategies for frequently accessed canvases
 - Load balancing for high availability
 
-## Project Success Goals
+## Project Success Criteria
 
 1. **User Engagement**
    - 70% user retention after first week

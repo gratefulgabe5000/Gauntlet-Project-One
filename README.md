@@ -9,6 +9,7 @@ CollabCanvas is a collaborative canvas platform that enables teams to brainstorm
 ## Technology Stack
 
 ### Frontend
+
 - **React 18** with TypeScript for component architecture
 - **Fabric.js** for advanced canvas operations
 - **Socket.io-client** for real-time communication
@@ -16,6 +17,7 @@ CollabCanvas is a collaborative canvas platform that enables teams to brainstorm
 - **Vite** for fast development and building
 
 ### Backend
+
 - **Node.js** with Express and TypeScript
 - **Socket.io** for WebSocket management
 - **Prisma ORM** for database operations
@@ -23,11 +25,13 @@ CollabCanvas is a collaborative canvas platform that enables teams to brainstorm
 - **Sharp** for image processing
 
 ### Database & Storage
+
 - **PostgreSQL** for primary data storage
 - **Redis** for real-time collaboration state
 - **AWS S3** for file and asset storage
 
 ### Infrastructure
+
 - **Vercel** for frontend deployment
 - **Railway** for backend deployment
 - **GitHub Actions** for CI/CD pipeline
@@ -60,7 +64,7 @@ This workspace is configured with:
 ## Development Phases
 
 - **MVP (3-4 months)**: Core canvas, real-time collaboration, user management
-- **Phase 2 (2-3 months)**: Advanced tools, integrations, enhanced features  
+- **Phase 2 (2-3 months)**: Advanced tools, integrations, enhanced features
 - **Phase 3 (3-4 months)**: AI features, enterprise capabilities, scaling
 
 Let's build something amazing! 🚀
