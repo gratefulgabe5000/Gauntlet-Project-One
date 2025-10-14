@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Temporary folders
+tmp/
+temp/
+
+
+Gauntlet AI Sessions/2025-10-13 10-01-16.mkv
+Prior chats/2025.10.12 - 001 - cursor_just_saying_hello.md
+Prior chats/2025.10.12 - 002 - cursor_review_previous_work_and_continu.md
+Prior chats/2025.10.12 - 003 - cursor_review_previous_chat_from_octobe.md
+Prior chats/2025.10.12 - 004 - cursor_review_prior_chats_for_markdown.md
+Prior chats/2025.10.13 - 001 - cursor_create_and_open_gauntlet_project.md
+Prior chats/2025.10.13 - 002 - cursor_create_product_requirement_docum.md
+Prior chats/2025.10.13 - 003 - cursor_create_product_requirement_docum.md
+build-simple.bat
+build.bat
+CMakeLists.txt
+hello.cpp
+package.json
