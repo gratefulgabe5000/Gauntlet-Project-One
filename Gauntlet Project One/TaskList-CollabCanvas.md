@@ -117,22 +117,84 @@ Each PR represents a **working, deployable state** that builds incrementally tow
 ### **Progressive PR Details**
 
 #### **PR-1: Foundation Setup** (Hour 4) 🔴
+
 **Branch**: `feat/foundation-setup`
-**Files Added**:
-```
-├── package.json, vite.config.ts, tailwind.config.js
-├── src/App.tsx (basic layout)
-├── src/components/Canvas.tsx (empty Konva stage)
-├── src/services/firebase.ts (config only)
-└── Firebase project created
-```
+
+##### **1.1 Project Initialization & Dependencies** (45 minutes)
+
+- [ ] **1.1.1** Create new directory `collabcanvas-mvp` (2 min)
+- [ ] **1.1.2** Initialize Git repository with `git init` (2 min)
+- [ ] **1.1.3** Create Vite React TypeScript project: `npm create vite@latest . -- --template react-ts` (5 min)
+- [ ] **1.1.4** Install core dependencies: `npm install react-konva konva tailwindcss` (5 min)
+- [ ] **1.1.5** Install Firebase SDK: `npm install firebase` (3 min)
+- [ ] **1.1.6** Install dev dependencies: `npm install -D @types/react @types/react-dom autoprefixer postcss` (3 min)
+- [ ] **1.1.7** Verify installation with `npm run dev` - should show Vite default page (5 min)
+- [ ] **1.1.8** Test build process with `npm run build` (5 min)
+- [ ] **1.1.9** Create `.gitignore` with node_modules, dist, .env* (3 min)
+- [ ] **1.1.10** Initial Git commit: `git add . && git commit -m "Initial Vite + React + TS setup"` (2 min)
+- [ ] **1.1.11** Create development branch: `git checkout -b feat/foundation-setup` (1 min)
+- [ ] **1.1.12** Update package.json with project name and scripts (3 min)
+- [ ] **1.1.13** Document package.json dependencies with inline comments (6 min)
+
+##### **1.2 Tailwind CSS Configuration** (20 minutes)
+
+- [ ] **1.2.1** Initialize Tailwind: `npx tailwindcss init -p` (3 min)
+- [ ] **1.2.2** Configure `tailwind.config.js` with content paths for React files (5 min)
+- [ ] **1.2.3** Add Tailwind directives to `src/index.css` (@tailwind base, components, utilities) (3 min)
+- [ ] **1.2.4** Create basic CSS reset and canvas-specific styles in `src/index.css` (5 min)
+- [ ] **1.2.5** Test Tailwind by adding utility classes to default App component (2 min)
+- [ ] **1.2.6** Verify hot reload works with style changes (2 min)
+
+##### **1.3 TypeScript Configuration** (15 minutes)
+
+- [ ] **1.3.1** Review default `tsconfig.json` and add strict mode settings (5 min)
+- [ ] **1.3.2** Add path aliases for clean imports: `@/components`, `@/services`, `@/hooks` (5 min)
+- [ ] **1.3.3** Update Vite config to recognize path aliases (3 min)
+- [ ] **1.3.4** Test TypeScript compilation with `npx tsc --noEmit` (2 min)
+
+##### **1.4 Firebase Project Setup** (35 minutes)
+
+- [ ] **1.4.1** Create new Firebase project at console.firebase.google.com (5 min)
+- [ ] **1.4.2** Enable Authentication service (email/password provider only) (5 min)
+- [ ] **1.4.3** Create Firestore database in test mode (US-central region) (5 min)
+- [ ] **1.4.4** Create Realtime Database in test mode (US-central region) (3 min)
+- [ ] **1.4.5** Register web app in Firebase project settings (3 min)
+- [ ] **1.4.6** Copy Firebase config object to `src/services/firebase.ts` (5 min)
+- [ ] **1.4.7** Create environment variables file `.env.local` with Firebase keys (5 min)
+- [ ] **1.4.8** Test Firebase connection with basic `initializeApp()` call (4 min)
+
+##### **1.5 Basic App Structure** (25 minutes)
+
+- [ ] **1.5.1** Create folder structure: `src/components`, `src/services`, `src/hooks`, `src/auth` (2 min)
+- [ ] **1.5.2** Replace default `src/App.tsx` with basic layout structure (8 min)
+- [ ] **1.5.3** Create `src/components/Canvas.tsx` with empty Konva Stage (10 min)
+- [ ] **1.5.4** Add Canvas component to App with full viewport dimensions (3 min)
+- [ ] **1.5.5** Style App layout with Tailwind (flex, full height, basic colors) (2 min)
+
+##### **1.6 Basic Testing Setup** (15 minutes)
+
+- [ ] **1.6.1** Install testing dependencies: `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom` (5 min)
+- [ ] **1.6.2** Create `vitest.config.ts` with React testing configuration (5 min)
+- [ ] **1.6.3** Create `src/__tests__/App.test.tsx` with basic render test (3 min)
+- [ ] **1.6.4** Run test suite with `npm run test` to verify setup (2 min)
+
+##### **1.7 Final Validation & Commit** (15 minutes)
+
+- [ ] **1.7.1** Run full development server and verify no console errors (3 min)
+- [ ] **1.7.2** Test Canvas component renders Konva stage (empty gray rectangle) (3 min)
+- [ ] **1.7.3** Verify Tailwind utilities work (add test classes and check visual changes) (2 min)
+- [ ] **1.7.4** Confirm Firebase config loads without errors (check browser console) (2 min)
+- [ ] **1.7.5** Run build process: `npm run build` and verify dist/ folder created (3 min)
+- [ ] **1.7.6** Final commit: `git add . && git commit -m "Complete foundation setup with Vite+React+Konva+Tailwind+Firebase"` (2 min)
+
 **Success Criteria**:
-- [ ] Vite dev server runs without errors
-- [ ] Basic canvas renders (empty)
-- [ ] Tailwind styles work
-- [ ] Firebase project exists
+
+- [ ] Vite dev server runs on localhost:5173 without errors
+- [ ] Basic canvas renders (empty Konva stage, 2000x2000px)
+- [ ] Tailwind utilities work (test with bg-blue-500, p-4, etc.)
+- [ ] Firebase project exists and config loads
 - [ ] **Unit Tests**: App component renders without crashing
-- [ ] **Integration Test**: Canvas initializes with correct dimensions (2000x2000px)
+- [ ] **Integration Test**: Canvas initializes with correct dimensions
 - [ ] **Smoke Test**: Build process completes successfully
 
 **Deploy**: Basic static site with empty canvas
@@ -140,173 +202,447 @@ Each PR represents a **working, deployable state** that builds incrementally tow
 ---
 
 #### **PR-2: Authentication Layer** (Hour 6) 🟡
+
 **Branch**: `feat/firebase-auth`
-**Files Added**:
-```
-├── src/auth/AuthContext.tsx
-├── src/auth/LoginForm.tsx
-├── src/auth/AuthGuard.tsx
-└── Firebase Auth enabled
-```
+
+##### **2.1 Firebase Authentication Integration** (25 minutes)
+
+- [ ] **2.1.1** Create `src/services/firebase.ts` with auth configuration (8 min)
+- [ ] **2.1.2** Import and initialize Firebase Auth: `getAuth()` (3 min)
+- [ ] **2.1.3** Test Firebase Auth connection in browser console (2 min)
+- [ ] **2.1.4** Create `src/services/types.ts` with User interface definitions (5 min)
+- [ ] **2.1.5** Add auth-related utilities: `signUpWithEmail`, `signInWithEmail`, `signOut` (7 min)
+
+##### **2.2 Authentication Context** (30 minutes)
+
+- [ ] **2.2.1** Create `src/auth/AuthContext.tsx` with React Context setup (10 min)
+- [ ] **2.2.2** Implement AuthProvider component with state management (8 min)
+- [ ] **2.2.3** Add `onAuthStateChanged` listener for persistence (7 min)
+- [ ] **2.2.4** Create custom hook `useAuth()` for consuming context (3 min)
+- [ ] **2.2.5** Add loading state handling during auth initialization (2 min)
+
+##### **2.3 Login Form Component** (35 minutes)
+
+- [ ] **2.3.1** Create `src/auth/LoginForm.tsx` with form structure (10 min)
+- [ ] **2.3.2** Add email and password input fields with Tailwind styling (8 min)
+- [ ] **2.3.3** Implement form validation (email format, password length) (10 min)
+- [ ] **2.3.4** Add login/signup form state switching (toggle between modes) (5 min)
+- [ ] **2.3.5** Integrate Firebase auth functions with form submission (2 min)
+
+##### **2.4 Authentication Guard** (15 minutes)
+
+- [ ] **2.4.1** Create `src/auth/AuthGuard.tsx` wrapper component (8 min)
+- [ ] **2.4.2** Add conditional rendering: show LoginForm if not authenticated (4 min)
+- [ ] **2.4.3** Display loading spinner during auth check (3 min)
+
+##### **2.5 App Integration** (15 minutes)
+
+- [ ] **2.5.1** Wrap App component with AuthProvider in `src/main.tsx` (3 min)
+- [ ] **2.5.2** Replace App content with AuthGuard wrapper (5 min)
+- [ ] **2.5.3** Add basic user display: name/email in top-right corner (5 min)
+- [ ] **2.5.4** Add logout button with confirmation (2 min)
+
+##### **2.6 Testing & Validation** (15 minutes)
+
+- [ ] **2.6.1** Create `src/__tests__/auth/AuthContext.test.tsx` with basic tests (8 min)
+- [ ] **2.6.2** Test signup flow manually: create new account (3 min)
+- [ ] **2.6.3** Test login flow manually: sign in with created account (2 min)
+- [ ] **2.6.4** Test persistence: refresh browser and verify still logged in (2 min)
+
+##### **2.7 Error Handling & Polish** (15 minutes)
+
+- [ ] **2.7.1** Add error state management for login failures (8 min)
+- [ ] **2.7.2** Display user-friendly error messages for auth failures (4 min)
+- [ ] **2.7.3** Add basic loading indicators during login/signup (3 min)
+
 **Success Criteria**:
+
 - [ ] User can sign up with email/password
-- [ ] User can log in/out
-- [ ] Auth state persists on refresh
-- [ ] Protected routes work
+- [ ] User can log in/out successfully
+- [ ] Auth state persists on browser refresh
+- [ ] Protected canvas only accessible when authenticated
 - [ ] **Unit Tests**: AuthContext provides correct auth state
 - [ ] **Unit Tests**: LoginForm validation works correctly
 - [ ] **Integration Test**: Complete signup/login/logout flow
 - [ ] **Integration Test**: Auth persistence across page refresh
-- [ ] **Security Test**: Protected routes redirect unauthenticated users
+- [ ] **Security Test**: Unauthenticated users see login form only
 
 **Deploy**: Login-protected empty canvas
 
 ---
 
 #### **PR-3: Local Canvas Functionality** (Hour 10) 🟡
+
 **Branch**: `feat/local-rectangles`
-**Files Added**:
-```
-├── src/components/Rectangle.tsx
-├── src/components/Toolbar.tsx
-├── src/hooks/useCanvas.ts
-└── src/utils/helpers.ts
-```
+
+##### **3.1 Canvas Core Setup** (45 minutes)
+
+- [ ] **3.1.1** Enhance `src/components/Canvas.tsx` with full Konva Stage setup (15 min)
+- [ ] **3.1.2** Set canvas dimensions: 2000x2000px with viewport window (8 min)
+- [ ] **3.1.3** Implement basic pan functionality with mouse drag (10 min)
+- [ ] **3.1.4** Add zoom functionality with mouse wheel (8 min)
+- [ ] **3.1.5** Add canvas boundaries to prevent infinite panning (4 min)
+
+##### **3.2 Rectangle Shape Component** (40 minutes)
+
+- [ ] **3.2.1** Create `src/components/Rectangle.tsx` with Konva Rect (15 min)
+- [ ] **3.2.2** Add selection state with visual feedback (border highlight) (10 min)
+- [ ] **3.2.3** Implement click-to-select functionality (8 min)
+- [ ] **3.2.4** Add drag-to-move with position updates (7 min)
+
+##### **3.3 Canvas State Management** (35 minutes)
+
+- [ ] **3.3.1** Create `src/hooks/useCanvas.ts` for local state management (20 min)
+- [ ] **3.3.2** Implement shapes array state with add/remove functions (10 min)
+- [ ] **3.3.3** Add selected shape state management (3 min)
+- [ ] **3.3.4** Create shape ID generation utility (2 min)
+
+##### **3.4 Toolbar Component** (25 minutes)
+
+- [ ] **3.4.1** Create `src/components/Toolbar.tsx` with basic layout (8 min)
+- [ ] **3.4.2** Add "Add Rectangle" button with Tailwind styling (5 min)
+- [ ] **3.4.3** Implement shape creation: 100x100px at canvas center (8 min)
+- [ ] **3.4.4** Add zoom controls: zoom in/out buttons (4 min)
+
+##### **3.5 Keyboard Interactions** (20 minutes)
+
+- [ ] **3.5.1** Add global keyboard event listener to Canvas component (8 min)
+- [ ] **3.5.2** Implement Delete key to remove selected shapes (8 min)
+- [ ] **3.5.3** Add Escape key to deselect all shapes (4 min)
+
+##### **3.6 Shape Management Logic** (15 minutes)
+
+- [ ] **3.6.1** Create `src/utils/helpers.ts` with shape utility functions (8 min)
+- [ ] **3.6.2** Add shape positioning helper (center shapes on creation) (4 min)
+- [ ] **3.6.3** Add shape validation helper (ensure shapes stay in bounds) (3 min)
+
+##### **3.7 Integration & Testing** (20 minutes)
+
+- [ ] **3.7.1** Integrate all components into main Canvas component (8 min)
+- [ ] **3.7.2** Create `src/__tests__/components/Rectangle.test.tsx` (6 min)
+- [ ] **3.7.3** Create `src/__tests__/components/Toolbar.test.tsx` (6 min)
+
 **Success Criteria**:
-- [ ] "Add Rectangle" button creates shapes
-- [ ] Click to select rectangles
-- [ ] Drag to move selected shapes
-- [ ] Delete key removes shapes
-- [ ] Canvas pan/zoom works
+
+- [ ] "Add Rectangle" button creates 100x100px gray rectangles at center
+- [ ] Click on rectangle selects it (shows border highlight)
+- [ ] Drag selected rectangles to move them around canvas
+- [ ] Delete key removes currently selected rectangle
+- [ ] Canvas pan/zoom works smoothly with mouse
 - [ ] **Unit Tests**: Rectangle component renders with correct properties
 - [ ] **Unit Tests**: Toolbar button triggers shape creation
 - [ ] **Unit Tests**: useCanvas hook manages state correctly
 - [ ] **Integration Test**: Complete create→select→move→delete workflow
-- [ ] **Integration Test**: Canvas boundaries prevent shapes from moving outside limits
-- [ ] **User Test**: Keyboard interactions (Delete key) work correctly
+- [ ] **Integration Test**: Canvas boundaries prevent shapes from moving outside
+- [ ] **User Test**: Keyboard interactions work correctly
 
 **Deploy**: Fully functional single-user canvas
 
 ---
 
 #### **PR-4: Real-Time Collaboration** (Hour 16) 🔴 **CRITICAL**
+
 **Branch**: `feat/realtime-sync`
-**Files Added**:
-```
-├── src/services/firestore.ts
-├── src/hooks/useShapes.ts
-├── src/services/types.ts
-└── Firestore security rules
-```
+
+##### **4.1 Data Schema & Types** (20 minutes)
+
+- [ ] **4.1.1** Define Firestore document structure for canvas shapes (8 min)
+- [ ] **4.1.2** Update `src/services/types.ts` with Shape, Canvas interfaces (8 min)
+- [ ] **4.1.3** Add shape locking interfaces: `LockedShape`, `LockStatus` (4 min)
+
+##### **4.2 Firestore Service Layer** (50 minutes)
+
+- [ ] **4.2.1** Create `src/services/firestore.ts` with Firestore connection (15 min)
+- [ ] **4.2.2** Implement `createShape()` function for adding new shapes (10 min)
+- [ ] **4.2.3** Implement `updateShape()` function for position/property changes (10 min)
+- [ ] **4.2.4** Implement `deleteShape()` function for shape removal (8 min)
+- [ ] **4.2.5** Add `subscribeToCanvas()` for real-time shape updates (7 min)
+
+##### **4.3 Real-Time Shape Synchronization** (60 minutes)
+
+- [ ] **4.3.1** Create `src/hooks/useShapes.ts` for shape state management (20 min)
+- [ ] **4.3.2** Implement Firestore listener for incoming shape changes (15 min)
+- [ ] **4.3.3** Add optimistic updates for local shape operations (15 min)
+- [ ] **4.3.4** Handle conflicts between local and remote shape updates (10 min)
+
+##### **4.4 Object Locking System** (45 minutes)
+
+- [ ] **4.4.1** Implement shape locking mechanism (first-come-first-serve) (20 min)
+- [ ] **4.4.2** Add visual feedback for locked shapes (red border) (10 min)
+- [ ] **4.4.3** Implement lock acquisition on shape drag start (8 min)
+- [ ] **4.4.4** Add automatic lock release after 30 seconds of inactivity (7 min)
+
+##### **4.5 Canvas Component Integration** (30 minutes)
+
+- [ ] **4.5.1** Replace local state with useShapes hook in Canvas component (15 min)
+- [ ] **4.5.2** Update Rectangle components to use Firestore IDs (8 min)
+- [ ] **4.5.3** Modify shape creation to save to Firestore immediately (7 min)
+
+##### **4.6 Error Handling & Offline Support** (25 minutes)
+
+- [ ] **4.6.1** Add error boundaries for Firestore connection failures (10 min)
+- [ ] **4.6.2** Implement basic offline queue for shape operations (10 min)
+- [ ] **4.6.3** Add user-friendly error messages for sync failures (5 min)
+
+##### **4.7 Firestore Security Rules** (15 minutes)
+
+- [ ] **4.7.1** Create `firebase/firestore.rules` with authenticated user access (10 min)
+- [ ] **4.7.2** Deploy security rules to Firebase project (3 min)
+- [ ] **4.7.3** Test security rules with unauthenticated requests (2 min)
+
+##### **4.8 Critical Multi-User Testing** (45 minutes)
+
+- [ ] **4.8.1** Create `src/__tests__/services/firestore.test.ts` (15 min)
+- [ ] **4.8.2** Manual test: Open 2 browser tabs, create shape in tab 1 (5 min)
+- [ ] **4.8.3** Verify shape appears in tab 2 within 500ms (5 min)
+- [ ] **4.8.4** Test shape movement sync between tabs (5 min)
+- [ ] **4.8.5** Test shape deletion sync between tabs (5 min)
+- [ ] **4.8.6** Test object locking: drag same shape from both tabs (10 min)
+
 **Success Criteria**:
-- [ ] Multiple users see each other's rectangles
-- [ ] Shape changes sync in <500ms
-- [ ] Basic object locking works
-- [ ] Persistence across browser refresh
+
+- [ ] **CRITICAL**: Multiple users see each other's rectangles in real-time
+- [ ] **CRITICAL**: Shape changes sync between browsers within 500ms
+- [ ] **CRITICAL**: Basic object locking prevents simultaneous edits
+- [ ] **CRITICAL**: Shapes persist across browser refresh
 - [ ] **Unit Tests**: Firestore service handles CRUD operations correctly
 - [ ] **Unit Tests**: useShapes hook manages real-time state updates
-- [ ] **Unit Tests**: Object locking logic prevents conflicts
-- [ ] **Integration Test**: Multi-tab rectangle synchronization (open 2 browser tabs)
+- [ ] **Integration Test**: Multi-tab rectangle synchronization (2+ tabs)
 - [ ] **Integration Test**: Shape persistence after page refresh
-- [ ] **Real-time Test**: Create shape in tab 1, verify appears in tab 2 within 500ms
+- [ ] **Real-time Test**: Create shape in tab 1, verify appears in tab 2 <500ms
 - [ ] **Conflict Test**: Simultaneous drag attempts trigger proper locking
-- [ ] **Network Test**: Behavior during connection interruption and reconnection
+- [ ] **Network Test**: Behavior during connection interruption
 - [ ] **Load Test**: Performance with 20 rectangles and 3 concurrent users
 
 **Deploy**: **MILESTONE** - Multi-user collaborative canvas
 
+🚨 **FALLBACK PLAN**: If real-time sync fails completely:
+
+1. Implement 2-second polling instead of real-time listeners (1 hour)
+2. Deploy single-user version with "Multiplayer coming soon" message
+
 ---
 
 #### **PR-5: User Presence** (Hour 20) 🟡
-**Branch**: `feat/user-presence`
-**Files Added**:
-```
-├── src/services/realtime.ts
-├── src/components/Cursor.tsx
-├── src/components/UserPresence.tsx
-├── src/hooks/usePresence.ts
-└── src/utils/colors.ts
-```
-**Success Criteria**:
-- [ ] Live cursor tracking between users
-- [ ] Online user list with colors
-- [ ] User names display with cursors
-- [ ] Automatic cleanup on disconnect
-- [ ] **Unit Tests**: Cursor component renders at correct coordinates
-- [ ] **Unit Tests**: UserPresence component displays active users correctly
-- [ ] **Unit Tests**: usePresence hook manages user state accurately
-- [ ] **Integration Test**: Multi-tab cursor movement synchronization
-- [ ] **Integration Test**: User join/leave events update presence list
-- [ ] **Real-time Test**: Cursor position updates within 200ms between tabs
-- [ ] **Cleanup Test**: User disconnect removes cursor and updates presence list
-- [ ] **Color Test**: Each user gets unique, consistent color assignment
 
-**Deploy**: Full collaborative experience with presence
+**Branch**: `feat/user-presence`
+
+##### **5.1 Realtime Database Setup** (25 minutes)
+
+- [ ] **5.1.1** Create `src/services/realtime.ts` with Realtime Database connection (10 min)
+- [ ] **5.1.2** Set up user presence data structure: `/sessions/{canvasId}/{userId}` (8 min)
+- [ ] **5.1.3** Test Realtime Database connection and write permissions (7 min)
+
+##### **5.2 User Color System** (20 minutes)
+
+- [ ] **5.2.1** Create `src/utils/colors.ts` with user color generation (10 min)
+- [ ] **5.2.2** Generate consistent colors from user ID hash (5 min)
+- [ ] **5.2.3** Create palette of 12 distinct colors for users (5 min)
+
+##### **5.3 Cursor Tracking** (40 minutes)
+
+- [ ] **5.3.1** Add mouse movement listener to Canvas component (10 min)
+- [ ] **5.3.2** Throttle cursor position updates (every 100ms) (8 min)
+- [ ] **5.3.3** Send cursor coordinates to Realtime Database (10 min)
+- [ ] **5.3.4** Create `src/components/Cursor.tsx` for other users' cursors (12 min)
+
+##### **5.4 Presence Management** (35 minutes)
+
+- [ ] **5.4.1** Create `src/hooks/usePresence.ts` for presence state (15 min)
+- [ ] **5.4.2** Track user online/offline status with heartbeat (10 min)
+- [ ] **5.4.3** Handle user join/leave events (8 min)
+- [ ] **5.4.4** Implement automatic cleanup on disconnect (2 min)
+
+##### **5.5 User Presence UI** (30 minutes)
+
+- [ ] **5.5.1** Create `src/components/UserPresence.tsx` component (15 min)
+- [ ] **5.5.2** Display online users list with names and colors (10 min)
+- [ ] **5.5.3** Show user count and activity status (5 min)
+
+##### **5.6 Cursor Display Integration** (25 minutes)
+
+- [ ] **5.6.1** Subscribe to other users' cursor positions (10 min)
+- [ ] **5.6.2** Render other users' cursors on canvas (10 min)
+- [ ] **5.6.3** Add user name labels next to cursors (5 min)
+
+##### **5.7 Testing & Performance** (25 minutes)
+
+- [ ] **5.7.1** Test multi-tab cursor movement synchronization (10 min)
+- [ ] **5.7.2** Verify user list updates when users join/leave (5 min)
+- [ ] **5.7.3** Test cursor tracking performance with 3+ users (5 min)
+- [ ] **5.7.4** Create basic presence system tests (5 min)
+
+**Success Criteria**:
+
+- [ ] Live cursor tracking between users with <200ms latency
+- [ ] Online user list with colors and names
+- [ ] User names display next to their cursors
+- [ ] Automatic cleanup when users disconnect
+- [ ] **Unit Tests**: Cursor component renders at correct coordinates
+- [ ] **Unit Tests**: UserPresence component displays active users
+- [ ] **Integration Test**: Multi-tab cursor movement sync
+- [ ] **Integration Test**: User join/leave events update presence list
+- [ ] **Real-time Test**: Cursor position updates within 200ms
+- [ ] **Cleanup Test**: User disconnect removes cursor and updates list
+
+**Deploy**: Full collaborative experience with presence awareness
 
 ---
 
 #### **PR-6: Essential UI Polish** (Hour 22) 🟢
-**Branch**: `feat/ui-polish`
-**Files Modified**: (Existing components + styling)
-**Success Criteria**:
-- [ ] Clean, intuitive toolbar
-- [ ] Loading states for operations
-- [ ] Basic error messages
-- [ ] Responsive layout (desktop)
-- [ ] **Unit Tests**: Toolbar components render correctly
-- [ ] **Unit Tests**: Loading indicators show during operations
-- [ ] **Unit Tests**: Error messages display appropriate content
-- [ ] **UI Test**: Toolbar buttons are accessible and functional
-- [ ] **UX Test**: Loading states appear during shape creation/sync
-- [ ] **Error Test**: Network errors display user-friendly messages
-- [ ] **Accessibility Test**: Keyboard navigation works for toolbar
-- [ ] **Visual Test**: Layout remains stable across different screen sizes
 
-**Deploy**: Production-ready UI
+**Branch**: `feat/ui-polish`
+
+##### **6.1 Toolbar Enhancement** (30 minutes)
+
+- [ ] **6.1.1** Redesign Toolbar with modern Tailwind styling (15 min)
+- [ ] **6.1.2** Add icons to buttons (Plus icon for Add Rectangle) (8 min)
+- [ ] **6.1.3** Implement hover states and button feedback (7 min)
+
+##### **6.2 Loading & Status Indicators** (25 minutes)
+
+- [ ] **6.2.1** Add loading spinner for shape creation operations (8 min)
+- [ ] **6.2.2** Show connection status indicator (connected/disconnected) (10 min)
+- [ ] **6.2.3** Add loading states for authentication (7 min)
+
+##### **6.3 Error Message System** (20 minutes)
+
+- [ ] **6.3.1** Create toast notification system for errors (10 min)
+- [ ] **6.3.2** Add user-friendly messages for common failures (8 min)
+- [ ] **6.3.3** Style error messages with appropriate colors (2 min)
+
+##### **6.4 User Experience Improvements** (25 minutes)
+
+- [ ] **6.4.1** Add helpful onboarding text: "Click 'Add Rectangle' to start" (5 min)
+- [ ] **6.4.2** Improve visual feedback for selected shapes (better borders) (8 min)
+- [ ] **6.4.3** Add keyboard shortcuts help tooltip (7 min)
+- [ ] **6.4.4** Implement better empty state when no shapes exist (5 min)
+
+##### **6.5 Responsive Layout** (15 minutes)
+
+- [ ] **6.5.1** Ensure toolbar stays visible on different screen sizes (8 min)
+- [ ] **6.5.2** Add mobile detection with "Desktop required" message (7 min)
+
+##### **6.6 Visual Polish** (15 minutes)
+
+- [ ] **6.6.1** Improve overall color scheme and consistency (8 min)
+- [ ] **6.6.2** Add subtle animations for button interactions (4 min)
+- [ ] **6.6.3** Clean up spacing and typography (3 min)
+
+##### **6.7 Testing & Validation** (10 minutes)
+
+- [ ] **6.7.1** Test UI across different browser sizes (5 min)
+- [ ] **6.7.2** Verify loading states work correctly (3 min)
+- [ ] **6.7.3** Test error scenarios display appropriate messages (2 min)
+
+**Success Criteria**:
+
+- [ ] Clean, intuitive toolbar with proper visual hierarchy
+- [ ] Loading states appear during shape creation/sync operations
+- [ ] Network errors show user-friendly messages
+- [ ] Responsive layout works on desktop screens (1024px+)
+- [ ] **Unit Tests**: Toolbar components render correctly
+- [ ] **UI Test**: Loading indicators show during operations
+- [ ] **Error Test**: Network errors display appropriate messages
+- [ ] **Accessibility Test**: Keyboard navigation works for toolbar
+- [ ] **Visual Test**: Layout remains stable across screen sizes
+
+**Deploy**: Production-ready user interface
 
 ---
 
 #### **PR-7: Production Ready** (Hour 24) 🟡
-**Branch**: `feat/production-deploy`
-**Files Added**:
-```
-├── firebase.json
-├── .firebaserc
-└── Production optimizations
-```
-**Success Criteria**:
-- [ ] Firebase Hosting configured
-- [ ] Build optimization enabled
-- [ ] Error boundaries implemented
-- [ ] Performance acceptable
-- [ ] **End-to-End Test**: Complete user journey (signup→create shapes→collaborate)
-- [ ] **Production Test**: Deployed app handles 3 concurrent users
-- [ ] **Performance Test**: Page load time <10 seconds
-- [ ] **Mobile Test**: Displays "desktop required" message on mobile
-- [ ] **Error Test**: Error boundaries catch and display crashes gracefully
-- [ ] **Build Test**: Production build completes without warnings
-- [ ] **Security Test**: Firebase security rules prevent unauthorized access
-- [ ] **URL Test**: Shareable URLs work correctly for inviting collaborators
-- [ ] **Final Validation**: All MVP success criteria met and verified
 
-**Deploy**: **FINAL** - Public production deployment
+**Branch**: `feat/production-deploy`
+
+##### **7.1 Build Optimization** (20 minutes)
+
+- [ ] **7.1.1** Configure Vite for production build optimization (8 min)
+- [ ] **7.1.2** Add code splitting for better loading performance (5 min)
+- [ ] **7.1.3** Optimize bundle size (remove unused dependencies) (7 min)
+
+##### **7.2 Error Boundaries & Resilience** (25 minutes)
+
+- [ ] **7.2.1** Create React error boundary components (15 min)
+- [ ] **7.2.2** Add fallback UI for crashed components (8 min)
+- [ ] **7.2.3** Implement graceful degradation for Firebase failures (2 min)
+
+##### **7.3 Firebase Hosting Setup** (20 minutes)
+
+- [ ] **7.3.1** Install Firebase CLI: `npm install -g firebase-tools` (3 min)
+- [ ] **7.3.2** Initialize Firebase Hosting: `firebase init hosting` (5 min)
+- [ ] **7.3.3** Configure `firebase.json` for SPA routing (7 min)
+- [ ] **7.3.4** Set build directory to `dist` in Firebase config (5 min)
+
+##### **7.4 Production Deployment** (20 minutes)
+
+- [ ] **7.4.1** Create production build: `npm run build` (5 min)
+- [ ] **7.4.2** Deploy to Firebase Hosting: `firebase deploy --only hosting` (8 min)
+- [ ] **7.4.3** Verify deployed app loads correctly (5 min)
+- [ ] **7.4.4** Test Firebase services work in production (2 min)
+
+##### **7.5 Multi-User Production Testing** (30 minutes)
+
+- [ ] **7.5.1** Open production URL in 3 different browsers (5 min)
+- [ ] **7.5.2** Test complete collaboration workflow with 3 users (15 min)
+- [ ] **7.5.3** Verify real-time sync works in production environment (5 min)
+- [ ] **7.5.4** Test authentication flows in production (5 min)
+
+##### **7.6 Performance Validation** (15 minutes)
+
+- [ ] **7.6.1** Check page load time with Chrome DevTools (<10 seconds) (5 min)
+- [ ] **7.6.2** Test with 20+ rectangles for performance (5 min)
+- [ ] **7.6.3** Verify memory usage remains reasonable (5 min)
+
+##### **7.7 Final Documentation** (10 minutes)
+
+- [ ] **7.7.1** Document known limitations in README (5 min)
+- [ ] **7.7.2** Add usage instructions for new users (3 min)
+- [ ] **7.7.3** List browser compatibility requirements (2 min)
+
+**Success Criteria**:
+
+- [ ] Firebase Hosting deployment successful
+- [ ] Build optimization reduces bundle size
+- [ ] Error boundaries prevent app crashes
+- [ ] Production app handles 3+ concurrent users
+- [ ] **End-to-End Test**: Complete user journey works in production
+- [ ] **Production Test**: Deployed app handles multi-user collaboration
+- [ ] **Performance Test**: Page load time under 10 seconds
+- [ ] **Mobile Test**: Shows "Desktop required" message appropriately
+- [ ] **Error Test**: Error boundaries catch crashes gracefully
+- [ ] **Security Test**: Firebase rules prevent unauthorized access
+- [ ] **Final Validation**: All MVP success criteria met
+
+**Deploy**: **FINAL** - Public production deployment with shareable URL
+
+**🎯 SUCCESS METRICS**:
+
+- Production URL: `https://[project-id].web.app`
+- 2+ users can collaborate simultaneously
+- Real-time shape synchronization <500ms
+- All core functionality working in production
 
 ### **PR Safety & Rollback Strategy**
 
 #### **Merge Requirements**
+
 - [ ] **All checkboxes completed** for that PR milestone
 - [ ] **Deploy works** without errors
 - [ ] **Previous functionality** still works (no regressions)
 - [ ] **Manual testing** passes for 2+ users
 
 #### **Rollback Plan**
+
 If any PR fails critical requirements:
+
 1. **Immediately revert** to previous working PR
 2. **Deploy previous version** to maintain working state
 3. **Debug offline** or implement fallback
 4. **Never leave main branch broken**
 
 #### **Branch Protection**
+
 - `main` branch always represents **working deployed state**
 - Each PR must pass basic smoke tests
 - **Hour 16 PR-4** is the critical milestone - if this fails, implement fallback plan
@@ -331,6 +667,7 @@ npm install --save-dev @testing-library/react @testing-library/jest-dom @testing
 ```
 
 **Test Configuration**:
+
 - **Unit Tests**: Vitest + React Testing Library
 - **Integration Tests**: Multi-tab browser testing
 - **E2E Tests**: Manual testing with 2-3 browser tabs
@@ -351,6 +688,7 @@ npm install --save-dev @testing-library/react @testing-library/jest-dom @testing
 ### **Critical Test Scenarios (Must Pass)**
 
 #### **🔴 CRITICAL: Multi-User Real-Time Sync** (PR-4)
+
 ```javascript
 // Example critical test
 describe('Real-time Collaboration', () => {
@@ -371,6 +709,7 @@ describe('Real-time Collaboration', () => {
 ```
 
 #### **🟡 IMPORTANT: Authentication Flow** (PR-2)
+
 ```javascript
 describe('Authentication', () => {
   test('user can signup, login, and maintain session', async () => {
@@ -383,6 +722,7 @@ describe('Authentication', () => {
 ```
 
 #### **🟡 IMPORTANT: Canvas Operations** (PR-3)
+
 ```javascript
 describe('Canvas Operations', () => {
   test('complete rectangle lifecycle', async () => {
@@ -397,39 +737,45 @@ describe('Canvas Operations', () => {
 
 ### **Test Data & Scenarios**
 
-#### **Performance Test Data**:
+#### **Performance Test Data**
+
 - **Users**: 3 concurrent users (Chrome tabs)
 - **Shapes**: 20 rectangles maximum
 - **Operations**: Create, move, delete every 5 seconds
 - **Duration**: 5-minute stress test
 
-#### **Network Test Scenarios**:
+#### **Network Test Scenarios**
+
 - **Connection Loss**: Disconnect/reconnect WiFi
 - **Slow Network**: Throttle to 3G speeds
 - **Firestore Limits**: Test rate limiting behavior
 
 ### **Test Failure Protocols**
 
-#### **PR-4 Critical Test Failures** (Hour 16):
+#### **PR-4 Critical Test Failures** (Hour 16)
+
 1. **Immediate**: Stop development, assess issue
 2. **15 min**: Attempt quick fix
 3. **30 min**: Implement 2-second polling fallback
 4. **45 min**: Deploy single-user version with "multiplayer coming soon"
 
-#### **Other Test Failures**:
+#### **Other Test Failures**
+
 - **Continue development** with documented known issues
 - **Fix in subsequent PR** if time permits
 - **Document workarounds** for users
 
 ### **Manual Testing Checklist**
 
-#### **Multi-Tab Testing Setup**:
+#### **Multi-Tab Testing Setup**
+
 1. Open 3 Chrome tabs with same deployed URL
 2. Login with 3 different test accounts
 3. Execute collaboration scenarios
 4. Verify real-time synchronization
 
-#### **Essential Manual Tests**:
+#### **Essential Manual Tests**
+
 - [ ] **Signup Flow**: New user can create account
 - [ ] **Shape Creation**: Button creates rectangle at center
 - [ ] **Shape Selection**: Click selects rectangle (visual feedback)
@@ -443,13 +789,15 @@ describe('Canvas Operations', () => {
 
 ### **Test Automation vs Manual**
 
-#### **Automated Tests (60% coverage)**:
+#### **Automated Tests (60% coverage)**
+
 - Unit tests for components and hooks
 - Service layer functionality tests
 - Authentication flow tests
 - Basic integration tests
 
-#### **Manual Tests (40% coverage)**:
+#### **Manual Tests (40% coverage)**
+
 - Multi-tab real-time synchronization
 - User experience validation
 - Performance under load
@@ -465,6 +813,7 @@ describe('Canvas Operations', () => {
 - **Manual Validation**: 0.5 hours (PR validations)
 
 **Efficient Testing Approach**:
+
 - Write tests **during** development, not after
 - Test **critical path first** (real-time sync)
 - **Manual test** while development server runs
