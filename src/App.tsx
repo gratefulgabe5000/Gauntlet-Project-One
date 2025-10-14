@@ -4,23 +4,27 @@ import { useAuth } from './auth/AuthContext'
 import AuthGuard from './auth/AuthGuard'
 import Canvas from './components/Canvas'
 import Toolbar from './components/Toolbar'
+import UserPresence from './components/UserPresence'
+import { usePresence } from './hooks/usePresence'
 import { useShapes } from './hooks/useShapes'
 import { createRectangleShape } from './utils/helpers'
 
 /**
  * CollabCanvas MVP - Main Application Component
  *
- * Sprint Status: PR4.5 - Real-Time Collaboration
+ * Sprint Status: PR5.7 - User Presence & Cursor Tracking
  * - AuthGuard protects the entire canvas (Task 2.5.2)
  * - User display shows authenticated user info (Task 2.5.3)
  * - Logout button with confirmation (Task 2.5.4)
  * - Add Rectangle button creates shapes (Task 3.4.3)
  * - Real-time Firestore sync (Task 4.5)
+ * - User presence and cursor tracking (Task 5.7)
  *
  * Architecture:
  * - Toolbar: Shape creation controls, user info, and logout
  * - Canvas: Konva.js rendering workspace (2000x2000px)
  * - useShapes: Real-time Firestore state management
+ * - usePresence: Real-time cursor tracking and user presence
  * - Multi-user: Changes sync between all connected clients
  */
 function App() {
@@ -36,6 +40,9 @@ function App() {
     clearSelection,
     removeSelectedShape,
   } = useShapes()
+
+  // PR5: User presence and cursor tracking
+  const { activeUsers, currentUserColor, updateCursor } = usePresence()
 
   // Ensure body has proper class for full-screen canvas
   useEffect(() => {
@@ -137,6 +144,13 @@ function App() {
           </div>
         )}
 
+        {/* PR5: User Presence List */}
+        <UserPresence
+          activeUsers={activeUsers}
+          currentUserColor={currentUserColor}
+          currentUserName={user?.displayName || null}
+        />
+
         {/* Main Canvas Area - Konva Stage Component */}
         <div className="canvas-wrapper">
           <Canvas
@@ -146,6 +160,8 @@ function App() {
             onUpdateShapePosition={updateShapePosition}
             onZoomIn={handleZoomIn}
             onZoomOut={handleZoomOut}
+            activeUsers={activeUsers}
+            onCursorMove={updateCursor}
           />
         </div>
       </div>

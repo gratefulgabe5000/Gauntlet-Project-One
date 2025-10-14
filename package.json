@@ -23,6 +23,7 @@
     "type-check": "tsc --noEmit",
     "deploy": "npm run build && npx firebase deploy --only hosting",
     "deploy:rules": "npx firebase deploy --only firestore:rules",
+    "deploy:database": "npx firebase deploy --only database",
     "deploy:all": "npm run build && npx firebase deploy"
   },
   "dependencies": {

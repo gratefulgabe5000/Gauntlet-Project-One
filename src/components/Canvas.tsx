@@ -1,7 +1,9 @@
 import type Konva from 'konva';
 import { useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
+import type { UserPresence } from '../services/types';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../utils/helpers';
+import Cursor from './Cursor';
 import Rectangle, { type RectangleShape } from './Rectangle';
 
 /**
@@ -12,8 +14,8 @@ import Rectangle, { type RectangleShape } from './Rectangle';
  * - Viewport: Full browser window minus toolbar
  * - Rendering: Konva.js for high-performance canvas operations
  *
- * Current Status: PR3.6 - Shape management with utilities
- * Next Steps: Integration testing, real-time sync in PR4
+ * Current Status: PR5.7 - Real-time cursor tracking and user presence
+ * Features: Shapes, pan/zoom, multi-user cursors, presence tracking
  */
 
 // Zoom configuration constants
@@ -29,6 +31,9 @@ interface CanvasProps {
   onZoomOut?: () => void;
   onShapeDragStart?: () => void;
   onShapeDragEnd?: () => void;
+  // PR5: User presence
+  activeUsers?: UserPresence[];
+  onCursorMove?: (x: number, y: number) => void;
 }
 
 const Canvas = ({
@@ -40,6 +45,8 @@ const Canvas = ({
   onZoomOut,
   onShapeDragStart,
   onShapeDragEnd,
+  activeUsers = [],
+  onCursorMove,
 }: CanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
@@ -244,6 +251,26 @@ const Canvas = ({
     setStagePos(constrainedPos);
   };
 
+  // Task 5.3: Handle mouse movement for cursor tracking
+  const handleMouseMove = () => {
+    if (!onCursorMove) return;
+
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const pointer = stage.getPointerPosition();
+    if (!pointer) return;
+
+    // Convert viewport coordinates to canvas coordinates
+    const canvasX = (pointer.x - stagePos.x) / stageScale;
+    const canvasY = (pointer.y - stagePos.y) / stageScale;
+
+    // Only update if within canvas bounds
+    if (canvasX >= 0 && canvasX <= CANVAS_WIDTH && canvasY >= 0 && canvasY <= CANVAS_HEIGHT) {
+      onCursorMove(canvasX, canvasY);
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -263,6 +290,7 @@ const Canvas = ({
         dragBoundFunc={handleDragBound}
         onDragEnd={handleStageDragEnd}
         onWheel={handleWheel}
+        onMouseMove={handleMouseMove}
         onClick={(e) => {
           // Deselect shapes when clicking on empty canvas
           if (e.target === e.target.getStage()) {
@@ -303,6 +331,13 @@ const Canvas = ({
                 onShapeDragEnd?.();
               }}
             />
+          ))}
+        </Layer>
+
+        {/* Cursors Layer - Other users' cursors (PR5.6) */}
+        <Layer listening={false}>
+          {activeUsers.map((user) => (
+            <Cursor key={user.userId} user={user} />
           ))}
         </Layer>
       </Stage>
