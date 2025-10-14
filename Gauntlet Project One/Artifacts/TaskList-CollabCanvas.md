@@ -11,7 +11,7 @@
 ## 📁 **PROJECT FILE STRUCTURE**
 
 ```
-collabcanvas-mvp/
+Gauntlet Project One/collabcanvas-mvp/
 ├── 📄 package.json                     # Dependencies & scripts
 ├── 📄 vite.config.ts                   # Vite configuration
 ├── 📄 tailwind.config.js              # Tailwind CSS config
@@ -122,7 +122,7 @@ Each PR represents a **working, deployable state** that builds incrementally tow
 
 ##### **1.1 Project Initialization & Dependencies** (45 minutes)
 
-- [ ] **1.1.1** Create new directory `collabcanvas-mvp` (2 min)
+- [ ] **1.1.1** Create new directory `Gauntlet Project One/collabcanvas-mvp` (2 min)
 - [ ] **1.1.2** Initialize Git repository with `git init` (2 min)
 - [ ] **1.1.3** Create Vite React TypeScript project: `npm create vite@latest . -- --template react-ts` (5 min)
 - [ ] **1.1.4** Install core dependencies: `npm install react-konva konva tailwindcss` (5 min)
