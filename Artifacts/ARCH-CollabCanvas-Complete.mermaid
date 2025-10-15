@@ -1,0 +1,349 @@
+graph TB
+    subgraph "Development & Deployment Pipeline"
+        DevEnv[Development Environment<br/>Vite 7.1.7 + TypeScript 5.9.3 + ESLint]
+        GitRepo[Git Repository<br/>Feature Branch Strategy<br/>11 Progressive PRs 7 Complete, 4 Pending]
+        TestSuite[Testing Infrastructure<br/>Vitest 3.2.4 + React Testing Library<br/>Manual Multi-tab Testing]
+        BuildPipeline[Production Build Pipeline<br/>Code Splitting + esbuild Minification<br/>~335 KB gzipped bundle Phase 1<br/>Est. ~450 KB with Phase 2-5]
+    end
+
+    subgraph "Client Browser - CollabCanvas Complete v2.0 Phase 1-5"
+        subgraph "React 19 Application Layer"
+            subgraph "Core UI Components Phase 1 ✅"
+                App[App.tsx<br/>Main Application Shell<br/>Wrapped in ErrorBoundary]
+                AuthGuard[AuthGuard.tsx<br/>Protected Route Wrapper]
+                LoginForm[LoginForm.tsx<br/>Email/Password Signup/Login<br/>NO Google OAuth]
+                Toolbar[Toolbar.tsx<br/>Multi-Shape Creation Buttons<br/>Rectangle/Circle/Text/Line/Arrow<br/>Zoom Controls + Export Button<br/>Phase 2: + Undo/Redo/Shortcuts]
+                UserPresence[UserPresence.tsx<br/>Online Users List<br/>Color-coded Avatars<br/>Inline Name Editing<br/>Color Picker Integration]
+            end
+
+            subgraph "Canvas Rendering System Phase 1 ✅ + Phase 2 ⏳"
+                Canvas[Canvas.tsx<br/>Main Konva Stage<br/>2000x2000px Bounded Canvas<br/>Pan/Zoom/Context Menu<br/>Phase 2: Multi-select + Transforms<br/>Phase 4: 500+ shapes optimization]
+                Rectangle[Rectangle.tsx<br/>Blue-themed Rectangle Shape<br/>Draggable + Selectable + Resizable<br/>Color Customization]
+                Circle[Circle.tsx<br/>Green-themed Circle Shape<br/>Draggable + Selectable + Resizable<br/>Color Customization]
+                Text[Text.tsx<br/>Red-themed Text Shape<br/>Double-click Inline Editing<br/>Phase 2: Font size/bold/italic/align<br/>Konva Transformer Integration]
+                Line[Line.tsx NEW Phase 2<br/>Line Shape Component<br/>2px stroke, draggable endpoints<br/>Color Customization]
+                Arrow[Arrow.tsx NEW Phase 2<br/>Arrow Shape Component<br/>With arrowhead, draggable<br/>Color Customization]
+                Cursor[Cursor.tsx<br/>Other Users' Cursors<br/>Real-time Position Updates<br/>Throttled to 100ms Phase 1<br/>Optimized to 50ms Phase 4]
+                KonvaEngine[Konva.js 10.0.2 Rendering Engine<br/>High-Performance Canvas<br/>Pan/Zoom/Selection/Transform<br/>Phase 4: Viewport Culling<br/>Phase 4: Shape Pooling]
+            end
+
+            subgraph "Phase 2 New UI Components ⏳"
+                ColorPaletteModal[ColorPaletteModal.tsx<br/>20+ Color Grid Palette<br/>Recent Colors 6<br/>Custom Hex Input<br/>Tier 1: 2 points]
+                ExportModal[ExportModal.tsx<br/>Export Canvas PNG/SVG<br/>Full Canvas or Selected<br/>Quality Settings<br/>Tier 1: Part of features]
+                ShapeStylePanel[ShapeStylePanel.tsx<br/>Text Formatting Toolbar<br/>Font size dropdown<br/>Bold/Italic/Align buttons]
+                KeyboardShortcutsPanel[KeyboardShortcutsPanel.tsx<br/>10+ Keyboard Shortcuts<br/>Help Panel Toggle ?<br/>Cmd+Z Undo, Cmd+D Duplicate<br/>Tier 1: 2 points]
+            end
+
+            subgraph "Phase 3 AI Canvas Agent NEW ⏳ CRITICAL"
+                AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display last 5<br/>Loading/Error States<br/>25 RUBRIC POINTS]
+                AIService[src/services/openai.ts<br/>OpenAI SDK Client<br/>dangerouslyAllowBrowser: true<br/>gpt-4o-mini for speed<br/>Tool Calling Implementation]
+                AIAgent[src/services/aiAgent.ts<br/>executeToolCall Function<br/>Switch-based Tool Router<br/>Returns CommandResult<br/>Canvas Integration]
+                AICommands[src/utils/aiCommands.ts<br/>CANVAS_TOOLS Array<br/>12+ Function Schemas<br/>OpenAI Tool Calling Format<br/>Creation/Manipulation/Layout/Complex]
+                AITypes[src/types/ai.types.ts<br/>ToolCallResult Interface<br/>CommandResult Interface<br/>Tool execution types]
+                useAIAgent[useAIAgent Hook<br/>Chat Completions API<br/>Extract tool_calls<br/>Execute via aiAgent<br/>Update Firestore<br/>Response <2s target]
+                useCommandHistory[useCommandHistory Hook<br/>Last 20 Commands<br/>Success/Error Tracking<br/>Re-execute Capability<br/>localStorage Persistence]
+            end
+
+            subgraph "Phase 4 Advanced UI Components NEW ⏳"
+                LayersPanel[LayersPanel.tsx<br/>Right Sidebar 300px<br/>All Shapes List<br/>Drag-to-reorder z-index<br/>Show/Hide toggle<br/>Lock/Unlock toggle<br/>Tier 2: 3 points]
+                AlignmentTools[AlignmentTools.tsx<br/>9 Alignment Operations<br/>Left/Center/Right<br/>Top/Middle/Bottom<br/>Distribute H/V<br/>Align to Canvas Center<br/>Tier 2: 3 points]
+                PerformanceMonitor[Performance Monitor NEW<br/>FPS Tracker real-time<br/>Render Time per Frame<br/>Sync Latency Display<br/>Shape Count Indicator]
+            end
+
+            subgraph "Phase 5 Observability NEW ⏳"
+                LangSmithWrapper[LangSmith Wrapper<br/>wrapOpenAI client<br/>Automatic Tracing<br/>Zero Code Changes<br/>Dashboard Metrics<br/>+2 BONUS POINTS]
+            end
+
+            subgraph "Advanced UI Components Phase 1 ✅"
+                Toast[Toast.tsx<br/>Individual Toast Notification<br/>Success/Error/Warning/Info]
+                ToastContainer[ToastContainer.tsx<br/>Toast Stack Manager<br/>Top-right Corner Display]
+                ColorPicker[ColorPicker.tsx Phase 1<br/>User Color Customization Modal<br/>8-color Palette<br/>Duplicate Prevention]
+                ShapeContextMenu[ShapeContextMenu.tsx<br/>Shape Color Picker<br/>12-color Palette<br/>Right-click Context Menu]
+                EmptyState[EmptyState.tsx<br/>Onboarding Screen<br/>Welcoming Message<br/>Quick Start Guidance]
+                KeyboardHelp[KeyboardHelp.tsx Phase 1<br/>Interactive Shortcuts Panel<br/>Action Buttons<br/>Bottom-left Toggle]
+                MobileWarning[MobileWarning.tsx<br/>Mobile Device Warning<br/>Full-screen Overlay<br/>Desktop Requirement Message]
+            end
+
+            subgraph "Error Handling Phase 1 ✅"
+                ErrorBoundary[ErrorBoundary.tsx<br/>React Class Component<br/>Crash Prevention<br/>Fallback UI with Recovery]
+            end
+
+            subgraph "State Management"
+                AuthContext[AuthContext.tsx<br/>Firebase User State<br/>Login/Logout/Session<br/>onAuthStateChanged Listener]
+                CanvasState[Canvas State Phase 1+2<br/>Shapes Array All Types<br/>Selected Shapes Array Phase 2<br/>View Transform<br/>Context Menu State<br/>Undo/Redo Stacks Phase 2]
+                AIState[AI Agent State NEW Phase 3<br/>Command Input<br/>Is Processing<br/>Command History<br/>Last Result<br/>Response Times]
+            end
+
+            subgraph "Custom Hooks Layer"
+                useAuth[useAuth Hook<br/>Authentication Operations<br/>User Profile Management]
+                useCanvas[useCanvas Hook<br/>Canvas State Management<br/>Pan/Zoom/Boundaries<br/>Phase 4: Viewport Culling]
+                useShapes[useShapes Hook Phase 1+2<br/>Multi-Shape CRUD Operations<br/>Real-time Sync Integration<br/>updateShapeText/updateShapeColor<br/>Phase 2: Undo/Redo Integration]
+                usePresence[usePresence Hook<br/>User Presence Tracking<br/>Cursor Position Updates<br/>Heartbeat System 5sec<br/>Offline Detection 30sec<br/>Phase 4: 50ms optimization]
+                useToast[useToast Hook<br/>Toast Notification Manager<br/>Add/Remove/Auto-dismiss]
+                useUndoRedo[useUndoRedo Hook NEW Phase 2<br/>Action History Stack max 50<br/>Redo Stack<br/>CREATE/UPDATE/DELETE/MOVE<br/>Per-user action filtering]
+                useKeyboardShortcuts[useKeyboardShortcuts Hook NEW Phase 2<br/>10+ Global Shortcuts<br/>Arrow keys Move<br/>Cmd+Z Undo, Cmd+Shift+Z Redo<br/>Cmd+D Duplicate, Cmd+A Select All]
+            end
+
+            subgraph "Services Layer"
+                FirebaseConfig[firebase.ts<br/>SDK 12.4.0 Initialization<br/>Configuration Management]
+                FirestoreService[firestore.ts Phase 1+2+4<br/>Multi-Shape CRUD Operations<br/>Real-time Listeners<br/>Object Locking Logic<br/>Phase 2: Batch Operations<br/>Phase 4: Query Optimization]
+                RealtimeService[realtime.ts Phase 1+4<br/>Cursor Position Sync<br/>User Presence Management<br/>Connection Monitoring<br/>Heartbeat + onDisconnect Cleanup<br/>Phase 4: 50ms throttle optimization]
+                AuthService[auth/AuthContext.tsx<br/>Email/Password ONLY<br/>Session Management<br/>Google OAuth: NOT IMPLEMENTED]
+                ExportService[export.ts NEW Phase 2<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>exportSelectedShapesAsPNG<br/>Canvas-to-image conversion]
+                AlignmentService[alignment.ts NEW Phase 4<br/>9 Alignment Functions<br/>alignLeft/Center/Right<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
+                PerformanceService[performance.ts NEW Phase 4<br/>Viewport Culling Logic<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
+            end
+
+            subgraph "Utilities"
+                TypeDefinitions[types.ts Phase 1+2+3<br/>TypeScript Interfaces<br/>Shape/User/Canvas Types<br/>Multi-shape support<br/>Phase 2: Line/Arrow types<br/>Phase 3: AI command types]
+                ColorUtils[colors.ts<br/>User Color Generation<br/>12 Distinct Colors<br/>Hash-based Assignment<br/>Phase 2: 20+ color palette]
+                Helpers[helpers.ts Phase 1+2<br/>Canvas Calculations<br/>createRectangleShape<br/>createCircleShape<br/>createTextShape<br/>Phase 2: createLineShape<br/>Phase 2: createArrowShape]
+                ErrorMessages[errorMessages.ts<br/>User-friendly Error Messages<br/>Firebase Error Translation<br/>Phase 3: AI Error Messages]
+            end
+
+            subgraph "Test Infrastructure"
+                TestFiles[__tests__/ Directory<br/>Unit + Integration Tests<br/>Component/Hook/Service Testing<br/>Vitest Configuration<br/>Phase 5: AI Agent Tests]
+            end
+        end
+    end
+
+    subgraph "Firebase Backend Services collabcanvas-mvp-53120"
+        subgraph "Firebase Authentication"
+            FBAuth[Firebase Authentication<br/>Email/Password ONLY<br/>JWT Token Management<br/>User Profile Storage<br/>⚠️ Google OAuth: Planned but NOT Implemented]
+        end
+
+        subgraph "Cloud Firestore Database"
+            CanvasCollection[Canvas Collection<br/>Document: global-canvas-v1<br/>Multi-Shape Array with Metadata<br/>Phase 2: Line/Arrow types<br/>Phase 3: AI metadata createdBy, aiCommand<br/>Phase 4: zIndex, visible, locked]
+            ShapeSchema[Multi-Shape Schema Phase 1-4:<br/>id, type rectangle/circle/text/line/arrow<br/>x, y, width, height, radius<br/>fill: DYNAMIC 20+ color palette Phase 2<br/>text content + formatting Phase 2<br/>points array for line/arrow Phase 2<br/>createdBy, lastModifiedBy, aiCommand Phase 3<br/>isLocked, lockedBy, timestamps<br/>zIndex, visible, locked Phase 4]
+            SecurityRules[firestore.rules<br/>Authenticated User Access<br/>Shape Ownership Validation<br/>Production Deployed<br/>Phase 4: Rate Limiting]
+        end
+
+        subgraph "Firebase Realtime Database"
+            SessionsPath[Sessions Path<br/>/sessions/global-canvas-v1/userId<br/>High-Frequency Updates<br/>Phase 4: 50ms throttle optimization]
+            CursorData[Enhanced Cursor Data:<br/>displayName editable<br/>cursorColor customizable 8 colors<br/>cursorX, cursorY throttled 100ms→50ms Phase 4<br/>isOnline boolean<br/>lastSeen timestamp]
+            PresenceSystem[Enhanced Presence System<br/>Online/Offline Detection<br/>30-second Grace Period<br/>5-second Heartbeat<br/>onDisconnect Cleanup<br/>Connection Monitoring]
+        end
+
+        subgraph "Firebase Hosting Production"
+            StaticHosting[Static File Hosting<br/>React App Deployment<br/>CDN Distribution<br/>SPA Routing Configured<br/>Cache Headers Optimized<br/>Live: collabcanvas-mvp-53120.web.app<br/>Phase 5: Final Production Deploy]
+        end
+
+        subgraph "Firebase Configuration"
+            FirebaseRules[firebase/ Directory<br/>firestore.rules deployed<br/>database.rules.json deployed<br/>firebase.json SPA config<br/>Phase 4: Performance rules]
+        end
+    end
+
+    subgraph "External AI Services Phase 3 NEW"
+        OpenAI[OpenAI API<br/>Model: gpt-4o-mini<br/>Tool Calling Feature<br/>Response <2s target<br/>Cost: ~$0.01/command<br/>Budget: $15-20 Phase 3]
+        LangSmith[LangSmith Platform Phase 5 NEW<br/>smith.langchain.com<br/>Automatic Tracing<br/>Performance Metrics<br/>Cost Analysis Dashboard<br/>Free Tier: $0<br/>+2 BONUS POINTS]
+    end
+
+    subgraph "Real-time Data Flow"
+        subgraph "Multi-Shape Synchronization Phase 1+2"
+            ShapeCreate[Multi-Shape Creation<br/>Rectangle/Circle/Text/Line/Arrow<br/>→ Firestore Real-time Listener<br/>Phase 2: 5 shape types]
+            ShapeUpdate[Shape Updates<br/>Drag/Edit/Color/Transform<br/>→ Position/Text/Color/Size Update<br/>Sync <500ms Phase 1<br/>Sync <100ms Phase 4]
+            ShapeLocking[Object Locking<br/>First User Locks<br/>→ Others See Lock State<br/>30-second Timeout]
+            ColorSync[Color Synchronization<br/>20+ color Palette Phase 2<br/>Real-time Updates]
+            TextSync[Text Editing Sync<br/>Double-click to Edit<br/>Phase 2: Formatting sync<br/>Real-time Text Updates]
+            UndoRedoSync[Undo/Redo Phase 2 NEW<br/>Per-user Action History<br/>Local Undo/Redo<br/>Firestore State Sync<br/>Multi-user Isolation]
+        end
+
+        subgraph "AI Command Flow Phase 3 NEW"
+            AICommandInput[User Natural Language Input<br/>Create a red circle<br/>Arrange shapes horizontally<br/>Build a login form]
+            AIToolCalling[OpenAI Tool Calling<br/>CANVAS_TOOLS schemas<br/>Extract tool_calls from response<br/>12+ tool functions]
+            AIExecution[executeToolCall Function<br/>Switch-based routing<br/>create_shape, move_shape, etc.<br/>Returns CommandResult]
+            AIFirestoreSync[AI → Firestore Sync<br/>addShape via useShapes<br/>updateShape operations<br/>Metadata: createdBy='ai'<br/>Multi-user sync automatic]
+            AIPerformance[AI Performance Tracking<br/>Response time <2s<br/>90%+ accuracy target<br/>Command caching 15min<br/>Phase 5: LangSmith metrics]
+        end
+
+        subgraph "Enhanced User Presence Flow Phase 1+4"
+            CursorTracking[Cursor Tracking<br/>Mouse Move → RTDB Update<br/>Phase 1: <200ms throttled 100ms<br/>Phase 4: <50ms optimization]
+            UserJoinLeave[User Join/Leave<br/>Auth State → Presence Update<br/>30-second Grace Period]
+            ConnectionMonitoring[Connection Monitoring<br/>Firebase Status Detection<br/>Toast Notifications<br/>onDisconnect → Cleanup]
+            HeartbeatSystem[Heartbeat System<br/>5-second Intervals<br/>Keep Users Online]
+        end
+
+        subgraph "Performance Optimization Phase 4"
+            ViewportCulling[Viewport Culling<br/>Render only visible shapes<br/>+ 500px buffer<br/>500+ shapes at 60 FPS]
+            ShapePooling[Shape Pooling/Recycling<br/>Reuse Konva instances<br/>Reduce GC overhead<br/>Memory optimization]
+            BatchOperations[Firestore Batching<br/>100ms batch window<br/>writeBatch for bulk ops<br/>Reduce write operations]
+        end
+    end
+
+    subgraph "Multi-User Collaboration Architecture"
+        User1[User 1 Browser<br/>Designer/Canvas Owner<br/>Multi-Shape Creation & Management<br/>Phase 3: AI Commands]
+        User2[User 2 Browser<br/>Collaborator<br/>Join via Shared URL<br/>Phase 3: Sees AI shapes]
+        User3[User 3 Browser<br/>Additional Collaborator<br/>Real-time Participation<br/>Phase 3: Can use AI]
+
+        ShareableURL[Production URL<br/>collabcanvas-mvp-53120.web.app<br/>Direct Canvas Access<br/>Firebase Hosted<br/>Phase 5: Final Production]
+    end
+
+    subgraph "Production Build Architecture Phase 1+5"
+        CodeSplitting[Code Splitting Strategy<br/>react-vendor: React + React-DOM<br/>firebase-vendor: Firebase SDK<br/>konva-vendor: Konva + React-Konva<br/>Phase 5: openai-vendor + langsmith-vendor]
+        Minification[esbuild Minification<br/>Fast Build Performance<br/>Source Maps Disabled<br/>Console Logs Preserved]
+        BundleAnalysis[Bundle Analysis<br/>Phase 1: ~335 KB gzipped<br/>Phase 5 Est: ~450 KB gzipped<br/>Chunk Size Warnings @ 1000KB<br/>Production Optimized]
+    end
+
+    %% Client-side connections - Core Components
+    ErrorBoundary --> App
+    App --> AuthGuard
+    App --> LoginForm
+    AuthGuard --> Canvas
+    AuthGuard --> Toolbar
+    AuthGuard --> UserPresence
+    AuthGuard --> ToastContainer
+
+    Canvas --> Rectangle
+    Canvas --> Circle
+    Canvas --> Text
+    Canvas --> Line
+    Canvas --> Arrow
+    Canvas --> Cursor
+    Canvas --> KonvaEngine
+    Canvas --> ShapeContextMenu
+    Canvas --> EmptyState
+
+    Toolbar --> KeyboardHelp
+    Toolbar --> KeyboardShortcutsPanel
+    Toolbar --> ExportModal
+    UserPresence --> ColorPicker
+    UserPresence --> ColorPaletteModal
+
+    App --> MobileWarning
+    App --> AICommandPanel
+    App --> LayersPanel
+    App --> AlignmentTools
+    App --> PerformanceMonitor
+
+    %% Phase 3 AI Agent connections
+    AICommandPanel --> useAIAgent
+    AICommandPanel --> useCommandHistory
+    useAIAgent --> AIService
+    useAIAgent --> AIAgent
+    useAIAgent --> AICommands
+    useAIAgent --> AITypes
+    AIAgent --> useShapes
+    AIService --> LangSmithWrapper
+    LangSmithWrapper --> OpenAI
+
+    %% State Management connections
+    AuthGuard --> AuthContext
+    Canvas --> CanvasState
+    Rectangle --> CanvasState
+    Circle --> CanvasState
+    Text --> CanvasState
+    Line --> CanvasState
+    Arrow --> CanvasState
+    Cursor --> CanvasState
+    UserPresence --> CanvasState
+    AICommandPanel --> AIState
+
+    %% Hooks integration
+    AuthContext --> useAuth
+    Canvas --> useCanvas
+    Canvas --> useShapes
+    Canvas --> useUndoRedo
+    Canvas --> useKeyboardShortcuts
+    UserPresence --> usePresence
+    Cursor --> usePresence
+    ToastContainer --> useToast
+    Toast --> useToast
+    LayersPanel --> useShapes
+    AlignmentTools --> useShapes
+
+    %% Services integration
+    useAuth --> AuthService
+    useShapes --> FirestoreService
+    usePresence --> RealtimeService
+    useCanvas --> Helpers
+    useCanvas --> ColorUtils
+    useCanvas --> PerformanceService
+    useShapes --> Helpers
+    useToast --> ErrorMessages
+    ExportModal --> ExportService
+    AlignmentTools --> AlignmentService
+
+    %% Firebase SDK connections
+    AuthService --> FirebaseConfig
+    FirestoreService --> FirebaseConfig
+    RealtimeService --> FirebaseConfig
+
+    %% Firebase Backend connections
+    FirebaseConfig --> FBAuth
+    FirebaseConfig --> CanvasCollection
+    FirebaseConfig --> SessionsPath
+    FirebaseConfig --> StaticHosting
+
+    %% Data schema connections
+    CanvasCollection --> ShapeSchema
+    CanvasCollection --> SecurityRules
+    SessionsPath --> CursorData
+    SessionsPath --> PresenceSystem
+    FirebaseRules --> SecurityRules
+    FirebaseRules --> StaticHosting
+
+    %% Real-time synchronization flows
+    FirestoreService <-->|Create/Update/Delete<br/>Multi-Shapes Phase 1: <500ms<br/>Phase 4: <100ms| CanvasCollection
+    RealtimeService <-->|Cursor Position<br/>Phase 1: <200ms throttled 100ms<br/>Phase 4: <50ms<br/>Heartbeat 5sec| SessionsPath
+
+    %% AI Command flow
+    AICommandInput --> AIToolCalling
+    AIToolCalling --> AIExecution
+    AIExecution --> AIFirestoreSync
+    AIFirestoreSync --> CanvasCollection
+    AIPerformance --> LangSmith
+
+    %% Multi-user collaboration
+    User1 --> ShareableURL
+    User2 --> ShareableURL
+    User3 --> ShareableURL
+    ShareableURL --> StaticHosting
+    StaticHosting --> ErrorBoundary
+
+    %% Development pipeline
+    DevEnv --> GitRepo
+    GitRepo --> TestSuite
+    TestSuite --> TestFiles
+    TestSuite --> BuildPipeline
+    BuildPipeline --> CodeSplitting
+    BuildPipeline --> Minification
+    BuildPipeline --> BundleAnalysis
+    BundleAnalysis --> StaticHosting
+
+    %% Enhanced synchronization flows
+    ShapeCreate --> ShapeUpdate
+    ShapeUpdate --> ShapeLocking
+    ShapeUpdate --> ColorSync
+    ShapeUpdate --> TextSync
+    ShapeUpdate --> UndoRedoSync
+    CursorTracking --> UserJoinLeave
+    UserJoinLeave --> ConnectionMonitoring
+    ConnectionMonitoring --> HeartbeatSystem
+
+    %% Performance optimization flows
+    ViewportCulling --> KonvaEngine
+    ShapePooling --> KonvaEngine
+    BatchOperations --> FirestoreService
+
+    %% Styling
+    classDef criticalPath fill:#ff9999,stroke:#cc0000,stroke-width:3px
+    classDef realtimeFlow fill:#99ccff,stroke:#0066cc,stroke-width:2px
+    classDef firebaseService fill:#ffcc99,stroke:#ff6600,stroke-width:2px
+    classDef clientComponent fill:#ccffcc,stroke:#00cc00,stroke-width:1px
+    classDef bonusFeature fill:#ffccff,stroke:#cc00cc,stroke-width:2px
+    classDef productionOptimization fill:#ffffcc,stroke:#cccc00,stroke-width:2px
+    classDef testComponent fill:#cccccc,stroke:#666666,stroke-width:1px
+    classDef aiComponent fill:#ff99cc,stroke:#cc0066,stroke-width:3px
+    classDef phase2Component fill:#99ffcc,stroke:#00cc66,stroke-width:2px
+    classDef phase4Component fill:#cc99ff,stroke:#6600cc,stroke-width:2px
+
+    class FirestoreService,RealtimeService,ShapeCreate,ShapeUpdate,CursorTracking criticalPath
+    class CanvasCollection,SessionsPath,PresenceSystem,ShapeLocking,ColorSync,TextSync realtimeFlow
+    class FBAuth,StaticHosting,SecurityRules,FirebaseConfig firebaseService
+    class Canvas,Rectangle,Toolbar,UserPresence,App,AuthGuard clientComponent
+    class Circle,Text,Toast,ToastContainer,ColorPicker,ShapeContextMenu,EmptyState,KeyboardHelp,MobileWarning bonusFeature
+    class ErrorBoundary,CodeSplitting,Minification,BundleAnalysis productionOptimization
+    class TestSuite,TestFiles testComponent
+    class AICommandPanel,AIService,AIAgent,AICommands,useAIAgent,useCommandHistory,OpenAI,LangSmithWrapper,LangSmith,AIToolCalling,AIExecution,AIFirestoreSync,AIPerformance aiComponent
+    class Line,Arrow,ColorPaletteModal,ExportModal,ShapeStylePanel,KeyboardShortcutsPanel,useUndoRedo,useKeyboardShortcuts,ExportService,UndoRedoSync phase2Component
+    class LayersPanel,AlignmentTools,PerformanceMonitor,AlignmentService,PerformanceService,ViewportCulling,ShapePooling,BatchOperations phase4Component

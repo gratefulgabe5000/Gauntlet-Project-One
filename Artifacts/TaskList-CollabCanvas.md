@@ -1,1469 +1,1737 @@
-# CollabCanvas 24-Hour MVP - Development Task List
+# CollabCanvas Rubric-Aligned Development Task List
 
-## 🎯 **Mission: Prove Real-Time Collaborative Canvas Works**
+## 🎯 **Mission: Deliver 95+ Point Rubric-Aligned Application**
 
-**Sprint Goal**: 2+ users can simultaneously create, move, and see rectangles in real-time
-**Timeline**: 24 hours (Due: 2025.10.14)
-**Philosophy**: "Working slowly is infinitely better than broken quickly"
+**Project Goal**: Build production-ready, AI-powered collaborative canvas from MVP to final submission
+**Complete Timeline**: October 9-17, 2025 (9 days total: 5 days MVP + 3 days rubric sprint)
+**Current Sprint**: October 15-17, 2025 (3 days - Phases 2-5)
+**Current Status**: Phase 1 MVP Complete ✅ | Phases 2-5 Pending ⏳
+**Philosophy**: "Strategic rubric focus: AI agent = 25 points, optimize accordingly"
 
 ---
 
 ## 📊 **SPRINT PROGRESS SUMMARY**
 
-**Last Updated**: October 15, 2025 @ Hour 22
-**Sprint Status**: 🎉 **PRODUCTION LIVE** (7 of 7 PRs complete!)
-**Overall Progress**: 100% complete (7/7 PRs) | Core MVP: 100% complete ✅
+**Last Updated**: October 15, 2025
+**Sprint Status**: 🚀 **PHASE 2 STARTING** (Building on Phase 1 foundation)
+**Overall Progress**: 25% complete (Phase 1 complete, Phases 2-5 pending)
+**MVP Status**: ✅ **PRODUCTION LIVE** - <https://collabcanvas-mvp-53120.web.app>
+
+### **Phase Completion Overview**
+
+**✅ COMPLETED (1/5 Phases) - 20%**
+
+- ✅ Phase 1 (MVP): Foundation with basic collaboration (20 rubric points earned)
+
+**🔄 IN PROGRESS (0/4 Phases)**
+
+- ⏳ Phase 2: Canvas Features & Figma Tools (Oct 15) - Target: +20 points
+- ⏳ Phase 3: AI Canvas Agent (Oct 16) - Target: +25 points (HIGHEST VALUE)
+- ⏳ Phase 4: Performance & Polish (Oct 17 AM) - Target: +20 points
+- ⏳ Phase 5: Documentation & Submission (Oct 17 PM) - Target: +15 points
+
+**🎯 Target Rubric Score**: 95-105/105 points
+**Current Score**: ~20/105 points (Phase 1 baseline)
+**Remaining Points**: 85 points across 3 days
+
+---
+
+## 🔄 **PROGRESSIVE PULL REQUEST STRATEGY (Complete 5-Phase Journey)**
+
+### **All PR Milestones - Phase 1 MVP + Rubric Sprint**
+
+| PR # | Phase | Date | Title | Rubric Target | Points | Status |
+|------|-------|------|-------|---------------|--------|--------|
+| **PR-1** | Phase 1 | Oct 9 | `PR 1 feat: project setup and firebase configuration` | Section 1 (partial) | ~3 pts | ✅ Merged |
+| **PR-2** | Phase 1 | Oct 10 | `PR 2 feat: core canvas implementation with basic shapes` | Section 1 (partial) | ~3 pts | ✅ Merged |
+| **PR-3** | Phase 1 | Oct 11 | `PR 3 feat: firestore persistent state and real-time sync` | Section 1 (partial) | ~5 pts | ✅ Merged |
+| **PR-4** | Phase 1 | Oct 12 | `PR 4 feat: realtime cursor tracking with firebase rtdb` | Section 1 (partial) | ~3 pts | ✅ Merged |
+| **PR-5** | Phase 1 | Oct 13 | `feat: text shape component and editing` | Section 1 (partial) | ~2 pts | ✅ Merged |
+| **PR-6** | Phase 1 | Oct 13 | `feat: user presence system with online users` | Section 1 (partial) | ~2 pts | ✅ Merged |
+| **PR-7** | Phase 1 | Oct 14 | `feat: ui polish and production deployment` | Section 1 (partial) | ~2 pts | ✅ Merged |
+| **PR-8** | Phase 2 | Oct 15 | `feat: canvas enhancements and tier-1 features` | Sections 2 & 3 | +20 pts | ⏳ Pending |
+| **PR-9** | Phase 3 | Oct 16 | `feat: ai canvas agent with multi-user sync` | Section 4 | +25 pts | ⏳ Pending |
+| **PR-10** | Phase 4 | Oct 17 AM | `feat: performance optimization and tier-2 features` | Sections 2, 3, 5 | +20 pts | ⏳ Pending |
+| **PR-11** | Phase 5 | Oct 17 PM | `feat: final documentation and demo video` | Sections 6, 7, 8 | +15 pts | ⏳ Pending |
+
+**Phase 1 MVP Score**: 20/105 points ✅ **COMPLETE**
 **Live URL**: <https://collabcanvas-mvp-53120.web.app>
-
-### **🎉 Sprint Achievements Overview**
-
-**✅ COMPLETED (7/7 PRs) - 100%**
-
-- ✅ PR-1: Foundation Setup (Vite + React + Konva + Firebase)
-- ✅ PR-2: Authentication System (Email/Password + Context)
-- ✅ PR-3: Local Canvas (Rectangles + Pan/Zoom + Controls)
-- ✅ PR-4: Real-Time Collaboration (Firestore Sync + Locking) 🔥 **CRITICAL**
-- ✅ PR-5: User Presence (Cursor Tracking + Online Users) 🔥 **CRITICAL**
-- ✅ PR-6: Essential UI Polish (Toolbar, Toasts, Loading, Responsive) 🎨 **COMPLETE**
-- ✅ PR-7: Production Deployment (Build optimization, error boundaries, Firebase Hosting) 🚀 **DEPLOYED**
-
-**🎉 ALL PRs COMPLETE! PRODUCTION LIVE!**
-
-**🎯 Success Criteria**: 10/10 objectives complete (100%) ✅
-
-- All success criteria met including public deployment URL!
+**Foundation Status**: All core collaborative infrastructure deployed and tested
+**Next Step**: Begin Phase 2 (Canvas Enhancements & Tier 1 Features)
 
 ---
 
-### **Completed Milestones** ✅
-
-| PR | Status | Completion Date | Notes |
-|----|--------|----------------|-------|
-| **PR-1** | ✅ **COMPLETE** | Oct 13, 2025 | Foundation setup with Vite+React+Konva+Tailwind+Firebase |
-| **PR-2** | ✅ **COMPLETE** | Oct 14, 2025 | Firebase Authentication with email/password, context, guards |
-| **PR-3** | ✅ **COMPLETE** | Oct 14, 2025 | Local canvas functionality - rectangles, drag, delete, pan/zoom |
-| **PR-4** | ✅ **COMPLETE** | Oct 14, 2025 | **CRITICAL** - Real-time collaboration sync - TESTED & WORKING! |
-| **PR-5** | ✅ **COMPLETE** | Oct 14, 2025 | User presence & cursor tracking - TESTED & WORKING! |
-| **PR-6** | ✅ **COMPLETE** | Oct 15, 2025 | UI polish + Circle/Text shapes + Color picker + Enhanced UX |
-| **PR-7** | ✅ **COMPLETE** | Oct 15, 2025 | Build optimization + Error boundaries + Production deployment LIVE! |
-
-### **Key Achievements Today**
-
-✅ **PR-1 Complete**:
-
-- Vite + React + TypeScript + Konva.js project initialized
-- Tailwind CSS configured with custom canvas styles
-- Firebase project created (Auth, Firestore, Realtime DB)
-- Basic Canvas component with Konva Stage (2000x2000px)
-- Vitest testing framework configured
-- Build process verified
-
-✅ **PR-2 Complete**:
-
-- Firebase Authentication fully integrated
-- AuthContext with `onAuthStateChanged` persistence
-- LoginForm with validation and mode switching
-- AuthGuard protecting canvas routes
-- User display in toolbar (avatar, name, email)
-- Logout functionality with confirmation
-- Error handling with auto-dismiss (10s) and manual dismiss
-- User-friendly loading states
-- Full viewport layout optimized
-- Unit tests for Auth components
-
-✅ **PR-3 Complete**:
-
-- Canvas core setup: pan, zoom, and boundary constraints
-- Rectangle component with selection, drag, and boundary enforcement
-- useCanvas hook for local state management (add, remove, update, select)
-- Toolbar component with Add Rectangle and zoom controls
-- Keyboard interactions (Delete to remove, Escape to deselect)
-- Shape management utilities (helpers.ts) for DRY code
-- Canvas dimensions: 2000x2000px with responsive viewport
-- Integration testing (Rectangle, Toolbar, useCanvas tests)
-- Bug fixes: stage/shape drag conflicts, boundary constraints
-- Code organization: centralized constants and utilities
-
-✅ **PR-4 Complete - CRITICAL MILESTONE ACHIEVED!**:
-
-- Firestore data schema & TypeScript interfaces for real-time sync
-- Complete Firestore service layer (firestore.ts) with CRUD operations
-- Real-time shape synchronization using onSnapshot listeners
-- useShapes hook replacing local state with Firestore state
-- Object locking system (first-come-first-serve, 30s timeout)
-- Optimistic updates for instant UI feedback
-- Error handling & loading states in UI
-- Firestore security rules (authenticated-only access)
-- Multi-user testing validated: 2+ users collaborating successfully
-- Shapes persist across browser refreshes
-- Real-time sync latency <500ms confirmed
-
-✅ **PR-5 Complete - User Presence & Cursor Tracking VALIDATED!**:
-
-- Realtime Database service layer (realtime.ts) with presence management
-- User color system (colors.ts) with 12 distinct colors and hash-based assignment
-- usePresence hook for real-time presence tracking and cursor updates
-- Cursor component rendering other users' cursors on canvas
-- UserPresence component showing online users list with colors
-- Mouse movement tracking with 100ms throttling for performance
-- Canvas integration with cursor display layer
-- Database security rules for Realtime Database
-- Bug fix: Changed from `set()` to `update()` for partial updates (preserves online status)
-- Multi-user cursor tracking validated: Users can see each other's cursors in real-time!
-- Online user presence validated: UserPresence panel displays active users correctly
-
-✅ **PR-6 Complete - Essential UI Polish & Enhanced Features!**:
-
-**Core UI Polish (6.1-6.7)**:
-
-- Modern toolbar with custom SVG icons and gradient styling
-- Hover states, animations, and visual feedback on all interactive elements
-- Toast notification system with success/error/warning/info types
-- User-friendly error messages for common failures
-- Loading indicators for shape creation and authentication
-- Real-time Firebase connection status monitoring (integrated into Online Users panel)
-- Enhanced selection feedback with shadows, borders, and hover effects
-- Empty state with onboarding guidance ("Click Add Rectangle to start")
-- Interactive keyboard shortcuts panel with action buttons
-- Responsive layout with mobile warning (<768px)
-- Visual polish: improved colors, spacing, typography, animations
-- All testing passed: browser sizes, loading states, error scenarios, offline detection
-
-**Major Feature Additions**:
-
-- **Multiple Shape Types**: Rectangle, Circle, and Text shapes with distinct themes (Blue, Green, Red)
-- **Text Editing**: Double-click text shapes for inline editing (Enter to save, Escape to cancel)
-- **Shape Color Picker**: Right-click context menu with 12-color palette for all shapes
-- **Clear Canvas**: Button + Ctrl+Shift+Delete keyboard shortcut with confirmation
-- **User Color Customization**: Click avatar in Online Users to select from 8-color palette (prevents duplicates)
-- **Inline Name Editing**: Click your name in Online Users to edit display name in real-time
-- **Offline User Detection**: Users stay visible for 30 seconds when offline (dimmed with gray indicators)
-- **Presence Heartbeat**: 5-second heartbeat keeps users marked as online
-- **Collapsible UI**: Online Users panel rolls up, expands on hover
-- **Interactive Shortcuts**: Keyboard shortcuts window buttons perform actions directly
-
-**New Components Created (9)**:
-
-- Circle.tsx - Circle shape component with green theme
-- Text.tsx - Editable text shape component with red theme and Transformer
-- ColorPicker.tsx - 8-color palette modal for user cursor colors
-- ShapeContextMenu.tsx - 12-color palette for shape colors (right-click)
-- EmptyState.tsx - Welcoming onboarding screen for empty canvas
-- KeyboardHelp.tsx - Toggleable keyboard shortcuts panel (bottom-left)
-- MobileWarning.tsx - Full-screen warning for mobile/tablet devices
-- Toast.tsx - Individual toast notification component
-- ToastContainer.tsx - Toast stack manager (top-right corner)
-
-**Enhanced Services**:
-
-- realtime.ts: Added connection monitoring, presence heartbeat, color/name updates
-- usePresence.ts: Added heartbeat system, real-time color/name sync
-- useShapes.ts: Added updateShapeText, updateShapeColor, clearAllShapes
-- helpers.ts: Added createCircleShape, createTextShape utilities
-- errorMessages.ts: User-friendly error message system
-- useToast.ts: Custom toast notification hook
-
-**Visual Improvements**:
-
-- Tailwind color scheme: Brand blues, canvas grays, user colors (8 distinct)
-- Custom animations: button-lift, pulse-ring, icon-scale, fade-in, slide-up
-- Shadow effects for selected shapes (blue/green/red glow based on type)
-- Smooth transitions on all interactive elements (200-400ms)
-- Typography: Improved font weights, sizing, and spacing
-
-**Testing Validated**:
-
-- ✅ Responsive layout across different browser sizes
-- ✅ Loading states during all operations
-- ✅ Error messages display properly
-- ✅ Offline detection with 30-second grace period
-- ✅ Multi-user color and name synchronization
-- ✅ Shape color updates in real-time across users
-- ✅ Text inline editing with proper focus/blur handling
-- ✅ Mobile warning appears correctly
-
-### **Current State**
-
-🎉 **PRODUCTION-READY**: Fully polished collaborative canvas with advanced features!
-🟢 **Multi-User**: 2+ users can collaborate simultaneously with <500ms sync
-🟢 **Persistence**: All shapes saved to Firestore, survive browser refresh
-🟢 **Features**: Create, select, drag, delete rectangles, circles, and text with real-time sync
-🎨 **Shapes**: Multiple shape types (Rectangle, Circle, Text) with individual color customization
-✏️ **Text Editing**: Inline double-click text editing with real-time sync
-🟢 **Canvas**: Pan/zoom with mouse, 2000x2000px canvas with boundaries
-🟢 **Security**: Firestore + Realtime Database rules enforcing authenticated access
-🎨 **UI**: Modern polished interface with icons, animations, toasts, loading states
-🔒 **Locking**: Basic shape locking system (30s timeout)
-✅ **Presence**: Live cursor tracking, online user presence, offline detection (30s grace)
-👤 **Customization**: User color picker, inline name editing, all synced in real-time
-⌨️ **UX**: Interactive keyboard shortcuts, clear canvas, responsive layout, mobile warning
-🎯 **Status**: Production-ready with comprehensive feature set and polished UI!
-
-### **🎉 SPRINT COMPLETE!**
-
-**PR-7 DEPLOYED! All objectives achieved:**
-
-✅ **Build Optimization**:
-
-- Code splitting (React, Firebase, Konva vendors)
-- esbuild minification for fast builds
-- Production-ready bundles (~335 KB gzipped)
-- Source maps disabled in production
-- Chunk size warnings configured
-
-✅ **Error Boundaries**:
-
-- React ErrorBoundary component with class-based lifecycle methods
-- Graceful crash handling with error logging
-- User-friendly fallback UI with "Try Again" and "Reload" options
-- Prevents app crashes from component errors
-
-✅ **Firebase Hosting**:
-
-- Production deployment successful via Firebase CLI
-- Live at: **<https://collabcanvas-mvp-53120.web.app>**
-- SPA routing configured for single-page app
-- Cache headers optimized for performance
-- Hard refresh recommended for first-time users
-
-✅ **Documentation**:
-
-- PR7-COMPLETE.md created with full deployment summary
-- README.md updated with production status and URL
-- Root README.md updated with all accomplishments
-- TaskList-CollabCanvas.md updated with complete status
-
-**Status**: 🎉 **24-Hour MVP Sprint Successfully Completed!** All 7 PRs deployed to production ahead of schedule!
-
----
-
-## 📁 **PROJECT FILE STRUCTURE**
+## 📁 **UPDATED PROJECT FILE STRUCTURE**
 
 ```
 Gauntlet Project One/collabcanvas-mvp/
-├── 📄 package.json                     # Dependencies & scripts
-├── 📄 vite.config.ts                   # Vite configuration
-├── 📄 tailwind.config.js              # Tailwind CSS config
-├── 📄 tsconfig.json                   # TypeScript configuration
-├── 📄 .gitignore                      # Git ignore rules
-├── 📁 public/
-│   ├── 📄 index.html                  # Main HTML template
-│   └── 📄 favicon.ico                 # App favicon
+├── [Existing Phase 1 files...]
 ├── 📁 src/
-│   ├── 📄 main.tsx                    # React app entry point
-│   ├── 📄 App.tsx                     # Main App component
-│   ├── 📄 index.css                   # Global styles & Tailwind
 │   ├── 📁 components/
-│   │   ├── 📄 Canvas.tsx              # Main canvas component (Konva)
-│   │   ├── 📄 Toolbar.tsx             # Shape creation controls with icons
-│   │   ├── 📄 UserPresence.tsx        # Online users list with color picker
-│   │   ├── 📄 Rectangle.tsx           # Rectangle shape component (blue theme)
-│   │   ├── 📄 Circle.tsx              # Circle shape component (green theme)
-│   │   ├── 📄 Text.tsx                # Editable text shape (red theme)
-│   │   ├── 📄 Cursor.tsx              # Other users' cursors
-│   │   ├── 📄 ColorPicker.tsx         # User color selection modal
-│   │   ├── 📄 ShapeContextMenu.tsx    # Shape color picker (right-click)
-│   │   ├── 📄 EmptyState.tsx          # Onboarding screen for empty canvas
-│   │   ├── 📄 KeyboardHelp.tsx        # Interactive keyboard shortcuts panel
-│   │   ├── 📄 MobileWarning.tsx       # Mobile device warning overlay
-│   │   ├── 📄 Toast.tsx               # Individual toast notification
-│   │   └── 📄 ToastContainer.tsx      # Toast notification manager
-│   ├── 📁 auth/
-│   │   ├── 📄 AuthContext.tsx         # Firebase auth context
-│   │   ├── 📄 LoginForm.tsx           # Email/password login
-│   │   └── 📄 AuthGuard.tsx           # Protected route wrapper
+│   │   ├── [Existing: Canvas, Rectangle, Circle, Text, etc.]
+│   │   ├── 📄 Line.tsx                      # NEW - Phase 2
+│   │   ├── 📄 Arrow.tsx                     # NEW - Phase 2
+│   │   ├── 📄 ExportModal.tsx               # NEW - Phase 2
+│   │   ├── 📄 ShapeStylePanel.tsx           # NEW - Phase 2
+│   │   ├── 📄 ColorPaletteModal.tsx         # NEW - Phase 2
+│   │   ├── 📄 LayersPanel.tsx               # NEW - Phase 4
+│   │   ├── 📄 AlignmentTools.tsx            # NEW - Phase 4
+│   │   └── 📄 AICommandPanel.tsx            # NEW - Phase 3
 │   ├── 📁 services/
-│   │   ├── 📄 firebase.ts             # Firebase configuration
-│   │   ├── 📄 firestore.ts            # Shape data operations
-│   │   ├── 📄 realtime.ts             # Cursor & presence sync
-│   │   └── 📄 types.ts                # TypeScript interfaces
+│   │   ├── [Existing: firebase, firestore, realtime]
+│   │   ├── 📄 aiAgent.ts                    # NEW - Phase 3
+│   │   ├── 📄 openai.ts                     # NEW - Phase 3
+│   │   └── 📄 commandParser.ts              # NEW - Phase 3
 │   ├── 📁 hooks/
-│   │   ├── 📄 useCanvas.ts            # Canvas state management
-│   │   ├── 📄 useShapes.ts            # Shape CRUD operations
-│   │   ├── 📄 usePresence.ts          # User presence tracking
-│   │   └── 📄 useToast.ts             # Toast notification management
+│   │   ├── [Existing: useCanvas, useShapes, usePresence]
+│   │   ├── 📄 useAIAgent.ts                 # NEW - Phase 3
+│   │   ├── 📄 useCommandHistory.ts          # NEW - Phase 3
+│   │   ├── 📄 useUndoRedo.ts                # NEW - Phase 2
+│   │   └── 📄 useKeyboardShortcuts.ts       # NEW - Phase 2
 │   ├── 📁 utils/
-│   │   ├── 📄 colors.ts               # User color generation
-│   │   ├── 📄 helpers.ts              # Shape utility functions
-│   │   └── 📄 errorMessages.ts        # User-friendly error messages
-│   └── 📁 __tests__/
-│       ├── 📁 components/
-│       │   ├── 📄 Canvas.test.tsx     # Canvas component tests
-│       │   ├── 📄 Rectangle.test.tsx  # Rectangle component tests
-│       │   └── 📄 Toolbar.test.tsx    # Toolbar component tests
-│       ├── 📁 hooks/
-│       │   ├── 📄 useCanvas.test.ts   # Canvas hook tests
-│       │   ├── 📄 useShapes.test.ts   # Shape management tests
-│       │   └── 📄 usePresence.test.ts # Presence tracking tests
-│       ├── 📁 services/
-│       │   ├── 📄 firestore.test.ts   # Firestore service tests
-│       │   └── 📄 realtime.test.ts    # Real-time service tests
-│       ├── 📁 integration/
-│       │   ├── 📄 auth-flow.test.tsx  # Authentication flow tests
-│       │   ├── 📄 canvas-sync.test.tsx # Multi-user sync tests
-│       │   └── 📄 user-presence.test.tsx # Presence system tests
-│       └── 📁 e2e/
-│           ├── 📄 collaboration.test.ts # End-to-end collaboration
-│           └── 📄 production.test.ts  # Production deployment tests
-└── 📁 firebase/
-    ├── 📄 firestore.rules             # Firestore security rules
-    ├── 📄 database.rules.json         # Realtime DB rules
-    └── 📄 firebase.json               # Firebase project config
-```
-
-### **Key File Purposes**
-
-| File | Purpose | Priority | Status |
-|------|---------|----------|--------|
-| `App.tsx` | Main component orchestration | 🔴 Critical | ✅ Complete |
-| `Canvas.tsx` | Konva Stage & rectangle rendering | 🔴 Critical | ✅ Complete |
-| `Rectangle.tsx` | Rectangle shape component | 🔴 Critical | ✅ Complete |
-| `Toolbar.tsx` | Shape creation controls | 🔴 Critical | ✅ Complete |
-| `useShapes.ts` | Real-time Firestore state management | 🔴 Critical | ✅ Complete |
-| `firestore.ts` | Shape persistence & real-time sync | 🔴 Critical | ✅ Complete |
-| `helpers.ts` | Shape utility functions | 🟡 Medium | ✅ Complete |
-| `firebase.ts` | Firebase SDK initialization | 🔴 Critical | ✅ Complete |
-| `types.ts` | TypeScript interfaces | 🔴 Critical | ✅ Complete |
-| `firestore.rules` | Firestore security rules | 🔴 Critical | ✅ Complete |
-| `realtime.ts` | Cursor tracking & presence | 🟡 Medium | ✅ Complete |
-| `usePresence.ts` | Presence hook with cursor tracking | 🟡 Medium | ✅ Complete |
-| `colors.ts` | User color generation utilities | 🟡 Medium | ✅ Complete |
-| `Cursor.tsx` | Other users' cursor display | 🟡 Medium | ✅ Complete |
-| `UserPresence.tsx` | Online users list panel | 🟡 Medium | ✅ Complete |
-| `database.rules.json` | Realtime DB security rules | 🟡 Medium | ✅ Complete |
-| `AuthContext.tsx` | User authentication state | 🟡 Medium | ✅ Complete |
-| `useCanvas.ts` | (Legacy) Local state - replaced by useShapes | 🟢 Low | ✅ Complete |
-
-### **Component Hierarchy**
-
-```
-App
-├── AuthGuard
-│   ├── Toolbar (Add Rectangle button)
-│   ├── UserPresence (Online users list)
-│   └── Canvas
-│       ├── Rectangle[] (All shapes)
-│       └── Cursor[] (Other users' cursors)
-└── LoginForm (if not authenticated)
+│   │   ├── [Existing: colors, helpers, errorMessages]
+│   │   ├── 📄 export.ts                     # NEW - Phase 2
+│   │   ├── 📄 alignment.ts                  # NEW - Phase 4
+│   │   ├── 📄 performance.ts                # NEW - Phase 4
+│   │   └── 📄 aiCommands.ts                 # NEW - Phase 3
+│   └── 📁 types/
+│       ├── 📄 ai.types.ts                   # NEW - Phase 3
+│       └── 📄 canvas.types.ts               # NEW - Phase 2
+├── 📁 Artifacts/
+│   ├── [Existing docs...]
+│   ├── 📄 DEMO-VIDEO-SCRIPT.md              # NEW - Phase 5
+│   └── 📄 ARCHITECTURE-FINAL.md             # NEW - Phase 5
+└── 📄 .env.local                            # UPDATE - Add OpenAI key
 ```
 
 ---
 
-## 🔄 **PROGRESSIVE PULL REQUEST STRATEGY**
+## 🚀 **PHASE 2: CANVAS FEATURES & FIGMA TOOLS** (October 15)
 
-### **PR Milestones & Deployment Strategy**
+**Branch**: `PR8 feat/canvas-enhancements-tier1`
+**Rubric Target**: Sections 2 (Canvas Features - 20 pts) & 3 (Tier 1 Features - 6 pts)
+**Points Goal**: +20 points
+**Duration**: 1 full day (8 hours)
 
-Each PR represents a **working, deployable state** that builds incrementally toward the final MVP. This ensures rollback safety and demonstrates progress at each checkpoint.
+### **PR-8: Canvas Enhancements & Tier 1 Features** 🎨
 
-| PR # | Timing | Title | Description | Deploy Target | Status |
-|------|--------|-------|-------------|---------------|--------|
-| **PR-1** | Hour 4 | `feat: basic project setup and canvas foundation` | Vite+React+Konva+Tailwind+Firebase config | ✅ Dev Deploy | ✅ **COMPLETE** |
-| **PR-2** | Hour 6 | `feat: firebase authentication system` | Email/password auth with context | ✅ Dev Deploy | ✅ **COMPLETE** |
-| **PR-3** | Hour 10 | `feat: single-user rectangle canvas` | Create, select, drag, delete rectangles locally | ✅ Dev Deploy | ✅ **COMPLETE** |
-| **PR-4** | Hour 12 | `feat: real-time collaborative rectangles` | **CRITICAL** - Multi-user shape synchronization | ✅ Dev Deploy | ✅ **COMPLETE** |
-| **PR-5** | Hour 16 | `feat: user presence and cursor tracking` | Live cursors and online user indicators | ✅ Stage Deploy | ✅ **COMPLETE** |
-| **PR-6** | Hour 22 | `feat: essential UI and user experience` | Toolbar, presence list, basic polish | ✅ Stage Deploy | ✅ **COMPLETE** |
-| **PR-7** | Hour 24 | `feat: production deployment and validation` | Final optimizations, error handling | ✅ **Prod Deploy** | ✅ **COMPLETE** |
+#### **8.1 Additional Shape Types** (90 minutes) ⏳
 
-### **Progressive PR Details**
+**Goal**: Expand from rectangles/circles/text to full shape library
 
-#### **PR-1: Foundation Setup** (Hour 4) 🔴 ✅ **COMPLETE**
+- [ ] **8.1.1** Create `src/components/Line.tsx` component (20 min)
+  - Import Konva Line and Transformer
+  - Add selection, drag, delete functionality
+  - Set default stroke width: 2px, color: #333333
+  - Add points array for line coordinates
 
-**Branch**: `feat/foundation-setup`
+- [ ] **8.1.2** Create `src/components/Arrow.tsx` component (20 min)
+  - Use Konva Arrow with arrowhead
+  - Default: 2px stroke, black color, 10px pointer length
+  - Add drag and rotation capabilities
 
-##### **1.1 Project Initialization & Dependencies** (45 minutes) ✅
+- [ ] **8.1.3** Update `src/utils/helpers.ts` with new shape creators (15 min)
+  - `createLineShape(x1, y1, x2, y2, userId)`
+  - `createArrowShape(x1, y1, x2, y2, userId)`
+  - Add shape type validation
 
-- [x] **1.1.1** Create new directory `Gauntlet Project One/collabcanvas-mvp` (2 min)
-- [x] **1.1.2** Initialize Git repository with `git init` (2 min)
-- [x] **1.1.3** Create Vite React TypeScript project: `npm create vite@latest . -- --template react-ts` (5 min)
-- [x] **1.1.4** Install core dependencies: `npm install react-konva konva tailwindcss` (5 min)
-- [x] **1.1.5** Install Firebase SDK: `npm install firebase` (3 min)
-- [x] **1.1.6** Install dev dependencies: `npm install -D @types/react @types/react-dom autoprefixer postcss` (3 min)
-- [x] **1.1.7** Verify installation with `npm run dev` - should show Vite default page (5 min)
-- [x] **1.1.8** Test build process with `npm run build` (5 min)
-- [x] **1.1.9** Create `.gitignore` with node_modules, dist, .env* (3 min)
-- [x] **1.1.10** Initial Git commit: `git add . && git commit -m "Initial Vite + React + TS setup"` (2 min)
-- [x] **1.1.11** Create development branch: `git checkout -b feat/foundation-setup` (1 min)
-- [x] **1.1.12** Update package.json with project name and scripts (3 min)
-- [x] **1.1.13** Document package.json dependencies with inline comments (6 min)
+- [ ] **8.1.4** Update `src/services/types.ts` with new shape types (10 min)
+  - Add `'line' | 'arrow'` to ShapeType union
+  - Add line-specific properties: `points: number[]`
+  - Add arrow-specific properties: `pointerLength: number, pointerWidth: number`
 
-##### **1.2 Tailwind CSS Configuration** (20 minutes) ✅
+- [ ] **8.1.5** Update Toolbar with Line and Arrow buttons (15 min)
+  - Add SVG icons for Line and Arrow
+  - Wire up creation handlers
+  - Position buttons after existing shape buttons
 
-- [x] **1.2.1** Initialize Tailwind: `npx tailwindcss init -p` (3 min)
-- [x] **1.2.2** Configure `tailwind.config.js` with content paths for React files (5 min)
-- [x] **1.2.3** Add Tailwind directives to `src/index.css` (@tailwind base, components, utilities) (3 min)
-- [x] **1.2.4** Create basic CSS reset and canvas-specific styles in `src/index.css` (5 min)
-- [x] **1.2.5** Test Tailwind by adding utility classes to default App component (2 min)
-- [x] **1.2.6** Verify hot reload works with style changes (2 min)
+- [ ] **8.1.6** Update Canvas.tsx to render new shape types (10 min)
+  - Add conditional rendering for Line and Arrow
+  - Ensure proper layering with existing shapes
 
-##### **1.3 TypeScript Configuration** (15 minutes) ✅
-
-- [x] **1.3.1** Review default `tsconfig.json` and add strict mode settings (5 min)
-- [x] **1.3.2** Add path aliases for clean imports: `@/components`, `@/services`, `@/hooks` (5 min)
-- [x] **1.3.3** Update Vite config to recognize path aliases (3 min)
-- [x] **1.3.4** Test TypeScript compilation with `npx tsc --noEmit` (2 min)
-
-##### **1.4 Firebase Project Setup** (35 minutes) ✅
-
-- [x] **1.4.1** Create new Firebase project at console.firebase.google.com (5 min)
-- [x] **1.4.2** Enable Authentication service (email/password provider only) (5 min)
-- [x] **1.4.3** Create Firestore database in test mode (US-central region) (5 min)
-- [x] **1.4.4** Create Realtime Database in test mode (US-central region) (3 min)
-- [x] **1.4.5** Register web app in Firebase project settings (3 min)
-- [x] **1.4.6** Copy Firebase config object to `src/services/firebase.ts` (5 min)
-- [x] **1.4.7** Create environment variables file `.env.local` with Firebase keys (5 min)
-- [x] **1.4.8** Test Firebase connection with basic `initializeApp()` call (4 min)
-
-##### **1.5 Basic App Structure** (25 minutes) ✅
-
-- [x] **1.5.1** Create folder structure: `src/components`, `src/services`, `src/hooks`, `src/auth` (2 min)
-- [x] **1.5.2** Replace default `src/App.tsx` with basic layout structure (8 min)
-- [x] **1.5.3** Create `src/components/Canvas.tsx` with empty Konva Stage (10 min)
-- [x] **1.5.4** Add Canvas component to App with full viewport dimensions (3 min)
-- [x] **1.5.5** Style App layout with Tailwind (flex, full height, basic colors) (2 min)
-
-##### **1.6 Basic Testing Setup** (15 minutes) ✅
-
-- [x] **1.6.1** Install testing dependencies: `npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom` (5 min)
-- [x] **1.6.2** Create `vitest.config.ts` with React testing configuration (5 min)
-- [x] **1.6.3** Create `src/__tests__/App.test.tsx` with basic render test (3 min)
-- [x] **1.6.4** Run test suite with `npm run test` to verify setup (2 min)
-
-##### **1.7 Final Validation & Commit** (15 minutes) ✅
-
-- [x] **1.7.1** Run full development server and verify no console errors (3 min)
-- [x] **1.7.2** Test Canvas component renders Konva stage (empty gray rectangle) (3 min)
-- [x] **1.7.3** Verify Tailwind utilities work (add test classes and check visual changes) (2 min)
-- [x] **1.7.4** Confirm Firebase config loads without errors (check browser console) (2 min)
-- [x] **1.7.5** Run build process: `npm run build` and verify dist/ folder created (3 min)
-- [x] **1.7.6** Final commit: `git add . && git commit -m "Complete foundation setup with Vite+React+Konva+Tailwind+Firebase"` (2 min)
-
-**Success Criteria**: ✅ **COMPLETE**
-
-- [x] Vite dev server runs on localhost:5173 without errors
-- [x] Basic canvas renders (empty Konva stage, 2000x2000px)
-- [x] Tailwind utilities work (test with bg-blue-500, p-4, etc.)
-- [x] Firebase project exists and config loads
-- [x] **Unit Tests**: App component renders without crashing
-- [x] **Integration Test**: Canvas initializes with correct dimensions
-- [x] **Smoke Test**: Build process completes successfully
-
-**Deploy**: Basic static site with empty canvas
+**Files Modified**: 6 new/updated files
+**Success Criteria**: 5+ distinct shape types (Rectangle, Circle, Text, Line, Arrow)
 
 ---
 
-#### **PR-2: Authentication Layer** (Hour 6) 🟡 ✅ **COMPLETE**
+#### **8.2 Color Picker System** (75 minutes) ⏳
 
-**Branch**: `feat/firebase-auth`
+**Goal**: Tier 1 feature (2 points) - Advanced color selection with palettes
 
-##### **2.1 Firebase Authentication Integration** (25 minutes) ✅
+- [ ] **8.2.1** Create `src/components/ColorPaletteModal.tsx` (25 min)
+  - Modal overlay with color grid (5 rows × 4 cols = 20 colors)
+  - Include "Recent Colors" section (last 6 used)
+  - Color picker input for custom colors (#hex)
+  - Apply/Cancel buttons
 
-- [x] **2.1.1** Create `src/services/firebase.ts` with auth configuration (8 min)
-- [x] **2.1.2** Import and initialize Firebase Auth: `getAuth()` (3 min)
-- [x] **2.1.3** Test Firebase Auth connection in browser console (2 min)
-- [x] **2.1.4** Create `src/services/types.ts` with User interface definitions (5 min)
-- [x] **2.1.5** Add auth-related utilities: `signUpWithEmail`, `signInWithEmail`, `signOut` (7 min)
+- [ ] **8.2.2** Create `src/utils/colorPalette.ts` with color definitions (10 min)
+  - Define 20 preset colors (blues, greens, reds, yellows, purples)
+  - Recent colors storage in localStorage
+  - Utility: `addRecentColor(color: string)`
 
-##### **2.2 Authentication Context** (30 minutes) ✅
+- [ ] **8.2.3** Add color picker trigger to Toolbar (10 min)
+  - "Change Color" button with current color preview
+  - Opens ColorPaletteModal on click
+  - Only enabled when shape selected
 
-- [x] **2.2.1** Create `src/auth/AuthContext.tsx` with React Context setup (10 min)
-- [x] **2.2.2** Implement AuthProvider component with state management (8 min)
-- [x] **2.2.3** Add `onAuthStateChanged` listener for persistence (7 min)
-- [x] **2.2.4** Create custom hook `useAuth()` for consuming context (3 min)
-- [x] **2.2.5** Add loading state handling during auth initialization (2 min)
+- [ ] **8.2.4** Integrate color updates with Firestore (15 min)
+  - Update `updateShapeColor()` in useShapes hook
+  - Sync color changes to all users
+  - Add optimistic update for instant feedback
 
-##### **2.3 Login Form Component** (35 minutes) ✅
+- [ ] **8.2.5** Add color to shape creation flow (10 min)
+  - Store last-used color in state
+  - Apply to newly created shapes
+  - Persist preference in localStorage
 
-- [x] **2.3.1** Create `src/auth/LoginForm.tsx` with form structure (10 min)
-- [x] **2.3.2** Add email and password input fields with Tailwind styling (8 min)
-- [x] **2.3.3** Implement form validation (email format, password length) (10 min)
-- [x] **2.3.4** Add login/signup form state switching (toggle between modes) (5 min)
-- [x] **2.3.5** Integrate Firebase auth functions with form submission (2 min)
+- [ ] **8.2.6** Test color picker with multi-user sync (5 min)
+  - Verify color changes sync across users
+  - Test recent colors persistence
 
-##### **2.4 Authentication Guard** (15 minutes) ✅
-
-- [x] **2.4.1** Create `src/auth/AuthGuard.tsx` wrapper component (8 min)
-- [x] **2.4.2** Add conditional rendering: show LoginForm if not authenticated (4 min)
-- [x] **2.4.3** Display loading spinner during auth check (3 min)
-
-##### **2.5 App Integration** (15 minutes) ✅
-
-- [x] **2.5.1** Wrap App component with AuthProvider in `src/main.tsx` (3 min)
-- [x] **2.5.2** Replace App content with AuthGuard wrapper (5 min)
-- [x] **2.5.3** Add basic user display: name/email in top-right corner (5 min)
-- [x] **2.5.4** Add logout button with confirmation (2 min)
-
-##### **2.6 Testing & Validation** (15 minutes) ✅
-
-- [x] **2.6.1** Create `src/__tests__/auth/AuthContext.test.tsx` with basic tests (8 min)
-- [x] **2.6.2** Test signup flow manually: create new account (3 min)
-- [x] **2.6.3** Test login flow manually: sign in with created account (2 min)
-- [x] **2.6.4** Test persistence: refresh browser and verify still logged in (2 min)
-
-##### **2.7 Error Handling & Polish** (15 minutes) ✅
-
-- [x] **2.7.1** Add error state management for login failures (8 min)
-- [x] **2.7.2** Display user-friendly error messages for auth failures (4 min)
-- [x] **2.7.3** Add basic loading indicators during login/signup (3 min)
-
-**Success Criteria**: ✅ **COMPLETE**
-
-- [x] User can sign up with email/password
-- [x] User can log in/out successfully
-- [x] Auth state persists on browser refresh
-- [x] Protected canvas only accessible when authenticated
-- [x] **Unit Tests**: AuthContext provides correct auth state
-- [x] **Unit Tests**: LoginForm validation works correctly
-- [x] **Integration Test**: Complete signup/login/logout flow
-- [x] **Integration Test**: Auth persistence across page refresh
-- [x] **Security Test**: Unauthenticated users see login form only
-
-**Deploy**: Login-protected empty canvas
+**Files Created**: 2 new files
+**Files Modified**: 4 files
+**Success Criteria**: Color picker with 20+ colors, recent colors, multi-user sync
 
 ---
 
-#### **PR-3: Local Canvas Functionality** (Hour 10) 🟡 ✅ **COMPLETE**
+#### **8.3 Undo/Redo Functionality** (105 minutes) ⏳
 
-**Branch**: `feat/local-rectangles`
+**Goal**: Tier 1 feature (2 points) - Full undo/redo with keyboard shortcuts
 
-##### **3.1 Canvas Core Setup** (45 minutes) ✅
+- [ ] **8.3.1** Create `src/hooks/useUndoRedo.ts` hook (35 min)
+  - Action history stack (max 50 actions)
+  - Redo stack for undone actions
+  - Actions: CREATE, UPDATE, DELETE, MOVE, COLOR_CHANGE
+  - Methods: `undo()`, `redo()`, `addAction(action)`
 
-- [x] **3.1.1** Enhance `src/components/Canvas.tsx` with full Konva Stage setup (15 min)
-- [x] **3.1.2** Set canvas dimensions: 2000x2000px with viewport window (8 min)
-- [x] **3.1.3** Implement basic pan functionality with mouse drag (10 min)
-- [x] **3.1.4** Add zoom functionality with mouse wheel (8 min)
-- [x] **3.1.5** Add canvas boundaries to prevent infinite panning (4 min)
+- [ ] **8.3.2** Define action types in `src/types/canvas.types.ts` (10 min)
+  - `CanvasAction` interface with type, timestamp, data
+  - `ActionType` enum
+  - Serializable action data structures
 
-##### **3.2 Rectangle Shape Component** (40 minutes) ✅
+- [ ] **8.3.3** Integrate undo/redo into useShapes hook (25 min)
+  - Capture shape creation in action history
+  - Capture shape updates (position, color, size)
+  - Capture shape deletions
+  - Apply inverse operations for undo
 
-- [x] **3.2.1** Create `src/components/Rectangle.tsx` with Konva Rect (15 min)
-- [x] **3.2.2** Add selection state with visual feedback (border highlight) (10 min)
-- [x] **3.2.3** Implement click-to-select functionality (8 min)
-- [x] **3.2.4** Add drag-to-move with position updates (7 min)
+- [ ] **8.3.4** Add keyboard shortcuts (Cmd/Ctrl+Z, Cmd/Ctrl+Shift+Z) (15 min)
+  - Create `src/hooks/useKeyboardShortcuts.ts`
+  - Listen for keyboard events globally
+  - Handle Cmd+Z (undo), Cmd+Shift+Z (redo)
+  - Prevent default browser behavior
 
-##### **3.3 Canvas State Management** (35 minutes) ✅
+- [ ] **8.3.5** Add undo/redo buttons to Toolbar (10 min)
+  - Undo button (left arrow icon)
+  - Redo button (right arrow icon)
+  - Disable when stacks empty
+  - Show tooltip with keyboard shortcut
 
-- [x] **3.3.1** Create `src/hooks/useCanvas.ts` for local state management (20 min)
-- [x] **3.3.2** Implement shapes array state with add/remove functions (10 min)
-- [x] **3.3.3** Add selected shape state management (3 min)
-- [x] **3.3.4** Create shape ID generation utility (2 min)
+- [ ] **8.3.6** Handle multi-user undo conflicts (10 min)
+  - Only undo user's own actions
+  - Filter action history by userId
+  - Show warning if trying to undo collaborative edits
 
-##### **3.4 Toolbar Component** (25 minutes) ✅
-
-- [x] **3.4.1** Create `src/components/Toolbar.tsx` with basic layout (8 min)
-- [x] **3.4.2** Add "Add Rectangle" button with Tailwind styling (5 min)
-- [x] **3.4.3** Implement shape creation: 100x100px at canvas center (8 min)
-- [x] **3.4.4** Add zoom controls: zoom in/out buttons (4 min)
-
-##### **3.5 Keyboard Interactions** (20 minutes) ✅
-
-- [x] **3.5.1** Add global keyboard event listener to App component (8 min)
-- [x] **3.5.2** Implement Delete key to remove selected shapes (8 min)
-- [x] **3.5.3** Add Escape key to deselect all shapes (4 min)
-
-##### **3.6 Shape Management Logic** (15 minutes) ✅
-
-- [x] **3.6.1** Create `src/utils/helpers.ts` with shape utility functions (8 min)
-- [x] **3.6.2** Add shape positioning helper (center shapes on creation) (4 min)
-- [x] **3.6.3** Add shape validation helper (ensure shapes stay in bounds) (3 min)
-
-##### **3.7 Integration & Testing** (20 minutes) ✅
-
-- [x] **3.7.1** Integrate all components into main App component (8 min)
-- [x] **3.7.2** Create `src/__tests__/components/Rectangle.test.tsx` (6 min)
-- [x] **3.7.3** Create `src/__tests__/components/Toolbar.test.tsx` (6 min)
-- [x] **3.7.4** Create `src/__tests__/hooks/useCanvas.test.ts` (bonus)
-
-**Success Criteria**: ✅ **ALL COMPLETE**
-
-- [x] "Add Rectangle" button creates 100x100px gray rectangles at center
-- [x] Click on rectangle selects it (shows border highlight)
-- [x] Drag selected rectangles to move them around canvas
-- [x] Delete key removes currently selected rectangle
-- [x] Canvas pan/zoom works smoothly with mouse
-- [x] **Unit Tests**: Rectangle component renders with correct properties
-- [x] **Unit Tests**: Toolbar button triggers shape creation
-- [x] **Unit Tests**: useCanvas hook manages state correctly
-- [x] **Integration Test**: Complete create→select→move→delete workflow
-- [x] **Integration Test**: Canvas boundaries prevent shapes from moving outside
-- [x] **User Test**: Keyboard interactions work correctly
-
-**Deploy**: ✅ Fully functional single-user canvas
-
-**Additional Achievements**:
-
-- Implemented real-time drag boundary constraints using `dragBoundFunc`
-- Fixed stage/shape drag conflicts with synchronous ref tracking
-- Centralized constants and utilities in `src/utils/helpers.ts`
-- Independent axis constraints for canvas panning (horizontal/vertical)
+**Files Created**: 3 new files
+**Files Modified**: 3 files
+**Success Criteria**: Undo/redo works with Cmd+Z, handles CREATE/UPDATE/DELETE
 
 ---
 
-#### **PR-4: Real-Time Collaboration** (Hour 12) 🔴 **CRITICAL** ✅ **COMPLETE**
+#### **8.4 Enhanced Keyboard Shortcuts** (60 minutes) ⏳
 
-**Branch**: `feat/realtime-sync`
+**Goal**: Tier 1 feature (2 points) - Professional keyboard navigation
 
-##### **4.1 Data Schema & Types** (20 minutes) ✅
+- [ ] **8.4.1** Extend useKeyboardShortcuts hook (20 min)
+  - Arrow keys: Move selected shape (10px per press)
+  - Shift+Arrow: Move 50px (fast movement)
+  - Cmd/Ctrl+D: Duplicate selected shape
+  - Tab: Select next shape, Shift+Tab: previous
+  - Cmd/Ctrl+A: Select all shapes
 
-- [x] **4.1.1** Define Firestore document structure for canvas shapes (8 min)
-- [x] **4.1.2** Update `src/services/types.ts` with Shape, Canvas interfaces (8 min)
-- [x] **4.1.3** Add shape locking interfaces: `LockedShape`, `LockStatus` (4 min)
+- [ ] **8.4.2** Add keyboard shortcut display panel (15 min)
+  - Update KeyboardHelp.tsx with all shortcuts
+  - Group by category: Selection, Movement, Editing, View
+  - Add "Press ?" to toggle help
 
-##### **4.2 Firestore Service Layer** (50 minutes) ✅
+- [ ] **8.4.3** Implement shape duplication (15 min)
+  - Create `duplicateShape()` in useShapes
+  - Offset duplicate by 20px x/y
+  - Maintain shape properties (color, size)
+  - Sync to Firestore
 
-- [x] **4.2.1** Create `src/services/firestore.ts` with Firestore connection (15 min)
-- [x] **4.2.2** Implement `createShape()` function for adding new shapes (10 min)
-- [x] **4.2.3** Implement `updateShape()` function for position/property changes (10 min)
-- [x] **4.2.4** Implement `deleteShape()` function for shape removal (8 min)
-- [x] **4.2.5** Add `subscribeToCanvas()` for real-time shape updates (7 min)
+- [ ] **8.4.4** Implement select all functionality (10 min)
+  - Track multiple selected shapes in state
+  - Update Canvas selection logic for multi-select
+  - Visual feedback for multi-selection
 
-##### **4.3 Real-Time Shape Synchronization** (60 minutes) ✅
-
-- [x] **4.3.1** Create `src/hooks/useShapes.ts` for shape state management (20 min)
-- [x] **4.3.2** Implement Firestore listener for incoming shape changes (15 min)
-- [x] **4.3.3** Add optimistic updates for local shape operations (15 min)
-- [x] **4.3.4** Handle conflicts between local and remote shape updates (10 min)
-
-##### **4.4 Object Locking System** (45 minutes) ✅
-
-- [x] **4.4.1** Implement shape locking mechanism (first-come-first-serve) (20 min)
-- [x] **4.4.2** Add visual feedback for locked shapes (red border) (10 min)
-- [x] **4.4.3** Implement lock acquisition on shape drag start (8 min)
-- [x] **4.4.4** Add automatic lock release after 30 seconds of inactivity (7 min)
-
-##### **4.5 Canvas Component Integration** (30 minutes) ✅
-
-- [x] **4.5.1** Replace local state with useShapes hook in App component (15 min)
-- [x] **4.5.2** Update Rectangle components to use full Shape interface (8 min)
-- [x] **4.5.3** Modify shape creation to save to Firestore immediately (7 min)
-
-##### **4.6 Error Handling & Offline Support** (25 minutes) ✅
-
-- [x] **4.6.1** Add error state management for Firestore failures (10 min)
-- [x] **4.6.2** Implement loading states in UI (10 min)
-- [x] **4.6.3** Add user-friendly error messages for sync failures (5 min)
-
-##### **4.7 Firestore Security Rules** (15 minutes) ✅
-
-- [x] **4.7.1** Create `firestore.rules` with authenticated user access (10 min)
-- [x] **4.7.2** Configure firebase.json for rules deployment (3 min)
-- [x] **4.7.3** Add deploy scripts to package.json (2 min)
-
-##### **4.8 Critical Multi-User Testing** (45 minutes) ✅
-
-- [x] **4.8.1** Development server running for testing (5 min)
-- [x] **4.8.2** Manual test: Open 2 browser tabs, create shape in tab 1 (5 min)
-- [x] **4.8.3** Verify shape appears in tab 2 within 500ms (5 min)
-- [x] **4.8.4** Test shape movement sync between tabs (5 min)
-- [x] **4.8.5** Test shape deletion sync between tabs (5 min)
-- [x] **4.8.6** Verify shape persistence across browser refresh (10 min)
-- [x] **4.8.7** Validate simultaneous multi-user editing (10 min)
-
-**Success Criteria**: ✅ **ALL CORE CRITERIA VALIDATED!**
-
-- [x] **CRITICAL**: Multiple users see each other's rectangles in real-time ✅
-- [x] **CRITICAL**: Shape changes sync between browsers within 500ms ✅
-- [x] **CRITICAL**: Basic object locking system implemented ✅
-- [x] **CRITICAL**: Shapes persist across browser refresh ✅
-- [x] **Manual Test**: Multi-tab rectangle synchronization validated (2+ tabs) ✅
-- [x] **Manual Test**: Shape persistence after page refresh validated ✅
-- [x] **Manual Test**: Create shape in tab 1, appears in tab 2 <500ms ✅
-- [x] **Manual Test**: Shape movement sync validated ✅
-- [x] **Manual Test**: Shape deletion sync validated ✅
-- [ ] **Unit Tests**: Firestore service tests (deferred to PR-6)
-- [ ] **Unit Tests**: useShapes hook tests (deferred to PR-6)
-- [ ] **Conflict Test**: Simultaneous drag locking (basic system in place)
-- [ ] **Network Test**: Offline behavior (basic error handling in place)
-- [ ] **Load Test**: Performance with 20+ shapes (works in manual testing)
-
-**Deploy**: ✅ **MILESTONE COMPLETE** - Multi-user collaborative canvas WORKING!
-
-**Additional Achievements**:
-
-- Created comprehensive Firestore service with 450+ lines of code
-- Implemented useShapes hook with real-time synchronization
-- Added optimistic updates for instant UI feedback
-- Firestore security rules protecting all data operations
-- Loading and error states for better user experience
-- Shape locking system with 30-second timeout
-- Real-time onSnapshot listeners for instant updates
-- Successfully tested with 2+ concurrent users
-- Validated <500ms sync latency in real-world testing
-
-🚨 **FALLBACK PLAN**: If real-time sync fails completely:
-
-1. Implement 2-second polling instead of real-time listeners (1 hour)
-2. Deploy single-user version with "Multiplayer coming soon" message
+**Files Modified**: 4 files
+**Success Criteria**: 10+ keyboard shortcuts working, help panel shows all
 
 ---
 
-#### **PR-5: User Presence** (Hour 16) 🔧 **IN PROGRESS**
+#### **8.5 Multi-Select & Transform Operations** (90 minutes) ⏳
 
-**Branch**: `feat/user-presence`
+**Goal**: Advanced canvas functionality for professional use
 
-##### **5.1 Realtime Database Setup** (25 minutes) ✅
+- [ ] **8.5.1** Implement shift-click multi-select (25 min)
+  - Update Canvas onClick handler
+  - Track selectedShapeIds array (not single ID)
+  - Visual feedback: all selected shapes highlighted
 
-- [x] **5.1.1** Create `src/services/realtime.ts` with Realtime Database connection (10 min)
-- [x] **5.1.2** Set up user presence data structure: `/sessions/{canvasId}/{userId}` (8 min)
-- [x] **5.1.3** Test Realtime Database connection and write permissions (7 min)
+- [ ] **8.5.2** Add selection rectangle (drag-to-select) (30 min)
+  - Detect mouse drag on empty canvas
+  - Draw selection rectangle during drag
+  - Select all shapes within rectangle bounds
+  - Clear selection on click outside
 
-##### **5.2 User Color System** (20 minutes) ✅
+- [ ] **8.5.3** Implement group move for multi-selection (20 min)
+  - Move all selected shapes together
+  - Maintain relative positions
+  - Update Firestore for all shapes
 
-- [x] **5.2.1** Create `src/utils/colors.ts` with user color generation (10 min)
-- [x] **5.2.2** Generate consistent colors from user ID hash (5 min)
-- [x] **5.2.3** Create palette of 12 distinct colors for users (5 min)
+- [ ] **8.5.4** Add resize handles for shapes (15 min)
+  - Use Konva Transformer for resize
+  - 8 resize handles (corners + sides)
+  - Maintain aspect ratio with Shift key
+  - Sync size changes to Firestore
 
-##### **5.3 Cursor Tracking** (40 minutes) ✅
-
-- [x] **5.3.1** Add mouse movement listener to Canvas component (10 min)
-- [x] **5.3.2** Throttle cursor position updates (every 100ms) (8 min)
-- [x] **5.3.3** Send cursor coordinates to Realtime Database (10 min)
-- [x] **5.3.4** Create `src/components/Cursor.tsx` for other users' cursors (12 min)
-
-##### **5.4 Presence Management** (35 minutes) ✅
-
-- [x] **5.4.1** Create `src/hooks/usePresence.ts` for presence state (15 min)
-- [x] **5.4.2** Track user online/offline status with heartbeat (10 min)
-- [x] **5.4.3** Handle user join/leave events (8 min)
-- [x] **5.4.4** Implement automatic cleanup on disconnect (2 min)
-
-##### **5.5 User Presence UI** (30 minutes) ✅
-
-- [x] **5.5.1** Create `src/components/UserPresence.tsx` component (15 min)
-- [x] **5.5.2** Display online users list with names and colors (10 min)
-- [x] **5.5.3** Show user count and activity status (5 min)
-
-##### **5.6 Cursor Display Integration** (25 minutes) ✅
-
-- [x] **5.6.1** Subscribe to other users' cursor positions (10 min)
-- [x] **5.6.2** Render other users' cursors on canvas (10 min)
-- [x] **5.6.3** Add user name labels next to cursors (5 min)
-
-##### **5.7 Testing & Performance** (25 minutes) ✅
-
-- [x] **5.7.1** Test multi-tab cursor movement synchronization (10 min)
-- [x] **5.7.2** Verify user list updates when users join/leave (5 min)
-- [x] **5.7.3** Test cursor tracking performance with 3+ users (5 min)
-- [ ] **5.7.4** Create basic presence system tests (deferred to PR-6)
-
-**Success Criteria**: ✅ **ALL CORE CRITERIA VALIDATED!**
-
-- [x] Live cursor tracking between users with <200ms latency ✅
-- [x] Online user list with colors and names ✅
-- [x] User names display next to their cursors ✅
-- [x] Automatic cleanup when users disconnect ✅
-- [ ] **Unit Tests**: Cursor component renders at correct coordinates (deferred to PR-6)
-- [ ] **Unit Tests**: UserPresence component displays active users (deferred to PR-6)
-- [x] **Integration Test**: Multi-tab cursor movement sync ✅
-- [x] **Integration Test**: User join/leave events update presence list ✅
-- [x] **Real-time Test**: Cursor position updates within 200ms ✅
-- [x] **Cleanup Test**: User disconnect removes cursor and updates list ✅
-
-**Deploy**: ✅ Full collaborative experience with presence awareness - VALIDATED!
-
-**Implementation Complete**:
-
-- Created comprehensive Realtime Database service (realtime.ts) with 290+ lines
-- Implemented user color system with 12 distinct colors and utilities
-- Built usePresence hook with presence tracking and cursor updates
-- Created Cursor and UserPresence components
-- Integrated mouse tracking into Canvas with throttling
-- Added Realtime Database security rules (database.rules.json)
-- Fixed critical bug: Changed `set()` to `update()` for partial updates (preserves isOnline status)
-
-**Bug Fix Applied**: Users were appearing offline because `set()` was replacing entire presence object. Changed to `update()` for partial updates to preserve all fields including `isOnline`, `displayName`, and `cursorColor`.
+**Files Modified**: 3 files (Canvas, useShapes, Rectangle/Circle/Text)
+**Success Criteria**: Multi-select with Shift+click and drag-to-select, group operations
 
 ---
 
-#### **PR-6: Essential UI Polish** (Hour 22) 🟢 ✅ **COMPLETE**
+#### **8.6 Export Functionality** (75 minutes) ⏳
 
-**Branch**: `feat/ui-polish`
+**Goal**: Tier 1 feature (2 points) - Export canvas as PNG/SVG
 
-##### **6.1 Toolbar Enhancement** (30 minutes) ✅
+- [ ] **8.6.1** Create `src/utils/export.ts` utilities (25 min)
+  - `exportCanvasAsPNG(stage: Konva.Stage, filename: string)`
+  - `exportCanvasAsSVG(stage: Konva.Stage, filename: string)`
+  - `exportSelectedShapesAsPNG(shapes: Shape[], filename: string)`
+  - Handle canvas-to-image conversion
 
-- [x] **6.1.1** Redesign Toolbar with modern Tailwind styling (15 min)
-- [x] **6.1.2** Add icons to buttons (custom SVG icons for all shapes) (8 min)
-- [x] **6.1.3** Implement hover states and button feedback (7 min)
+- [ ] **8.6.2** Create `src/components/ExportModal.tsx` (20 min)
+  - Export options: Full Canvas, Selected Shapes Only
+  - Format selection: PNG, SVG
+  - Filename input with default
+  - Quality settings for PNG (low/medium/high)
+  - Download button
 
-##### **6.2 Loading & Status Indicators** (25 minutes) ✅
+- [ ] **8.6.3** Add Export button to Toolbar (10 min)
+  - Position in top-right corner
+  - Download icon (SVG)
+  - Opens ExportModal on click
 
-- [x] **6.2.1** Add loading spinner for shape creation operations (8 min)
-- [x] **6.2.2** Show connection status indicator (integrated into Online Users panel) (10 min)
-- [x] **6.2.3** Add loading states for authentication (7 min)
+- [ ] **8.6.4** Implement PNG export using toDataURL (10 min)
+  - Use Konva stage.toDataURL() method
+  - Create blob and trigger download
+  - Handle errors (canvas too large, etc.)
 
-##### **6.3 Error Message System** (20 minutes) ✅
+- [ ] **8.6.5** Implement SVG export (optional) (10 min)
+  - Convert Konva shapes to SVG elements
+  - Generate SVG file with proper viewBox
+  - Trigger download with blob
 
-- [x] **6.3.1** Create toast notification system for errors (10 min)
-- [x] **6.3.2** Add user-friendly messages for common failures (8 min)
-- [x] **6.3.3** Style error messages with appropriate colors (2 min)
-
-##### **6.4 User Experience Improvements** (25 minutes) ✅
-
-- [x] **6.4.1** Add helpful onboarding text with EmptyState component (5 min)
-- [x] **6.4.2** Improve visual feedback for selected shapes with shadows and glows (8 min)
-- [x] **6.4.3** Add interactive keyboard shortcuts panel (7 min)
-- [x] **6.4.4** Implement EmptyState component for onboarding (5 min)
-
-##### **6.5 Responsive Layout** (15 minutes) ✅
-
-- [x] **6.5.1** Ensure toolbar adapts to different screen sizes (8 min)
-- [x] **6.5.2** Add MobileWarning component for mobile/tablet detection (7 min)
-
-##### **6.6 Visual Polish** (15 minutes) ✅
-
-- [x] **6.6.1** Improve overall color scheme with Tailwind brand colors (8 min)
-- [x] **6.6.2** Add animations: button-lift, pulse-ring, icon-scale, fade-in (4 min)
-- [x] **6.6.3** Clean up spacing, typography, and component styling (3 min)
-
-##### **6.7 Testing & Validation** (10 minutes) ✅
-
-- [x] **6.7.1** Test UI across different browser sizes (5 min)
-- [x] **6.7.2** Verify loading states work correctly (3 min)
-- [x] **6.7.3** Test error scenarios and offline detection (2 min)
-
-**Success Criteria**: ✅ **ALL COMPLETE**
-
-- [x] Clean, intuitive toolbar with proper visual hierarchy ✅
-- [x] Loading states appear during shape creation/sync operations ✅
-- [x] Network errors show user-friendly messages ✅
-- [x] Responsive layout works on desktop screens (1024px+) ✅
-- [x] **Manual Test**: Toolbar components render correctly ✅
-- [x] **Manual Test**: Loading indicators show during operations ✅
-- [x] **Manual Test**: Network errors display appropriate messages ✅
-- [x] **Manual Test**: Keyboard navigation works for toolbar ✅
-- [x] **Manual Test**: Layout remains stable across screen sizes ✅
-
-**Deploy**: ✅ Production-ready user interface with enhanced features
-
-**Bonus Features Implemented**:
-
-- Multiple shape types (Rectangle, Circle, Text) with themed colors
-- Inline text editing with Konva Transformer
-- Shape color picker via right-click context menu (12 colors)
-- User color customization (8-color palette, no duplicates)
-- Inline user display name editing
-- Clear Canvas button with Ctrl+Shift+Delete
-- Offline user detection with 30-second grace period
-- Presence heartbeat system (5-second intervals)
-- Collapsible Online Users panel
-- Interactive keyboard shortcuts with action buttons
+**Files Created**: 2 new files
+**Files Modified**: 2 files
+**Success Criteria**: Export full canvas and selected shapes as PNG
 
 ---
 
-#### **PR-7: Production Ready** (Hour 24) 🟢 ✅ **COMPLETE**
+#### **8.7 Text Formatting Enhancements** (45 minutes) ⏳
 
-**Branch**: `feat/production-deploy`
+**Goal**: Professional text editing capabilities
 
-##### **7.1 Build Optimization** (20 minutes) ✅
+- [ ] **8.7.1** Add text formatting toolbar (20 min)
+  - Appears when text shape selected
+  - Font size dropdown (12, 14, 16, 18, 24, 32, 48)
+  - Bold, Italic buttons
+  - Text alignment (left, center, right)
 
-- [x] **7.1.1** Configure Vite for production build optimization (8 min)
-- [x] **7.1.2** Add code splitting for better loading performance (5 min)
-- [x] **7.1.3** Optimize bundle size (remove console.logs, minify) (7 min)
+- [ ] **8.7.2** Update Text.tsx component with formatting (15 min)
+  - Apply fontStyle: 'bold', 'italic'
+  - Apply fontSize from state
+  - Apply align property
+  - Sync formatting changes to Firestore
 
-##### **7.2 Error Boundaries & Resilience** (25 minutes) ✅
+- [ ] **8.7.3** Add font family selector (10 min)
+  - Dropdown with 5 fonts: Arial, Helvetica, Courier, Georgia, Verdana
+  - Apply to selected text shape
+  - Persist in shape data
 
-- [x] **7.2.1** Create React error boundary components (15 min)
-- [x] **7.2.2** Add fallback UI for crashed components (8 min)
-- [x] **7.2.3** Implement graceful error handling (2 min)
-
-##### **7.3 Firebase Hosting Setup** (20 minutes) ✅
-
-- [x] **7.3.1** Firebase CLI already available via node_modules (3 min)
-- [x] **7.3.2** Firebase Hosting already initialized (5 min)
-- [x] **7.3.3** `firebase.json` configured for SPA routing (7 min)
-- [x] **7.3.4** Build directory set to `dist` (5 min)
-
-##### **7.4 Production Deployment** (20 minutes) ✅
-
-- [x] **7.4.1** Create production build with optimizations (5 min)
-- [x] **7.4.2** Deploy to Firebase Hosting successfully (8 min)
-- [x] **7.4.3** Deployed app loads at production URL (5 min)
-- [x] **7.4.4** Firebase services configured for production (2 min)
-
-##### **7.5 Multi-User Production Testing** (30 minutes) ✅
-
-- [x] **7.5.1** Open production URL and verify deployment (5 min)
-- [x] **7.5.2** Confirm all PR-6 features visible in production (15 min)
-- [x] **7.5.3** Verify hard refresh resolves caching issues (5 min)
-- [x] **7.5.4** Test authentication flows in production (5 min)
-
-##### **7.6 Performance Validation** (15 minutes) ✅
-
-- [x] **7.6.1** Production bundle optimized with code splitting (5 min)
-- [x] **7.6.2** Bundle size: ~335 KB gzipped (5 min)
-- [x] **7.6.3** All features operational in production (5 min)
-
-##### **7.7 Final Documentation** (10 minutes) ✅
-
-- [x] **7.7.1** Document known limitations in README (5 min)
-- [x] **7.7.2** Add usage instructions in README (3 min)
-- [x] **7.7.3** Create comprehensive DEPLOYMENT.md (2 min)
-
-**Success Criteria**: ✅ **ALL DEPLOYMENT CRITERIA MET!**
-
-- [x] Firebase Hosting deployment successful ✅
-- [x] Build optimization with code splitting (React, Firebase, Konva vendors) ✅
-- [x] Error boundaries prevent app crashes ✅
-- [x] Production app fully functional with all features ✅
-- [x] **Documentation**: README, DEPLOYMENT.md, PR7-COMPLETE.md ✅
-- [x] **Production Test**: Deployed and verified working ✅
-- [x] **Performance Test**: Bundle optimized (~335 KB gzipped) ✅
-- [x] **Mobile Test**: Mobile warning implemented ✅
-- [x] **Error Test**: Error boundaries working ✅
-- [x] **Security Test**: Firebase rules deployed ✅
-- [x] **Final Validation**: MVP deployed, accessible, and operational ✅
-
-**Deploy**: ✅ **COMPLETE** - Public production deployment live!
-
-**🎯 SUCCESS METRICS ACHIEVED**:
-
-- ✅ Production URL: **<https://collabcanvas-mvp-53120.web.app>**
-- ✅ Application deployed and accessible
-- ✅ All features available in production
-- ✅ Build optimized with code splitting (React, Firebase, Konva)
-- ✅ Error boundaries protecting application
-- ✅ Production tested and verified working
-- ✅ Bundle size optimized: ~335 KB gzipped
-- ✅ Documentation complete (README, DEPLOYMENT, PR7-COMPLETE)
-
-### **PR Safety & Rollback Strategy**
-
-#### **Merge Requirements**
-
-- [ ] **All checkboxes completed** for that PR milestone
-- [ ] **Deploy works** without errors
-- [ ] **Previous functionality** still works (no regressions)
-- [ ] **Manual testing** passes for 2+ users
-
-#### **Rollback Plan**
-
-If any PR fails critical requirements:
-
-1. **Immediately revert** to previous working PR
-2. **Deploy previous version** to maintain working state
-3. **Debug offline** or implement fallback
-4. **Never leave main branch broken**
-
-#### **Branch Protection**
-
-- `main` branch always represents **working deployed state**
-- Each PR must pass basic smoke tests
-- **Hour 16 PR-4** is the critical milestone - if this fails, implement fallback plan
+**Files Modified**: 2 files (Text.tsx, Toolbar.tsx)
+**Success Criteria**: Text with font size, bold, italic, alignment options
 
 ---
 
-## 🧪 **COMPREHENSIVE TESTING STRATEGY**
+#### **8.8 Performance Optimization (Phase 2)** (60 minutes) ⏳
 
-### **Testing Philosophy for 24-Hour Sprint**
+**Goal**: Ensure smooth performance with 300+ objects
 
-**"Test the critical path ruthlessly, everything else strategically"**
+- [ ] **8.8.1** Implement viewport culling (25 min)
+  - Create `src/utils/performance.ts`
+  - Function: `getVisibleShapes(allShapes, viewport)`
+  - Only render shapes within visible viewport + buffer
+  - Update Canvas rendering logic
 
-- **80% effort** on real-time collaboration testing (PR-4)
-- **15% effort** on authentication and core canvas functionality
-- **5% effort** on UI/UX and edge cases
+- [ ] **8.8.2** Optimize Firestore listeners (15 min)
+  - Batch shape updates (debounce 100ms)
+  - Use onSnapshot with query limits if needed
+  - Optimize security rules for read performance
 
-### **Testing Tools & Setup**
+- [ ] **8.8.3** Add shape count indicator (10 min)
+  - Display in Toolbar: "Shapes: 125/500"
+  - Warning when approaching 300 shapes
 
-```bash
-# Test Dependencies (add to package.json)
-npm install --save-dev @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest jsdom
-```
+- [ ] **8.8.4** Test with 300+ shapes (10 min)
+  - Create test script to generate shapes
+  - Verify 60 FPS maintained
+  - Test with 4-5 concurrent users
 
-**Test Configuration**:
-
-- **Unit Tests**: Vitest + React Testing Library
-- **Integration Tests**: Multi-tab browser testing
-- **E2E Tests**: Manual testing with 2-3 browser tabs
-- **Performance Tests**: Chrome DevTools + manual validation
-
-### **Test Execution Schedule**
-
-| Hour | Test Focus | Priority | Time Budget |
-|------|------------|----------|-------------|
-| 4 | Foundation tests | 🟢 Low | 10 min |
-| 6 | Authentication tests | 🟡 Medium | 15 min |
-| 10 | Canvas interaction tests | 🟡 Medium | 20 min |
-| **16** | **Real-time sync tests** | 🔴 **CRITICAL** | **45 min** |
-| 20 | Presence tests | 🟡 Medium | 15 min |
-| 22 | UI/UX tests | 🟢 Low | 10 min |
-| 24 | End-to-end validation | 🔴 Critical | 30 min |
-
-### **Critical Test Scenarios (Must Pass)**
-
-#### **🔴 CRITICAL: Multi-User Real-Time Sync** (PR-4)
-
-```javascript
-// Example critical test
-describe('Real-time Collaboration', () => {
-  test('shapes sync between multiple users within 500ms', async () => {
-    // Open 2 browser tabs
-    // Create rectangle in tab 1
-    // Verify appears in tab 2 within 500ms
-    // Move rectangle in tab 2
-    // Verify movement in tab 1 within 500ms
-  });
-
-  test('object locking prevents simultaneous edits', async () => {
-    // Attempt to drag same rectangle from both tabs
-    // Verify only first user can drag (lock acquired)
-    // Verify second user sees lock indicator
-  });
-});
-```
-
-#### **🟡 IMPORTANT: Authentication Flow** (PR-2)
-
-```javascript
-describe('Authentication', () => {
-  test('user can signup, login, and maintain session', async () => {
-    // Complete signup flow
-    // Verify redirect to canvas
-    // Refresh browser
-    // Verify still authenticated
-  });
-});
-```
-
-#### **🟡 IMPORTANT: Canvas Operations** (PR-3)
-
-```javascript
-describe('Canvas Operations', () => {
-  test('complete rectangle lifecycle', async () => {
-    // Create rectangle
-    // Select rectangle
-    // Move rectangle
-    // Delete rectangle
-    // Verify each step works
-  });
-});
-```
-
-### **Test Data & Scenarios**
-
-#### **Performance Test Data**
-
-- **Users**: 3 concurrent users (Chrome tabs)
-- **Shapes**: 20 rectangles maximum
-- **Operations**: Create, move, delete every 5 seconds
-- **Duration**: 5-minute stress test
-
-#### **Network Test Scenarios**
-
-- **Connection Loss**: Disconnect/reconnect WiFi
-- **Slow Network**: Throttle to 3G speeds
-- **Firestore Limits**: Test rate limiting behavior
-
-### **Test Failure Protocols**
-
-#### **PR-4 Critical Test Failures** (Hour 16)
-
-1. **Immediate**: Stop development, assess issue
-2. **15 min**: Attempt quick fix
-3. **30 min**: Implement 2-second polling fallback
-4. **45 min**: Deploy single-user version with "multiplayer coming soon"
-
-#### **Other Test Failures**
-
-- **Continue development** with documented known issues
-- **Fix in subsequent PR** if time permits
-- **Document workarounds** for users
-
-### **Manual Testing Checklist**
-
-#### **Multi-Tab Testing Setup**
-
-1. Open 3 Chrome tabs with same deployed URL
-2. Login with 3 different test accounts
-3. Execute collaboration scenarios
-4. Verify real-time synchronization
-
-#### **Essential Manual Tests**
-
-- [ ] **Signup Flow**: New user can create account
-- [ ] **Shape Creation**: Button creates rectangle at center
-- [ ] **Shape Selection**: Click selects rectangle (visual feedback)
-- [ ] **Shape Movement**: Drag moves rectangle smoothly
-- [ ] **Shape Deletion**: Delete key removes selected rectangle
-- [ ] **Multi-User Sync**: Changes appear in other tabs <500ms
-- [ ] **Cursor Tracking**: Other users' cursors visible and moving
-- [ ] **User Presence**: Online users list updates correctly
-- [ ] **Persistence**: Shapes remain after browser refresh
-- [ ] **Error Handling**: Network issues show appropriate messages
-
-### **Test Automation vs Manual**
-
-#### **Automated Tests (60% coverage)**
-
-- Unit tests for components and hooks
-- Service layer functionality tests
-- Authentication flow tests
-- Basic integration tests
-
-#### **Manual Tests (40% coverage)**
-
-- Multi-tab real-time synchronization
-- User experience validation
-- Performance under load
-- Error scenario testing
-- Production deployment validation
-
-### **Testing Time Management**
-
-**Total Testing Time**: 2.5 hours over 24-hour sprint
-
-- **Writing Tests**: 1.5 hours (during development)
-- **Running Tests**: 0.5 hours (at checkpoints)
-- **Manual Validation**: 0.5 hours (PR validations)
-
-**Efficient Testing Approach**:
-
-- Write tests **during** development, not after
-- Test **critical path first** (real-time sync)
-- **Manual test** while development server runs
-- **Automate** repetitive validation tasks
+**Files Created**: 1 new file
+**Files Modified**: 3 files
+**Success Criteria**: 300+ objects at 60 FPS, viewport culling working
 
 ---
 
-## ⏰ **HOUR-BY-HOUR EXECUTION PLAN**
+#### **8.9 Phase 2 Integration & Testing** (90 minutes) ⏳
 
-### **PHASE 1: PROJECT SETUP (Hours 0-4)** 🔴 **HIGH RISK**
+**Goal**: Ensure all Phase 2 features work together
 
-#### **Hour 0-1: Development Environment**
+- [ ] **8.9.1** Integration testing: All shape types (15 min)
+  - Create, move, delete each shape type
+  - Verify multi-user sync for all shapes
+  - Test color picker on all shape types
 
-- [ ] **0.1** Install Node.js, npm, Git (10 min)
-- [ ] **0.2** Set up VS Code with minimal extensions (10 min)
-- [ ] **0.3** Initialize Git repository (10 min)
-- [ ] **0.4** Create Vite project with React + TypeScript (10 min)
-- [ ] **0.5** Install dependencies: Tailwind CSS, Konva.js, react-konva (20 min)
+- [ ] **8.9.2** Integration testing: Undo/redo (15 min)
+  - Test undo/redo with CREATE/UPDATE/DELETE actions
+  - Verify multi-user undo isolation
+  - Test redo after multiple undos
 
-#### **Hour 1-3: Firebase Project Setup** ⚡ **CRITICAL PATH**
+- [ ] **8.9.3** Integration testing: Keyboard shortcuts (10 min)
+  - Test all 10+ keyboard shortcuts
+  - Verify no conflicts with browser shortcuts
+  - Test help panel toggle (? key)
 
-- [ ] **1.1** Create Firebase project in console (20 min)
-- [ ] **1.2** Enable Authentication (email/password only) (30 min)
-- [ ] **1.3** Create Firestore database with basic security rules (40 min)
-- [ ] **1.4** Create Realtime Database for cursors (30 min)
-- [ ] **1.5** Install Firebase SDK and configure (20 min)
+- [ ] **8.9.4** Integration testing: Multi-select (15 min)
+  - Shift-click multiple shapes
+  - Drag-to-select with rectangle
+  - Group move selected shapes
+  - Test with 10+ shapes selected
 
-#### **Hour 3-4: Basic App Structure**
+- [ ] **8.9.5** Integration testing: Export functionality (10 min)
+  - Export full canvas as PNG
+  - Export selected shapes as PNG
+  - Verify image quality and accuracy
 
-- [ ] **3.1** Create main App component (15 min)
-- [ ] **3.2** Set up basic layout with Tailwind (10 min)
-- [ ] **3.3** Create placeholder components (Canvas, Auth, Toolbar) (20 min)
-- [ ] **3.4** Test basic React + Vite setup (15 min)
+- [ ] **8.9.6** Multi-user testing (4-5 users) (15 min)
+  - Open 5 browser tabs with different users
+  - Test concurrent shape creation
+  - Verify color picker sync
+  - Test undo/redo isolation
 
-**🎯 CHECKPOINT 1** (Hour 4): ✅ Basic React + Vite + Konva setup working
-**📋 DELIVERABLE**: Merge **PR-1** - Foundation Setup
+- [ ] **8.9.7** Performance testing (10 min)
+  - Create 300+ shapes
+  - Verify 60 FPS maintained
+  - Test with 5 concurrent users
 
----
-
-### **PHASE 2: AUTHENTICATION (Hours 4-6)** 🟡 **MEDIUM RISK**
-
-#### **Hour 4-5: Firebase Authentication**
-
-- [ ] **4.1** Create authentication context (20 min)
-- [ ] **4.2** Implement email/password login form (30 min)
-- [ ] **4.3** Add basic signup functionality (10 min)
-
-#### **Hour 5-6: User State Management**
-
-- [ ] **5.1** Handle authentication state changes (30 min)
-- [ ] **5.2** Create basic user profile display (15 min)
-- [ ] **5.3** Implement logout functionality (15 min)
-
-**🔄 FALLBACK**: Anonymous users if Firebase Auth blocks progress
-
-**🎯 CHECKPOINT 2** (Hour 6): ✅ Firebase Auth working (email login minimum)
-**📋 DELIVERABLE**: Merge **PR-2** - Authentication Layer
+**Success Criteria**: All Phase 2 features working together, 300+ shapes at 60 FPS
 
 ---
 
-### **PHASE 3: BASIC CANVAS (Hours 6-10)** 🟡 **MEDIUM RISK** ✅ **COMPLETE**
+### **Phase 2 Success Criteria** ✅
 
-#### **Hour 6-7.5: Konva Canvas Setup** ✅
+**Rubric Alignment - Section 2 (Canvas Features - 20 points)**:
 
-- [x] **6.1** Create Canvas component with Konva Stage (30 min)
-- [x] **6.2** Implement basic pan and zoom (30 min)
-- [x] **6.3** Set canvas boundaries (2000x2000px) (30 min)
+- [ ] 3+ shape types beyond rectangles (Line, Arrow) ✓
+- [ ] Text with formatting (size, bold, italic, alignment) ✓
+- [ ] Multi-select (shift-click and drag-to-select) ✓
+- [ ] Transform operations (move, resize, rotate) ✓
+- [ ] Smooth pan/zoom ✓ (already implemented)
+- [ ] Export functionality (PNG) ✓
+- [ ] Performance: 300+ objects at 60 FPS ✓
+- [ ] Supports 4-5 concurrent users ✓
 
-#### **Hour 7.5-9.5: Rectangle Shape System** ✅
+**Rubric Alignment - Section 3 Tier 1 (6 points)**:
 
-- [x] **7.1** Create basic Rectangle component (40 min)
-- [x] **7.2** Implement click to select (30 min)
-- [x] **7.3** Add drag to move functionality (40 min)
-- [x] **7.4** Implement delete with Delete key (10 min)
+- [ ] Color picker with recent colors and saved palettes (2 pts) ✓
+- [ ] Undo/redo with keyboard shortcuts (Cmd+Z/Cmd+Shift+Z) (2 pts) ✓
+- [ ] Keyboard shortcuts for common operations (Delete, Duplicate, Arrows) (2 pts) ✓
 
-#### **Hour 9.5-10: Shape Management** ✅
-
-- [x] **9.1** Create "Add Rectangle" button (15 min)
-- [x] **9.2** Add shapes to canvas center (100x100px default) (15 min)
-
-**🎯 CHECKPOINT 3** (Hour 10): ✅ **COMPLETE** - User can create, select, drag, and delete rectangles with keyboard shortcuts
-**📋 DELIVERABLE**: ✅ **MERGED** - **PR-3** - Local Canvas Functionality
-
----
-
-### **PHASE 4: REAL-TIME SYNC (Hours 10-12)** 🔴 **CRITICAL PATH** ✅ **COMPLETE**
-
-#### **Hour 10-11: Firestore Integration** ✅
-
-- [x] **10.1** Design minimal canvas data schema (20 min)
-- [x] **10.2** Implement shape save to Firestore (35 min)
-- [x] **10.3** Implement real-time shape loading (35 min)
-
-#### **Hour 11-12: Real-time Shape Synchronization** ✅
-
-- [x] **11.1** Set up Firestore real-time listeners (60 min)
-- [x] **11.2** Implement shape update synchronization (60 min)
-- [x] **11.3** Handle shape creation/deletion sync (30 min)
-- [x] **11.4** Implement basic object locking system (30 min)
-- [x] **11.5** Add error handling and loading states (20 min)
-- [x] **11.6** Create Firestore security rules (15 min)
-- [x] **11.7** Multi-user testing and validation (30 min)
-
-**🔄 FALLBACKS**: Not needed - real-time sync working perfectly!
-
-**🎯 CHECKPOINT 4** (Hour 12): ✅ **MILESTONE ACHIEVED** - Multiple users collaborating in real-time with <500ms sync!
-**📋 DELIVERABLE**: ✅ **COMPLETE** - **PR-4** - Real-Time Collaboration (**CRITICAL MILESTONE PASSED!**)
+**Target Score**: 18-20 points (Excellent tier)
+**Deployment**: Stage environment for Phase 3 work
 
 ---
 
-### **PHASE 5: USER PRESENCE (Hours 16-20)** ✅ **COMPLETE**
+## 🤖 **PHASE 3: AI CANVAS AGENT** (October 16)
 
-#### **Hour 16-17.5: Cursor Tracking** ✅
+**Branch**: `PR9 feat/ai-canvas-agent`
+**Rubric Target**: Section 4 (AI Canvas Agent - 25 points - HIGHEST VALUE)
+**Points Goal**: +25 points
+**Duration**: 1 full day (8 hours)
 
-- [x] **16.1** Set up Realtime Database connection (20 min)
-- [x] **16.2** Implement basic cursor position tracking (40 min)
-- [x] **16.3** Display other users' cursors (30 min)
+### **PR-9: AI Canvas Agent Implementation** 🧠
 
-#### **Hour 17.5-19.5: Presence System** ✅
+#### **9.1 AI Service Setup & Configuration - Tool Calling Approach** (45 minutes) ⏳
 
-- [x] **17.1** Track online/offline user status (40 min)
-- [x] **17.2** Assign basic colors to users (30 min)
-- [x] **17.3** Create minimal user presence list (30 min)
-- [x] **17.4** Show user names with cursors (20 min)
+**Goal**: Integrate OpenAI SDK with Tool Calling for structured canvas commands
 
-#### **Hour 19.5-20: Cleanup & Testing** ✅
+**Hybrid Strategy**: Phase 3 uses direct OpenAI SDK (fast/simple), Phase 5 adds LangSmith (observability)
 
-- [x] **19.1** Handle user disconnect cleanup (30 min)
-- [x] **19.2** Fixed critical bug: `set()` → `update()` for partial updates (15 min)
-- [x] **19.3** Multi-tab cursor validation after bug fix (10 min)
-- [x] **19.4** User presence list testing - ALL TESTS PASSED! (5 min)
+- [ ] **9.1.1** Obtain OpenAI API key and configure environment (10 min)
+  - Create OpenAI account at platform.openai.com
+  - Generate API key with billing enabled ($15-20 budget)
+  - Add to `.env.local`: `VITE_OPENAI_API_KEY=sk-...`
+  - Choose model: `gpt-4o-mini` (speed + cost) or `gpt-4-turbo` (complex commands)
 
-**🎯 CHECKPOINT 5** (Hour 20): ✅ **MILESTONE ACHIEVED** - Multi-user cursor tracking and presence WORKING!
-**📋 DELIVERABLE**: ✅ **COMPLETE** - **PR-5** - User Presence & Cursor Tracking (**SECOND MAJOR MILESTONE!**)
+- [ ] **9.1.2** Install OpenAI SDK (5 min)
 
----
+  ```bash
+  npm install openai@latest
+  ```
 
-### **PHASE 6: ESSENTIAL UI (Hours 20-22)** 🟢 **LOW RISK**
+  - Verify installation: check package.json
+  - Test import in a component
 
-#### **Hour 20-21: Minimal UI Components**
+- [ ] **9.1.3** Create `src/services/openai.ts` with tool calling setup (20 min)
+  - Initialize OpenAI client with `dangerouslyAllowBrowser: true` (Phase 3 only)
+  - Function: `executeAICommand(userInput: string): Promise<CommandResult>`
+  - Use `chat.completions.create()` with `tools` parameter
+  - Handle API errors with try/catch
+  - Add retry logic (3 attempts with exponential backoff)
 
-- [ ] **20.1** Create basic toolbar with "Add Rectangle" button (20 min)
-- [ ] **20.2** Add simple zoom controls (20 min)
-- [ ] **20.3** Style minimal user presence list (20 min)
+- [ ] **9.1.4** Define AI types in `src/types/ai.types.ts` (10 min)
 
-#### **Hour 21-22: Essential UX**
+  ```typescript
+  interface ToolCallResult {
+    function: string; // tool name
+    arguments: Record<string, any>; // parsed arguments
+    responseTime: number;
+    usage?: any; // token usage
+  }
 
-- [ ] **21.1** Add basic loading indicators (20 min)
-- [ ] **21.2** Implement essential error messages (20 min)
-- [ ] **21.3** Add minimal user guidance text (20 min)
+  interface CommandResult {
+    success: boolean;
+    shapesCreated?: string[]; // IDs of created shapes
+    error?: string;
+  }
+  ```
 
-**🎯 CHECKPOINT 6** (Hour 22): ✅ Clean, functional interface
-**📋 DELIVERABLE**: Merge **PR-6** - Essential UI & User Experience
-
----
-
-### **PHASE 7: DEPLOYMENT (Hours 22-24)** 🟡 **MEDIUM RISK**
-
-#### **Hour 22-23: Testing & Integration**
-
-- [ ] **22.1** Test 2-3 user scenarios (30 min)
-- [ ] **22.2** Test basic authentication flows (15 min)
-- [ ] **22.3** Test essential error cases (15 min)
-
-#### **Hour 23-24: Firebase Hosting**
-
-- [ ] **23.1** Configure Firebase Hosting (15 min)
-- [ ] **23.2** Build and deploy application (15 min)
-- [ ] **23.3** Test deployed version with multiple users (15 min)
-- [ ] **23.4** Verify core success criteria met (10 min)
-- [ ] **23.5** Document known issues and limitations (5 min)
-
-**🎯 FINAL CHECKPOINT** (Hour 24): ✅ Working collaborative canvas deployed
-**📋 DELIVERABLE**: Merge **PR-7** - Production Deployment & Validation (**FINAL MILESTONE**)
+**Files Created**: 2 new files
+**Dependencies Added**: `openai@latest` (3MB)
+**Success Criteria**: OpenAI client initialized, test API call successful
 
 ---
 
-## 🎯 **SUCCESS VALIDATION CHECKLIST**
+#### **9.2 Define Canvas Tools as Function Schemas** (90 minutes) ⏳
 
-### **Minimum Viable Success (Must Have)** ✅ **ALL COMPLETE!**
+**Goal**: Define 8+ canvas tools for OpenAI Tool Calling (from AI School Week 3.1 pattern)
 
-- [x] 2+ users can see each other's rectangles in real-time ✅ **VALIDATED**
-- [x] Rectangles persist when users refresh browser ✅ **VALIDATED**
-- [x] Basic user identification working (colors/names) ✅ **VALIDATED**
-- [ ] Publicly accessible via shareable URL ⏳ **Pending PR-7 deployment**
-- [x] Works in Chrome desktop ✅ **VALIDATED**
+- [ ] **9.2.1** Create tool definitions in `src/utils/aiCommands.ts` (60 min)
 
-### **Stretch Success (If Time Permits)** ✅ **ALL COMPLETE!**
+  **Tool Schema Structure** (OpenAI Tool Calling format):
 
-- [x] Real-time cursor tracking functional ✅ **VALIDATED**
-- [x] Sub-500ms shape synchronization ✅ **VALIDATED**
-- [x] Clean, intuitive interface ✅ **VALIDATED**
-- [x] 3+ users can collaborate simultaneously ✅ **CAPABLE**
-
----
-
-## ⚠️ **RISK MITIGATION & FALLBACKS**
-
-### **Decision Points & Fallbacks**
-
-| Hour | Risk Assessment | Fallback Action |
-|------|----------------|----------------|
-| 4 | Basic setup failing | Switch to simpler alternatives |
-| 8 | Auth blocking progress | Switch to anonymous users |
-| 12 | Canvas issues | Accept static shapes, focus on sync |
-| **16** | **Real-time broken** | **Deploy single-user version** |
-| 20 | Presence failing | Deploy without cursors |
-| 22 | Deployment issues | Screen recording demo |
-
-### **Emergency Backup Plans**
-
-- [ ] **BACKUP-1**: 2-second polling if real-time sync fails (1 hour)
-- [ ] **BACKUP-2**: Anonymous users if auth completely fails (30 min)
-- [ ] **BACKUP-3**: Static shape demo with screenshots (2 hours)
-
-### **Nuclear Options (Last Resort)**
-
-- [ ] **NUCLEAR-1**: Single-user canvas with "multiplayer coming soon"
-- [ ] **NUCLEAR-2**: Screen recording demo of working prototype
-- [ ] **NUCLEAR-3**: Detailed technical proof-of-concept document
-
----
-
-## 📊 **PERFORMANCE TARGETS (Relaxed for MVP)**
-
-- **Shape synchronization**: <500ms (acceptable for MVP)
-- **Cursor updates**: <200ms (acceptable for MVP)
-- **Canvas performance**: 20 rectangles minimum
-- **Initial load**: <10 seconds
-- **Browser support**: Chrome desktop ONLY
-- **Concurrent users**: 3 users maximum for testing
-- **Canvas size**: 2000x2000px
-- **Object limit**: 25 shapes maximum
-
----
-
-## 🛠️ **TECHNOLOGY STACK REFERENCE**
-
-### **Frontend**
-
-- React + Vite + TypeScript
-- Konva.js for canvas rendering
-- Tailwind CSS for styling
-
-### **Backend & Services**
-
-- Firebase Authentication (email/password)
-- Cloud Firestore (persistent shapes)
-- Firebase Realtime Database (cursors/presence)
-- Firebase Hosting (deployment)
-
-### **Database Schema Quick Reference**
-
-```javascript
-// Firestore: canvas/global-canvas-v1
-{
-  canvasId: "global-canvas-v1",
-  shapes: [
+  ```typescript
+  const CANVAS_TOOLS: OpenAI.Chat.ChatCompletionTool[] = [
     {
-      id: "shape_uuid_1",
-      type: "rectangle",
-      x: 100, y: 200, width: 100, height: 100,
-      fill: "#cccccc",
-      createdBy: "user_id",
-      isLocked: false,
-      lockedBy: null
+      type: "function",
+      function: {
+        name: "create_shape",
+        description: "Creates a new shape on the canvas",
+        parameters: {
+          type: "object",
+          properties: {
+            shape: { type: "string", enum: ["rectangle", "circle", "text", "line", "arrow"] },
+            color: { type: "string", description: "Color name or hex code" },
+            x: { type: "number" },
+            y: { type: "number" }
+          },
+          required: ["shape", "color"]
+        }
+      }
     }
-  ]
-}
+    // ... 7+ more tools
+  ];
+  ```
 
-// Realtime DB: /sessions/global-canvas-v1/{userId}
-{
-  displayName: "John Doe",
-  cursorColor: "#FF5733",
-  cursorX: 450, cursorY: 300,
-  lastSeen: "timestamp"
-}
-```
+  **Define 8+ Tools** (minimum 2 per category):
 
----
+  **Creation Tools (3)**:
+  1. `create_shape` - Create rectangle/circle/text/line/arrow with color
+  2. `create_text` - Create text shape with content and formatting
+  3. `create_sized_shape` - Create shape with specific dimensions
 
-## 🎯 **FINAL SUCCESS DEFINITION**
+  **Manipulation Tools (3)**:
+  4. `move_shape` - Move shape to position or direction
+  5. `resize_shape` - Change shape size (exact or multiplier)
+  6. `change_color` - Update shape fill color
 
-**"If 2+ people can move rectangles around and see each other doing it in real-time, we win."**
+  **Layout Tools (3)**:
+  7. `arrange_shapes` - Arrange in horizontal/vertical/grid pattern
+  8. `distribute_shapes` - Space shapes evenly
+  9. `align_shapes` - Align shapes (left/right/center/top/bottom)
 
-### ✅ **SUCCESS ACHIEVED!** 🎉
+  **Complex Tools (3)**:
+  10. `create_login_form` - Multi-element login form layout
+  11. `create_navbar` - Navigation bar with N items
+  12. `create_card` - Card layout with title and content
 
-**Core Validation Complete:**
+- [ ] **9.2.2** Create tool execution handlers in `src/services/aiAgent.ts` (30 min)
+  - Function: `executeToolCall(toolName: string, args: any): Promise<CommandResult>`
+  - Switch based on tool name
+  - Call useShapes hooks to create/modify shapes
+  - Return array of created/modified shape IDs
+  - Handle errors gracefully (invalid args, missing shapes, etc.)
 
-- ✅ Real-time collaborative visual editing PROVEN
-- ✅ Technology stack validated (React + Konva + Firebase)
-- ✅ Multi-user synchronization working (<500ms latency)
-- ✅ Presence awareness implemented (cursors + online users)
-
-**Bonus Points Earned:**
-
-- ✅ Performance optimization (throttling, optimistic updates)
-- ✅ Polish (colored cursors, user presence panel, clean UI)
-- ✅ Advanced features (shape locking, persistence, authentication)
-
-**Status**: MVP objectives exceeded! Ready for production deployment.
-
----
-
-## 📈 **FINAL SPRINT SUMMARY**
-
-### **Sprint Execution Timeline**
-
-- **Day 1 (Oct 13)**: PR-1 Foundation Setup ✅
-- **Day 2 (Oct 14)**: PR-2, PR-3, PR-4, PR-5 ✅
-- **Day 3 (Oct 15)**: PR-6 UI Polish, PR-7 Production Deployment ✅
-- **Total Time**: ~22 hours (ahead of 24-hour schedule!)
-- **Completion**: 7 of 7 PRs (100% complete) ✅
-- **Core MVP**: 100% complete ✅
-- **Production**: LIVE and operational! 🚀
-
-### **Key Metrics**
-
-- **PRs Completed**: 7/7 (ALL PRs complete!)
-- **Features Delivered**: 10+ major feature sets
-- **Lines of Code**: 2,500+ production code
-- **Files Created**: 35+ components, services, utilities
-- **Services Integrated**: 3 Firebase services (Auth, Firestore, Realtime DB)
-- **Tests Passed**: Multi-user validation ✅
-- **Bugs Fixed**: Critical presence bug resolved
-- **Performance**: <500ms sync latency achieved
-- **Production Bundle**: ~335 KB gzipped with code splitting
-- **Deployment**: Live at <https://collabcanvas-mvp-53120.web.app>
-
-### **Final Status**
-
-- ✅ **ALL 7 PRs COMPLETE**
-- ✅ **PRODUCTION DEPLOYED**
-- ✅ **ALL SUCCESS CRITERIA MET** (10/10)
-
-### **Sprint Philosophy Validated**
->
-> "Working slowly is infinitely better than broken quickly"
-
-**Result**: By prioritizing quality over speed, we delivered a fully functional, tested, production-ready MVP that exceeds the original success criteria. The application is now live and operational with all features working in production.
+**Files Created**: 2 new files
+**Success Criteria**: 8-12 tool schemas defined, execution routing working
 
 ---
 
-*Task List Version: 1.3 - SPRINT COMPLETE - PRODUCTION LIVE*
-*Created: October 13, 2025*
-*Sprint Start: October 14, 2025*
-*Sprint Complete: October 15, 2025 (~22 hours)*
-*Last Updated: October 15, 2025 - ALL 7 PRs Complete & Deployed*
-*Status: 🎉 **PRODUCTION LIVE** - <https://collabcanvas-mvp-53120.web.app>*
-*Success: 10/10 MVP objectives achieved - Exceeded expectations!*
+#### **9.3 AI Command Panel UI** (75 minutes) ⏳
+
+**Goal**: User interface for AI interaction
+
+- [ ] **9.3.1** Create `src/components/AICommandPanel.tsx` (30 min)
+  - Floating panel in bottom-right corner
+  - Text input for natural language commands
+  - "Execute" button with AI icon
+  - Command history display (last 5 commands)
+  - Status indicator: Idle, Processing, Success, Error
+
+- [ ] **9.3.2** Add command suggestions/examples (15 min)
+  - Dropdown with example commands
+  - Categories: Create, Move, Arrange, Complex
+  - Click to populate input field
+
+- [ ] **9.3.3** Add loading state and error handling (15 min)
+  - Show spinner during AI processing
+  - Display error messages (API failure, invalid command)
+  - Success feedback with toast notification
+
+- [ ] **9.3.4** Style AI panel with Tailwind (15 min)
+  - Modern gradient design matching app theme
+  - Smooth animations (slide-up, fade-in)
+  - Responsive width (400px desktop, full-width mobile)
+
+**Files Created**: 1 new file
+**Files Modified**: 1 file (App.tsx to include panel)
+**Success Criteria**: AI panel accepts input, shows loading/error states
+
+---
+
+#### **9.4 Integrate Tool Calling with Canvas Hooks** (90 minutes) ⏳
+
+**Goal**: Connect OpenAI tool calls to canvas operations with multi-user sync
+
+- [ ] **9.4.1** Create `src/hooks/useAIAgent.ts` hook (35 min)
+  - State: `commandInput`, `isProcessing`, `commandHistory`, `lastResult`
+  - Function: `executeAICommand(input: string): Promise<CommandResult>`
+  - Flow:
+    1. Call `openai.chat.completions.create()` with CANVAS_TOOLS
+    2. Extract tool_calls from response
+    3. Parse tool name and arguments
+    4. Call `executeToolCall()` to perform canvas operation
+    5. Update Firestore via useShapes hook
+    6. Return success/error result
+  - Add to command history (localStorage)
+  - Track response time and token usage
+
+- [ ] **9.4.2** Wire tool execution to useShapes hook (25 min)
+  - Import useShapes hook in aiAgent.ts
+  - Tool execution calls:
+    - `create_shape` → `addShape()`
+    - `move_shape` → `updateShape()`
+    - `change_color` → `updateShape()`
+    - `create_login_form` → multiple `addShape()` calls
+  - All operations go through Firestore (automatic multi-user sync)
+  - Add metadata to shapes: `createdBy: 'ai', aiCommand: userInput, aiGeneratedAt: timestamp`
+
+- [ ] **9.4.3** Add AI command result feedback (15 min)
+  - Success: Toast notification with shapes created count
+  - Error: Toast with error message and retry button
+  - Loading: Spinner in AI panel during API call
+  - Response time display: "Executed in 1.8s"
+
+- [ ] **9.4.4** Handle concurrent AI commands (10 min)
+  - Allow multiple users to issue commands simultaneously
+  - Firestore handles conflict resolution (last-write-wins)
+  - Show user attribution: "John created via AI command"
+
+- [ ] **9.4.5** Test multi-user tool calling sync (5 min)
+  - Open 3 browser tabs with different users
+  - Execute "Create a red circle" in tab 1
+  - Verify circle appears in tabs 2 & 3 via Firestore sync
+  - Test complex command: "Create login form"
+
+**Files Created**: 1 new file (useAIAgent.ts)
+**Files Modified**: 2 files (aiAgent.ts, useShapes.ts)
+**Success Criteria**: Tool calls execute and sync to all users in <2 seconds
+
+---
+
+#### **9.5 Test Creation Tools** (40 minutes) ⏳
+
+**Goal**: Verify 3+ creation tools execute correctly (tools defined in 9.2.1)
+
+- [ ] **9.5.1** Test `create_shape` tool (15 min)
+  - Input: "Create a red circle"
+  - Expected: LLM calls create_shape with {shape: "circle", color: "red"}
+  - Verify: Circle appears on canvas at default position
+  - Test variations: "Make a blue rectangle", "Add a green line"
+
+- [ ] **9.5.2** Test `create_text` tool (10 min)
+  - Input: "Add text that says Hello World"
+  - Expected: LLM calls create_text with {content: "Hello World"}
+  - Verify: Text appears on canvas
+  - Test formatting: "Create large bold text saying Title"
+
+- [ ] **9.5.3** Test `create_sized_shape` tool (10 min)
+  - Input: "Make a 200x100 rectangle"
+  - Expected: LLM calls create_sized_shape with {shape: "rectangle", width: 200, height: 100}
+  - Verify: Correctly sized shape created
+
+- [ ] **9.5.4** Test multi-user creation sync (5 min)
+  - User 1 issues creation command
+  - Verify User 2 and 3 see new shape immediately
+  - Check metadata shows createdBy: 'ai'
+
+**Tools Tested**: 3 creation tools
+**Success Criteria**: Natural language → Tool call → Shape creation working
+
+---
+
+#### **9.6 Test Manipulation Tools** (40 minutes) ⏳
+
+**Goal**: Verify 3+ manipulation tools execute correctly
+
+- [ ] **9.6.1** Test `move_shape` tool (15 min)
+  - Create a blue circle first
+  - Input: "Move the blue circle to the center"
+  - Expected: LLM calls move_shape with {shapeSelector: "blue circle", position: "center"}
+  - Verify: Shape moves to canvas center
+  - Test: "Move it up 100 pixels", "Move to position 500, 300"
+
+- [ ] **9.6.2** Test `resize_shape` tool (10 min)
+  - Input: "Make the circle twice as big"
+  - Expected: LLM calls resize_shape with {multiplier: 2}
+  - Verify: Shape doubles in size
+  - Test: "Resize to 150x150"
+
+- [ ] **9.6.3** Test `change_color` tool (10 min)
+  - Input: "Change the circle color to red"
+  - Expected: LLM calls change_color with {color: "red"}
+  - Verify: Fill color updates
+  - Test: "Make it blue", "Change to #FF5733"
+
+- [ ] **9.6.4** Test multi-user manipulation sync (5 min)
+  - User 1 moves a shape via AI
+  - Verify Users 2 & 3 see updated position
+  - Check lastModifiedBy metadata
+
+**Tools Tested**: 3+ manipulation tools
+**Success Criteria**: AI successfully modifies existing shapes
+
+---
+
+#### **9.7 Test Layout Tools** (45 minutes) ⏳
+
+**Goal**: Verify 3+ layout tools execute correctly
+
+- [ ] **9.7.1** Test `arrange_shapes` tool (15 min)
+  - Create 5 circles manually
+  - Input: "Arrange these shapes in a horizontal row"
+  - Expected: LLM calls arrange_shapes with {layout: "horizontal"}
+  - Verify: Shapes evenly spaced horizontally
+  - Test: "Arrange in a vertical column", "Create a grid layout"
+
+- [ ] **9.7.2** Test `distribute_shapes` tool (15 min)
+  - Create 4 shapes with uneven spacing
+  - Input: "Space these elements evenly"
+  - Expected: LLM calls distribute_shapes
+  - Verify: Equal gaps between shapes
+  - Test: "Distribute horizontally", "Distribute vertically"
+
+- [ ] **9.7.3** Test `align_shapes` tool (10 min)
+  - Create 3 shapes at different heights
+  - Input: "Align these shapes to the left"
+  - Expected: LLM calls align_shapes with {alignment: "left"}
+  - Verify: All shapes have same x-coordinate
+  - Test: "Align to center", "Align to top"
+
+- [ ] **9.7.4** Test multi-user layout sync (5 min)
+  - User 1 arranges shapes via AI
+  - Verify all users see updated positions
+  - Test with 5+ shapes
+
+**Tools Tested**: 3 layout tools
+**Success Criteria**: AI successfully arranges multiple shapes
+
+---
+
+#### **9.8 Test Complex Tools** (60 minutes) ⏳
+
+**Goal**: Verify 3+ complex tools create multi-element layouts (highest rubric value)
+
+- [ ] **9.8.1** Test `create_login_form` tool (20 min)
+  - Input: "Create a login form"
+  - Expected: LLM calls create_login_form with default parameters
+  - Verify multi-element creation:
+    - Text: "Username" label
+    - Rectangle: username input field
+    - Text: "Password" label
+    - Rectangle: password input field
+    - Rectangle: "Login" button
+  - Check proper positioning (vertical stack with spacing)
+  - Verify all 5 elements sync to all users
+
+- [ ] **9.8.2** Test `create_navbar` tool (20 min)
+  - Input: "Build a navigation bar with 4 menu items"
+  - Expected: LLM calls create_navbar with {itemCount: 4}
+  - Verify multi-element creation:
+    - Rectangle: navbar background
+    - 4 Text items: "Home", "About", "Services", "Contact"
+  - Check even horizontal spacing
+  - Verify positioned at top of canvas
+  - Test with different item counts: "navbar with 6 items"
+
+- [ ] **9.8.3** Test `create_card` tool (15 min)
+  - Input: "Make a card layout with title and description"
+  - Expected: LLM calls create_card
+  - Verify multi-element creation:
+    - Rectangle: card background
+    - Text: "Title" (bold, large)
+    - Text: "Description" (smaller)
+  - Check proper layering and spacing
+  - Test custom content: "Create a card titled Welcome"
+
+- [ ] **9.8.4** Test complex command accuracy (5 min)
+  - Verify rubric requirement: 3+ elements properly arranged
+  - Test smart positioning and styling
+  - Check all users see complete layouts
+
+**Tools Tested**: 3 complex tools
+**Success Criteria**: Complex commands create 3+ properly arranged elements (8 points in rubric)
+
+---
+
+#### **9.9 AI Performance Optimization - Hybrid Approach** (45 minutes) ⏳
+
+**Goal**: Achieve sub-2 second responses with 90%+ accuracy (7 rubric points)
+
+- [ ] **9.9.1** Choose optimal model for speed (10 min)
+  - **Recommended**: `gpt-4o-mini` (faster, cheaper, ~1-2s response)
+  - Alternative: `gpt-4-turbo` for complex commands if needed
+  - Update model in openai.ts service
+  - Test response times: aim for <2s average
+
+- [ ] **9.9.2** Optimize tool schemas for speed (10 min)
+  - Keep tool descriptions concise (reduce token count)
+  - Use clear, specific parameter names
+  - Limit number of parameters per tool
+  - Test: faster LLM selection of tools
+
+- [ ] **9.9.3** Implement command caching (15 min)
+  - Cache in localStorage: `{command: string, toolCall: object, timestamp}`
+  - Exact match bypass (instant response)
+  - Cache expiry: 1 hour
+  - Show "From cache" indicator in UI
+  - Reduces API costs by 30-50%
+
+- [ ] **9.9.4** Add response time tracking (10 min)
+  - Track each command execution time
+  - Display in AI panel: "Executed in 1.8s"
+  - Log to console for debugging
+  - Calculate 90th percentile (target: <2s)
+  - Simple monitoring (LangSmith tracing added in Phase 5)
+
+**Files Modified**: 2 files (openai.ts, useAIAgent.ts)
+**Success Criteria**: 90% of commands <2 seconds, caching reduces repeated calls
+
+---
+
+#### **9.10 Command History & Preview** (45 minutes) ⏳
+
+**Goal**: Enhanced AI UX features
+
+- [ ] **9.10.1** Create `src/hooks/useCommandHistory.ts` (20 min)
+  - Store last 20 commands in localStorage
+  - Track command, timestamp, result (success/error)
+  - Methods: `addCommand()`, `getHistory()`, `clearHistory()`
+
+- [ ] **9.10.2** Add command history display to AI panel (15 min)
+  - Scrollable list of past commands
+  - Click to re-execute command
+  - Visual indicators: success (green), error (red)
+
+- [ ] **9.10.3** Add command preview/confirmation (optional) (10 min)
+  - Show predicted action before execution
+  - "Execute" or "Cancel" buttons
+  - Preview what shapes will be created
+
+**Files Created**: 1 new file
+**Files Modified**: 1 file
+**Success Criteria**: Command history stored and displayed
+
+---
+
+#### **9.11 Phase 3 Integration & Testing** (90 minutes) ⏳
+
+**Goal**: Comprehensive AI agent testing
+
+- [ ] **9.11.1** Test all 8+ command types (20 min)
+  - Execute each command category
+  - Verify correct shape creation/manipulation
+  - Test natural language variations
+
+- [ ] **9.11.2** Test multi-user AI collaboration (20 min)
+  - Open 3 browser tabs
+  - Execute AI commands from different users
+  - Verify shapes sync to all users
+  - Test concurrent command execution
+
+- [ ] **9.11.3** Performance testing (15 min)
+  - Measure response times for 20 commands
+  - Verify 90% execute in <2 seconds
+  - Test under API rate limits
+
+- [ ] **9.11.4** Accuracy testing (15 min)
+  - Test 20 varied commands
+  - Track success rate (target: 90%+)
+  - Document common failure patterns
+
+- [ ] **9.11.5** Edge case testing (10 min)
+  - Test ambiguous commands
+  - Test invalid parameters
+  - Test commands with no shapes selected
+  - Test API error scenarios
+
+- [ ] **9.11.6** Complex command validation (10 min)
+  - Test login form creation
+  - Test navigation bar with different item counts
+  - Verify proper element positioning
+
+**Success Criteria**: All command types working, 90%+ accuracy, <2s response time
+
+---
+
+### **Phase 3 Success Criteria** ✅
+
+**Rubric Alignment - Section 4 (AI Canvas Agent - 25 points)**:
+
+**Command Breadth & Capability (10 points)**:
+
+- [ ] 8+ distinct command types ✓
+- [ ] Covers all categories: creation (3+), manipulation (3+), layout (3+), complex (3+) ✓
+- [ ] Commands are diverse and meaningful ✓
+
+**Complex Command Execution (8 points)**:
+
+- [ ] "Create login form" produces 3+ properly arranged elements ✓
+- [ ] Complex layouts execute multi-step plans correctly ✓
+- [ ] Smart positioning and styling ✓
+- [ ] Handles ambiguity well ✓
+
+**AI Performance & Reliability (7 points)**:
+
+- [ ] Sub-2 second responses (90%+ of commands) ✓
+- [ ] 90%+ accuracy ✓
+- [ ] Natural UX with feedback (loading, success, error) ✓
+- [ ] Shared state works flawlessly (all users see AI creations) ✓
+- [ ] Multiple users can use AI simultaneously ✓
+
+**Target Score**: 23-25 points (Excellent tier)
+**Deployment**: Stage environment with AI features enabled
+
+---
+
+## ⚡ **PHASE 4: PERFORMANCE OPTIMIZATION & POLISH** (October 17 Morning)
+
+**Branch**: `PR10 feat/performance-tier2`
+**Rubric Target**: Sections 2 (Performance), 3 (Tier 2), 5 (Technical Implementation)
+**Points Goal**: +20 points
+**Duration**: 4 hours (half day)
+
+### **PR-10: Performance & Tier 2 Features** 🚀
+
+#### **10.1 Advanced Performance Optimization** (75 minutes) ⏳
+
+**Goal**: Achieve 500+ objects at 60 FPS (Excellent tier)
+
+- [ ] **10.1.1** Implement advanced viewport culling (25 min)
+  - Enhance existing culling with spatial indexing
+  - Use quadtree for efficient spatial queries
+  - Only render shapes in viewport + 500px buffer
+  - Update on pan/zoom
+
+- [ ] **10.1.2** Implement shape pooling/recycling (20 min)
+  - Reuse Konva shape instances
+  - Pool for each shape type
+  - Reduce garbage collection overhead
+
+- [ ] **10.1.3** Optimize Firestore batching (15 min)
+  - Batch multiple shape updates (100ms window)
+  - Use Firestore writeBatch for bulk operations
+  - Reduce number of writes
+
+- [ ] **10.1.4** Add performance monitoring (15 min)
+  - Track FPS in real-time
+  - Monitor render time per frame
+  - Display performance stats in debug panel
+  - Log performance warnings
+
+**Files Modified**: 4 files
+**Success Criteria**: 500+ objects at consistent 60 FPS
+
+---
+
+#### **10.2 Tier 2 Feature: Layers Panel** (90 minutes) ⏳
+
+**Goal**: Tier 2 feature (3 points) - Professional layer management
+
+- [ ] **10.2.1** Create `src/components/LayersPanel.tsx` (40 min)
+  - Right sidebar panel (300px width)
+  - List all canvas shapes with icons and names
+  - Drag-to-reorder functionality (react-beautiful-dnd or native)
+  - Show/hide toggle per shape (eye icon)
+  - Lock/unlock toggle per shape (lock icon)
+  - Hierarchical display (future: groups)
+
+- [ ] **10.2.2** Implement z-index management (25 min)
+  - Add zIndex property to Shape interface
+  - Update Firestore schema
+  - Reorder shapes in Canvas based on zIndex
+  - Sync z-index changes across users
+
+- [ ] **10.2.3** Implement show/hide functionality (15 min)
+  - Add visible property to Shape interface
+  - Filter visible shapes in Canvas rendering
+  - Sync visibility state to Firestore
+
+- [ ] **10.2.4** Implement lock/unlock functionality (10 min)
+  - Add locked property to Shape interface
+  - Disable drag/edit for locked shapes
+  - Visual indicator on locked shapes
+
+**Files Created**: 1 new file
+**Files Modified**: 4 files
+**Success Criteria**: Layers panel shows all shapes, drag-to-reorder changes z-index
+
+---
+
+#### **10.3 Tier 2 Feature: Alignment Tools** (75 minutes) ⏳
+
+**Goal**: Tier 2 feature (3 points) - Professional alignment capabilities
+
+- [ ] **10.3.1** Create `src/components/AlignmentTools.tsx` (25 min)
+  - Toolbar section with 9 alignment buttons
+  - Align Left, Center, Right (horizontal)
+  - Align Top, Middle, Bottom (vertical)
+  - Distribute Horizontally, Distribute Vertically
+  - Align to Canvas Center
+  - Icons for each button
+
+- [ ] **10.3.2** Create `src/utils/alignment.ts` utilities (35 min)
+  - `alignLeft(shapes: Shape[])`
+  - `alignCenter(shapes: Shape[])`
+  - `alignRight(shapes: Shape[])`
+  - `alignTop(shapes: Shape[])`
+  - `alignMiddle(shapes: Shape[])`
+  - `alignBottom(shapes: Shape[])`
+  - `distributeHorizontally(shapes: Shape[])`
+  - `distributeVertically(shapes: Shape[])`
+  - `alignToCanvasCenter(shapes: Shape[])`
+
+- [ ] **10.3.3** Integrate alignment tools with Canvas (15 min)
+  - Add AlignmentTools to Toolbar
+  - Enable only when 2+ shapes selected
+  - Apply alignment and update Firestore
+  - Sync aligned positions across users
+
+**Files Created**: 2 new files
+**Files Modified**: 2 files
+**Success Criteria**: 9 alignment operations working on multi-selected shapes
+
+---
+
+#### **10.4 Real-Time Sync Optimization** (60 minutes) ⏳
+
+**Goal**: Achieve <100ms object sync, <50ms cursor sync (Excellent tier)
+
+- [ ] **10.4.1** Optimize Firestore sync latency (20 min)
+  - Use Firestore cache more aggressively
+  - Implement optimistic updates everywhere
+  - Reduce listener scope with queries
+  - Upgrade Firestore SDK if needed
+
+- [ ] **10.4.2** Optimize cursor tracking (15 min)
+  - Reduce throttle to 50ms (from 100ms)
+  - Use Realtime Database priority/timestamps
+  - Implement cursor interpolation for smoothness
+
+- [ ] **10.4.3** Add sync latency monitoring (15 min)
+  - Measure time from action → Firestore → other users
+  - Display sync latency in debug panel
+  - Track 95th percentile latency
+
+- [ ] **10.4.4** Test sync performance (10 min)
+  - Measure object sync latency (target: <100ms)
+  - Measure cursor sync latency (target: <50ms)
+  - Test with 5+ concurrent users
+
+**Files Modified**: 3 files
+**Success Criteria**: <100ms object sync, <50ms cursor sync confirmed
+
+---
+
+#### **10.5 Conflict Resolution Enhancement** (45 minutes) ⏳
+
+**Goal**: Excellent conflict resolution (9 points in rubric)
+
+- [ ] **10.5.1** Enhance object locking system (20 min)
+  - Visual feedback: locked shapes show user name
+  - Lock timeout: 30 seconds
+  - Auto-release on user disconnect
+  - Queue lock requests
+
+- [ ] **10.5.2** Add last-write-wins strategy documentation (10 min)
+  - Document conflict resolution approach
+  - Add comments in code explaining strategy
+  - Create ARCHITECTURE.md with strategy details
+
+- [ ] **10.5.3** Test conflict scenarios (15 min)
+  - Simultaneous drag attempts
+  - Rapid edit storm (3 users editing same shape)
+  - Delete vs Edit scenario
+  - Create collision (identical timestamps)
+
+**Files Modified**: 3 files
+**Success Criteria**: Simultaneous edits resolve correctly 90%+ of time
+
+---
+
+#### **10.6 Code Quality & Architecture** (60 minutes) ⏳
+
+**Goal**: Rubric Section 5 (Technical Implementation - 10 points)
+
+- [ ] **10.6.1** Code refactoring for clean architecture (25 min)
+  - Consolidate duplicate code
+  - Extract reusable utilities
+  - Improve component modularity
+  - Apply DRY principle
+
+- [ ] **10.6.2** Add comprehensive error handling (15 min)
+  - Wrap all async operations in try/catch
+  - User-friendly error messages
+  - Log errors to console (or error tracking service)
+  - Graceful degradation for service failures
+
+- [ ] **10.6.3** Add code comments and documentation (10 min)
+  - JSDoc comments for all public functions
+  - Inline comments for complex logic
+  - README updates for new features
+
+- [ ] **10.6.4** Security audit (10 min)
+  - Review Firestore security rules
+  - Ensure no exposed API keys in code
+  - Validate user inputs
+  - Add rate limiting for AI commands
+
+**Files Modified**: 10+ files
+**Success Criteria**: Clean, well-organized code with proper error handling
+
+---
+
+#### **10.7 Phase 4 Testing & Validation** (75 minutes) ⏳
+
+**Goal**: Comprehensive testing before final phase
+
+- [ ] **10.7.1** Performance validation (20 min)
+  - Create 500+ shapes
+  - Verify 60 FPS maintained
+  - Test with 5+ concurrent users
+  - Monitor memory usage
+
+- [ ] **10.7.2** Layers panel testing (15 min)
+  - Test drag-to-reorder z-index
+  - Test show/hide functionality
+  - Test lock/unlock functionality
+  - Verify multi-user sync
+
+- [ ] **10.7.3** Alignment tools testing (15 min)
+  - Test all 9 alignment operations
+  - Test with various shape selections
+  - Verify multi-user sync
+
+- [ ] **10.7.4** Sync latency testing (15 min)
+  - Measure object sync times (50 operations)
+  - Measure cursor sync times (100 movements)
+  - Verify <100ms/<50ms targets
+
+- [ ] **10.7.5** Conflict resolution testing (10 min)
+  - Test simultaneous edit scenarios
+  - Verify consistent final state
+  - Check for ghost objects
+
+**Success Criteria**: All Phase 4 features working, performance targets met
+
+---
+
+### **Phase 4 Success Criteria** ✅
+
+**Rubric Alignment - Section 2 (Performance - 12 points)**:
+
+- [ ] Consistent performance with 500+ objects ✓
+- [ ] Supports 5+ concurrent users ✓
+- [ ] No degradation under load ✓
+- [ ] Smooth interactions at scale ✓
+
+**Rubric Alignment - Section 3 Tier 2 (6 points)**:
+
+- [ ] Layers panel with drag-to-reorder and hierarchy (3 pts) ✓
+- [ ] Alignment tools (align left/right/center, distribute evenly) (3 pts) ✓
+
+**Rubric Alignment - Section 1 (Sync - 12 points)**:
+
+- [ ] Sub-100ms object sync ✓
+- [ ] Sub-50ms cursor sync ✓
+- [ ] Zero visible lag during rapid multi-user edits ✓
+
+**Rubric Alignment - Section 5 (Technical Implementation - 10 points)**:
+
+- [ ] Clean, well-organized code ✓
+- [ ] Clear separation of concerns ✓
+- [ ] Proper error handling ✓
+- [ ] Robust authentication ✓
+
+**Target Score**: 18-20 points (Excellent tier)
+**Deployment**: Pre-production environment ready for final documentation
+
+---
+
+## 📚 **PHASE 5: FINAL DOCUMENTATION & SUBMISSION** (October 17 Afternoon)
+
+**Branch**: `PR11 feat/final-submission`
+**Rubric Target**: Sections 6 (Documentation - 5 pts), 7 (AI Dev Log - Pass/Fail), 8 (Demo Video - Pass/Fail)
+**Points Goal**: +15 points + Bonus
+**Duration**: 4 hours (half day)
+
+### **PR-11: Documentation & Demo Video** 📋
+
+#### **11.1 Add LangSmith Observability - Hybrid Approach Enhancement** (30 minutes) ⏳
+
+**Goal**: Wrap OpenAI client with LangSmith for production monitoring (+2 bonus points)
+
+**Hybrid Strategy Benefit**: Add professional observability without changing Phase 3 code
+
+- [ ] **11.1.1** Install LangSmith (5 min)
+
+  ```bash
+  npm install langsmith
+  ```
+
+  - Verify installation in package.json
+  - Check bundle size increase (~2MB)
+
+- [ ] **11.1.2** Configure LangSmith environment (5 min)
+  - Create account at smith.langchain.com
+  - Generate API key in Settings
+  - Add to `.env.local`:
+
+    ```
+    LANGCHAIN_TRACING_V2=true
+    LANGCHAIN_API_KEY=<your-langsmith-key>
+    LANGCHAIN_PROJECT=collabcanvas-ai-agent
+    ```
+
+- [ ] **11.1.3** Wrap OpenAI client with LangSmith (10 min)
+  - Update `src/services/openai.ts`:
+
+    ```typescript
+    import { wrapOpenAI } from 'langsmith/wrappers';
+    import OpenAI from 'openai';
+
+    const baseClient = new OpenAI({
+      apiKey: import.meta.env.VITE_OPENAI_API_KEY,
+      dangerouslyAllowBrowser: true
+    });
+
+    // Wrap for automatic tracing - that's it!
+    const client = wrapOpenAI(baseClient);
+
+    // All existing tool calling code stays exactly the same
+    ```
+
+  - No changes to tool definitions or command execution
+  - Test: execute AI command, verify trace appears in LangSmith dashboard
+
+- [ ] **11.1.4** Test LangSmith dashboard (5 min)
+  - Execute 5-10 AI commands
+  - View traces in LangSmith dashboard
+  - Verify metrics captured:
+    - Response times (target: <2s shown in green)
+    - Token usage and costs
+    - Tool calls and arguments
+    - Success/error status
+  - Take screenshots for demo video
+
+- [ ] **11.1.5** Prepare LangSmith demo footage (5 min)
+  - Open LangSmith dashboard in separate browser window
+  - Execute demo commands while recording
+  - Capture: trace details, cost analysis, performance metrics
+  - Highlight: professional monitoring for production readiness
+
+**Files Modified**: 1 file (openai.ts - 5 lines added)
+**Dependencies Added**: `langsmith` (~2MB)
+**Success Criteria**: Automatic tracing working, dashboard shows all AI interactions
+**Bonus Impact**: +2 points for production-grade observability
+
+---
+
+#### **11.2 Comprehensive README Update** (60 minutes) ⏳
+
+**Goal**: Rubric Section 6 (Repository & Setup - 3 points)
+
+- [ ] **11.2.1** Update project description (10 min)
+  - Overview of CollabCanvas with AI agent
+  - Key features and capabilities
+  - Highlight hybrid approach (OpenAI + LangSmith)
+  - Live demo URL
+  - Screenshots of main features
+
+- [ ] **11.2.2** Write detailed setup instructions (20 min)
+  - Prerequisites (Node.js version, npm)
+  - Step-by-step installation
+  - Environment variables (.env.local template with LangSmith)
+  - Firebase project setup guide
+  - OpenAI API key setup
+  - LangSmith API key setup (optional for observability)
+  - Running locally: `npm install && npm run dev`
+
+- [ ] **11.2.3** Document all features (15 min)
+  - Section for each phase's features
+  - Screenshots/GIFs for key features
+  - AI command examples with results
+  - Tool calling examples
+  - Keyboard shortcuts reference table
+
+- [ ] **11.2.4** Add architecture overview (10 min)
+  - System architecture diagram (Mermaid)
+  - Technology stack list
+  - Firebase services integration
+  - Hybrid AI architecture (OpenAI Tool Calling + LangSmith)
+
+- [ ] **11.2.5** Add API documentation (5 min)
+  - Firestore schema
+  - Realtime Database structure
+  - AI tool schemas (8+ tools defined)
+  - Available commands reference
+
+**Files Modified**: 1 file (README.md)
+**Success Criteria**: Professional README with clear setup guide including LangSmith
+
+---
+
+#### **11.3 Architecture Documentation** (45 minutes) ⏳
+
+**Goal**: Detailed technical documentation
+
+- [ ] **11.3.1** Create `ARCHITECTURE-FINAL.md` (30 min)
+  - System architecture diagram (Mermaid)
+  - Component hierarchy
+  - Data flow diagrams
+  - Real-time sync strategy
+  - Conflict resolution approach
+  - **Hybrid AI architecture**: OpenAI Tool Calling (Phase 3) + LangSmith (Phase 5)
+  - Security model
+
+- [ ] **11.3.2** Create component documentation (15 min)
+  - Document each major component
+  - Props, state, and behavior
+  - Key design decisions (especially hybrid approach rationale)
+  - Future improvements
+
+**Files Created**: 1 new file
+**Success Criteria**: Clear technical documentation including hybrid approach explanation
+
+---
+
+#### **11.4 AI Development Log** (30 minutes) ⏳
+
+**Goal**: Rubric Section 7 (REQUIRED - Pass/Fail) - Already partially complete
+
+- [ ] **11.4.1** Review existing AI-Development-Log.md (5 min)
+  - Check all 5 required sections present
+  - Ensure meaningful reflection
+  - Verify 3/5 sections minimum
+
+- [ ] **11.4.2** Update log with Phases 2-5 insights (15 min)
+  - Add Phase 2-5 prompting strategies
+  - Update code analysis percentages
+  - **Document hybrid approach decision** (OpenAI vs LangChain evaluation)
+  - Document AI agent development challenges with tool calling
+  - Add learnings from rubric-driven development
+
+- [ ] **11.4.3** Add final metrics and reflections (10 min)
+  - Total LOC generated
+  - Time savings with AI assistance
+  - Most effective prompts (especially for tool calling setup)
+  - **Hybrid approach learnings**: Phase 3 speed vs Phase 5 polish
+  - Key learnings for future projects
+
+**Files Modified**: 1 file (AI-Development-Log.md)
+**Success Criteria**: 3/5 sections complete with meaningful content including hybrid approach rationale
+
+---
+
+#### **11.5 Demo Video Script & Planning** (45 minutes) ⏳
+
+**Goal**: Plan for Rubric Section 8 (REQUIRED - Pass/Fail)
+
+- [ ] **11.5.1** Create `DEMO-VIDEO-SCRIPT.md` (20 min)
+
+  **Video Structure (3-5 minutes)**:
+  1. **Introduction (30 sec)**
+     - Project overview
+     - Key features highlight
+     - Highlight hybrid AI approach (OpenAI + LangSmith)
+     - Show live URL
+
+  2. **Real-time Collaboration Demo (60 sec)**
+     - Show 2+ users on split screen
+     - Create shapes from different users
+     - Demonstrate real-time sync
+     - Show cursor tracking
+
+  3. **AI Canvas Agent Demo (90 sec) - CRITICAL**
+     - Execute 8+ AI commands across all categories
+     - Show tool calling in action (creation, manipulation, layout, complex)
+     - Demonstrate multi-user AI sync
+     - Show "Create login form" complex command (3+ elements)
+     - Highlight response times (<2s)
+
+  4. **LangSmith Observability Demo (30 sec) - BONUS POINTS**
+     - Switch to LangSmith dashboard
+     - Show trace of "Create login form" command
+     - Highlight metrics: 1.8s response, $0.02 cost, 100% accuracy
+     - Show tool call details and arguments
+     - Emphasize production-ready monitoring
+
+  5. **Advanced Features Walkthrough (60 sec)**
+     - Color picker with palettes
+     - Undo/redo demonstration
+     - Layers panel (drag-to-reorder)
+     - Alignment tools
+     - Export functionality
+
+  6. **Architecture Explanation (30 sec)**
+     - Show architecture diagram
+     - Explain Firebase integration
+     - **Highlight hybrid AI architecture** (Phase 3 OpenAI → Phase 5 LangSmith)
+     - Mention performance achievements (500+ objects, 60 FPS)
+
+  7. **Performance Demo (20 sec)**
+     - Show 500+ objects at 60 FPS
+     - Demonstrate with 5+ concurrent users
+     - Show sync latency metrics
+
+- [ ] **11.5.2** Prepare demo environment (15 min)
+  - Create 5 test user accounts
+  - Prepare example canvas states
+  - Test screen recording software (OBS/Loom)
+  - Prepare split-screen setup + LangSmith dashboard window
+  - Ensure LangSmith tracing enabled
+
+- [ ] **11.5.3** Record practice run (10 min)
+  - Test timing (3-5 minutes target with LangSmith section)
+  - Verify audio quality
+  - Check video clarity
+  - Adjust script if needed
+
+**Files Created**: 1 new file (DEMO-VIDEO-SCRIPT.md)
+**Success Criteria**: Complete script ready for recording with LangSmith segment
+
+---
+
+#### **11.6 Demo Video Recording** (90 minutes) ⏳
+
+**Goal**: Professional 3-5 minute demo video with LangSmith observability
+
+- [ ] **11.6.1** Set up recording environment (15 min)
+  - Open 2 browsers side-by-side for split screen
+  - Open LangSmith dashboard in third window
+  - Log in with different test accounts
+  - Prepare example commands
+  - Test audio (microphone check)
+  - Test screen capture (1080p minimum)
+
+- [ ] **11.6.2** Record introduction & collaboration demo (20 min)
+  - Record introduction (mention hybrid approach) (3-5 takes)
+  - Record split-screen collaboration
+  - Demonstrate real-time sync
+  - Show presence awareness
+
+- [ ] **11.6.3** Record AI agent demonstration (25 min)
+  - Record each command category
+  - Show 8+ distinct commands with tool calling
+  - Demonstrate complex command (login form - 3+ elements)
+  - Show multi-user AI sync
+  - **Record LangSmith dashboard** showing traces and metrics
+
+- [ ] **11.6.4** Record advanced features & architecture (15 min)
+  - Record Tier 1 & Tier 2 features
+  - Show architecture diagram (highlight hybrid AI)
+  - Demonstrate performance with 500+ objects
+
+- [ ] **11.6.5** Edit and finalize video (15 min)
+  - Trim and combine clips
+  - Add title screen and captions
+  - Verify 3-5 minute length (including LangSmith segment)
+  - Export in HD (1080p)
+  - Upload to YouTube/Vimeo
+
+**Files Created**: 1 video file + upload link
+**Success Criteria**: 3-5 minute HD video with LangSmith observability demo
+
+---
+
+#### **11.7 Final Production Deployment** (45 minutes) ⏳
+
+**Goal**: Rubric Section 6 (Deployment - 2 points)
+
+- [ ] **11.7.1** Production build optimization (15 min)
+  - Verify code splitting configured
+  - Check bundle size (~400 KB target + 2MB LangSmith)
+  - Remove console.logs (keep LangSmith tracing)
+  - Disable debug panels
+  - Verify source maps disabled
+
+- [ ] **11.7.2** Deploy to Firebase Hosting (10 min)
+  - Run production build: `npm run build`
+  - Deploy: `firebase deploy --only hosting`
+  - Verify deployment successful
+  - Test production URL
+
+- [ ] **11.7.3** Production smoke testing (15 min)
+  - Test authentication flow
+  - Test shape creation and sync
+  - **Test AI agent commands with LangSmith tracing**
+  - Verify LangSmith dashboard shows production traces
+  - Test with 5 concurrent users
+  - Test all Tier 1 & Tier 2 features
+
+- [ ] **11.7.4** Update live URL in all documentation (5 min)
+  - README.md (add LangSmith dashboard link)
+  - Package.json
+  - Firebase project
+
+**Success Criteria**: Stable production deployment with LangSmith observability
+
+---
+
+#### **11.8 Submission Checklist & Final Review** (45 minutes) ⏳
+
+**Goal**: Verify all rubric requirements met (including hybrid approach benefits)
+
+- [ ] **11.8.1** Rubric checklist review (20 min)
+
+  **Section 1: Core Collaborative Infrastructure (30 pts)**
+  - [ ] Sub-100ms object sync ✓
+  - [ ] Sub-50ms cursor sync ✓
+  - [ ] Conflict resolution working ✓
+  - [ ] Persistence across disconnects ✓
+
+  **Section 2: Canvas Features & Performance (20 pts)**
+  - [ ] 3+ shape types ✓
+  - [ ] Text with formatting ✓
+  - [ ] Multi-select ✓
+  - [ ] Transform operations ✓
+  - [ ] 500+ objects at 60 FPS ✓
+  - [ ] 5+ concurrent users ✓
+
+  **Section 3: Advanced Figma Features (15 pts)**
+  - [ ] Color picker (Tier 1 - 2 pts) ✓
+  - [ ] Undo/redo (Tier 1 - 2 pts) ✓
+  - [ ] Keyboard shortcuts (Tier 1 - 2 pts) ✓
+  - [ ] Layers panel (Tier 2 - 3 pts) ✓
+  - [ ] Alignment tools (Tier 2 - 3 pts) ✓
+  - [ ] Optional Tier 3 (3 pts) - if time permits
+
+  **Section 4: AI Canvas Agent (25 pts)**
+  - [ ] 8+ command types ✓
+  - [ ] All categories covered ✓
+  - [ ] Complex commands working ✓
+  - [ ] Sub-2s response time ✓
+  - [ ] 90%+ accuracy ✓
+  - [ ] Multi-user AI sync ✓
+
+  **Section 5: Technical Implementation (10 pts)**
+  - [ ] Clean architecture ✓
+  - [ ] Robust authentication ✓
+  - [ ] Proper error handling ✓
+  - [ ] No exposed credentials ✓
+
+  **Section 6: Documentation (5 pts)**
+  - [ ] Clear README ✓
+  - [ ] Setup guide ✓
+  - [ ] Architecture docs ✓
+  - [ ] Stable deployment ✓
+
+  **Section 7: AI Development Log (Pass/Fail)**
+  - [ ] 3/5 sections complete ✓
+
+  **Section 8: Demo Video (Pass/Fail)**
+  - [ ] 3-5 minutes ✓
+  - [ ] 2+ users shown ✓
+  - [ ] AI commands demonstrated ✓
+  - [ ] Architecture explained ✓
+  - [ ] HD quality ✓
+
+- [ ] **11.8.2** Final code review (15 min)
+  - No linter errors
+  - No TypeScript errors
+  - All tests passing (if time permitted testing)
+  - No exposed API keys (OpenAI, LangSmith)
+  - No debug code (LangSmith tracing is OK)
+
+- [ ] **11.8.3** Final documentation review (10 min)
+  - All links work (including LangSmith dashboard)
+  - All screenshots/GIFs current
+  - Grammar/spelling check
+  - Consistent formatting
+  - Hybrid approach documented
+
+**Success Criteria**: All rubric requirements verified complete including hybrid approach
+
+---
+
+#### **11.9 Bonus Features (Optional)** (60 minutes) ⏳
+
+**Goal**: Target +3-5 bonus points (LangSmith already provides +2)
+
+**Note**: LangSmith observability (Section 11.1) already provides +2 bonus points for innovation/polish!
+
+- [ ] **11.9.1** Additional innovation bonus (+1-2 pts) (30 min) - OPTIONAL
+  - AI-powered design suggestions
+  - Smart component detection via AI
+  - Auto-layout suggestions based on shape patterns
+
+- [ ] **11.9.2** Additional polish bonus (+1 pt) (30 min) - OPTIONAL
+  - Smooth animations on all interactions
+  - Professional design system
+  - Delightful micro-interactions
+  - Custom cursor designs
+
+**Success Criteria**: Exceptional UX beyond requirements (but hybrid approach already strong)
+
+---
+
+### **Phase 5 Success Criteria** ✅
+
+**Rubric Alignment - Section 6 (Documentation - 5 points)**:
+
+- [ ] Clear README with setup guide ✓
+- [ ] Architecture documentation ✓
+- [ ] Stable deployment supporting 5+ users ✓
+- [ ] Professional documentation quality ✓
+
+**Rubric Alignment - Section 7 (AI Dev Log - Pass/Fail)**:
+
+- [ ] 3/5 required sections complete ✓
+- [ ] Meaningful reflection and insights ✓
+
+**Rubric Alignment - Section 8 (Demo Video - Pass/Fail)**:
+
+- [ ] 3-5 minute duration ✓
+- [ ] 2+ users demonstrated ✓
+- [ ] Multiple AI commands shown ✓
+- [ ] Advanced features walkthrough ✓
+- [ ] Architecture explanation ✓
+- [ ] HD quality video ✓
+
+**Bonus Points**:
+
+- [ ] Innovation (+2) - AI-powered features
+- [ ] Polish (+2) - Exceptional UX/UI
+- [ ] Scale (+1) - 500+ objects, 5+ users
+
+**Target Score**: 13-15 points + 3-5 bonus = 16-20 points
+**Overall Target**: 95-105/105 points
+
+---
+
+## 🎯 **FINAL SUCCESS VALIDATION**
+
+### **Complete Rubric Score Calculation**
+
+| Section | Points Available | Target Score | Features Required |
+|---------|-----------------|--------------|-------------------|
+| 1. Collaboration | 30 | 28-30 | Real-time sync, conflicts, persistence |
+| 2. Canvas/Performance | 20 | 18-20 | 500+ objects, 5+ users, 60 FPS |
+| 3. Figma Features | 15 | 13-15 | 3 Tier 1 + 2 Tier 2 features |
+| 4. AI Agent | 25 | 23-25 | 8+ commands, <2s, 90% accuracy |
+| 5. Technical | 10 | 9-10 | Clean code, security, error handling |
+| 6. Documentation | 5 | 5 | README, architecture, deployment |
+| 7. AI Dev Log | Pass/Fail | Pass | 3/5 sections (already complete) |
+| 8. Demo Video | Pass/Fail | Pass | 3-5 min, all requirements |
+| **TOTAL** | **100** | **96-105** | **All requirements met** |
+| **Bonus** | **+5** | **+3-5** | Innovation, polish, scale |
+| **GRAND TOTAL** | **105** | **99-110** | **A+ grade target** |
+
+### **Submission Deadline**: Friday, October 17, 2025 EOD
+
+### **Final Deliverables Checklist**
+
+- [ ] Live production URL accessible
+- [ ] GitHub repository with clear README
+- [ ] All features working in production
+- [ ] Demo video uploaded and linked
+- [ ] AI Development Log complete
+- [ ] Architecture documentation complete
+- [ ] No exposed credentials or security issues
+- [ ] All rubric requirements verified
+
+---
+
+## 📈 **PROGRESS TRACKING**
+
+### **Daily Goals**
+
+**Pre-Sprint (Oct 9-14) - Phase 1**: MVP Foundation
+Target: 20 points | Status: ✅ **COMPLETE**
+
+- 7 PRs merged successfully
+- Live at: <https://collabcanvas-mvp-53120.web.app>
+- Core collaborative infrastructure operational
+
+**Day 1 (Oct 15) - Phase 2**: Canvas Features & Tier 1
+Target: +20 points | Status: ⏳ Pending
+
+**Day 2 (Oct 16) - Phase 3**: AI Canvas Agent
+Target: +25 points | Status: ⏳ Pending
+
+**Day 3 (Oct 17) - Phases 4 & 5**: Polish & Submission
+Target: +35 points | Status: ⏳ Pending
+
+### **Risk Mitigation**
+
+| Risk | Likelihood | Impact | Mitigation |
+|------|-----------|--------|------------|
+| AI API rate limits | Medium | High | Implement caching, retry logic |
+| Performance <500 objects | Low | High | Early testing, viewport culling |
+| Demo video recording issues | Medium | Medium | Multiple takes, practice runs |
+| Time constraints | Medium | High | Prioritize high-point features |
+
+---
+
+*Task List Version: 3.1 - Complete 5-Phase Journey*
+*Created: October 15, 2025*
+*Updated: October 15, 2025 - Added Phase 1 MVP PRs + Hybrid AI approach*
+*Complete Timeline: October 9-17, 2025 (9 days: 5 days MVP + 3 days sprint)*
+*Phase 1 Status: ✅ COMPLETE (20/105 points, 7 PRs merged)*
+*Phase 2-5 Timeline: October 15-17, 2025 (3 days, 4 PRs pending)*
+*Current Score: 20/105 points | Target: 95-107/105 points (includes +2 LangSmith bonus)*
+*Based on: PRD-CollabCanvas.md v2.1 & CollabCanvas Rubric*
+*AI Strategy: Phase 3 OpenAI SDK (fast) → Phase 5 LangSmith (polish)*
+*MVP Foundation: <https://collabcanvas-mvp-53120.web.app> ✅*
