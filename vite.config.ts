@@ -22,6 +22,18 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    sourcemap: true,
+    sourcemap: false, // Disable sourcemaps in production for smaller bundle
+    minify: 'esbuild', // Use esbuild for fast minification
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Code splitting for better caching
+          'react-vendor': ['react', 'react-dom'],
+          'firebase-vendor': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/database'],
+          'konva-vendor': ['konva', 'react-konva'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Increase limit to 1000KB for vendor chunks
   },
 })

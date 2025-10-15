@@ -1,0 +1,245 @@
+graph TB
+    subgraph "Development & Deployment Pipeline"
+        DevEnv[Development Environment<br/>Vite 7.1.7 + TypeScript 5.9.3 + ESLint]
+        GitRepo[Git Repository<br/>Feature Branch Strategy<br/>7 Progressive PRs - ALL COMPLETE]
+        TestSuite[Testing Infrastructure<br/>Vitest 3.2.4 + React Testing Library<br/>Manual Multi-tab Testing]
+        BuildPipeline[Production Build Pipeline<br/>Code Splitting + esbuild Minification<br/>~335 KB gzipped bundle]
+    end
+
+    subgraph "Client Browser - CollabCanvas MVP (Production v1.0)"
+        subgraph "React 19 Application Layer"
+            subgraph "Core UI Components"
+                App[App.tsx<br/>Main Application Shell<br/>Wrapped in ErrorBoundary]
+                AuthGuard[AuthGuard.tsx<br/>Protected Route Wrapper]
+                LoginForm[LoginForm.tsx<br/>Email/Password Signup/Login<br/>NO Google OAuth]
+                Toolbar[Toolbar.tsx<br/>Multi-Shape Creation Buttons<br/>Rectangle/Circle/Text + Clear Canvas<br/>Zoom Controls]
+                UserPresence[UserPresence.tsx<br/>Online Users List<br/>Color-coded Avatars<br/>Inline Name Editing<br/>Color Picker Integration]
+            end
+
+            subgraph "Canvas Rendering System"
+                Canvas[Canvas.tsx<br/>Main Konva Stage<br/>2000x2000px Bounded Canvas<br/>Pan/Zoom/Context Menu Integration]
+                Rectangle[Rectangle.tsx<br/>Blue-themed Rectangle Shape<br/>Draggable + Selectable<br/>Color Customization]
+                Circle[Circle.tsx<br/>Green-themed Circle Shape<br/>Draggable + Selectable<br/>Color Customization]
+                Text[Text.tsx<br/>Red-themed Text Shape<br/>Double-click Inline Editing<br/>Konva Transformer Integration]
+                Cursor[Cursor.tsx<br/>Other Users' Cursors<br/>Real-time Position Updates<br/>Throttled to 100ms]
+                KonvaEngine[Konva.js 10.0.2 Rendering Engine<br/>High-Performance Canvas<br/>Pan/Zoom/Selection/Transform]
+            end
+
+            subgraph "Advanced UI Components (PR-6 Bonus)"
+                Toast[Toast.tsx<br/>Individual Toast Notification<br/>Success/Error/Warning/Info]
+                ToastContainer[ToastContainer.tsx<br/>Toast Stack Manager<br/>Top-right Corner Display]
+                ColorPicker[ColorPicker.tsx<br/>User Color Customization Modal<br/>8-color Palette<br/>Duplicate Prevention]
+                ShapeContextMenu[ShapeContextMenu.tsx<br/>Shape Color Picker<br/>12-color Palette<br/>Right-click Context Menu]
+                EmptyState[EmptyState.tsx<br/>Onboarding Screen<br/>Welcoming Message<br/>Quick Start Guidance]
+                KeyboardHelp[KeyboardHelp.tsx<br/>Interactive Shortcuts Panel<br/>Action Buttons<br/>Bottom-left Toggle]
+                MobileWarning[MobileWarning.tsx<br/>Mobile Device Warning<br/>Full-screen Overlay<br/>Desktop Requirement Message]
+            end
+
+            subgraph "Error Handling (PR-7)"
+                ErrorBoundary[ErrorBoundary.tsx<br/>React Class Component<br/>Crash Prevention<br/>Fallback UI with Recovery]
+            end
+
+            subgraph "State Management"
+                AuthContext[AuthContext.tsx<br/>Firebase User State<br/>Login/Logout/Session<br/>onAuthStateChanged Listener]
+                CanvasState[Canvas State<br/>Shapes Array All Types<br/>Selected Shape<br/>View Transform<br/>Context Menu State]
+            end
+
+            subgraph "Custom Hooks Layer"
+                useAuth[useAuth Hook<br/>Authentication Operations<br/>User Profile Management]
+                useCanvas[useCanvas Hook<br/>Canvas State Management<br/>Pan/Zoom/Boundaries]
+                useShapes[useShapes Hook<br/>Multi-Shape CRUD Operations<br/>Real-time Sync Integration<br/>updateShapeText/updateShapeColor]
+                usePresence[usePresence Hook<br/>User Presence Tracking<br/>Cursor Position Updates<br/>Heartbeat System 5sec<br/>Offline Detection 30sec]
+                useToast[useToast Hook<br/>Toast Notification Manager<br/>Add/Remove/Auto-dismiss]
+            end
+
+            subgraph "Services Layer"
+                FirebaseConfig[firebase.ts<br/>SDK 12.4.0 Initialization<br/>Configuration Management]
+                FirestoreService[firestore.ts<br/>Multi-Shape CRUD Operations<br/>Real-time Listeners<br/>Object Locking Logic<br/>updateShapeText/updateShapeColor]
+                RealtimeService[realtime.ts<br/>Cursor Position Sync<br/>User Presence Management<br/>Connection Monitoring<br/>Heartbeat + onDisconnect Cleanup<br/>updateUserColor/updateUserDisplayName]
+                AuthService[auth/AuthContext.tsx<br/>Email/Password ONLY<br/>Session Management<br/>Google OAuth: NOT IMPLEMENTED]
+            end
+
+            subgraph "Utilities"
+                TypeDefinitions[types.ts<br/>TypeScript Interfaces<br/>Shape/User/Canvas Types<br/>Multi-shape support]
+                ColorUtils[colors.ts<br/>User Color Generation<br/>12 Distinct Colors<br/>Hash-based Assignment]
+                Helpers[helpers.ts<br/>Canvas Calculations<br/>createRectangleShape<br/>createCircleShape<br/>createTextShape<br/>Utility Functions]
+                ErrorMessages[errorMessages.ts<br/>User-friendly Error Messages<br/>Firebase Error Translation]
+            end
+
+            subgraph "Test Infrastructure"
+                TestFiles[__tests__/ Directory<br/>Unit + Integration Tests<br/>Component/Hook/Service Testing<br/>Vitest Configuration]
+            end
+        end
+    end
+
+    subgraph "Firebase Backend Services (collabcanvas-mvp-53120)"
+        subgraph "Firebase Authentication"
+            FBAuth[Firebase Authentication<br/>Email/Password ONLY<br/>JWT Token Management<br/>User Profile Storage<br/>⚠️ Google OAuth: Planned but NOT Implemented]
+        end
+
+        subgraph "Cloud Firestore Database"
+            CanvasCollection[(Canvas Collection<br/>Document: global-canvas-v1<br/>Multi-Shape Array with Metadata)]
+            ShapeSchema[Multi-Shape Schema:<br/>id, type rectangle/circle/text<br/>x, y, width, height, radius<br/>fill: DYNAMIC 12-color palette<br/>text content for text shapes<br/>createdBy, lastModifiedBy<br/>isLocked, lockedBy, timestamps]
+            SecurityRules[firestore.rules<br/>Authenticated User Access<br/>Shape Ownership Validation<br/>Production Deployed]
+        end
+
+        subgraph "Firebase Realtime Database"
+            SessionsPath[(Sessions Path<br/>/sessions/global-canvas-v1/userId<br/>High-Frequency Updates)]
+            CursorData[Enhanced Cursor Data:<br/>displayName editable<br/>cursorColor customizable 8 colors<br/>cursorX, cursorY throttled 100ms<br/>isOnline boolean<br/>lastSeen timestamp]
+            PresenceSystem[Enhanced Presence System<br/>Online/Offline Detection<br/>30-second Grace Period<br/>5-second Heartbeat<br/>onDisconnect Cleanup<br/>Connection Monitoring]
+        end
+
+        subgraph "Firebase Hosting (Production)"
+            StaticHosting[Static File Hosting<br/>React App Deployment<br/>CDN Distribution<br/>SPA Routing Configured<br/>Cache Headers Optimized<br/>Live: collabcanvas-mvp-53120.web.app]
+        end
+
+        subgraph "Firebase Configuration"
+            FirebaseRules[firebase/ Directory<br/>firestore.rules deployed<br/>database.rules.json deployed<br/>firebase.json SPA config]
+        end
+    end
+
+    subgraph "Real-time Data Flow"
+        subgraph "Multi-Shape Synchronization"
+            ShapeCreate[Multi-Shape Creation<br/>Rectangle/Circle/Text → Firestore<br/>Real-time Listener]
+            ShapeUpdate[Shape Updates<br/>Drag/Edit/Color → Position/Text/Color Update<br/>Sync <500ms actual]
+            ShapeLocking[Object Locking<br/>First User Locks → Others See Lock State<br/>30-second Timeout]
+            ColorSync[Color Synchronization<br/>12-color Palette<br/>Real-time Updates]
+            TextSync[Text Editing Sync<br/>Double-click to Edit<br/>Real-time Text Updates]
+        end
+
+        subgraph "Enhanced User Presence Flow"
+            CursorTracking[Cursor Tracking<br/>Mouse Move → RTDB Update <200ms<br/>Throttled 100ms]
+            UserJoinLeave[User Join/Leave<br/>Auth State → Presence Update<br/>30-second Grace Period]
+            ConnectionMonitoring[Connection Monitoring<br/>Firebase Status Detection<br/>Toast Notifications<br/>onDisconnect → Cleanup]
+            HeartbeatSystem[Heartbeat System<br/>5-second Intervals<br/>Keep Users Online]
+        end
+    end
+
+    subgraph "Multi-User Collaboration Architecture"
+        User1[User 1 Browser<br/>Designer/Canvas Owner<br/>Multi-Shape Creation & Management]
+        User2[User 2 Browser<br/>Collaborator<br/>Join via Shared URL]
+        User3[User 3 Browser<br/>Additional Collaborator<br/>Real-time Participation]
+
+        ShareableURL[Production URL<br/>collabcanvas-mvp-53120.web.app<br/>Direct Canvas Access<br/>Firebase Hosted]
+    end
+
+    subgraph "Production Build Architecture (PR-7)"
+        CodeSplitting[Code Splitting Strategy<br/>react-vendor: React + React-DOM<br/>firebase-vendor: Firebase SDK<br/>konva-vendor: Konva + React-Konva]
+        Minification[esbuild Minification<br/>Fast Build Performance<br/>Source Maps Disabled<br/>Console Logs Preserved]
+        BundleAnalysis[Bundle Analysis<br/>~335 KB gzipped total<br/>Chunk Size Warnings @ 1000KB<br/>Production Optimized]
+    end
+
+    %% Client-side connections - Core Components
+    ErrorBoundary --> App
+    App --> AuthGuard
+    App --> LoginForm
+    AuthGuard --> Canvas
+    AuthGuard --> Toolbar
+    AuthGuard --> UserPresence
+    AuthGuard --> ToastContainer
+
+    Canvas --> Rectangle
+    Canvas --> Circle
+    Canvas --> Text
+    Canvas --> Cursor
+    Canvas --> KonvaEngine
+    Canvas --> ShapeContextMenu
+    Canvas --> EmptyState
+
+    Toolbar --> KeyboardHelp
+    UserPresence --> ColorPicker
+
+    App --> MobileWarning
+
+    %% State Management connections
+    AuthGuard --> AuthContext
+    Canvas --> CanvasState
+    Rectangle --> CanvasState
+    Circle --> CanvasState
+    Text --> CanvasState
+    Cursor --> CanvasState
+    UserPresence --> CanvasState
+
+    %% Hooks integration
+    AuthContext --> useAuth
+    Canvas --> useCanvas
+    Canvas --> useShapes
+    UserPresence --> usePresence
+    Cursor --> usePresence
+    ToastContainer --> useToast
+    Toast --> useToast
+
+    %% Services integration
+    useAuth --> AuthService
+    useShapes --> FirestoreService
+    usePresence --> RealtimeService
+    useCanvas --> Helpers
+    useCanvas --> ColorUtils
+    useShapes --> Helpers
+    useToast --> ErrorMessages
+
+    %% Firebase SDK connections
+    AuthService --> FirebaseConfig
+    FirestoreService --> FirebaseConfig
+    RealtimeService --> FirebaseConfig
+
+    %% Firebase Backend connections
+    FirebaseConfig --> FBAuth
+    FirebaseConfig --> CanvasCollection
+    FirebaseConfig --> SessionsPath
+    FirebaseConfig --> StaticHosting
+
+    %% Data schema connections
+    CanvasCollection --> ShapeSchema
+    CanvasCollection --> SecurityRules
+    SessionsPath --> CursorData
+    SessionsPath --> PresenceSystem
+    FirebaseRules --> SecurityRules
+    FirebaseRules --> StaticHosting
+
+    %% Real-time synchronization flows
+    FirestoreService <-->|Create/Update/Delete<br/>Multi-Shapes <500ms| CanvasCollection
+    RealtimeService <-->|Cursor Position<br/>Updates <200ms<br/>Heartbeat 5sec| SessionsPath
+
+    %% Multi-user collaboration
+    User1 --> ShareableURL
+    User2 --> ShareableURL
+    User3 --> ShareableURL
+    ShareableURL --> StaticHosting
+    StaticHosting --> ErrorBoundary
+
+    %% Development pipeline
+    DevEnv --> GitRepo
+    GitRepo --> TestSuite
+    TestSuite --> TestFiles
+    TestSuite --> BuildPipeline
+    BuildPipeline --> CodeSplitting
+    BuildPipeline --> Minification
+    BuildPipeline --> BundleAnalysis
+    BundleAnalysis --> StaticHosting
+
+    %% Enhanced synchronization flows
+    ShapeCreate --> ShapeUpdate
+    ShapeUpdate --> ShapeLocking
+    ShapeUpdate --> ColorSync
+    ShapeUpdate --> TextSync
+    CursorTracking --> UserJoinLeave
+    UserJoinLeave --> ConnectionMonitoring
+    ConnectionMonitoring --> HeartbeatSystem
+
+    %% Styling
+    classDef criticalPath fill:#ff9999,stroke:#cc0000,stroke-width:3px
+    classDef realtimeFlow fill:#99ccff,stroke:#0066cc,stroke-width:2px
+    classDef firebaseService fill:#ffcc99,stroke:#ff6600,stroke-width:2px
+    classDef clientComponent fill:#ccffcc,stroke:#00cc00,stroke-width:1px
+    classDef bonusFeature fill:#ffccff,stroke:#cc00cc,stroke-width:2px
+    classDef productionOptimization fill:#ffffcc,stroke:#cccc00,stroke-width:2px
+    classDef testComponent fill:#cccccc,stroke:#666666,stroke-width:1px
+
+    class FirestoreService,RealtimeService,ShapeCreate,ShapeUpdate,CursorTracking criticalPath
+    class CanvasCollection,SessionsPath,PresenceSystem,ShapeLocking,ColorSync,TextSync realtimeFlow
+    class FBAuth,StaticHosting,SecurityRules,FirebaseConfig firebaseService
+    class Canvas,Rectangle,Toolbar,UserPresence,App,AuthGuard clientComponent
+    class Circle,Text,Toast,ToastContainer,ColorPicker,ShapeContextMenu,EmptyState,KeyboardHelp,MobileWarning bonusFeature
+    class ErrorBoundary,CodeSplitting,Minification,BundleAnalysis productionOptimization
+    class TestSuite,TestFiles testComponent
