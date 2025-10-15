@@ -3,8 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
 import type { UserPresence } from '../services/types';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../utils/helpers';
+import Circle from './Circle';
 import Cursor from './Cursor';
 import Rectangle, { type RectangleShape } from './Rectangle';
+import ShapeContextMenu from './ShapeContextMenu';
+import Text from './Text';
 
 /**
  * Canvas Component - Main collaborative canvas workspace
@@ -27,6 +30,8 @@ interface CanvasProps {
   selectedShapeId: string | null;
   onSelectShape: (shapeId: string | null) => void;
   onUpdateShapePosition: (shapeId: string, x: number, y: number) => void;
+  onTextChange: (shapeId: string, text: string) => void;
+  onColorChange: (shapeId: string, color: string) => void;
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onShapeDragStart?: () => void;
@@ -41,6 +46,8 @@ const Canvas = ({
   selectedShapeId,
   onSelectShape,
   onUpdateShapePosition,
+  onTextChange,
+  onColorChange,
   onZoomIn,
   onZoomOut,
   onShapeDragStart,
@@ -60,6 +67,15 @@ const Canvas = ({
 
   // Track if a shape is currently being dragged (use ref for synchronous access)
   const isShapeDraggingRef = useRef(false);
+
+  // Context menu state for shape color changing
+  const [contextMenu, setContextMenu] = useState<{
+    visible: boolean;
+    x: number;
+    y: number;
+    shapeId: string;
+    currentColor: string;
+  } | null>(null);
 
   // Task 3.4.4: Zoom in/out from toolbar buttons
   useEffect(() => {
@@ -315,23 +331,52 @@ const Canvas = ({
 
         {/* Shapes Layer - User-created rectangles (PR3.2) */}
         <Layer>
-          {shapes.map((shape) => (
-            <Rectangle
-              key={shape.id}
-              shape={shape}
-              isSelected={shape.id === selectedShapeId}
-              onSelect={() => onSelectShape(shape.id)}
-              onDragStart={() => {
+          {shapes.map((shape) => {
+            const shapeProps = {
+              key: shape.id,
+              shape: shape,
+              isSelected: shape.id === selectedShapeId,
+              onSelect: () => onSelectShape(shape.id),
+              onDragStart: () => {
                 isShapeDraggingRef.current = true;
                 onShapeDragStart?.();
-              }}
-              onDragEnd={(id, x, y) => {
+              },
+              onDragEnd: (id: string, x: number, y: number) => {
                 // Note: Reset flag in handleStageDragEnd to ensure it runs first
                 onUpdateShapePosition(id, x, y);
                 onShapeDragEnd?.();
-              }}
-            />
-          ))}
+              },
+              onRightClick: (e: any) => {
+                e.evt.preventDefault();
+                const stage = e.target.getStage();
+                if (stage) {
+                  const pointerPosition = stage.getPointerPosition();
+                  if (pointerPosition) {
+                    setContextMenu({
+                      visible: true,
+                      x: pointerPosition.x + stage.container().offsetLeft,
+                      y: pointerPosition.y + stage.container().offsetTop,
+                      shapeId: shape.id,
+                      currentColor: shape.fill,
+                    });
+                  }
+                }
+              },
+            };
+
+            if (shape.type === 'circle') {
+              return <Circle {...shapeProps} />;
+            } else if (shape.type === 'text') {
+              return (
+                <Text
+                  {...shapeProps}
+                  onTextChange={onTextChange}
+                />
+              );
+            } else {
+              return <Rectangle {...shapeProps} />;
+            }
+          })}
         </Layer>
 
         {/* Cursors Layer - Other users' cursors (PR5.6) */}
@@ -343,15 +388,29 @@ const Canvas = ({
       </Stage>
 
       {/* Canvas info overlay - for development debugging */}
-      <div className="absolute top-4 left-4 bg-white/90 px-3 py-2 rounded-md shadow-sm text-xs text-gray-600">
-        <div className="font-semibold text-gray-800 mb-1">Canvas Info</div>
-        <div>Canvas: {CANVAS_WIDTH}×{CANVAS_HEIGHT}px</div>
-        <div>Viewport: {dimensions.width}×{dimensions.height}px</div>
-        <div>Position: ({Math.round(stagePos.x)}, {Math.round(stagePos.y)})</div>
-        <div>Scale: {stageScale.toFixed(2)}x</div>
-        <div>Shapes: {shapes.length}</div>
-        <div className="text-green-600 font-medium mt-1">✓ PR3.4 Active</div>
+      <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded-lg shadow-md border border-gray-200 text-xs text-gray-600">
+        <div className="font-bold text-gray-900 mb-2 text-sm">Canvas Info</div>
+        <div className="space-y-1">
+          <div><span className="font-medium text-gray-700">Canvas:</span> {CANVAS_WIDTH}×{CANVAS_HEIGHT}px</div>
+          <div><span className="font-medium text-gray-700">Viewport:</span> {dimensions.width}×{dimensions.height}px</div>
+          <div><span className="font-medium text-gray-700">Position:</span> ({Math.round(stagePos.x)}, {Math.round(stagePos.y)})</div>
+          <div><span className="font-medium text-gray-700">Scale:</span> {stageScale.toFixed(2)}x</div>
+          <div><span className="font-medium text-gray-700">Shapes:</span> {shapes.length}</div>
+        </div>
       </div>
+
+      {/* Context Menu for color changes */}
+      {contextMenu && (
+        <ShapeContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          currentColor={contextMenu.currentColor}
+          onSelectColor={(color) => {
+            onColorChange(contextMenu.shapeId, color);
+          }}
+          onClose={() => setContextMenu(null)}
+        />
+      )}
     </div>
   );
 };

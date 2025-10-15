@@ -103,6 +103,52 @@ export async function updateUserPresence(
 }
 
 /**
+ * PR6.6: Update user cursor color
+ *
+ * Updates the user's cursor color in Realtime Database
+ */
+export async function updateUserColor(
+  userId: string,
+  newColor: string,
+  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID
+): Promise<void> {
+  try {
+    const userRef = ref(realtimeDb, `sessions/${canvasId}/${userId}`);
+    await update(userRef, {
+      cursorColor: newColor,
+      lastSeen: Date.now(),
+    });
+    console.log('✅ Updated user color:', newColor);
+  } catch (error) {
+    console.error('❌ Error updating user color:', error);
+    throw error;
+  }
+}
+
+/**
+ * PR6.6: Update user display name
+ *
+ * Updates the user's display name in Realtime Database
+ */
+export async function updateUserDisplayName(
+  userId: string,
+  newDisplayName: string,
+  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID
+): Promise<void> {
+  try {
+    const userRef = ref(realtimeDb, `sessions/${canvasId}/${userId}`);
+    await update(userRef, {
+      displayName: newDisplayName,
+      lastSeen: Date.now(),
+    });
+    console.log('✅ Updated user display name:', newDisplayName);
+  } catch (error) {
+    console.error('❌ Error updating user display name:', error);
+    throw error;
+  }
+}
+
+/**
  * Task 5.1.3: Remove user presence (cleanup)
  *
  * Explicitly removes user from presence tracking
@@ -189,15 +235,15 @@ export function subscribeToPresence(
       // Convert object of users to array
       const users: UserPresence[] = Object.values(data);
 
-      // Filter out offline users older than 1 minute
-      const activeUsers = users.filter((user) => {
-        if (!user.isOnline) return false;
+      // Show users who have been active within the last 30 seconds
+      // Users offline for more than 30 seconds are completely removed
+      const visibleUsers = users.filter((user) => {
         const timeSinceLastSeen = Date.now() - user.lastSeen;
-        return timeSinceLastSeen < 60000; // 1 minute
+        return timeSinceLastSeen < 30000; // 30 seconds - then remove from list
       });
 
-      console.log('👥 Active users:', activeUsers.length);
-      callback(activeUsers);
+      console.log('👥 Visible users:', visibleUsers.length);
+      callback(visibleUsers);
     },
     (error) => {
       console.error('❌ Error in presence subscription:', error);
@@ -321,4 +367,50 @@ export async function cleanupStalePresence(
     console.error('❌ Error cleaning up stale presence:', error);
     return 0;
   }
+}
+
+// ============================================================================
+// User Status Utilities
+// ============================================================================
+
+/**
+ * Check if a user is currently online based on lastSeen timestamp
+ *
+ * @param user User presence data
+ * @returns true if user is considered online (active within 10 seconds)
+ */
+export function isUserOnline(user: UserPresence): boolean {
+  if (!user.isOnline) return false;
+  const timeSinceLastSeen = Date.now() - user.lastSeen;
+  return timeSinceLastSeen < 10000; // 10 seconds threshold for "online"
+}
+
+// ============================================================================
+// Connection Monitoring
+// ============================================================================
+
+/**
+ * Monitor Firebase Realtime Database connection status
+ *
+ * Uses Firebase's special .info/connected path to detect actual network connectivity
+ * @param callback Function called with true/false when connection state changes
+ * @returns Unsubscribe function to stop monitoring
+ */
+export function monitorConnectionStatus(
+  callback: (isConnected: boolean) => void
+): () => void {
+  const connectedRef = ref(realtimeDb, '.info/connected');
+
+  const unsubscribe = onValue(connectedRef, (snapshot) => {
+    const isConnected = snapshot.val() === true;
+    console.log(isConnected ? '🟢 Connected to Firebase' : '🔴 Disconnected from Firebase');
+    callback(isConnected);
+  });
+
+  return () => {
+    off(connectedRef);
+    if (unsubscribe) {
+      unsubscribe();
+    }
+  };
 }

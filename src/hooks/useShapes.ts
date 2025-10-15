@@ -33,9 +33,12 @@ interface UseShapesReturn {
   error: string | null;
 
   // Shape operations
-  addShape: (shapeData: Omit<CreateShapeData, 'type'>) => Promise<string | null>;
+  addShape: (shapeData: CreateShapeData) => Promise<string | null>;
   removeShape: (shapeId: string) => Promise<boolean>;
   updateShapePosition: (shapeId: string, x: number, y: number) => Promise<boolean>;
+  updateShapeText: (shapeId: string, text: string) => Promise<boolean>;
+  updateShapeColor: (shapeId: string, color: string) => Promise<boolean>;
+  clearAllShapes: () => Promise<boolean>;
 
   // Selection
   selectShape: (shapeId: string | null) => void;
@@ -102,7 +105,7 @@ export function useShapes(): UseShapesReturn {
    * Task 4.3.3: Add shape with optimistic update
    */
   const addShape = useCallback(
-    async (shapeData: Omit<CreateShapeData, 'type'>): Promise<string | null> => {
+    async (shapeData: CreateShapeData): Promise<string | null> => {
       if (!user) {
         console.error('❌ Cannot add shape: no user authenticated');
         return null;
@@ -110,13 +113,7 @@ export function useShapes(): UseShapesReturn {
 
       try {
         // Create shape in Firestore
-        const result = await createShape(
-          {
-            type: 'rectangle',
-            ...shapeData,
-          },
-          user.uid
-        );
+        const result = await createShape(shapeData, user.uid);
 
         if (result.success && result.shapeId) {
           console.log('✅ Shape added successfully:', result.shapeId);
@@ -209,6 +206,78 @@ export function useShapes(): UseShapesReturn {
   );
 
   /**
+   * Update shape text content
+   */
+  const updateShapeText = useCallback(
+    async (shapeId: string, text: string): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Optimistically update local state
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, text } : shape))
+        );
+
+        // Update in Firestore
+        const result = await updateShape(shapeId, { text }, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape text updated:', shapeId);
+          return true;
+        } else {
+          console.error('❌ Failed to update shape text:', result.error);
+          setError(result.error || 'Failed to update shape text');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape text:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user]
+  );
+
+  /**
+   * Update shape color
+   */
+  const updateShapeColor = useCallback(
+    async (shapeId: string, color: string): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Optimistically update local state
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, fill: color } : shape))
+        );
+
+        // Update in Firestore
+        const result = await updateShape(shapeId, { fill: color }, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape color updated:', shapeId, color);
+          return true;
+        } else {
+          console.error('❌ Failed to update shape color:', result.error);
+          setError(result.error || 'Failed to update shape color');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape color:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user]
+  );
+
+  /**
    * Select a shape
    */
   const selectShape = useCallback((shapeId: string | null) => {
@@ -237,6 +306,38 @@ export function useShapes(): UseShapesReturn {
     if (!selectedShapeId) return false;
     return await removeShape(selectedShapeId);
   }, [selectedShapeId, removeShape]);
+
+  /**
+   * Clear all shapes from canvas
+   */
+  const clearAllShapes = useCallback(async (): Promise<boolean> => {
+    if (!user) {
+      console.error('❌ Cannot clear shapes: no user authenticated');
+      return false;
+    }
+
+    try {
+      // Delete all shapes
+      const deletePromises = shapes.map((shape) => deleteShape(shape.id));
+      const results = await Promise.all(deletePromises);
+
+      const allDeleted = results.every((result) => result.success);
+
+      if (allDeleted) {
+        console.log('✅ All shapes cleared successfully');
+        setSelectedShapeId(null);
+        return true;
+      } else {
+        console.error('❌ Some shapes failed to delete');
+        setError('Failed to clear all shapes');
+        return false;
+      }
+    } catch (err) {
+      console.error('❌ Error clearing shapes:', err);
+      setError(err instanceof Error ? err.message : 'Unknown error');
+      return false;
+    }
+  }, [user, shapes]);
 
   /**
    * Task 4.4: Acquire lock on shape
@@ -283,6 +384,9 @@ export function useShapes(): UseShapesReturn {
     addShape,
     removeShape,
     updateShapePosition,
+    updateShapeText,
+    updateShapeColor,
+    clearAllShapes,
 
     // Selection
     selectShape,

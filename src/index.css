@@ -6,10 +6,12 @@
 @layer base {
   html, body {
     @apply h-full w-full m-0 p-0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* PR6.6.1: Consistent text color */
+    color: #1f2937;
   }
 
   #root {
@@ -18,6 +20,12 @@
 
   * {
     box-sizing: border-box;
+  }
+
+  /* PR6.6.3: Better focus outlines for accessibility */
+  *:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
   }
 
   /* Prevent text selection during canvas interactions */
@@ -98,5 +106,159 @@
   /* Loading states */
   .loading-spinner {
     @apply animate-spin rounded-full h-6 w-6 border-2 border-gray-300 border-t-blue-500;
+  }
+
+  /* PR6.2: Fade-in animation for notifications */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  /* PR6.3: Toast notification animations */
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes shrink {
+    from {
+      width: 100%;
+    }
+    to {
+      width: 0%;
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.3s ease-out;
+  }
+
+  .animate-shrink {
+    animation: shrink linear;
+  }
+
+  /* PR6.4: Slide-up animation for keyboard help */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.2s ease-out;
+  }
+
+  /* PR6.6.2: Button interaction animations */
+  @keyframes button-press {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes ripple {
+    0% {
+      box-shadow: 0 0 0 0 currentColor;
+      opacity: 0.6;
+    }
+    100% {
+      box-shadow: 0 0 0 10px currentColor;
+      opacity: 0;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+
+  /* PR6.6.2: Button hover lift effect */
+  .button-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .button-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .button-lift:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* PR6.6.2: Smooth color transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* PR6.6.2: Bounce on hover for interactive elements */
+  .hover-bounce:hover {
+    animation: bounce-subtle 0.6s ease-in-out;
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+
+  /* PR6.6.2: Pulse animation for attention */
+  .pulse-ring {
+    animation: pulse-ring 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    }
+  }
+
+  /* PR6.6.2: Scale animation for icons */
+  .icon-scale {
+    transition: transform 0.2s ease;
+  }
+
+  .icon-scale:hover {
+    transform: scale(1.1);
   }
 }

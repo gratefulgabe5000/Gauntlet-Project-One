@@ -79,10 +79,10 @@ export interface SignupData extends LoginCredentials {
 /**
  * Shape Type Enumeration
  *
- * Currently only rectangles for MVP
- * Future: circles, arrows, lines, text
+ * Supports rectangles, circles, and text
+ * Future: arrows, lines
  */
-export type ShapeType = 'rectangle';
+export type ShapeType = 'rectangle' | 'circle' | 'text';
 
 /**
  * Shape Interface
@@ -111,6 +111,9 @@ export interface Shape {
 
   /** Fill color (fixed #cccccc for MVP) */
   fill: string;
+
+  /** Text content (only for text shapes) */
+  text?: string;
 
   /** User ID who created this shape */
   createdBy: string;
@@ -146,6 +149,7 @@ export interface CreateShapeData {
   width: number;
   height: number;
   fill?: string;
+  text?: string;
 }
 
 /**
@@ -159,6 +163,7 @@ export interface UpdateShapeData {
   width?: number;
   height?: number;
   fill?: string;
+  text?: string;
 }
 
 // ============================================================================

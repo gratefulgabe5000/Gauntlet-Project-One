@@ -19,6 +19,7 @@ import {
     removeUserPresence,
     subscribeToPresence,
     updateCursorPosition,
+    updateUserPresence,
 } from '../services/realtime';
 import type { UserPresence } from '../services/types';
 import { CONSTANTS } from '../services/types';
@@ -28,6 +29,7 @@ interface UsePresenceReturn {
   // State
   activeUsers: UserPresence[];
   currentUserColor: string;
+  currentUserName: string;
   isInitialized: boolean;
 
   // Actions
@@ -42,6 +44,7 @@ export function usePresence(): UsePresenceReturn {
   const [activeUsers, setActiveUsers] = useState<UserPresence[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const [currentUserColor, setCurrentUserColor] = useState('#4ECDC4');
+  const [currentUserName, setCurrentUserName] = useState('');
 
   // Track cursor update throttling
   const lastCursorUpdateRef = useRef<number>(0);
@@ -65,6 +68,7 @@ export function usePresence(): UsePresenceReturn {
 
     // Get display name
     const displayName = formatUserDisplayName(user.displayName, user.email);
+    setCurrentUserName(displayName);
 
     // Initialize presence
     initializeUserPresence(user.uid, displayName, color)
@@ -78,6 +82,19 @@ export function usePresence(): UsePresenceReturn {
 
     // Subscribe to all users' presence
     const unsubscribe = subscribeToPresence((users) => {
+      // Find current user to update their color and name in real-time
+      const currentUser = users.find((u) => u.userId === user.uid);
+      if (currentUser) {
+        if (currentUser.cursorColor !== currentUserColor) {
+          setCurrentUserColor(currentUser.cursorColor);
+          console.log('🎨 Current user color updated:', currentUser.cursorColor);
+        }
+        if (currentUser.displayName !== currentUserName) {
+          setCurrentUserName(currentUser.displayName);
+          console.log('👤 Current user name updated:', currentUser.displayName);
+        }
+      }
+
       // Filter out current user from the list
       const otherUsers = users.filter((u) => u.userId !== user.uid);
       setActiveUsers(otherUsers);
@@ -91,6 +108,30 @@ export function usePresence(): UsePresenceReturn {
       setIsInitialized(false);
     };
   }, [user]);
+
+  /**
+   * PR6.7: Heartbeat to keep presence alive
+   *
+   * Updates lastSeen timestamp every 5 seconds to maintain online status
+   */
+  useEffect(() => {
+    if (!user || !isInitialized) return;
+
+    console.log('💓 Starting presence heartbeat');
+
+    // Update presence immediately
+    updateUserPresence(user.uid);
+
+    // Set up interval to update every 5 seconds
+    const heartbeatInterval = setInterval(() => {
+      updateUserPresence(user.uid);
+    }, 5000);
+
+    return () => {
+      console.log('💔 Stopping presence heartbeat');
+      clearInterval(heartbeatInterval);
+    };
+  }, [user, isInitialized]);
 
   /**
    * Task 5.3.2: Update cursor position with throttling
@@ -119,6 +160,7 @@ export function usePresence(): UsePresenceReturn {
     // State
     activeUsers,
     currentUserColor,
+    currentUserName,
     isInitialized,
 
     // Actions

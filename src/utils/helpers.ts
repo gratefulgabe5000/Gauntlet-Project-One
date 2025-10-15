@@ -85,6 +85,43 @@ export const createRectangleShape = (
 };
 
 /**
+ * Create a new circle shape with default properties
+ * Circle is represented as a square bounding box with width = height = diameter
+ */
+export const createCircleShape = (
+  overrides?: Partial<Omit<RectangleShape, 'id'>>
+): Omit<RectangleShape, 'id'> => {
+  const centeredPos = getCenteredPosition();
+
+  return {
+    x: centeredPos.x,
+    y: centeredPos.y,
+    width: DEFAULT_RECT_WIDTH,
+    height: DEFAULT_RECT_HEIGHT,
+    fill: DEFAULT_RECT_FILL,
+    ...overrides,
+  };
+};
+
+/**
+ * Create a new text shape with default properties
+ */
+export const createTextShape = (
+  overrides?: Partial<Omit<RectangleShape, 'id'>>
+): Omit<RectangleShape, 'id'> => {
+  const centeredPos = getCenteredPosition(200, 50);
+
+  return {
+    x: centeredPos.x,
+    y: centeredPos.y,
+    width: 200,
+    height: 50,
+    fill: '#000000',
+    ...overrides,
+  };
+};
+
+/**
  * Calculate the center point of a shape
  */
 export const getShapeCenter = (shape: RectangleShape): { x: number; y: number } => {
