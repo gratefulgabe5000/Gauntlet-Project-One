@@ -8,7 +8,7 @@
 
 ## 🎤 SEGMENT 1: OPENING [0:00-0:15]
 
-**Welcome to CollabCanvas' Minimum Viable Product—a real-time collaborative design platform built in 24 hours.**
+**Welcome to CollabCanvas' Minimum Viable Product—a real-time collaborative design platform.**
 
 **This demonstration proves the core collaborative infrastructure is solid.**
 
@@ -58,7 +58,7 @@
 
 [PAUSE - move User 1 cursor, then User 2 cursor, then both together]
 
-**Cursor positions update in under 50 milliseconds, creating a seamless collaborative experience.**
+**Cursor positions update in real-time, creating a seamless collaborative experience.**
 
 ---
 
@@ -82,7 +82,7 @@
 
 [PAUSE - all three users edit simultaneously]
 
-**Multiple users editing simultaneously—all changes propagate in under 100 milliseconds.**
+**Multiple users editing simultaneously—all changes propagate instantly across all users.**
 
 ---
 
@@ -114,60 +114,33 @@
 
 **Let's log back in and verify persistence.**
 
-[PAUSE - User 1 logs back in, canvas loads]
+[PAUSE - User 1 logs back in, canvas loads with all shapes intact]
 
 ---
 
-## 🎤 SEGMENT 10: PERFORMANCE - 60 FPS [2:15-2:30]
-
-**Let's verify performance targets.**
-
-**The MVP maintains 60 FPS during all interactions.**
-
-[PAUSE - rapidly pan canvas]
-
-[PAUSE - zoom in and out]
-
-[PAUSE - create 5 shapes rapidly]
-
-[PAUSE - drag multiple shapes]
-
-**Smooth 60 frames per second across all operations—pan, zoom, create, and move.**
-
----
-
-## 🎤 SEGMENT 11: SYNC METRICS [2:30-2:45]
-
-**Let's measure synchronization performance with precise timing.**
-
-[PAUSE - User 1 creates rectangle, show latency overlay]
-
-[PAUSE - User 2 moves cursor, show cursor latency]
-
-**Object synchronization under 100 milliseconds.**
-
-**Cursor tracking under 50 milliseconds.**
-
-**Both targets achieved.**
-
----
-
-## 🎤 SEGMENT 12: DEPLOYMENT & CLOSING [2:45-3:00]
+## 🎤 SEGMENT 10: DEPLOYMENT & CLOSING [2:15-3:00]
 
 **CollabCanvas MVP is deployed on Firebase Hosting and publicly accessible.**
 
-[PAUSE - show URL in address bar]
+[PAUSE - show URL in address bar with SSL padlock]
 
 [PAUSE - open incognito window, navigate to public URL]
 
-**CollabCanvas MVP demonstrates bulletproof multiplayer infrastructure with real-time sync, presence awareness, persistence, and 60 FPS performance.**
+[PAUSE - login as new user, join the other users on canvas]
 
+[PAUSE - show all users collaborating together seamlessly]
+
+**CollabCanvas MVP demonstrates bulletproof multiplayer infrastructure with real-time synchronization, presence awareness, and state persistence.**
+
+**The foundation is solid.**
+
+[PAUSE - final visual of all users' cursors moving, collaborative work displayed]
 
 ---
 
-## 📊 TOTAL WORD COUNT: ~450 WORDS
+## 📊 TOTAL WORD COUNT: ~380 WORDS
 
-**Estimated Speaking Time**: 3:00 minutes at 150 words/minute
+**Estimated Speaking Time**: 2:35 minutes speaking + 25 seconds pauses = 3:00 total
 
 ---
 
@@ -190,17 +163,20 @@
 **Speaking Pace:**
 - 150 words per minute = natural conversation
 - Count "one-thousand-one, one-thousand-two" during pauses
-- Each segment is ~40-50 words = 15-20 seconds with pauses
+- Most segments are ~40-50 words = 15-20 seconds with pauses
+- Final segment is longer (~60 words + extended pauses) = 45 seconds
 
 **Energy Levels:**
 - Opening: HIGH (grab attention)
 - Middle sections: MODERATE-HIGH (maintain interest)
 - Technical sections: CLEAR and PRECISE
-- Closing: HIGH (strong finish)
+- Closing: HIGH (strong finish with confidence)
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 2.0
 **Created**: October 15, 2025
+**Updated**: October 15, 2025
 **Purpose**: Narration-only cue cards for video recording
 **Format**: Large text for easy reading during recording
+**Changes**: Removed technical performance metrics (FPS, latency), extended closing

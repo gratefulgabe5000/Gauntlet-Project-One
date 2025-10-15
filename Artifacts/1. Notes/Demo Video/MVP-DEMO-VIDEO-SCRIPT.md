@@ -17,7 +17,7 @@
 | ✅ Multiplayer cursors with name labels | 1:00-1:15 | COVERED |
 | ✅ Presence awareness (who's online) | 1:15-1:30 | COVERED |
 | ✅ User authentication | 1:30-1:45 | COVERED |
-| ✅ Deployed and publicly accessible | 2:45-3:00 | COVERED |
+| ✅ Deployed and publicly accessible | 2:15-3:00 | COVERED |
 
 ---
 
@@ -40,7 +40,6 @@
 > "Users authenticate with email and password through Firebase Authentication."
 
 **[Action Sequence]**:
-
 - **[0:17]** Type email: `user1@collabcanvas.com`
 - **[0:19]** Type password: `••••••••`
 - **[0:21]** Click "Sign In" button
@@ -52,7 +51,6 @@
 > "After login, users see the main canvas workspace with pan and zoom capabilities."
 
 **[Action Sequence]**:
-
 - **[0:25]** Click and drag canvas to pan left/right
 - **[0:27]** Use mouse wheel to zoom in
 - **[0:29]** Zoom out to show full canvas space
@@ -69,7 +67,6 @@
 > "The MVP supports three shape types: rectangles, circles, and text. Watch as I create and move objects."
 
 **[Action Sequence]**:
-
 - **[0:32]** Click "Rectangle" tool → Click on canvas
 - **[Visual]**: Blue rectangle appears (200x150px)
 
@@ -94,7 +91,6 @@
 > "Now let's prove real-time synchronization. I'm opening a second browser window with a different user account to demonstrate multi-user collaboration."
 
 **[Action Sequence - Split Screen Setup]**:
-
 - **[0:47]** Show second browser window opening
 - **[0:49]** Second window shows login screen
 - **[0:51]** Type email: `user2@collabcanvas.com`
@@ -104,9 +100,8 @@
 **[Screen: Split screen showing BOTH users' views]**
 
 **[Visual]**:
-
-- Left: User 1's canvas (<user1@collabcanvas.com>)
-- Right: User 2's canvas (<user2@collabcanvas.com>)
+- Left: User 1's canvas (user1@collabcanvas.com)
+- Right: User 2's canvas (user2@collabcanvas.com)
 - Both canvases show SAME 3 shapes (rectangle, circle, text)
 
 **Narration (continue)**:
@@ -122,7 +117,6 @@
 > "Each user has a distinct cursor with their name label for presence awareness."
 
 **[Action Sequence]**:
-
 - **[1:02]** User 1 moves cursor around canvas
 - **[Visual]**: User 2's screen shows "User 1" label following the cursor in real-time (blue cursor)
 
@@ -132,11 +126,8 @@
 - **[1:08]** Both users move cursors simultaneously
 - **[Visual]**: Both screens show BOTH colored cursors with name labels moving smoothly
 
-- **[1:11]** Measure cursor latency
-- **[Visual]**: On-screen timer shows <50ms cursor sync delay
-
 **Narration (continue)**:
-> "Cursor positions update in under 50 milliseconds, creating a seamless collaborative experience."
+> "Cursor positions update in real-time, creating a seamless collaborative experience."
 
 ---
 
@@ -148,14 +139,12 @@
 > "The presence system shows who's currently online and actively editing."
 
 **[Visual]**:
-
 - **[1:17]** Highlight presence panel (top-right corner)
 - Shows online users:
-  - 🟢 User 1 (<user1@collabcanvas.com>) - Active
-  - 🟢 User 2 (<user2@collabcanvas.com>) - Active
+  - 🟢 User 1 (user1@collabcanvas.com) - Active
+  - 🟢 User 2 (user2@collabcanvas.com) - Active
 
 **[Action Sequence]**:
-
 - **[1:20]** Open third browser window (User 3)
 - **[1:22]** User 3 logs in: `user3@collabcanvas.com`
 - **[1:24]** Presence panel updates on ALL screens:
@@ -178,7 +167,6 @@
 > "Now let's stress-test the real-time synchronization with rapid multi-user edits."
 
 **[Action Sequence - Simultaneous Actions]**:
-
 - **[1:32]** User 1: Creates new rectangle
 - **[Visual]**: Rectangle appears on ALL 3 screens instantly
 
@@ -192,9 +180,7 @@
 - **[Visual]**: ALL three operations sync across all screens in real-time
 
 **[Narration (continue)]**:
-> "Multiple users editing simultaneously—all changes propagate in under 100 milliseconds."
-
-**[Visual]**: On-screen overlay shows sync latency: **<100ms**
+> "Multiple users editing simultaneously—all changes propagate instantly across all users."
 
 ---
 
@@ -206,7 +192,6 @@
 > "Let's test state persistence. User 2 will refresh their browser mid-edit to confirm the canvas state persists."
 
 **[Action Sequence]**:
-
 - **[1:47]** User 2 is actively dragging a shape
 - **[1:49]** User 2 hits F5 (refresh browser)
 - **[Visual]**: Browser refreshes, loading spinner
@@ -230,7 +215,6 @@
 > "Now the ultimate persistence test: all users will log out, and we'll verify the canvas state persists."
 
 **[Action Sequence]**:
-
 - **[2:02]** User 1 clicks "Logout" → redirects to login screen
 - **[2:04]** User 2 clicks "Logout" → redirects to login screen
 - **[2:06]** User 3 clicks "Logout" → redirects to login screen
@@ -243,7 +227,6 @@
 > "All users are logged out. Let's log back in and verify persistence."
 
 **[Action Sequence]**:
-
 - **[2:10]** User 1 logs back in
 - **[2:12]** Canvas loads with ALL shapes intact
 - **[2:14]** Show canvas: rectangle, circle, text, all additional shapes—everything persisted
@@ -252,64 +235,7 @@
 
 ---
 
-## **[2:15-2:30] PERFORMANCE DEMONSTRATION (15 sec)**
-
-**[Screen: Single user view with performance metrics overlay]**
-
-**Narration**:
-> "Let's verify performance targets. The MVP maintains 60 FPS during all interactions."
-
-**[Action Sequence]**:
-
-- **[2:17]** Show FPS counter: **60 FPS**
-- **[2:19]** Rapidly pan canvas in all directions
-- **[Visual]**: FPS counter stays at **58-60 FPS**
-
-- **[2:22]** Zoom in and out rapidly
-- **[Visual]**: FPS counter stays at **58-60 FPS**
-
-- **[2:25]** Create 5 shapes in rapid succession (1 per second)
-- **[Visual]**: FPS counter stays at **58-60 FPS**
-
-- **[2:28]** Drag multiple shapes simultaneously
-- **[Visual]**: FPS counter stays at **58-60 FPS**
-
-**Narration (continue)**:
-> "Smooth 60 frames per second across all operations—pan, zoom, create, and move."
-
----
-
-## **[2:30-2:45] SYNC PERFORMANCE METRICS (15 sec)**
-
-**[Screen: Split screen with latency metrics]**
-
-**Narration**:
-> "Let's measure synchronization performance with precise timing."
-
-**[Action Sequence]**:
-
-- **[2:32]** User 1 creates rectangle
-- **[Visual]**: Latency overlay shows:
-  - User 1 (local): 0ms
-  - User 2 (remote): 87ms ✅
-  - User 3 (remote): 92ms ✅
-
-- **[2:37]** User 2 moves cursor rapidly
-- **[Visual]**: Cursor latency overlay shows:
-  - User 1 sees cursor update: 43ms ✅
-  - User 3 sees cursor update: 47ms ✅
-
-**[Narration (continue)]**:
-> "Object synchronization under 100 milliseconds. Cursor tracking under 50 milliseconds. Both targets achieved."
-
-**[Visual]**:
-
-- Green checkmarks ✅ next to metrics
-- Text overlay: "✅ <100ms Objects | ✅ <50ms Cursors"
-
----
-
-## **[2:45-3:00] REQUIREMENT #8: DEPLOYMENT & CLOSING (15 sec)**
+## **[2:15-3:00] REQUIREMENT #8: DEPLOYMENT & CLOSING (45 sec)**
 
 **[Screen: Show deployed URL in browser address bar]**
 
@@ -317,39 +243,47 @@
 > "CollabCanvas MVP is deployed on Firebase Hosting and publicly accessible."
 
 **[Visual]**:
-
-- **[2:47]** Zoom to address bar showing: `collabcanvas-mvp-53120.web.app`
-- **[2:49]** Show SSL padlock icon (HTTPS secured)
+- **[2:17]** Zoom to address bar showing: `collabcanvas-mvp-53120.web.app`
+- **[2:19]** Show SSL padlock icon (HTTPS secured)
 
 **[Action Sequence]**:
+- **[2:22]** Open fourth browser window (incognito mode)
+- **[2:25]** Navigate to public URL
+- **[2:28]** Canvas loads successfully (not logged in users see landing page)
+- **[2:30]** Login as new user
+- **[2:32]** Canvas loads, joins the other users
 
-- **[2:51]** Open fourth browser window (incognito mode)
-- **[2:53]** Navigate to public URL
-- **[2:55]** Canvas loads successfully (not logged in users see landing page)
-- **[2:57]** Text overlay appears: "Publicly Accessible ✅"
+**[Screen: Return to canvas with all users active]**
 
-**[Screen: Return to canvas with all 3 users active]**
+**[2:35]** Show all users collaborating:
+- **[Visual]**: All 3+ cursors moving around canvas
+- **[Visual]**: Users creating and moving shapes together
+- **[Visual]**: Real-time sync happening seamlessly
 
 **Narration (continue)**:
-> "CollabCanvas MVP demonstrates bulletproof multiplayer infrastructure with real-time sync, presence awareness, persistence, and 60 FPS performance."
+> "CollabCanvas MVP demonstrates bulletproof multiplayer infrastructure with real-time synchronization, presence awareness, and state persistence. The foundation is solid."
 
-**[Visual]**:
+**[2:48]** Final demonstration:
+- **[Visual]**: All users' cursors moving
+- **[Visual]**: Final shapes on canvas showing collaborative work
+- **[Visual]**: Smooth, responsive interface
 
-- All 3 users' cursors moving
-- Final shapes on canvas
-- Fade to black with text:
+**[2:52]** Fade to black with text overlay:
 
 ```
 CollabCanvas MVP ✅
-✅ Real-Time Sync (<100ms)
-✅ Multiplayer Cursors (<50ms)
+
+✅ Real-Time Multi-User Sync
+✅ Multiplayer Cursors with Labels
 ✅ Presence Awareness
 ✅ State Persistence
-✅ 60 FPS Performance
+✅ User Authentication
 ✅ Deployed: collabcanvas-mvp-53120.web.app
+
+Foundation Ready for Advanced Features
 ```
 
-**[0:00] END**
+**[3:00] END**
 
 ---
 
@@ -366,16 +300,13 @@ CollabCanvas MVP ✅
 | ✅ Real-time sync (2+ users) | 0:45-1:45 | 3 users, multiple sync tests | EXCEEDS |
 | ✅ Multiplayer cursors w/ labels | 1:00-1:15 | 3 colored cursors with names | COMPLETE |
 | ✅ Presence awareness | 1:15-1:30 | Online users panel, real-time updates | COMPLETE |
-| ✅ User authentication | 0:15-0:23, 1:30-1:45 | Email/password login for 3 users | COMPLETE |
-| ✅ Deployed & publicly accessible | 2:45-3:00 | Live URL, HTTPS, accessible | COMPLETE |
+| ✅ User authentication | 0:15-0:23 | Email/password login for multiple users | COMPLETE |
+| ✅ Deployed & publicly accessible | 2:15-3:00 | Live URL, HTTPS, accessible | COMPLETE |
 
 **Additional Proofs Shown**:
-
 - ✅ Persistence (refresh test): 1:45-2:00
 - ✅ Persistence (full disconnect test): 2:00-2:15
-- ✅ 60 FPS performance: 2:15-2:30
-- ✅ <100ms object sync: 2:30-2:45
-- ✅ <50ms cursor sync: 2:30-2:45
+- ✅ Multi-user collaboration: Throughout video
 
 ---
 
@@ -390,12 +321,10 @@ CollabCanvas MVP ✅
 | Multiplayer Cursors | 15 sec | 8% | #5 Cursors with labels |
 | Presence Awareness | 15 sec | 8% | #6 Who's online |
 | Real-Time Sync Stress Test | 15 sec | 8% | #4 Advanced sync |
-| Persistence Test: Refresh | 15 sec | 8% | Bonus: Persistence |
-| Persistence Test: Logout | 15 sec | 8% | Bonus: Full persistence |
-| Performance: 60 FPS | 15 sec | 8% | Bonus: FPS target |
-| Sync Performance Metrics | 15 sec | 8% | Bonus: Latency metrics |
-| Deployment & Closing | 15 sec | 8% | #8 Deployed |
-| **TOTAL** | **180 sec** | **100%** | **All 8 requirements + 4 bonus** |
+| Persistence Test: Refresh | 15 sec | 8% | Persistence validation |
+| Persistence Test: Logout | 15 sec | 8% | Full persistence proof |
+| Deployment & Closing | 45 sec | 25% | #8 Deployed + Summary |
+| **TOTAL** | **180 sec** | **100%** | **All 8 requirements** |
 
 ---
 
@@ -408,47 +337,29 @@ CollabCanvas MVP ✅
    - Proves multi-user collaboration
    - Must show 2-3 browser windows simultaneously
 
-2. **Latency Metrics** (2:30-2:45)
-   - Use browser dev tools or custom overlay
-   - Show timestamp when action occurs
-   - Display when remote user sees update
-   - Calculate difference = sync latency
-
-3. **Three User Accounts Required**
+2. **Three User Accounts Required**
    - `user1@collabcanvas.com`
    - `user2@collabcanvas.com`
    - `user3@collabcanvas.com`
    - Pre-create accounts before recording
 
-4. **Performance Metrics Display**
-   - FPS counter (use browser dev tools or Stats.js library)
-   - Network latency overlay (custom implementation)
-   - Real-time sync timing display
-
 ### **Recording Setup**
 
 **Tools**:
-
 - **OBS Studio** (free, powerful) OR **Loom** (simple, cloud-based)
 - **Resolution**: 1920x1080 (HD)
-- **Frame Rate**: 30 FPS minimum (60 FPS preferred)
+- **Frame Rate**: 30 FPS minimum
 - **Audio**: Clear USB microphone, quiet environment
 
 **Screen Layout**:
-
 - **0:00-0:45**: Single browser (full screen)
-- **0:45-1:45**: Split screen (2-3 browsers side-by-side)
-- **1:45-2:30**: Focus on one browser with metrics
-- **2:30-2:45**: Split screen with latency overlays
-- **2:45-3:00**: Single browser with URL visible
+- **0:45-2:15**: Split screen (2-3 browsers side-by-side)
+- **2:15-3:00**: Single browser with URL visible, then multi-user demo
 
 **Pre-Recording Checklist**:
-
 - [ ] 3 user accounts created and verified
 - [ ] Canvas has NO existing shapes (start fresh)
 - [ ] Browser windows positioned for split screen
-- [ ] FPS counter enabled (F12 → Performance → FPS meter)
-- [ ] Network latency display ready (if custom built)
 - [ ] Audio levels tested (speak at normal volume)
 - [ ] Script printed or on second monitor
 - [ ] Stopwatch/timer visible for pacing
@@ -456,7 +367,7 @@ CollabCanvas MVP ✅
 ### **Narration Tips**
 
 - **Speaking Pace**: 150 words per minute (natural, not rushed)
-- **Total Words**: ~450 words (3 minutes)
+- **Total Words**: ~400 words (2:40 speaking + 20 sec pauses)
 - **Tone**: Confident, technical, factual
 - **Energy**: Moderate-high (you're proud of what you built!)
 - **Pauses**: 1-2 second pause before/after key demonstrations
@@ -464,8 +375,7 @@ CollabCanvas MVP ✅
 ### **Backup Plan**
 
 If live recording has technical issues:
-
-1. Record each section separately (12 segments × 15 seconds)
+1. Record each section separately (10 segments)
 2. Edit together in post-production
 3. Add narration as voiceover (easier to sync)
 4. Use screen recording software transitions between sections
@@ -481,7 +391,7 @@ If live recording has technical issues:
 ❌ **Don't**: Apologize for anything ("sorry about the lag")
 ✅ **Do**: Confidently demonstrate what's working
 
-❌ **Don't**: Go over 3:30 minutes
+❌ **Don't**: Go over 3:10 minutes
 ✅ **Do**: Practice timing to hit exactly 3:00 (±10 seconds)
 
 ---
@@ -491,39 +401,33 @@ If live recording has technical issues:
 ### **What the Evaluator is Looking For**
 
 ✅ **Collaborative Infrastructure Works**
-
 - Multiple users can edit simultaneously
 - Changes sync in real-time (visible proof)
 - No obvious bugs or crashes during demo
 
 ✅ **Core Features Present**
-
 - Canvas exists and is functional
 - Shapes can be created and moved
 - Users have accounts and authenticate
 
 ✅ **Deployed and Accessible**
-
 - Public URL that actually loads
 - HTTPS secured
 - No "localhost" or local development
 
 ✅ **Professional Presentation**
-
 - Clear audio (no background noise)
 - HD video quality (no blurry recording)
 - Organized demonstration (not chaotic)
 
 ### **MVP is NOT About**
-
 - ❌ Advanced features (layers, alignment, undo/redo)
 - ❌ AI agent (that's Phase 2)
-- ❌ Performance optimization (500+ objects)
+- ❌ Performance benchmarks or metrics
 - ❌ Beautiful UI design
 - ❌ Complex canvas operations
 
 ### **MVP IS About**
-
 - ✅ Proving real-time collaboration works
 - ✅ Showing state persistence is solid
 - ✅ Demonstrating multi-user sync is reliable
@@ -537,7 +441,6 @@ If live recording has technical issues:
 > "The collaborative infrastructure is solid. Real-time sync works reliably across multiple users. State persists correctly through refreshes and disconnects. The foundation is production-ready. **MVP PASSED ✅**"
 
 **What This Proves**:
-
 1. ✅ You understand real-time collaboration architecture
 2. ✅ You can implement WebSocket/Firestore synchronization
 3. ✅ You know how to handle state persistence
@@ -551,7 +454,6 @@ If live recording has technical issues:
 Once this MVP demo passes the checkpoint:
 
 **Phase 2: Advanced Features**
-
 - Undo/redo with multi-user isolation
 - Layers panel with drag-to-reorder
 - Alignment tools (9 operations)
@@ -560,20 +462,17 @@ Once this MVP demo passes the checkpoint:
 - Multi-select with shift-click
 
 **Phase 3: AI Canvas Agent**
-
 - OpenAI integration with function calling
 - 12+ tool schemas (creation, manipulation, layout)
 - Natural language canvas control
 - Complex commands (login form, navbar, card)
 
 **Phase 4: Performance Optimization**
-
-- Viewport culling (500+ objects at 60 FPS)
-- Batch operations (100ms debounce)
+- Viewport culling (500+ objects)
+- Batch operations (optimized sync)
 - Memory management (shape pooling)
 
 **Phase 5: Production Polish**
-
 - LangSmith observability (+2 bonus points)
 - Comprehensive documentation
 - Demo video for full project
@@ -581,9 +480,10 @@ Once this MVP demo passes the checkpoint:
 
 ---
 
-**Document Version**: 1.0
+**Document Version**: 2.0
 **Created**: October 15, 2025
+**Updated**: October 15, 2025
 **Purpose**: MVP Demo Video Script (24-hour checkpoint)
 **Target**: 3:00 minutes demonstrating collaborative infrastructure
 **Status**: Ready for production
-**Focus**: Prove foundation is solid, not feature completeness
+**Focus**: Prove foundation is solid, not performance metrics
