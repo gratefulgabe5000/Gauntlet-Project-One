@@ -49,8 +49,11 @@ function App() {
     selectShape,
     selectAllShapes, // PR8a: Select all at once
     updateShapePosition,
+    updateShapeDimensions,
+    updateShapePositionAndDimensions,
     updateShapeText,
     updateShapeColor,
+    updateShapeFontSize,
     updateMultipleShapeColors, // PR8a: Multi-select color change
     clearSelection,
     removeSelectedShape,
@@ -372,6 +375,17 @@ function App() {
     }
   }
 
+  const handleFontSizeChange = async (shapeId: string, fontSize: number) => {
+    const success = await updateShapeFontSize(shapeId, fontSize)
+    if (success) {
+      console.log('✅ Font size updated:', shapeId, fontSize)
+      showSuccess(`Font size updated to ${fontSize}px!`, 2000)
+    } else {
+      console.error('❌ Failed to update font size')
+      showError('Failed to update font size. Please try again', 3000)
+    }
+  }
+
   // Task 3.4.4: Zoom controls
   const handleZoomIn = () => {
     if ((window as any).__canvasZoomIn) {
@@ -471,8 +485,11 @@ function App() {
             selectedShapeIds={selectedShapeIds}
             onSelectShape={selectShape}
             onUpdateShapePosition={updateShapePosition}
+            onUpdateShapeDimensions={updateShapeDimensions}
+            onUpdateShapePositionAndDimensions={updateShapePositionAndDimensions}
             onTextChange={handleTextChange}
             onColorChange={handleColorChange}
+            onFontSizeChange={handleFontSizeChange}
             onZoomIn={handleZoomIn}
             onZoomOut={handleZoomOut}
             onDuplicateShape={duplicateShape}

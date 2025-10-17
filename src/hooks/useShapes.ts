@@ -42,6 +42,7 @@ interface UseShapesReturn {
   updateShapePosition: (shapeId: string, x: number, y: number) => Promise<boolean>;
   updateShapeText: (shapeId: string, text: string) => Promise<boolean>;
   updateShapeColor: (shapeId: string, color: string) => Promise<boolean>;
+  updateShapeFontSize: (shapeId: string, fontSize: number) => Promise<boolean>;
   updateMultipleShapeColors: (shapeIds: string[], color: string) => Promise<{ successCount: number; totalCount: number }>; // PR8a: Multi-select
   clearAllShapes: () => Promise<boolean>;
 
@@ -533,6 +534,78 @@ export function useShapes(): UseShapesReturn {
   );
 
   /**
+   * Update shape dimensions (Phase 2b: Resize handles)
+   */
+  const updateShapeDimensions = useCallback(
+    async (shapeId: string, width: number, height: number): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Optimistically update local state
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, width, height } : shape))
+        );
+
+        // Update in Firestore
+        const result = await updateShape(shapeId, { width, height }, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape dimensions updated:', shapeId, { width, height });
+          return true;
+        } else {
+          console.error('❌ Failed to update shape dimensions:', result.error);
+          setError(result.error || 'Failed to update shape dimensions');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape dimensions:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user]
+  );
+
+  /**
+   * Update shape position and dimensions atomically (Phase 2b: N & W handles)
+   */
+  const updateShapePositionAndDimensions = useCallback(
+    async (shapeId: string, x: number, y: number, width: number, height: number): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Optimistically update local state with all changes at once
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, x, y, width, height } : shape))
+        );
+
+        // Update Firestore with atomic operation (all changes in single request)
+        const result = await updateShape(shapeId, { x, y, width, height }, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape position and dimensions updated:', shapeId, { x, y, width, height });
+          return true;
+        } else {
+          console.error('❌ Failed to update shape:', result.error);
+          setError(result.error || 'Failed to update shape');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user]
+  );
+
+  /**
    * Update shape color
    * PR8a.3.3: Record COLOR_CHANGE action for undo
    */
@@ -586,6 +659,54 @@ export function useShapes(): UseShapesReturn {
       }
     },
     [user, shapes, addAction]
+  );
+
+  /**
+   * Update shape font size (for text shapes)
+   */
+  const updateShapeFontSize = useCallback(
+    async (shapeId: string, fontSize: number): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Find shape and validate it's a text shape
+        const shapeToUpdate = shapes.find(s => s.id === shapeId);
+        if (!shapeToUpdate) {
+          console.error('❌ Cannot find shape to update:', shapeId);
+          return false;
+        }
+
+        if (shapeToUpdate.type !== 'text') {
+          console.error('❌ Cannot update font size: shape is not text type');
+          return false;
+        }
+
+        // Optimistically update local state
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, fontSize } : shape))
+        );
+
+        // Update in Firestore
+        const result = await updateShape(shapeId, { fontSize }, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape font size updated:', shapeId, fontSize);
+          return true;
+        } else {
+          console.error('❌ Failed to update shape font size:', result.error);
+          setError(result.error || 'Failed to update shape font size');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape font size:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user, shapes]
   );
 
   /**
@@ -883,8 +1004,11 @@ export function useShapes(): UseShapesReturn {
     addShape,
     removeShape,
     updateShapePosition,
+    updateShapeDimensions,
+    updateShapePositionAndDimensions,
     updateShapeText,
     updateShapeColor,
+    updateShapeFontSize,
     updateMultipleShapeColors, // PR8a: Multi-select color change
     clearAllShapes,
 

@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Text as KonvaText, Transformer } from 'react-konva';
+import { Group, Text as KonvaText } from 'react-konva';
 import type { Shape } from '../services/types';
 import { constrainShapePosition } from '../utils/helpers';
+import TransformHandles, { type HandleType } from './TransformHandles';
+import { type Bounds, isCornerHandle } from '../utils/transform';
 
 /**
  * Text Component - Individual editable text shape
@@ -22,20 +24,48 @@ interface TextProps {
   onDragStart: (e?: any) => void; // PR8a: Pass event for shift-drag duplication
   onDragEnd: (id: string, x: number, y: number) => void;
   onTextChange: (id: string, text: string) => void;
+  onUpdateShape?: (id: string, updates: Partial<Shape>) => void; // Phase 2b: Shape resize updates
   onRightClick?: (e: any) => void;
 }
 
-const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChange, onRightClick }: TextProps) => {
+const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChange, onUpdateShape, onRightClick }: TextProps) => {
   const textRef = useRef<any>(null);
-  const transformerRef = useRef<any>(null);
+  // const transformerRef = useRef<any>(null); // Disabled in favor of TransformHandles
   const [isEditing, setIsEditing] = useState(false);
+  
+  // Phase 2b: Local state for immediate visual updates during resize (same pattern as Rectangle)
+  const [localBounds, setLocalBounds] = useState<Bounds>({
+    x: shape.x,
+    y: shape.y,
+    width: shape.width || 100,
+    height: shape.height || 30,
+  });
 
-  useEffect(() => {
-    if (isSelected && transformerRef.current && textRef.current) {
-      transformerRef.current.nodes([textRef.current]);
-      transformerRef.current.getLayer().batchDraw();
-    }
-  }, [isSelected]);
+  // Phase 2b: Resize state for delta-based calculations and network update management
+  const [resizeState, setResizeState] = useState<{
+    isResizing: boolean;
+    pendingNetworkUpdate: boolean;
+    startBounds: Bounds | null;
+    startPointer: { x: number; y: number } | null;
+    handleType: HandleType | null;
+  }>({
+    isResizing: false,
+    pendingNetworkUpdate: false,
+    startBounds: null,
+    startPointer: null,
+    handleType: null,
+  });
+
+  // Track drag state to prevent bounds sync during drag
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Disabled old Transformer setup in favor of unified TransformHandles
+  // useEffect(() => {
+  //   if (isSelected && transformerRef.current && textRef.current) {
+  //     transformerRef.current.nodes([textRef.current]);
+  //     transformerRef.current.getLayer().batchDraw();
+  //   }
+  // }, [isSelected]);
 
   // Force re-render when shape properties change
   useEffect(() => {
@@ -49,8 +79,32 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
     }
   }, [shape.fill]);
 
+  // Phase 2b: Sync local bounds with shape props (don't overwrite during active resize, drag, or pending network update)
+  useEffect(() => {
+    // Don't overwrite local visual state during resize, drag, or while waiting for network update
+    if (resizeState.isResizing || resizeState.pendingNetworkUpdate || isDragging) {
+      return;
+    }
+    
+    setLocalBounds({
+      x: shape.x,
+      y: shape.y,
+      width: shape.width || 100,
+      height: shape.height || 30,
+    });
+    
+  }, [shape.x, shape.y, shape.width, shape.height, resizeState.isResizing, resizeState.pendingNetworkUpdate, isDragging]);
+
+  // Phase 2b: Clear pendingNetworkUpdate when shape props change (indicating network update completed)
+  useEffect(() => {
+    if (resizeState.pendingNetworkUpdate) {
+      setResizeState(prev => ({ ...prev, pendingNetworkUpdate: false }));
+    }
+  }, [shape.x, shape.y, shape.width, shape.height]);
+
   const handleDragStart = (e: any) => {
     e.cancelBubble = true;
+    setIsDragging(true);
     onDragStart(e);
   };
 
@@ -58,16 +112,176 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
     const rawX = e.target.x();
     const rawY = e.target.y();
 
-    const constrained = constrainShapePosition(rawX, rawY, shape.width, shape.height);
+    const constrained = constrainShapePosition(rawX, rawY, localBounds.width, localBounds.height);
 
     e.target.x(constrained.x);
     e.target.y(constrained.y);
 
+    // Update local bounds to match the new position
+    setLocalBounds(prev => ({
+      ...prev,
+      x: constrained.x,
+      y: constrained.y,
+    }));
+
     onDragEnd(shape.id, constrained.x, constrained.y);
+    setIsDragging(false);
+  };
+
+  // Phase 2b: Resize handlers using Rectangle's exact delta calculation approach
+  const handleResizeDragStart = (handleType: HandleType, e: any) => {
+    // Prevent event bubbling to canvas
+    e.evt.stopPropagation();
+    e.cancelBubble = true;
+    
+    const stage = e.target.getStage();
+    if (!stage) return;
+
+    const pointerPos = stage.getPointerPosition();
+    if (!pointerPos) return;
+
+    setResizeState({
+      isResizing: true,
+      pendingNetworkUpdate: false,
+      startBounds: { ...localBounds },
+      startPointer: { x: pointerPos.x, y: pointerPos.y },
+      handleType,
+    });
+  };
+
+  const handleResizeDragMove = (handleType: HandleType, e: any) => {
+    // Prevent event bubbling to canvas
+    e.evt.stopPropagation();
+    e.cancelBubble = true;
+    
+    if (!resizeState.isResizing || !resizeState.startBounds || !resizeState.startPointer) return;
+
+    const stage = e.target.getStage();
+    if (!stage) return;
+
+    const pointerPos = stage.getPointerPosition();
+    if (!pointerPos) return;
+
+    // Calculate drag delta from start position
+    const deltaX = pointerPos.x - resizeState.startPointer.x;
+    const deltaY = pointerPos.y - resizeState.startPointer.y;
+
+    // Start with original bounds
+    const startBounds = resizeState.startBounds;
+    let newBounds: Bounds = { ...startBounds };
+
+    // Apply delta based on handle type with proper anchor points (exactly like Rectangle)
+    switch (handleType) {
+      case 'se': // Bottom-right corner: expand right and down
+        newBounds.width = Math.max(50, startBounds.width + deltaX); // Min width 50 for text
+        newBounds.height = Math.max(20, startBounds.height + deltaY); // Min height 20 for text
+        break;
+        
+      case 'sw': // Bottom-left corner: expand left and down
+        const newWidthSW = Math.max(50, startBounds.width - deltaX);
+        newBounds.x = startBounds.x + startBounds.width - newWidthSW;
+        newBounds.width = newWidthSW;
+        newBounds.height = Math.max(20, startBounds.height + deltaY);
+        break;
+        
+      case 'ne': // Top-right corner: expand right and up
+        newBounds.width = Math.max(50, startBounds.width + deltaX);
+        const newHeightNE = Math.max(20, startBounds.height - deltaY);
+        newBounds.y = startBounds.y + startBounds.height - newHeightNE;
+        newBounds.height = newHeightNE;
+        break;
+        
+      case 'nw': // Top-left corner: expand left and up
+        const newWidthNW = Math.max(50, startBounds.width - deltaX);
+        const newHeightNW = Math.max(20, startBounds.height - deltaY);
+        newBounds.x = startBounds.x + startBounds.width - newWidthNW;
+        newBounds.y = startBounds.y + startBounds.height - newHeightNW;
+        newBounds.width = newWidthNW;
+        newBounds.height = newHeightNW;
+        break;
+        
+      case 'e': // Right edge: expand right only
+        newBounds.width = Math.max(50, startBounds.width + deltaX);
+        break;
+        
+      case 'w': // Left edge: expand left only
+        const newWidthW = Math.max(50, startBounds.width - deltaX);
+        newBounds.x = startBounds.x + startBounds.width - newWidthW;
+        newBounds.width = newWidthW;
+        break;
+        
+      case 'n': // Top edge: expand up only
+        const newHeightN = Math.max(20, startBounds.height - deltaY);
+        newBounds.y = startBounds.y + startBounds.height - newHeightN;
+        newBounds.height = newHeightN;
+        break;
+        
+      case 's': // Bottom edge: expand down only
+        newBounds.height = Math.max(20, startBounds.height + deltaY);
+        break;
+        
+      default:
+        return;
+    }
+
+    // Apply aspect ratio locking if Shift is held for corner handles (exactly like Rectangle)
+    if (e.evt?.shiftKey && isCornerHandle(handleType)) {
+      const aspectRatio = startBounds.width / startBounds.height;
+      
+      // Determine which dimension to constrain based on which moved more
+      const widthRatio = newBounds.width / startBounds.width;
+      const heightRatio = newBounds.height / startBounds.height;
+      
+      if (Math.abs(widthRatio - 1) > Math.abs(heightRatio - 1)) {
+        // Width changed more, constrain height
+        newBounds.height = newBounds.width / aspectRatio;
+        
+        // Adjust position for top corners
+        if (handleType === 'nw' || handleType === 'ne') {
+          newBounds.y = startBounds.y + startBounds.height - newBounds.height;
+        }
+      } else {
+        // Height changed more, constrain width
+        newBounds.width = newBounds.height * aspectRatio;
+        
+        // Adjust position for left corners
+        if (handleType === 'nw' || handleType === 'sw') {
+          newBounds.x = startBounds.x + startBounds.width - newBounds.width;
+        }
+      }
+    }
+
+    // Update local bounds for immediate visual feedback
+    setLocalBounds(newBounds);
+
+    // NOTE: Don't call onUpdateShape here - save only at drag END to avoid race conditions
+  };
+
+  const handleResizeDragEnd = (handleType: HandleType, e: any) => {
+    // Prevent event bubbling to canvas
+    e.evt.stopPropagation();
+    e.cancelBubble = true;
+    
+    if (!onUpdateShape) return;
+    
+    // Save final bounds to Firestore
+    const finalBounds = { ...localBounds };
+    
+    // Set pending network update to prevent visual blip
+    setResizeState({
+      isResizing: false,
+      pendingNetworkUpdate: true,
+      startBounds: null,
+      startPointer: null,
+      handleType: null,
+    });
+    
+    // Now save the final result to Firestore
+    onUpdateShape(shape.id, finalBounds);
   };
 
   const handleDragBound = (pos: { x: number; y: number }) => {
-    return constrainShapePosition(pos.x, pos.y, shape.width, shape.height);
+    return constrainShapePosition(pos.x, pos.y, localBounds.width, localBounds.height);
   };
 
   const handleDblClick = () => {
@@ -134,14 +348,14 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
       <KonvaText
         ref={textRef}
         id={shape.id}
-        x={shape.x}
-        y={shape.y}
+        x={localBounds.x}
+        y={localBounds.y}
         text={shape.text || 'Double-click to edit'}
-        fontSize={16}
+        fontSize={shape.fontSize || 16}
         fontFamily="Arial"
         fill={shape.fill}
-        width={shape.width}
-        height={shape.height}
+        width={localBounds.width}
+        height={localBounds.height}
         padding={4}
         align="left"
         verticalAlign="top"
@@ -175,11 +389,11 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
           }
         }}
       />
+      {/* Disabled old Transformer in favor of unified TransformHandles */}
+      {/* 
       {isSelected && !isEditing && (
         <Transformer
-          ref={transformerRef}
           boundBoxFunc={(oldBox, newBox) => {
-            // Limit resize
             if (newBox.width < 50 || newBox.height < 30) {
               return oldBox;
             }
@@ -187,6 +401,21 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
           }}
         />
       )}
+      */}
+      
+      {/* Phase 2b: Transform handles for resize operations */}
+      <TransformHandles
+        bounds={{
+          x: localBounds.x,
+          y: localBounds.y,
+          width: localBounds.width,
+          height: localBounds.height,
+        }}
+        visible={isSelected && !isEditing}
+        onHandleDragStart={handleResizeDragStart}
+        onHandleDragMove={handleResizeDragMove}
+        onHandleDragEnd={handleResizeDragEnd}
+      />
     </>
   );
 };

@@ -33,8 +33,11 @@ interface CanvasProps {
   selectedShapeIds?: string[]; // PR8a: Multi-select support
   onSelectShape: (shapeId: string | null, addToSelection?: boolean) => void;
   onUpdateShapePosition: (shapeId: string, x: number, y: number) => void;
+  onUpdateShapeDimensions: (shapeId: string, width: number, height: number) => void;
+  onUpdateShapePositionAndDimensions: (shapeId: string, x: number, y: number, width: number, height: number) => void;
   onTextChange: (shapeId: string, text: string) => void;
   onColorChange: (shapeId: string, color: string) => void;
+  onFontSizeChange: (shapeId: string, fontSize: number) => void;
   onZoomIn?: () => void;
   onZoomOut?: () => void;
   onShapeDragStart?: () => void;
@@ -54,8 +57,11 @@ const Canvas = ({
   selectedShapeIds = [], // PR8a: Multi-select
   onSelectShape,
   onUpdateShapePosition,
+  onUpdateShapeDimensions,
+  onUpdateShapePositionAndDimensions,
   onTextChange,
   onColorChange,
+  onFontSizeChange,
   onZoomIn,
   onZoomOut,
   onShapeDragStart,
@@ -85,13 +91,15 @@ const Canvas = ({
   // Track if a shape is currently being dragged (use ref for synchronous access)
   const isShapeDraggingRef = useRef(false);
 
-  // Context menu state for shape color changing
+  // Context menu state for shape color changing and font size (for text shapes)
   const [contextMenu, setContextMenu] = useState<{
     visible: boolean;
     x: number;
     y: number;
     shapeId: string;
+    shapeType: string;
     currentColor: string;
+    currentFontSize: number;
   } | null>(null);
 
   // Task 3.4.4: Zoom in/out from toolbar buttons
@@ -350,7 +358,6 @@ const Canvas = ({
         <Layer>
           {shapes.map((shape) => {
             const shapeProps = {
-              key: shape.id,
               shape: shape,
               isSelected: selectedShapeIds.includes(shape.id), // PR8a: Multi-select check
               onSelect: (e?: any) => {
@@ -377,6 +384,30 @@ const Canvas = ({
                 onUpdateShapePosition(id, x, y);
                 onShapeDragEnd?.();
               },
+              onUpdateShape: (id: string, updates: any) => {
+                // Phase 2b: Handle resize updates from TransformHandles
+                console.log('🎯 Shape resized:', id, updates);
+                
+                const hasPositionChange = updates.x !== undefined || updates.y !== undefined;
+                const hasDimensionChange = updates.width !== undefined || updates.height !== undefined;
+                
+                if (hasPositionChange && hasDimensionChange) {
+                  // Atomic operation for N/W handles that change both position and dimensions
+                  onUpdateShapePositionAndDimensions(
+                    id, 
+                    updates.x ?? shape.x, 
+                    updates.y ?? shape.y, 
+                    updates.width ?? shape.width, 
+                    updates.height ?? shape.height
+                  );
+                } else if (hasPositionChange) {
+                  // Position-only update (regular drag)
+                  onUpdateShapePosition(id, updates.x || shape.x, updates.y || shape.y);
+                } else if (hasDimensionChange) {
+                  // Dimension-only update (E/S handles)
+                  onUpdateShapeDimensions(id, updates.width || shape.width, updates.height || shape.height);
+                }
+              },
               onRightClick: (e: any) => {
                 e.evt.preventDefault();
                 const stage = e.target.getStage();
@@ -388,7 +419,9 @@ const Canvas = ({
                       x: pointerPosition.x + stage.container().offsetLeft,
                       y: pointerPosition.y + stage.container().offsetTop,
                       shapeId: shape.id,
+                      shapeType: shape.type,
                       currentColor: shape.fill,
+                      currentFontSize: shape.fontSize || 16,
                     });
                   }
                 }
@@ -396,22 +429,23 @@ const Canvas = ({
             };
 
             if (shape.type === 'circle') {
-              return <Circle {...shapeProps} />;
+              return <Circle key={shape.id} {...shapeProps} />;
             } else if (shape.type === 'text') {
               return (
                 <Text
+                  key={shape.id}
                   {...shapeProps}
                   onTextChange={onTextChange}
                 />
               );
             } else if (shape.type === 'line') {
               // PR8a.1.6: Line shape rendering (Phase 2a)
-              return <Line {...shapeProps} />;
+              return <Line key={shape.id} {...shapeProps} />;
             } else if (shape.type === 'arrow') {
               // PR8a.1.6: Arrow shape rendering (Phase 2a)
-              return <Arrow {...shapeProps} />;
+              return <Arrow key={shape.id} {...shapeProps} />;
             } else {
-              return <Rectangle {...shapeProps} />;
+              return <Rectangle key={shape.id} {...shapeProps} />;
             }
           })}
         </Layer>
@@ -441,9 +475,17 @@ const Canvas = ({
         <ShapeContextMenu
           x={contextMenu.x}
           y={contextMenu.y}
+          shapeType={contextMenu.shapeType}
           currentColor={contextMenu.currentColor}
+          currentFontSize={contextMenu.currentFontSize}
           onSelectColor={(color) => {
             onColorChange(contextMenu.shapeId, color);
+          }}
+          onSelectFontSize={(fontSize) => {
+            // Update shape with new font size (text shapes only)
+            if (contextMenu.shapeType === 'text') {
+              onFontSizeChange(contextMenu.shapeId, fontSize);
+            }
           }}
           onClose={() => setContextMenu(null)}
         />

@@ -115,6 +115,9 @@ export interface Shape {
   /** Text content (only for text shapes) */
   text?: string;
 
+  /** Font size in pixels (only for text shapes) */
+  fontSize?: number;
+
   /** Line points array (only for line/arrow shapes) - PR8a.1.4 */
   points?: number[];
 
@@ -159,6 +162,7 @@ export interface CreateShapeData {
   height: number;
   fill?: string;
   text?: string;
+  fontSize?: number;
 }
 
 /**
@@ -173,6 +177,7 @@ export interface UpdateShapeData {
   height?: number;
   fill?: string;
   text?: string;
+  fontSize?: number;
 }
 
 // ============================================================================

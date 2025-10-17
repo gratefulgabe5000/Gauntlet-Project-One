@@ -126,6 +126,9 @@ export async function createShape(
     if (shapeData.text !== undefined && shapeData.text !== null) {
       newShape.text = shapeData.text;
     }
+    if (shapeData.fontSize !== undefined && shapeData.fontSize !== null) {
+      newShape.fontSize = shapeData.fontSize;
+    }
     if (shapeData.points !== undefined && shapeData.points !== null) {
       newShape.points = shapeData.points;
     }

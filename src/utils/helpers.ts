@@ -117,6 +117,7 @@ export const createTextShape = (
     width: 200,
     height: 50,
     fill: '#000000',
+    fontSize: 16, // Default font size for text shapes
     ...overrides,
   };
 };
