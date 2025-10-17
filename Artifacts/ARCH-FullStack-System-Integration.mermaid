@@ -1,3 +1,9 @@
+%% CollabCanvas Full-Stack System Integration Architecture v5.0
+%% Aligned with: PRD v5.0, TaskList v5.0, WBS v5.0, TechStack v5.0
+%% Updated: October 16, 2025
+%% Phase Structure: 2a/2b (Rubric/Figma), 3 (AI), 4a/4b (Performance/Figma), 5 (LangSmith)
+%% Custom Utilities: transform.ts, alignment.ts
+
 graph TB
     subgraph "👤 USER LAYER - Multi-Device Access"
         User1[User 1 Browser<br/>Chrome/Firefox/Safari]
@@ -6,7 +12,7 @@ graph TB
         ShareURL[Shared Production URL<br/>collabcanvas-mvp-53120.web.app]
     end
 
-    subgraph "🎨 FRONTEND LAYER - React 19 Application"
+    subgraph "🎨 FRONTEND LAYER - React 19 Application v5.0"
         subgraph "Core Framework & Build Tools"
             React[React 19.0<br/>Component Architecture<br/>Hooks & State Management]
             Vite[Vite 7.1.7<br/>Dev Server & Build Tool<br/>HMR & Optimization]
@@ -14,9 +20,9 @@ graph TB
             Tailwind[Tailwind CSS<br/>Utility-First Styling<br/>Responsive Design]
         end
 
-        subgraph "Canvas Rendering Engine"
-            Konva[Konva.js 10.0.2<br/>High-Performance Canvas<br/>Shape Management<br/>Event Handling<br/>Transform Operations]
-            ReactKonva[React-Konva<br/>React Bindings<br/>Component Bridge]
+        subgraph "Canvas Rendering Engine v5.0"
+            Konva[Konva.js 10.0.2<br/>High-Performance Canvas<br/>Shape Management<br/>Event Handling<br/>Transform Operations<br/>Phase 2b: 8-point resize<br/>Phase 4a: Viewport culling]
+            ReactKonva[React-Konva<br/>React Bindings<br/>Component Bridge<br/>Declarative Canvas API]
         end
 
         subgraph "UI Component Layer"
@@ -30,20 +36,34 @@ graph TB
                 Cursor[Cursor.tsx<br/>Other Users' Cursors<br/>Real-time Position]
             end
 
-            subgraph "Phase 2 Components ⏳"
+            subgraph "Phase 2a Rubric Tier 1 ⏳"
                 Line[Line.tsx<br/>NEW Shape Type]
                 Arrow[Arrow.tsx<br/>NEW Shape Type]
                 ColorPaletteModal[ColorPaletteModal.tsx<br/>20+ Colors<br/>Recent Colors<br/>Tier 1: 2pts]
                 ExportModal[ExportModal.tsx<br/>PNG/SVG Export<br/>Quality Settings]
                 KeyboardShortcutsPanel[KeyboardShortcutsPanel.tsx<br/>10+ Shortcuts<br/>Help Panel<br/>Tier 1: 2pts]
+                ShapeStylePanel[ShapeStylePanel.tsx<br/>Text Formatting<br/>Font size/bold/italic/align]
+            end
+
+            subgraph "Phase 2b Figma Transforms ⏳ 🎨"
+                TransformerEnhanced[Enhanced Transformer<br/>8-point resize<br/>Rotation handle<br/>Aspect ratio lock<br/>Live dimensions]
+                SmartGuides[Smart Guides<br/>useSmartGuides.ts hook<br/>5px tolerance<br/>Red dashed lines<br/>Snap-to-align]
+                MarqueeSelection[MarqueeSelection.tsx<br/>Drag-to-select<br/>Collision detection<br/>Multi-select integration]
             end
 
             subgraph "Phase 3 AI Components ⏳ 🤖"
                 AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display<br/>Loading/Error States<br/>25 RUBRIC POINTS]
             end
 
-            subgraph "Phase 4 Components ⏳"
-                LayersPanel[LayersPanel.tsx<br/>Z-Index Management<br/>Drag-to-Reorder<br/>Show/Hide/Lock<br/>Tier 2: 3pts]
+            subgraph "Phase 4a Performance ⏳"
+                PerformanceMonitor[PerformanceMonitor<br/>FPS Tracker<br/>Render Time<br/>Sync Latency<br/>Shape Count<br/>60 FPS target]
+                ViewportCullingComp[Viewport Culling<br/>Render visible only<br/>500px buffer<br/>500+ shapes at 60 FPS]
+                ShapePoolingComp[Shape Pooling<br/>Konva recycling<br/>Memory optimization<br/>Reduce GC overhead]
+            end
+
+            subgraph "Phase 4b Figma Interface ⏳ 🎨"
+                LayersPanel[LayersPanel.tsx<br/>Z-Index Management<br/>@dnd-kit drag-reorder<br/>Show/Hide/Lock<br/>Tier 2: 3pts]
+                PropertiesPanel[PropertiesPanel.tsx<br/>Selected shape properties<br/>X/Y/Width/Height<br/>Color/Style/Text<br/>Figma-inspired]
                 AlignmentTools[AlignmentTools.tsx<br/>9 Alignment Ops<br/>Distribute H/V<br/>Tier 2: 3pts]
             end
         end
@@ -76,7 +96,7 @@ graph TB
                 AuthService[AuthContext.tsx<br/>Email/Password<br/>Session Management<br/>No Google OAuth]
             end
 
-            subgraph "Phase 2 Services ⏳"
+            subgraph "Phase 2a Services ⏳"
                 ExportService[export.ts<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>Canvas-to-Image]
             end
 
@@ -85,9 +105,8 @@ graph TB
                 AIAgentService[aiAgent.ts<br/>executeToolCall Function<br/>Switch-based Router<br/>Canvas Integration<br/>Returns CommandResult]
             end
 
-            subgraph "Phase 4 Services ⏳"
-                AlignmentService[alignment.ts<br/>9 Alignment Functions<br/>alignLeft/Center/Right<br/>distributeH/V]
-                PerformanceService[performance.ts<br/>Viewport Culling<br/>getVisibleShapes<br/>FPS Monitoring]
+            subgraph "Phase 4a Services ⏳"
+                PerformanceService[performance.ts<br/>Viewport Culling<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
             end
         end
 
@@ -99,9 +118,17 @@ graph TB
                 ErrorMessages[errorMessages.ts<br/>User-friendly Errors<br/>Firebase Translation<br/>Phase 3: AI Errors]
             end
 
+            subgraph "Phase 2b Custom Utils ⏳ 🎨"
+                TransformUtils[transform.ts<br/>calculateBounds<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio<br/>Konva custom utilities]
+            end
+
             subgraph "Phase 3 AI Utils ⏳ 🤖"
                 AICommands[aiCommands.ts<br/>CANVAS_TOOLS Array<br/>12+ Function Schemas<br/>OpenAI Tool Calling Format<br/>Creation/Manip/Layout/Complex]
                 AITypes[ai.types.ts<br/>ToolCallResult Interface<br/>CommandResult Interface<br/>Tool Execution Types]
+            end
+
+            subgraph "Phase 4b Custom Utils ⏳ 🎨"
+                AlignmentUtils[alignment.ts<br/>9 Alignment Functions<br/>alignLeft/Center/Right<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
             end
         end
     end
@@ -124,7 +151,7 @@ graph TB
         end
 
         subgraph "Firebase Hosting - Production CDN"
-            Hosting[Firebase Hosting<br/>Static File Serving<br/>SSL/HTTPS Auto<br/>Global CDN<br/>SPA Routing<br/>collabcanvas-mvp-53120.web.app<br/>Phase 1: ~335 KB gzipped<br/>Phase 5: ~450 KB gzipped]
+            Hosting[Firebase Hosting v5.0<br/>Static File Serving<br/>SSL/HTTPS Auto<br/>Global CDN<br/>SPA Routing<br/>collabcanvas-mvp-53120.web.app<br/>Phase 1: ~335 KB gzipped ✅<br/>Phase 2-5 Est: ~450 KB gzipped ⏳]
         end
     end
 
@@ -140,15 +167,15 @@ graph TB
         end
     end
 
-    subgraph "🔧 DEVELOPMENT & BUILD TOOLS"
-        DevTools[Development Stack:<br/>Node.js 18+<br/>npm 11.6.1<br/>ESLint TypeScript<br/>Vitest 3.2.4<br/>React Testing Library]
-        BuildPipeline[Build Pipeline:<br/>Code Splitting<br/>react-vendor chunk<br/>firebase-vendor chunk<br/>konva-vendor chunk<br/>Phase 5: openai-vendor<br/>Phase 5: langsmith-vendor<br/>esbuild Minification]
+    subgraph "🔧 DEVELOPMENT & BUILD TOOLS v5.0"
+        DevTools[Development Stack:<br/>Node.js 18+<br/>npm 11.6.1<br/>Vite 7.1.7<br/>TypeScript 5.9.3<br/>ESLint TypeScript<br/>Vitest 3.2.4<br/>React Testing Library]
+        BuildPipeline[Build Pipeline v5.0:<br/>Code Splitting Strategy<br/>react-vendor chunk<br/>firebase-vendor chunk<br/>konva-vendor chunk<br/>Phase 5: openai-vendor ⏳<br/>Phase 5: langsmith-vendor ⏳<br/>esbuild Minification<br/>Source Maps Disabled]
     end
 
-    subgraph "📦 ADDITIONAL LIBRARIES Phase 2-4"
-        ColorPicker[react-colorful<br/>2.8kb Library<br/>Zero Dependencies<br/>Phase 2: Tier 1]
-        DnDKit[dnd-kit/core<br/>dnd-kit/sortable<br/>Modern Drag & Drop<br/>Phase 4: Layers Panel]
-        PerfAPI[Performance API<br/>Built-in Browser<br/>FPS Tracking<br/>Render Time<br/>Phase 4]
+    subgraph "📦 ADDITIONAL LIBRARIES v5.0"
+        ColorPicker[react-colorful<br/>2.8kb Library<br/>Zero Dependencies<br/>Phase 2a: Color palette]
+        DnDKit[@dnd-kit/core<br/>@dnd-kit/sortable<br/>Modern Drag & Drop<br/>Phase 4b: Layers Panel<br/>Z-index reordering]
+        PerfAPI[Performance API<br/>Built-in Browser API<br/>FPS Tracking<br/>Render Time<br/>Phase 4a: Performance Monitor]
     end
 
     %% User connections
@@ -173,7 +200,9 @@ graph TB
     React --> UserPresence
     React --> AICommandPanel
     React --> LayersPanel
+    React --> PropertiesPanel
     React --> AlignmentTools
+    React --> PerformanceMonitor
 
     Canvas --> Rectangle
     Canvas --> Circle
@@ -182,10 +211,14 @@ graph TB
     Canvas --> Arrow
     Canvas --> Cursor
     Canvas --> Konva
+    Canvas --> TransformerEnhanced
+    Canvas --> SmartGuides
+    Canvas --> MarqueeSelection
 
     Toolbar --> ColorPaletteModal
     Toolbar --> ExportModal
     Toolbar --> KeyboardShortcutsPanel
+    Toolbar --> ShapeStylePanel
 
     %% Hooks connections
     Canvas --> useCanvas
@@ -197,6 +230,7 @@ graph TB
     AICommandPanel --> useAIAgent
     AICommandPanel --> useCommandHistory
     LayersPanel --> useShapes
+    PropertiesPanel --> useShapes
     AlignmentTools --> useShapes
 
     %% Services connections
@@ -208,7 +242,15 @@ graph TB
     useAIAgent --> OpenAIService
     useAIAgent --> AIAgentService
     ExportModal --> ExportService
-    AlignmentTools --> AlignmentService
+
+    %% Custom utilities connections (v5.0)
+    TransformerEnhanced --> TransformUtils
+    SmartGuides --> TransformUtils
+    Canvas --> TransformUtils
+    AlignmentTools --> AlignmentUtils
+    PropertiesPanel --> TransformUtils
+    PerformanceMonitor --> PerformanceService
+    ViewportCullingComp --> PerformanceService
 
     %% Service to Firebase connections
     AuthService --> FirebaseConfig
@@ -233,23 +275,23 @@ graph TB
     AIAgentService --> useShapes
     LangSmith --> Dashboard
 
-    %% Real-time data flows
-    FirestoreService <-->|CREATE/UPDATE/DELETE<br/>Real-time Listeners<br/>Phase 1: <500ms<br/>Phase 4: <100ms| CanvasCollection
-    RealtimeService <-->|Cursor Position<br/>Presence Updates<br/>Phase 1: <200ms throttle 100ms<br/>Phase 4: <50ms throttle 50ms| SessionsPath
+    %% Real-time data flows (v5.0 optimizations)
+    FirestoreService <-->|CREATE/UPDATE/DELETE<br/>Real-time Listeners<br/>Phase 1: <500ms ✅<br/>Phase 4a: <100ms optimization ⏳| CanvasCollection
+    RealtimeService <-->|Cursor Position<br/>Presence Updates<br/>Phase 1: <200ms throttle 100ms ✅<br/>Phase 4a: <50ms throttle optimization ⏳| SessionsPath
 
-    %% AI Command flow
-    AICommandPanel -->|Natural Language<br/>Create a red circle| useAIAgent
-    useAIAgent -->|Chat Completions<br/>with CANVAS_TOOLS| OpenAIService
-    OpenAIService -->|Wrapped for Tracing<br/>Phase 5| LangSmith
-    LangSmith -->|Tool Calling Request| OpenAI
-    OpenAI -->|tool_calls JSON<br/>create_shape args| ToolCalling
-    ToolCalling -->|Parse & Route| AIAgentService
-    AIAgentService -->|executeToolCall<br/>Switch Router| AICommands
-    AIAgentService -->|addShape/updateShape<br/>metadata: createdBy='ai'| useShapes
-    useShapes -->|Sync to Firestore| CanvasCollection
-    CanvasCollection -->|Real-time to All Users| User1
-    CanvasCollection -->|Real-time to All Users| User2
-    CanvasCollection -->|Real-time to All Users| User3
+    %% AI Command flow (Phase 3 + Phase 5 v5.0)
+    AICommandPanel -->|Natural Language<br/>Create a red circle<br/>Phase 3: 25 RUBRIC POINTS| useAIAgent
+    useAIAgent -->|Chat Completions<br/>with CANVAS_TOOLS<br/>12+ tool functions| OpenAIService
+    OpenAIService -->|Wrapped for Tracing<br/>Phase 5: +2 BONUS POINTS ⏳| LangSmith
+    LangSmith -->|Tool Calling Request<br/>gpt-4o-mini<br/><2s response target| OpenAI
+    OpenAI -->|tool_calls JSON<br/>create_shape args<br/>Structured output| ToolCalling
+    ToolCalling -->|Parse & Route<br/>Switch-based routing| AIAgentService
+    AIAgentService -->|executeToolCall<br/>12+ functions<br/>Canvas integration| AICommands
+    AIAgentService -->|addShape/updateShape<br/>metadata: createdBy='ai'<br/>aiCommand field| useShapes
+    useShapes -->|Sync to Firestore<br/>Real-time propagation| CanvasCollection
+    CanvasCollection -->|Real-time to All Users<br/>onSnapshot listener| User1
+    CanvasCollection -->|Real-time to All Users<br/>onSnapshot listener| User2
+    CanvasCollection -->|Real-time to All Users<br/>onSnapshot listener| User3
 
     %% Multi-user collaboration
     User1 -->|Create Shape| Canvas
@@ -264,10 +306,12 @@ graph TB
     Konva -->|PNG/SVG Blob| ExportModal
     ExportModal -->|Download| User1
 
-    %% Library integrations
+    %% Library integrations (v5.0)
     ColorPaletteModal --> ColorPicker
     LayersPanel --> DnDKit
     PerformanceService --> PerfAPI
+    SmartGuides --> Konva
+    MarqueeSelection --> Konva
 
     %% Build process
     DevTools --> Vite
@@ -282,30 +326,36 @@ graph TB
     AIAgentService --> AITypes
     AIAgentService --> AICommands
 
-    %% Styling
+    %% Styling (v5.0 with Phase 2a/2b/4a/4b)
     classDef userLayer fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
     classDef frontendCore fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
     classDef canvasEngine fill:#fff3e0,stroke:#f57c00,stroke-width:2px
     classDef componentPhase1 fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    classDef componentPhase2 fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    classDef componentPhase2a fill:#fff9c4,stroke:#f9a825,stroke-width:2px
+    classDef componentPhase2bFigma fill:#99ffaa,stroke:#66cc33,stroke-width:3px
     classDef componentPhase3AI fill:#ffebee,stroke:#c62828,stroke-width:3px
-    classDef componentPhase4 fill:#e0f2f1,stroke:#00695c,stroke-width:2px
+    classDef componentPhase4aPerformance fill:#cc99ff,stroke:#6600cc,stroke-width:2px
+    classDef componentPhase4bFigma fill:#aa99ff,stroke:#3300cc,stroke-width:3px
     classDef hooksLayer fill:#fce4ec,stroke:#c2185b,stroke-width:2px
     classDef servicesLayer fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
     classDef firebaseService fill:#ffccbc,stroke:#d84315,stroke-width:2px
     classDef aiService fill:#ff99cc,stroke:#cc0066,stroke-width:3px
     classDef buildTools fill:#cfd8dc,stroke:#455a64,stroke-width:2px
+    classDef customUtility fill:#ffff99,stroke:#cccc00,stroke-width:2px
     classDef libraries fill:#d1c4e9,stroke:#512da8,stroke-width:2px
 
     class User1,User2,User3,ShareURL userLayer
     class React,Vite,TypeScript,Tailwind frontendCore
     class Konva,ReactKonva canvasEngine
     class Canvas,Toolbar,Rectangle,Circle,Text,UserPresence,Cursor,useAuth,useCanvas,useShapes,usePresence,useToast componentPhase1
-    class Line,Arrow,ColorPaletteModal,ExportModal,KeyboardShortcutsPanel,useUndoRedo,useKeyboardShortcuts,ExportService componentPhase2
+    class Line,Arrow,ColorPaletteModal,ExportModal,KeyboardShortcutsPanel,ShapeStylePanel,useUndoRedo,useKeyboardShortcuts,ExportService componentPhase2a
+    class TransformerEnhanced,SmartGuides,MarqueeSelection componentPhase2bFigma
     class AICommandPanel,useAIAgent,useCommandHistory,OpenAIService,AIAgentService,AICommands,AITypes componentPhase3AI
-    class LayersPanel,AlignmentTools,AlignmentService,PerformanceService componentPhase4
+    class PerformanceMonitor,ViewportCullingComp,ShapePoolingComp,PerformanceService componentPhase4aPerformance
+    class LayersPanel,PropertiesPanel,AlignmentTools componentPhase4bFigma
     class FirebaseConfig,FirestoreService,RealtimeService,AuthService servicesLayer
     class FBAuth,CanvasCollection,ShapeSchema,SecurityRules,SessionsPath,CursorData,PresenceSystem,Hosting firebaseService
     class OpenAI,ToolCalling,LangSmith,Dashboard aiService
     class DevTools,BuildPipeline buildTools
+    class TransformUtils,AlignmentUtils customUtility
     class ColorPicker,DnDKit,PerfAPI,Types,Colors,Helpers,ErrorMessages libraries

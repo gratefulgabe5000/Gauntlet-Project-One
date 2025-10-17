@@ -1,12 +1,12 @@
 graph TB
     subgraph "Development & Deployment Pipeline"
         DevEnv[Development Environment<br/>Vite 7.1.7 + TypeScript 5.9.3 + ESLint]
-        GitRepo[Git Repository<br/>Feature Branch Strategy<br/>11 Progressive PRs 7 Complete, 4 Pending]
+        GitRepo[Git Repository<br/>Feature Branch Strategy<br/>12 Progressive PRs<br/>Phase 1: 7 Complete ✅<br/>Phases 2a/2b/3/4a/4b/5: 5 Pending ⏳]
         TestSuite[Testing Infrastructure<br/>Vitest 3.2.4 + React Testing Library<br/>Manual Multi-tab Testing]
         BuildPipeline[Production Build Pipeline<br/>Code Splitting + esbuild Minification<br/>~335 KB gzipped bundle Phase 1<br/>Est. ~450 KB with Phase 2-5]
     end
 
-    subgraph "Client Browser - CollabCanvas Complete v2.0 Phase 1-5"
+    subgraph "Client Browser - CollabCanvas Complete v5.0 Phase 1-5"
         subgraph "React 19 Application Layer"
             subgraph "Core UI Components Phase 1 ✅"
                 App[App.tsx<br/>Main Application Shell<br/>Wrapped in ErrorBoundary]
@@ -27,11 +27,18 @@ graph TB
                 KonvaEngine[Konva.js 10.0.2 Rendering Engine<br/>High-Performance Canvas<br/>Pan/Zoom/Selection/Transform<br/>Phase 4: Viewport Culling<br/>Phase 4: Shape Pooling]
             end
 
-            subgraph "Phase 2 New UI Components ⏳"
+            subgraph "Phase 2a Rubric Tier 1 Components ⏳"
                 ColorPaletteModal[ColorPaletteModal.tsx<br/>20+ Color Grid Palette<br/>Recent Colors 6<br/>Custom Hex Input<br/>Tier 1: 2 points]
                 ExportModal[ExportModal.tsx<br/>Export Canvas PNG/SVG<br/>Full Canvas or Selected<br/>Quality Settings<br/>Tier 1: Part of features]
                 ShapeStylePanel[ShapeStylePanel.tsx<br/>Text Formatting Toolbar<br/>Font size dropdown<br/>Bold/Italic/Align buttons]
                 KeyboardShortcutsPanel[KeyboardShortcutsPanel.tsx<br/>10+ Keyboard Shortcuts<br/>Help Panel Toggle ?<br/>Cmd+Z Undo, Cmd+D Duplicate<br/>Tier 1: 2 points]
+            end
+
+            subgraph "Phase 2b Figma Transform Operations NEW ⏳ 🎨"
+                TransformerEnhanced[Enhanced Transformer Component<br/>Konva Transformer with 8-point resize<br/>Rotation handle at top<br/>Maintain aspect ratio<br/>Live dimension display]
+                SmartGuides[Smart Guides Component<br/>useSmartGuides.ts hook<br/>Alignment detection 5px tolerance<br/>Red dashed lines<br/>Snap-to-align behavior]
+                MarqueeSelection[MarqueeSelection.tsx<br/>Drag-to-select rectangle<br/>Konva Rect with dashed border<br/>Collision detection<br/>Multi-select integration]
+                TransformUtils[src/utils/transform.ts<br/>calculateBounds function<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio]
             end
 
             subgraph "Phase 3 AI Canvas Agent NEW ⏳ CRITICAL"
@@ -44,10 +51,17 @@ graph TB
                 useCommandHistory[useCommandHistory Hook<br/>Last 20 Commands<br/>Success/Error Tracking<br/>Re-execute Capability<br/>localStorage Persistence]
             end
 
-            subgraph "Phase 4 Advanced UI Components NEW ⏳"
-                LayersPanel[LayersPanel.tsx<br/>Right Sidebar 300px<br/>All Shapes List<br/>Drag-to-reorder z-index<br/>Show/Hide toggle<br/>Lock/Unlock toggle<br/>Tier 2: 3 points]
+            subgraph "Phase 4a Performance Optimization NEW ⏳"
+                PerformanceMonitor[Performance Monitor<br/>FPS Tracker real-time<br/>Render Time per Frame<br/>Sync Latency Display<br/>Shape Count Indicator<br/>60 FPS target]
+                ViewportCullingComponent[Viewport Culling System<br/>useCanvas optimization<br/>Render only visible shapes<br/>500px buffer zone<br/>500+ shapes at 60 FPS]
+                ShapePoolingComponent[Shape Pooling Manager<br/>Konva instance recycling<br/>Reduce GC overhead<br/>Memory optimization]
+            end
+
+            subgraph "Phase 4b Figma Interface Structure NEW ⏳ 🎨"
+                LayersPanel[LayersPanel.tsx<br/>Right Sidebar 300px<br/>All Shapes List<br/>Drag-to-reorder z-index @dnd-kit<br/>Show/Hide toggle<br/>Lock/Unlock toggle<br/>Tier 2: 3 points]
+                PropertiesPanel[PropertiesPanel.tsx<br/>Right Sidebar contextual<br/>Selected shape properties<br/>X/Y/Width/Height inputs<br/>Color/Style/Text formatting<br/>Figma-inspired design]
                 AlignmentTools[AlignmentTools.tsx<br/>9 Alignment Operations<br/>Left/Center/Right<br/>Top/Middle/Bottom<br/>Distribute H/V<br/>Align to Canvas Center<br/>Tier 2: 3 points]
-                PerformanceMonitor[Performance Monitor NEW<br/>FPS Tracker real-time<br/>Render Time per Frame<br/>Sync Latency Display<br/>Shape Count Indicator]
+                AlignmentUtilsLib[src/utils/alignment.ts<br/>alignLeft/Right/Center<br/>alignTop/Bottom/Middle<br/>distributeHorizontally<br/>distributeVertically<br/>alignToCanvasCenter]
             end
 
             subgraph "Phase 5 Observability NEW ⏳"
@@ -89,16 +103,17 @@ graph TB
                 FirestoreService[firestore.ts Phase 1+2+4<br/>Multi-Shape CRUD Operations<br/>Real-time Listeners<br/>Object Locking Logic<br/>Phase 2: Batch Operations<br/>Phase 4: Query Optimization]
                 RealtimeService[realtime.ts Phase 1+4<br/>Cursor Position Sync<br/>User Presence Management<br/>Connection Monitoring<br/>Heartbeat + onDisconnect Cleanup<br/>Phase 4: 50ms throttle optimization]
                 AuthService[auth/AuthContext.tsx<br/>Email/Password ONLY<br/>Session Management<br/>Google OAuth: NOT IMPLEMENTED]
-                ExportService[export.ts NEW Phase 2<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>exportSelectedShapesAsPNG<br/>Canvas-to-image conversion]
-                AlignmentService[alignment.ts NEW Phase 4<br/>9 Alignment Functions<br/>alignLeft/Center/Right<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
-                PerformanceService[performance.ts NEW Phase 4<br/>Viewport Culling Logic<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
+                ExportService[export.ts NEW Phase 2a<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>exportSelectedShapesAsPNG<br/>Canvas-to-image conversion]
+                PerformanceService[performance.ts NEW Phase 4a<br/>Viewport Culling Logic<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
             end
 
-            subgraph "Utilities"
+            subgraph "Utilities Layer v5.0"
                 TypeDefinitions[types.ts Phase 1+2+3<br/>TypeScript Interfaces<br/>Shape/User/Canvas Types<br/>Multi-shape support<br/>Phase 2: Line/Arrow types<br/>Phase 3: AI command types]
                 ColorUtils[colors.ts<br/>User Color Generation<br/>12 Distinct Colors<br/>Hash-based Assignment<br/>Phase 2: 20+ color palette]
                 Helpers[helpers.ts Phase 1+2<br/>Canvas Calculations<br/>createRectangleShape<br/>createCircleShape<br/>createTextShape<br/>Phase 2: createLineShape<br/>Phase 2: createArrowShape]
                 ErrorMessages[errorMessages.ts<br/>User-friendly Error Messages<br/>Firebase Error Translation<br/>Phase 3: AI Error Messages]
+                TransformUtilsRef[transform.ts NEW Phase 2b<br/>Custom Konva utilities<br/>calculateBounds<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio]
+                AlignmentUtilsRef[alignment.ts NEW Phase 4b<br/>9 alignment functions<br/>alignLeft/Right/Center<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
             end
 
             subgraph "Test Infrastructure"
@@ -163,10 +178,10 @@ graph TB
             HeartbeatSystem[Heartbeat System<br/>5-second Intervals<br/>Keep Users Online]
         end
 
-        subgraph "Performance Optimization Phase 4"
-            ViewportCulling[Viewport Culling<br/>Render only visible shapes<br/>+ 500px buffer<br/>500+ shapes at 60 FPS]
-            ShapePooling[Shape Pooling/Recycling<br/>Reuse Konva instances<br/>Reduce GC overhead<br/>Memory optimization]
-            BatchOperations[Firestore Batching<br/>100ms batch window<br/>writeBatch for bulk ops<br/>Reduce write operations]
+        subgraph "Performance Optimization Phase 4a"
+            ViewportCulling[Viewport Culling<br/>Render only visible shapes<br/>+ 500px buffer<br/>500+ shapes at 60 FPS<br/>useCanvas + PerformanceService]
+            ShapePooling[Shape Pooling/Recycling<br/>Reuse Konva instances<br/>Reduce GC overhead<br/>Memory optimization<br/>Konva layer optimization]
+            BatchOperations[Firestore Batching<br/>100ms batch window<br/>writeBatch for bulk ops<br/>Reduce write operations<br/>FirestoreService enhancement]
         end
     end
 
@@ -212,8 +227,16 @@ graph TB
     App --> MobileWarning
     App --> AICommandPanel
     App --> LayersPanel
+    App --> PropertiesPanel
     App --> AlignmentTools
     App --> PerformanceMonitor
+
+    %% Phase 2b Figma Transform connections
+    Canvas --> TransformerEnhanced
+    Canvas --> SmartGuides
+    Canvas --> MarqueeSelection
+    TransformerEnhanced --> TransformUtils
+    SmartGuides --> TransformUtils
 
     %% Phase 3 AI Agent connections
     AICommandPanel --> useAIAgent
@@ -250,6 +273,7 @@ graph TB
     Toast --> useToast
     LayersPanel --> useShapes
     AlignmentTools --> useShapes
+    PropertiesPanel --> useShapes
 
     %% Services integration
     useAuth --> AuthService
@@ -261,7 +285,13 @@ graph TB
     useShapes --> Helpers
     useToast --> ErrorMessages
     ExportModal --> ExportService
-    AlignmentTools --> AlignmentService
+
+    %% Utilities integration (v5.0 custom implementations)
+    AlignmentTools --> AlignmentUtilsLib
+    AlignmentUtilsLib --> AlignmentUtilsRef
+    PropertiesPanel --> TransformUtilsRef
+    Canvas --> TransformUtilsRef
+    Canvas --> AlignmentUtilsRef
 
     %% Firebase SDK connections
     AuthService --> FirebaseConfig
@@ -320,12 +350,15 @@ graph TB
     UserJoinLeave --> ConnectionMonitoring
     ConnectionMonitoring --> HeartbeatSystem
 
-    %% Performance optimization flows
-    ViewportCulling --> KonvaEngine
-    ShapePooling --> KonvaEngine
+    %% Performance optimization flows (Phase 4a)
+    ViewportCulling --> ViewportCullingComponent
+    ViewportCullingComponent --> KonvaEngine
+    ShapePooling --> ShapePoolingComponent
+    ShapePoolingComponent --> KonvaEngine
     BatchOperations --> FirestoreService
+    PerformanceMonitor --> PerformanceService
 
-    %% Styling
+    %% Styling (v5.0 with Phase 2a/2b/4a/4b)
     classDef criticalPath fill:#ff9999,stroke:#cc0000,stroke-width:3px
     classDef realtimeFlow fill:#99ccff,stroke:#0066cc,stroke-width:2px
     classDef firebaseService fill:#ffcc99,stroke:#ff6600,stroke-width:2px
@@ -334,8 +367,11 @@ graph TB
     classDef productionOptimization fill:#ffffcc,stroke:#cccc00,stroke-width:2px
     classDef testComponent fill:#cccccc,stroke:#666666,stroke-width:1px
     classDef aiComponent fill:#ff99cc,stroke:#cc0066,stroke-width:3px
-    classDef phase2Component fill:#99ffcc,stroke:#00cc66,stroke-width:2px
-    classDef phase4Component fill:#cc99ff,stroke:#6600cc,stroke-width:2px
+    classDef phase2aComponent fill:#99ffcc,stroke:#00cc66,stroke-width:2px
+    classDef phase2bFigma fill:#99ffaa,stroke:#66cc33,stroke-width:3px
+    classDef phase4aPerformance fill:#cc99ff,stroke:#6600cc,stroke-width:2px
+    classDef phase4bFigma fill:#aa99ff,stroke:#3300cc,stroke-width:3px
+    classDef customUtility fill:#ffff99,stroke:#cccc00,stroke-width:2px
 
     class FirestoreService,RealtimeService,ShapeCreate,ShapeUpdate,CursorTracking criticalPath
     class CanvasCollection,SessionsPath,PresenceSystem,ShapeLocking,ColorSync,TextSync realtimeFlow
@@ -345,5 +381,8 @@ graph TB
     class ErrorBoundary,CodeSplitting,Minification,BundleAnalysis productionOptimization
     class TestSuite,TestFiles testComponent
     class AICommandPanel,AIService,AIAgent,AICommands,useAIAgent,useCommandHistory,OpenAI,LangSmithWrapper,LangSmith,AIToolCalling,AIExecution,AIFirestoreSync,AIPerformance aiComponent
-    class Line,Arrow,ColorPaletteModal,ExportModal,ShapeStylePanel,KeyboardShortcutsPanel,useUndoRedo,useKeyboardShortcuts,ExportService,UndoRedoSync phase2Component
-    class LayersPanel,AlignmentTools,PerformanceMonitor,AlignmentService,PerformanceService,ViewportCulling,ShapePooling,BatchOperations phase4Component
+    class Line,Arrow,ColorPaletteModal,ExportModal,ShapeStylePanel,KeyboardShortcutsPanel,useUndoRedo,useKeyboardShortcuts,ExportService,UndoRedoSync phase2aComponent
+    class TransformerEnhanced,SmartGuides,MarqueeSelection,TransformUtils phase2bFigma
+    class PerformanceMonitor,ViewportCullingComponent,ShapePoolingComponent,PerformanceService,ViewportCulling,ShapePooling,BatchOperations phase4aPerformance
+    class LayersPanel,PropertiesPanel,AlignmentTools,AlignmentUtilsLib phase4bFigma
+    class TransformUtilsRef,AlignmentUtilsRef,TypeDefinitions,ColorUtils,Helpers,ErrorMessages customUtility

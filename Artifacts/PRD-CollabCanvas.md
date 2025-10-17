@@ -2,22 +2,25 @@
 
 ## Document Status
 
-**Version**: 2.0 (Rubric-Aligned)
+**Version**: 5.0 (Complete Technology Stack Alignment)
 **Timeline**: October 14-17, 2025 (4-day development sprint)
 **Submission Deadline**: Friday, October 17, 2025 EOD
-**Target Score**: 95-105/105 points
+**Target Score**: 95-107/105 points (>90% success rate)
+**Latest Update**: Aligned with TechStack v5.0 (custom utilities documented)
 
 ## Executive Summary
 
-CollabCanvas is a production-ready, AI-powered real-time collaborative canvas application designed to enable teams to think together visually. Building on a successful MVP deployment (Phase 1), this PRD outlines the path to a full-featured platform with AI canvas agent, professional design tools, and enterprise-grade performance—all aligned with the CollabCanvas Rubric requirements.
+CollabCanvas is a production-ready, AI-powered real-time collaborative canvas application with a **Figma-inspired professional interface** designed to enable teams to think together visually. Building on a successful MVP deployment (Phase 1), this PRD outlines the path to a full-featured platform with AI canvas agent, professional design tools, and enterprise-grade performance—all aligned with the CollabCanvas Rubric requirements.
 
 **Key Differentiators**:
+
 - **AI Canvas Agent**: Natural language commands for canvas manipulation (25 points - highest rubric value)
 - **Real-time Collaboration**: Sub-100ms sync with conflict resolution and multi-user presence
-- **Figma-Inspired Tools**: Professional design features (color picker, undo/redo, layers, alignment)
+- **Figma-Inspired Interface**: Professional dual-sidebar layout (layers panel + properties panel)
+- **Critical Transform Operations**: 8-point resize handles, rotation, smart guides, marquee selection
 - **High Performance**: 500+ objects at 60 FPS supporting 5+ concurrent users
 
-**Development Approach**: Progressive enhancement across 5 phases, with Phase 1 (MVP) completed and Phases 2-5 delivering rubric-aligned features by Friday.
+**Development Approach**: Progressive enhancement across 5 phases, with Phase 1 (MVP) completed and Phases 2-5 delivering rubric-aligned features with integrated Figma Phase 1 Critical Core Features by Friday.
 
 ## Product Vision
 
@@ -240,82 +243,276 @@ To create the most intuitive and powerful collaborative canvas platform that emp
 
 ---
 
+## Figma-Inspired Feature Integration Strategy
+
+### Critical Features from Figma Feature Gap Analysis
+
+Based on the comprehensive Figma Feature Gap Analysis, the following **Phase 1 Critical Core Features** have been integrated into the 4-day development timeline via dedicated **subphases (2a/2b, 4a/4b)**:
+
+**✅ Integrated Features** (distributed across dedicated Figma subphases):
+
+1. **Multi-Selection System** (3.1) → **Phase 2b** (Oct 15 PM)
+   - Type: 🎨 Figma-Inspired Enhancement
+   - Marquee selection box (click-and-drag)
+   - Shift+click and Ctrl+click multi-select
+   - Select all (Ctrl+A)
+   - Visual indication of multiple selected objects
+
+2. **Transform Operations** (3.2) → **Phase 2b** (Oct 15 PM)
+   - Type: 🎨 Figma-Inspired Enhancement
+   - 8-point resize handles on selected shapes
+   - Rotation handle above selection
+   - Smart guides during drag operations
+   - Aspect ratio locking (Shift+drag)
+
+3. **Layers Panel** (1.1) → **Phase 4b** (Oct 17, 11 AM - 1 PM)
+   - Type: 🎨 Figma-Inspired Enhancement
+   - Left sidebar with hierarchical tree structure
+   - Drag-and-drop to reorder z-index
+   - Show/hide and lock/unlock layers
+   - Layer selection integration
+
+4. **Properties Panel** (1.2) → **Phase 4b** (Oct 17, 11 AM - 1 PM)
+   - Type: 🎨 Figma-Inspired Enhancement
+   - Right sidebar with element properties
+   - Position, size, and rotation inputs
+   - Alignment and distribution tools (9 operations)
+   - Fill and stroke properties
+
+5. **Frames & Artboards** (2.1) → **Phase 4b** (Stretch Goal)
+   - Type: 🎨 Figma-Inspired Enhancement
+   - Frame tool with presets
+   - Device size templates
+   - Frame properties panel
+
+**⏸️ Deferred Features** (complexity exceeds 4-day timeline):
+
+6. **Pen Tool & Vector Editing** (4.1) - 5-7 days estimated
+   - Reason: Requires complex bezier curve mathematics and vector path editing logic
+   - Alternative: Focus on simpler shape primitives (lines, arrows in Phase 2a)
+   - Future Enhancement: Post-submission feature for v2.0
+
+**Subphase Structure**:
+
+| Original Phase | Rubric Subphase | Figma Subphase | Purpose |
+|----------------|-----------------|----------------|---------|
+| **Phase 2** | **Phase 2a** (AM) | **Phase 2b** (PM) | Tier 1 features vs Transform operations |
+| **Phase 3** | **Phase 3** (Full day) | N/A | AI Canvas Agent (highest rubric value) |
+| **Phase 4** | **Phase 4a** (9-11 AM) | **Phase 4b** (11 AM-1 PM) | Performance optimization vs Interface structure |
+
+**Impact on Timeline & Success Rate**:
+
+- **Timeline**: Still achievable in 4 days (Oct 14-17) with strategic subphase separation
+- **Rubric Score**: Maintains 95-107/105 target (>90% success rate)
+- **Risk Mitigation**: Figma features in dedicated subphases (2b, 4b), can be scaled back if needed
+- **Core Protection**: Rubric-required features (2a, 3, 4a, 5) protected in separate subphases
+- **UI Transformation**: Left sidebar (layers) + right sidebar (properties) = Figma-like interface
+- **Flexibility**: Each subphase can be adjusted independently without affecting rubric baseline
+
+---
+
 ## Phase 2-5: Rubric-Aligned Enhancement Strategy
 
 ### Strategic Phase-to-Rubric Mapping
 
-| Phase | Duration | Rubric Sections | Points Target | Key Deliverables |
-|-------|----------|----------------|---------------|------------------|
-| **Phase 1 (✅ Complete)** | Oct 14 | Sections 1, 5, 6 | 20/100 | MVP foundation, basic sync, auth, deployment |
-| **Phase 2** | Oct 15 | Sections 2 & 3 (Tier 1) | +20 points | 3+ shapes, color picker, undo/redo, keyboard shortcuts, export |
-| **Phase 3** | Oct 16 | Section 4 (AI Agent) | +25 points | 8+ AI commands, complex layouts, multi-user AI sync |
-| **Phase 4** | Oct 17 AM | Sections 2, 3 (Tier 2), 5 | +20 points | Performance optimization, layers panel, alignment tools |
-| **Phase 5** | Oct 17 PM | Sections 6, 7, 8 | +15 points | Documentation, demo video, final polish |
-| **Bonus** | Throughout | Innovation & Polish | +5 points | Exceptional UX, AI features, scale demonstration |
-| **TOTAL** | 4 days | All sections | **105/105** | Complete rubric-aligned submission |
+| Phase | Duration | Rubric Sections | Points Target | Rubric-Required Deliverables | Figma-Inspired Enhancements |
+|-------|----------|----------------|---------------|------------------------------|----------------------------|
+| **Phase 1 (✅ Complete)** | Oct 14 | Sections 1, 5, 6 | 20/100 | MVP foundation, basic sync, auth, deployment ||
+| **Phase 2a** | Oct 15 AM | Sections 2 & 3 (Tier 1) | +15 points | Color picker, undo/redo, keyboard shortcuts, lines/arrows, export ||
+| **Phase 2b** | Oct 15 PM | Sections 2 & 3 (UX) | +5 points || **8-point resize handles, rotation handles, marquee selection, smart guides** |
+| **Phase 3** | Oct 16 | Section 4 (AI Agent) | +25 points | 8+ AI commands, complex layouts, multi-user AI sync | AI leverages Phase 2b transforms |
+| **Phase 4a** | Oct 17 AM | Sections 2, 3 (Tier 2) | +10 points | Performance optimization (500+ objects, 5+ users) ||
+| **Phase 4b** | Oct 17 AM | Sections 5 (Polish) | +10 points | Code quality, documentation prep | **Left sidebar layers panel, right sidebar properties panel, 9 alignment operations, frames tool (stretch)** |
+| **Phase 5** | Oct 17 PM | Sections 6, 7, 8 | +15 points | Documentation, demo video, final polish | Showcase Figma-inspired interface |
+| **Bonus** | Throughout | Innovation & Polish | +5 points | Exceptional UX, AI features, scale demonstration | **Professional Figma-like interface** |
+| **TOTAL** | 4 days | All sections | **105/105** | Complete rubric-aligned submission | + Figma-inspired professional interface |
 
 ### Why This Sequence?
 
-1. **Phase 2 (Day 2)**: Build on MVP foundation with user-facing features (shapes, tools, shortcuts)
-2. **Phase 3 (Day 3)**: Implement highest-value feature (AI agent = 25 points) while features are still manageable
-3. **Phase 4 (Day 4 AM)**: Optimize performance and add advanced features when AI complexity is understood
-4. **Phase 5 (Day 4 PM)**: Polish and document when all features are complete
+1. **Phase 2a (Day 2 Morning)**: Rubric-required Tier 1 features
+   - Color picker, undo/redo, keyboard shortcuts (Tier 1 = 2 points each)
+   - Lines and arrows (additional shape types)
+   - Export functionality (PNG/SVG)
+   - **Rubric Points: +15**
 
-This strategy front-loads high-value AI development (Day 3) after establishing solid feature foundation (Day 2), then optimizes and documents (Day 4).
+2. **Phase 2b (Day 2 Afternoon)**: Figma-inspired transform operations
+   - **8-point resize handles & rotation** (critical Figma UX)
+   - **Marquee selection & smart guides** (critical Figma UX)
+   - Enhanced visual feedback and interaction polish
+   - **Rubric Points: +5 (UX improvements)**
+
+3. **Phase 3 (Day 3)**: Implement highest-value feature (AI agent = 25 points)
+   - AI Canvas Agent with 8+ commands
+   - Complex layout generation
+   - Multi-user AI collaboration
+   - **AI can leverage Phase 2b transform operations**
+   - **Rubric Points: +25**
+
+4. **Phase 4a (Day 4 AM First Half)**: Performance optimization (rubric-required)
+   - Canvas rendering optimization (500+ objects at 60 FPS)
+   - Support 5+ concurrent users without degradation
+   - Memory management and cleanup
+   - **Rubric Points: +10**
+
+5. **Phase 4b (Day 4 AM Second Half)**: Figma-inspired interface structure
+   - **Left sidebar layers panel** (hierarchical tree view)
+   - **Right sidebar properties panel** (position, size, alignment)
+   - **9 alignment operations** (professional design tool feature)
+   - Frames & artboards (stretch goal)
+   - **Rubric Points: +10 (code quality + polish)**
+
+6. **Phase 5 (Day 4 PM)**: Documentation and submission
+   - Professional documentation
+   - Demo video showcasing Figma-inspired interface
+   - Final deployment
+   - **Rubric Points: +15**
+
+**Strategic Rationale**: This phasing separates rubric-required features (Phases 2a, 3, 4a, 5) from Figma-inspired enhancements (Phases 2b, 4b). The rubric features ensure the 95-point baseline, while Figma enhancements add professional polish for bonus points and exceptional UX. Phase 2b transforms enable more powerful Phase 3 AI commands, and Phase 4b interface gives the project a professional Figma-like appearance for the demo video.
 
 ---
 
-### Phase 2 - Canvas Features & Figma-Inspired Tools (October 15 - Targets Rubric Section 2 & 3)
+### Phase 2a - Rubric-Required Canvas Features (October 15 Morning - Targets Rubric Section 2 & 3 Tier 1)
 
-**Duration**: 1 day (October 15)
-**Rubric Target**: Canvas Features & Performance (20 points) + Advanced Figma-Inspired Features (15 points)
+**Duration**: Half day (October 15, 9 AM - 1 PM)
+**Rubric Target**: Canvas Features & Performance (15 points) - Tier 1 features
+**Type**: ✅ Rubric-Required
 
-**Goal**: Expand canvas capabilities and add professional design tool features
+**Goal**: Implement Tier 1 rubric features for canvas functionality
 
 **Priority Features (Tier 1 - 2 points each, implementing 3)**:
-1. **Color Picker System**
+
+1. **Color Picker System** (Tier 1 - 2 points)
    - Color picker with recent colors and saved palettes
    - Apply colors to shapes
    - Color persistence across sessions
+   - React-colorful or similar library integration
 
-2. **Undo/Redo Functionality**
+2. **Undo/Redo Functionality** (Tier 1 - 2 points)
    - Full undo/redo with keyboard shortcuts (Cmd+Z/Cmd+Shift+Z)
-   - Action history tracking
+   - Action history tracking (in-memory stack)
    - Synced undo history for collaborative editing
+   - Show undo/redo buttons in toolbar
 
-3. **Enhanced Keyboard Shortcuts**
-   - Delete key for object removal
-   - Arrow keys to move selected objects
+3. **Enhanced Keyboard Shortcuts** (Tier 1 - 2 points)
+   - Delete key for object removal ✅ (already implemented)
+   - Arrow keys to move selected objects (5px increments)
    - Cmd/Ctrl+D for duplicate
    - Tab for next object selection
+   - R for Rectangle, O for Circle, T for Text
+   - V for Move tool, H for Hand tool
+   - Keyboard shortcuts help panel (? key)
 
-**Canvas Enhancements**:
+**Canvas Enhancements (Rubric-Required)**:
+
 4. **Additional Shape Types**
-   - Circles and ellipses
-   - Lines and arrows
-   - Basic text layers with formatting
+   - Circles and ellipses ✅ (already implemented)
+   - **Lines** (new - simple line shape)
+   - **Arrows** (new - line with arrowhead)
+   - Basic text layers with formatting ✅ (already implemented)
 
-5. **Transform Operations**
-   - Resize with corner handles
-   - Rotate objects
-   - Multi-select (shift-click)
-
-6. **Export Functionality**
-   - Export canvas as PNG/SVG
-   - Export selected objects
-   - Download functionality
+5. **Export Functionality**
+   - Export canvas as PNG (Stage.toDataURL())
+   - Export canvas as SVG (planned)
+   - Export selected objects only
+   - Download functionality with file naming
 
 **Performance Targets**:
+
 - Support 300+ objects with consistent performance
 - Maintain 60 FPS during interactions
 - Support 4-5 concurrent users
 
 **Success Criteria**:
-- All Tier 1 features working with keyboard shortcuts
-- 3+ shape types beyond rectangles
-- Text with basic formatting
-- Multi-select and transform operations
-- Export canvas as PNG
+
+- ✅ All 3 Tier 1 features working with keyboard shortcuts
+- ✅ 3+ shape types beyond rectangles (circle, text, line, arrow)
+- ✅ Text with basic formatting
+- ✅ Undo/redo with visual feedback
+- ✅ Color picker integrated into toolbar
+- ✅ Export canvas as PNG working
+
+---
+
+### Phase 2b - Figma-Inspired Transform Operations (October 15 Afternoon - UX Enhancement)
+
+**Duration**: Half day (October 15, 2 PM - 6 PM)
+**Rubric Target**: Canvas Features & Performance (5 points) - UX improvements
+**Type**: 🎨 Figma-Inspired Enhancement
+
+**Goal**: Add professional Figma-like transform and selection operations
+
+**Transform Operations** (Figma Critical Feature - 3.2):
+
+1. **8-Point Resize Handles**
+   - Corner handles (4): Diagonal resize maintaining aspect ratio with Shift
+   - Edge handles (4): Horizontal/vertical resize
+   - Visual handle indicators (small squares)
+   - Real-time size display during resize
+   - Sync resize operations to all users
+
+2. **Rotation Handle**
+   - Rotation handle above selection bounds
+   - Visual rotation indicator (circular arc)
+   - Real-time angle display during rotation
+   - Snap to 15° increments with Shift
+   - Rotate around shape center point
+
+3. **Smart Guides**
+   - Alignment guides when dragging (red/blue lines)
+   - Show when edges align with other objects
+   - Show when centers align (vertical/horizontal)
+   - Spacing guides (equal distance indicators)
+   - Distance measurement tooltip
+
+4. **Maintain Aspect Ratio**
+   - Shift+drag on corner handles locks aspect ratio
+   - Visual indicator when aspect ratio locked
+   - Works for all shape types
+
+**Multi-Selection System** (Figma Critical Feature - 3.1):
+
+5. **Marquee Selection Box**
+   - Click-and-drag selection box (dashed rectangle)
+   - Select all shapes within box bounds
+   - Visual feedback during selection
+   - Works with Shift to add to selection
+
+6. **Multi-Select Operations**
+   - Shift+click to add to selection
+   - Cmd/Ctrl+click to toggle selection
+   - Select all (Ctrl+A)
+   - Visual indication of selected objects (blue outline)
+   - Transform operations work on multi-selection
+
+**Visual Feedback Enhancements**:
+
+- Bounding box around selected shapes
+- Selection count indicator ("3 objects selected")
+- Hover state visual feedback
+- Cursor changes based on interaction mode
+
+**Performance Targets**:
+
+- Smooth 60 FPS during transform operations
+- No lag with 10+ objects selected
+- Real-time sync of transforms to all users
+
+**Success Criteria**:
+
+- ✅ **8-point resize handles working on all shapes**
+- ✅ **Rotation handle with visual feedback**
+- ✅ **Smart guides showing alignment during drag**
+- ✅ **Marquee selection box working**
+- ✅ Multi-select and transform operations
+- ✅ Professional Figma-like interaction feel
+
+---
+
+### Phase 2 Combined Success Criteria
+
+**Rubric Points Earned**: +20 points (15 from Phase 2a + 5 from Phase 2b)
+**Timeline**: 1 full day (October 15)
+**Status after Phase 2**: 40/100 points (Phase 1: 20 + Phase 2: 20)
 
 ### Phase 3 - AI Canvas Agent Implementation (October 16 - Targets Rubric Section 4)
 
@@ -325,6 +522,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 **Goal**: Implement AI-powered canvas commands with multi-user shared state
 
 **Implementation Strategy - Hybrid Approach**:
+
 - **Phase 3**: Direct OpenAI SDK with Tool Calling (fast development, simple debugging)
 - **Phase 5**: Add LangSmith observability wrapper (production monitoring, demo polish)
 - **Rationale**: Evaluated LangChain vs OpenAI SDK based on AI School presentations (Week 3.1 Tool Calling, Week 1.2 LangSmith). Hybrid approach optimizes for 1-day Phase 3 timeline while enabling professional observability in Phase 5.
@@ -332,6 +530,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 **Command Categories (Minimum 6 commands, targeting 8+)**:
 
 **Creation Commands (2+)**:
+
 1. "Create a [color] [shape] at position [x], [y]"
 2. "Add text that says [content]"
 3. "Make a [width]x[height] rectangle"
@@ -352,6 +551,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 12. "Make a card layout with title and description"
 
 **AI Agent Features**:
+
 - Natural language processing via OpenAI Tool Calling (8+ function schemas)
 - LLM integration: GPT-4o-mini for speed (<2s response) or GPT-4-turbo for complex commands
 - Tool calling pattern: LLM suggests action → React hooks execute → Firestore syncs
@@ -362,63 +562,179 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - Command history and caching (localStorage for common commands)
 
 **Multi-User AI Collaboration**:
+
 - Multiple users can issue AI commands simultaneously
 - AI-generated objects sync to all users
 - Clear attribution of AI-generated vs user-generated objects
 - Conflict resolution for concurrent AI commands
 
 **Performance Targets**:
+
 - Sub-2 second AI response time
 - 90%+ accuracy for command execution
 - Multiple users can use AI simultaneously without conflicts
 
 **Success Criteria**:
+
 - 8+ distinct command types working reliably
 - Complex commands create multi-element layouts
 - AI commands sync to all users in real-time
 - Natural language processing handles variations
 - Smooth UX with loading states and feedback
 
-### Phase 4 - Performance Optimization & Polish (October 17 Morning - Targets Rubric Sections 2, 3, 5)
+### Phase 4a - Performance Optimization (October 17 Morning, First Half - Targets Rubric Sections 2, 3)
 
-**Duration**: Half day (October 17, morning)
-**Rubric Target**: Performance optimization, Tier 2 features, Code quality
+**Duration**: 2 hours (October 17, 9 AM - 11 AM)
+**Rubric Target**: Canvas Features & Performance (10 points) - Excellent tier performance
+**Type**: ✅ Rubric-Required
 
-**Goal**: Achieve rubric performance targets and add advanced features
+**Goal**: Achieve rubric performance targets for Excellent tier (500+ objects, 5+ users)
 
 **Performance Optimization**:
-- Canvas rendering optimization (viewport culling)
-- Support 500+ objects at 60 FPS
-- Optimize real-time sync to <100ms for objects, <50ms for cursors
-- Stress testing with 5+ concurrent users
-- Memory management and cleanup
 
-**Tier 2 Features (3 points each, implementing 2)**:
-1. **Layers Panel**
-   - Display all canvas objects in hierarchy
-   - Drag to reorder z-index
-   - Show/hide layers
-   - Lock/unlock layers
+1. **Canvas Rendering Optimization**
+   - Viewport culling (only render visible shapes)
+   - Layer caching for static elements
+   - Batch shape updates for sync operations
+   - Optimize Konva Stage settings (pixelRatio, listening)
 
-2. **Alignment Tools**
-   - Align left/right/center
-   - Align top/bottom/middle
-   - Distribute evenly (horizontal/vertical)
-   - Align to canvas center
+2. **Real-Time Sync Optimization**
+   - Optimize Firestore queries (limit, indexes)
+   - Debounce cursor updates (50ms max)
+   - Batch shape updates (combine multiple changes)
+   - Connection pooling and management
 
-**Code Quality Improvements**:
+3. **Memory Management**
+   - Shape cleanup on delete (remove event listeners)
+   - Limit undo/redo history (max 50 actions)
+   - Clean up disconnected user data
+   - Browser memory profiling
+
+4. **Stress Testing**
+   - Test with 500+ objects on canvas
+   - Test with 5+ concurrent users
+   - Load testing different browsers
+   - Network throttling tests
+
+**Performance Targets (Excellent Tier)**:
+
+- Support 500+ objects at 60 FPS ✅ REQUIRED
+- Sub-100ms object sync ✅ REQUIRED
+- Sub-50ms cursor sync ✅ REQUIRED
+- Support 5+ concurrent users without degradation ✅ REQUIRED
+- Initial load time <2 seconds
+
+**Code Quality Improvements** (Rubric Section 5):
+
 - Refactor for clean architecture
 - Add comprehensive error handling
 - Improve code organization and modularity
 - Add code comments and documentation
-- Security audit and improvements
+- Security audit (API keys, Firebase rules)
+- ESLint fixes and TypeScript strict mode
 
 **Success Criteria**:
-- Consistent performance with 500+ objects
-- Supports 5+ concurrent users without degradation
-- Sub-100ms object sync, sub-50ms cursor sync
-- 2 Tier 2 features implemented and working
-- Clean, well-organized codebase
+
+- ✅ Consistent 60 FPS with 500+ objects
+- ✅ Sub-100ms object sync, sub-50ms cursor sync
+- ✅ 5+ concurrent users supported
+- ✅ No memory leaks during extended sessions
+- ✅ Clean, well-organized codebase
+- ✅ All linter errors resolved
+
+---
+
+### Phase 4b - Figma-Inspired Interface Structure (October 17 Morning, Second Half - Polish)
+
+**Duration**: 2 hours (October 17, 11 AM - 1 PM)
+**Rubric Target**: Tier 2 features + Polish (10 points)
+**Type**: 🎨 Figma-Inspired Enhancement
+
+**Goal**: Add professional Figma-like dual-sidebar interface structure
+
+**Left Sidebar - Layers Panel** (Figma Critical Feature - 1.1):
+
+1. **Hierarchical Tree Structure**
+   - Display all canvas objects in nested view
+   - Show shape type icons (rectangle, circle, text)
+   - Layer naming (e.g., "Rectangle 1", "Text 2")
+   - Collapsible sections (if grouping implemented)
+
+2. **Layer Management**
+   - **Drag-and-drop to reorder z-index** (critical)
+   - **Show/hide layers** (eye icon toggle)
+   - **Lock/unlock layers** (lock icon toggle)
+   - **Rename layers** with double-click
+   - Delete layer button (trash icon)
+
+3. **Layer Selection Integration**
+   - Click layer name → select on canvas
+   - Selected canvas item highlights in layers panel
+   - Multi-select layers with Cmd/Ctrl+click
+   - Visual indicators for selected layer (blue highlight)
+
+4. **Search/Filter** (Stretch Goal)
+   - Search layers by name
+   - Filter by shape type
+
+**Right Sidebar - Properties Panel** (Figma Critical Feature - 1.2):
+
+5. **Position & Size Panel**
+   - X, Y coordinate numeric inputs (pixel precision)
+   - Width, Height numeric inputs
+   - Lock aspect ratio toggle (chain icon)
+   - Rotation input (0-360 degrees)
+   - Update shape on input change
+
+6. **Alignment & Distribution Tools** (9 operations)
+   - **Align left/right/center horizontal** (3 buttons)
+   - **Align top/bottom/middle vertical** (3 buttons)
+   - **Distribute evenly** horizontal/vertical (2 buttons)
+   - **Align to canvas center** (1 button)
+   - Works on single or multiple selected shapes
+
+7. **Fill & Stroke Properties**
+   - Enhanced color picker integration from Phase 2a
+   - Stroke toggle (on/off)
+   - Stroke weight control (1-20px slider)
+   - Fill opacity slider (0-100%)
+   - Stroke opacity slider (0-100%)
+
+**Frames & Artboards** (Figma Critical Feature - 2.1 - Stretch Goal):
+
+8. **Frame Tool** (if time permits)
+   - Frame button in toolbar (F key)
+   - Click-and-drag to create custom frames
+   - Pre-set device sizes dropdown (mobile, tablet, desktop)
+   - Frame properties (background color, clip content)
+   - Frame list in layers panel
+
+**UI/UX Polish**:
+
+- Responsive sidebar widths (resizable)
+- Smooth sidebar animations
+- Consistent visual design language
+- Professional icon set (Lucide React or similar)
+- Tooltips on all buttons
+
+**Success Criteria**:
+
+- ✅ **Left sidebar layers panel functional**
+- ✅ **Drag-and-drop layer reordering working**
+- ✅ **Show/hide and lock/unlock layers working**
+- ✅ **Right sidebar properties panel functional**
+- ✅ **All 9 alignment operations working**
+- ✅ **Position/size inputs update shapes in real-time**
+- ✅ **Professional Figma-like dual-sidebar layout**
+- ✅ **Frames tool working** (stretch goal)
+
+---
+
+### Phase 4 Combined Success Criteria
+
+**Rubric Points Earned**: +20 points (10 from Phase 4a + 10 from Phase 4b)
+**Timeline**: Half day morning (October 17, 9 AM - 1 PM)
+**Status after Phase 4**: 85/100 points (Phase 1: 20 + Phase 2: 20 + Phase 3: 25 + Phase 4: 20)
 
 ### Phase 5 - Final Deployment & Documentation (October 17 Afternoon - Targets Rubric Sections 6, 7, 8)
 
@@ -428,6 +744,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 **Goal**: Complete all submission requirements and deploy production version
 
 **Hybrid Approach Enhancement**:
+
 - **Add LangSmith Observability** (15 minutes setup)
   - Wrap existing OpenAI client with `wrapOpenAI()` for automatic tracing
   - Zero code changes to Phase 3 tool calling logic
@@ -436,6 +753,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
   - Potential +2 bonus points for professional monitoring approach
 
 **Documentation Requirements**:
+
 1. **README.md** (Comprehensive)
    - Clear project description
    - Detailed setup instructions
@@ -461,6 +779,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
    - Real-time sync strategy
 
 **Demo Video Requirements** (REQUIRED):
+
 - **Duration**: 3-5 minutes
 - **Content**:
   - Real-time collaboration demo (2+ users, show both screens)
@@ -472,6 +791,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - **Quality**: Clear audio, HD video, professional presentation
 
 **Final Deployment**:
+
 - Production build optimization
 - Firebase hosting deployment
 - Performance monitoring setup
@@ -480,6 +800,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - Backup and rollback procedures
 
 **Submission Checklist**:
+
 - ✅ Repository with clear README
 - ✅ Live deployment URL (publicly accessible)
 - ✅ AI Development Log (in repository)
@@ -490,6 +811,7 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - ✅ No exposed credentials or security issues
 
 **Success Criteria**:
+
 - All documentation complete and professional
 - Demo video meets all requirements
 - Stable production deployment supporting 5+ users
@@ -497,38 +819,6 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - Repository ready for evaluation
 
 ## Technical Considerations
-
-### Performance Requirements by Phase
-
-**Phase 1 (MVP) Performance Targets**:
-- **Shape synchronization**: <500ms acceptable for MVP
-- **Cursor updates**: <200ms acceptable for MVP
-- **Canvas performance**: Handle 20-50 rectangles minimum
-- **Initial load**: <10 seconds acceptable for MVP
-- **Browser support**: Chrome desktop ONLY
-- **Concurrent users**: 3 users minimum for MVP testing
-
-**Phase 2-3 Performance Targets** (Rubric Requirements):
-- **Shape synchronization**: <150ms (Good tier)
-- **Cursor updates**: <100ms
-- **Canvas performance**: 300+ objects at 60 FPS
-- **Concurrent users**: 4-5 users supported
-- **Browser support**: Chrome, Firefox, Safari
-
-**Phase 4 Performance Targets** (Rubric Excellent Tier):
-- **Shape synchronization**: <100ms (Excellent tier)
-- **Cursor updates**: <50ms (Excellent tier)
-- **Canvas performance**: 500+ objects at 60 FPS
-- **Concurrent users**: 5+ users without degradation
-- **Initial load**: <2 seconds
-- **Zero visible lag** during rapid multi-user edits
-
-**Final Submission Requirements**:
-- **Real-time sync**: Sub-100ms for objects, sub-50ms for cursors
-- **Performance**: Consistent 60 FPS with 500+ objects
-- **Scalability**: Support 5+ concurrent users
-- **Reliability**: 99.9% uptime with proper error handling
-- **Browser support**: Modern browsers (Chrome, Firefox, Safari, Edge)
 
 ### Essential Error Handling
 
@@ -574,24 +864,28 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 ### Rubric Score Targets (Total: 100 points + 5 bonus)
 
 **Core Collaborative Infrastructure (30 points)**
+
 - Target: 28-30 points (Excellent tier)
 - Real-time sync: <100ms objects, <50ms cursors
 - Conflict resolution: Last-write-wins with proper state management
 - Persistence: Full state preservation across disconnects
 
 **Canvas Features & Performance (20 points)**
+
 - Target: 18-20 points (Excellent tier)
 - 3+ shape types with text support
 - 500+ objects at 60 FPS
 - 5+ concurrent users supported
 
 **Advanced Figma-Inspired Features (15 points)**
+
 - Target: 13-15 points (Excellent tier)
 - 3 Tier 1 features (6 points): Color picker, Undo/Redo, Keyboard shortcuts
 - 2 Tier 2 features (6 points): Layers panel, Alignment tools
 - 1 Tier 3 feature (3 points): Collaborative comments OR Version history
 
 **AI Canvas Agent (25 points)**
+
 - Target: 23-25 points (Excellent tier)
 - 8+ command types across all categories
 - Complex commands create multi-element layouts
@@ -599,158 +893,207 @@ This strategy front-loads high-value AI development (Day 3) after establishing s
 - Multi-user AI collaboration with shared state
 
 **Technical Implementation (10 points)**
+
 - Target: 9-10 points (Excellent tier)
 - Clean architecture with separation of concerns
 - Robust authentication with Firebase
 - Proper error handling and security
 
 **Documentation & Submission Quality (5 points)**
+
 - Target: 5 points (Excellent tier)
 - Comprehensive README with setup guide
 - Stable deployment supporting 5+ users
 - Professional documentation
 
 **Required Sections (Pass/Fail)**
+
 - ✅ AI Development Log (completed)
 - ✅ Demo Video (3-5 minutes, 2+ users, AI features)
 
 **Bonus Points Target (+3-5 points)**
+
 - Innovation: AI-powered design features (+2)
 - Polish: Exceptional UX/UI with smooth animations (+2)
 - Scale: 500+ objects, 5+ users (+1)
 
 **Overall Target Score: 95-105/105 points (90%+ = A grade)**
 
-## 24-Hour MVP Risk Assessment
+## 24-Hour MVP Risk Assessment (Phase 1 - Completed ✅)
 
-### **Critical Dependencies (MVP Blockers)**
+**Status**: This section is retained for documentation purposes. Phase 1 MVP was successfully completed on October 14, 2025.
 
-**Technical Blockers**:
+### **Critical Dependencies - Lessons Learned**
 
-- **Firebase Setup**: Security rules, authentication config
-- **Konva.js Learning**: If unfamiliar, could take 4-6 hours
-- **Real-time Sync**: Most complex part, 50% of development time
-- **Cross-tab Testing**: Ensuring sync works between browser tabs
+**Technical Blockers Encountered**:
 
-**Time Management Risks**:
+- **Firebase Setup**: Security rules, authentication config (resolved)
+- **Konva.js Learning**: Initial learning curve (resolved)
+- **Real-time Sync**: Successfully implemented via Firestore + RTDB
+- **Cross-tab Testing**: Multi-user sync verified and working
 
-- **Perfectionism**: Spending too much time on UI polish
-- **Feature Creep**: Adding "just one more feature"
-- **Debug Rabbit Holes**: Getting stuck on edge cases
-- **Firebase Limits**: Rate limiting during testing
+**Time Management Insights**:
 
-### **Success Definitions (24-Hour Focus)**
+- Avoided perfectionism by focusing on core features first
+- Prevented feature creep by strict adherence to MVP requirements
+- Managed debug time effectively with targeted testing
 
-**Minimum Viable Success**:
+### **MVP Success Achieved**
+
+**Minimum Viable Success** (✅ All Achieved):
 
 - ✅ Two users can see each other's rectangles
 - ✅ Rectangles persist when users refresh
 - ✅ Basic user identification (names/colors)
 - ✅ Deployed and shareable URL
 
-**Stretch Goals** (if time permits):
+**Stretch Goals Achieved**:
 
 - ✅ Smooth cursor tracking
 - ✅ Visual feedback for object locking
 - ✅ Clean, minimal UI
 
-**MVP Philosophy**:
-**"Ship working ugly over broken beautiful"**
-
-### **Decision Framework for Time Pressure**
-
-**When Behind Schedule**:
-
-1. **Hour 12**: If auth not working → Switch to anonymous users
-2. **Hour 16**: If real-time broken → Accept 2-second polling
-3. **Hour 20**: If bugs persist → Deploy with "known issues" list
-4. **Hour 23**: If deployment fails → Screen recording demo
-
-**Quality vs. Time Trade-offs**:
-
-- Functionality > Performance
-- Working > Pretty
-- Documented issues > Hidden bugs
-- Simple deployment > Complex features
+**MVP Philosophy Applied**:
+**"Ship working ugly over broken beautiful"** - Successfully deployed working MVP on schedule.
 
 ## Development Timeline Summary
 
 ### Phase-by-Phase Schedule (October 14-17, 2025)
 
 **Phase 1: MVP Foundation** (Completed October 14)
+
 - ✅ Basic canvas with rectangles
 - ✅ Real-time synchronization
 - ✅ User authentication
 - ✅ Cursor tracking
 - ✅ Initial deployment
+- **Points: 20/100**
 
-**Phase 2: Canvas Features & Figma Tools** (October 15)
-- Duration: 1 full day
-- Focus: Canvas enhancements + Tier 1 features
-- Deliverables: 3+ shapes, color picker, undo/redo, keyboard shortcuts, export
+**Phase 2a: Rubric-Required Canvas Features** (October 15 Morning)
+
+- Duration: Half day (9 AM - 1 PM)
+- Type: ✅ Rubric-Required
+- Focus: Tier 1 features (color picker, undo/redo, keyboard shortcuts)
+- Deliverables: 3 Tier 1 features, lines/arrows, export
+- **Points: +15 (Total: 35/100)**
+
+**Phase 2b: Figma-Inspired Transform Operations** (October 15 Afternoon)
+
+- Duration: Half day (2 PM - 6 PM)
+- Type: 🎨 Figma-Inspired
+- Focus: Transform operations (resize handles, rotation, smart guides, marquee selection)
+- Deliverables: 8-point resize, rotation handle, smart guides, marquee selection
+- **Points: +5 (Total: 40/100)**
 
 **Phase 3: AI Canvas Agent** (October 16)
+
 - Duration: 1 full day
+- Type: ✅ Rubric-Required (highest value)
 - Focus: AI command system with multi-user sync
 - Deliverables: 8+ commands, complex layouts, shared AI state
+- **Points: +25 (Total: 65/100)**
 
-**Phase 4: Performance & Polish** (October 17 Morning)
-- Duration: Half day
-- Focus: Optimization + Tier 2 features
-- Deliverables: 500+ objects support, layers panel, alignment tools
+**Phase 4a: Performance Optimization** (October 17, 9 AM - 11 AM)
+
+- Duration: 2 hours
+- Type: ✅ Rubric-Required
+- Focus: Excellent tier performance targets
+- Deliverables: 500+ objects at 60 FPS, 5+ users, code quality
+- **Points: +10 (Total: 75/100)**
+
+**Phase 4b: Figma-Inspired Interface Structure** (October 17, 11 AM - 1 PM)
+
+- Duration: 2 hours
+- Type: 🎨 Figma-Inspired
+- Focus: Dual-sidebar layout (layers panel + properties panel)
+- Deliverables: Left sidebar layers, right sidebar properties, 9 alignment operations, frames (stretch)
+- **Points: +10 (Total: 85/100)**
 
 **Phase 5: Final Deployment & Documentation** (October 17 Afternoon)
-- Duration: Half day
+
+- Duration: Half day (2 PM - 6 PM)
+- Type: ✅ Rubric-Required
 - Focus: Submission requirements
-- Deliverables: README, demo video, final deployment
+- Deliverables: README, demo video showcasing Figma-inspired interface, final deployment
+- **Points: +15 (Total: 100/100)**
+
+**Bonus Points** (Throughout development)
+
+- Exceptional UX with Figma-inspired interface
+- AI features beyond requirements
+- Professional polish and scale demonstration
+- **Points: +5-7 (Target Total: 105-107/105)**
 
 **Submission Deadline: Friday, October 17, 2025 EOD**
 
 ## Project Conclusion
 
-**CollabCanvas Goal**: Build a production-ready, AI-powered collaborative canvas application that scores 95+ points on the rubric.
+**CollabCanvas Goal**: Build a production-ready, AI-powered collaborative canvas application with Figma-inspired interface that scores 95+ points on the rubric.
 
 **What We're Building**:
 
 - A fully-featured real-time collaborative canvas platform
 - AI-powered canvas agent that responds to natural language commands
-- Professional-grade design tools inspired by Figma
+- **Figma-inspired professional interface** with layers panel and properties panel
+- **Critical Figma transform operations**: 8-point resize handles, rotation, smart guides
+- **Advanced selection system**: Marquee selection, multi-select, visual feedback
 - Production deployment supporting 5+ concurrent users
 - Comprehensive documentation and demo video
 
 **Success Definition**:
 
 The project succeeds when:
+
 1. Real-time collaboration works flawlessly (<100ms sync)
 2. AI agent executes 8+ command types with 90%+ accuracy
 3. Canvas supports 500+ objects at 60 FPS with 5+ users
-4. All Tier 1 and Tier 2 features implemented and working
-5. Professional documentation and demo video complete
-6. Final rubric score: 95-105/105 points
+4. **Figma-inspired interface**: Left sidebar (layers) + Right sidebar (properties) functional
+5. **Transform operations**: 8-point resize, rotation handles, smart guides working
+6. All Tier 1 and Tier 2 features implemented and working
+7. Professional documentation and demo video complete
+8. Final rubric score: 95-105/105 points
 
 **Strategic Positioning**:
 
-CollabCanvas isn't just another design tool—it's a platform for **collaborative thinking** powered by AI. While Figma excels at design deliverables, CollabCanvas enables teams to think together visually with AI assistance, creating a new category of collaborative intelligence tools.
+CollabCanvas isn't just another design tool—it's a platform for **collaborative thinking** powered by AI with a **Figma-inspired professional interface**. While Figma excels at design deliverables, CollabCanvas combines Figma's intuitive interface with AI-powered canvas manipulation, enabling teams to think together visually with natural language commands. This creates a new category of collaborative intelligence tools that merge professional design UX with AI superpowers.
 
 **From MVP to Production in 3 Days**:
 
 This accelerated timeline validates that AI-assisted development can deliver production-quality applications in compressed timeframes. The key is:
+
 1. Clear rubric-aligned requirements
-2. Phased approach with daily milestones
-3. Focus on high-value features (AI agent = 25 points)
-4. Progressive enhancement from working MVP
-5. AI-powered development throughout
+2. **Strategic integration of Figma-inspired critical features**
+3. Phased approach with daily milestones
+4. Focus on high-value features (AI agent = 25 points)
+5. Progressive enhancement from working MVP
+6. AI-powered development throughout
+
+**Figma Feature Integration Success**:
+By carefully analyzing Figma's Phase 1 Critical Core Features and integrating them into the existing 4-day timeline via dedicated subphases, CollabCanvas achieves:
+
+- **Professional UX**: Layers panel (Phase 4b), properties panel (Phase 4b), transform handles (Phase 2b)
+- **Efficient workflow**: Marquee selection (Phase 2b), keyboard shortcuts (Phase 2a), smart guides (Phase 2b)
+- **Clear separation**: Rubric-required features (Phases 2a, 3, 4a, 5) vs Figma enhancements (Phases 2b, 4b)
+- **Rubric alignment**: All Figma features contribute to UX/polish points, not required for baseline
+- **Realistic scope**: Deferred pen tool (5-7 days) to maintain timeline feasibility
+- **>90% success rate maintained**: 95-107/105 points target unchanged
+
+**Phase Structure:**
+
+- **Phase 2a** (Morning): Rubric Tier 1 features → +15 points
+- **Phase 2b** (Afternoon): Figma transform operations → +5 points
+- **Phase 4a** (9-11 AM): Performance optimization → +10 points
+- **Phase 4b** (11 AM-1 PM): Figma interface structure → +10 points
 
 ---
 
 ## Appendix: Strategic Positioning Analysis
 
-
 #### **1. Figma Optimizes for Design Deliverables, Not Thinking Relationships**
 
-**Figma's Real User Story**: *"As a designer, I want to create professional design artifacts that stakeholders can review and approve"*
+**Figma's Real User Story**: _"As a designer, I want to create professional design artifacts that stakeholders can review and approve"_
 
-**CollabCanvas User**: *"As humans, we want to think together and build understanding"*
+**CollabCanvas User**: _"As humans, we want to think together and build understanding"_
 
 **The Gap**: Figma assumes you know what you're building. Our users are about **discovering** what to build through collaborative exploration.
 
@@ -778,8 +1121,8 @@ This accelerated timeline validates that AI-assisted development can deliver pro
 
 **Different Success Stories:**
 
-- **Figma Success**: *"We shipped a better product because our design collaboration was seamless"*
-- **CollabCanvas Success**: *"We discovered a solution none of us could have found alone because we were able to think together"*
+- **Figma Success**: _"We shipped a better product because our design collaboration was seamless"_
+- **CollabCanvas Success**: _"We discovered a solution none of us could have found alone because we were able to think together"_
 
 #### **4. Strategic Implications for MVP:**
 
@@ -815,6 +1158,7 @@ Use this table when filling out the "Submit Assignment" form:
 ### 📂 **Additional Submission Resources**
 
 **Phase 1 MVP (COMPLETE)**:
+
 - GitHub Branch: `main` (7 PRs merged: PR-1 through PR-7)
 - PR-1: `feat: project setup and firebase configuration`
 - PR-2: `feat: core canvas implementation with basic shapes`
@@ -825,6 +1169,7 @@ Use this table when filling out the "Submit Assignment" form:
 - PR-7: `feat: ui polish and production deployment`
 
 **Phase 2-5 (PENDING)**:
+
 - PR-8 Branch: `feat/pr-8-canvas-enhancements`
 - PR-9 Branch: `feat/pr-9-ai-canvas-agent`
 - PR-10 Branch: `feat/pr-10-performance-tier2`
@@ -833,6 +1178,7 @@ Use this table when filling out the "Submit Assignment" form:
 ### 🎥 **Demo Video Checklist**
 
 **Must Include** (3-5 minutes total):
+
 1. ✅ Introduction (30 sec) - Project overview, hybrid AI approach
 2. ✅ Real-time collaboration demo (60 sec) - 2+ users, sync demonstration
 3. ✅ AI Canvas Agent demo (90 sec) - 8+ commands, tool calling in action
@@ -843,6 +1189,7 @@ Use this table when filling out the "Submit Assignment" form:
 ### 📝 **Documentation Links**
 
 **Primary Documents** (in `Gauntlet Project One/collabcanvas-mvp/Artifacts/`):
+
 - PRD: `PRD-CollabCanvas.md` (v2.1)
 - Task List: `TaskList-CollabCanvas.md` (v3.1)
 - WBS: `WBS-CollabCanvas.md` (v2.0)
@@ -856,6 +1203,7 @@ Use this table when filling out the "Submit Assignment" form:
 - Phase 3 Guide: `PHASE3-IMPLEMENTATION-GUIDE.md` (OpenAI Tool Calling)
 
 **README Sections**:
+
 - Setup Instructions: See README.md Section 2
 - Feature List: See README.md Section 3
 - Architecture Overview: See README.md Section 4
@@ -877,9 +1225,15 @@ Use this checklist before clicking "Submit Assignment":
 
 ---
 
-*Document Version: 2.1*
-*Last Updated: October 15, 2025*
-*Changes: Updated Phase 2-5 to align with CollabCanvas Rubric requirements*
-*AI Strategy: Hybrid approach (OpenAI SDK Phase 3 + LangSmith Phase 5) based on AI School evaluation*
-*Timeline: October 14-17, 2025 (Submission Friday EOD)*
-*Rubric Target: 95-107/105 points (includes +2 LangSmith bonus)*
+_Document Version: 5.0_
+_Last Updated: October 16, 2025_
+_Changes: Aligned with TechStack v5.0 - all custom utilities documented (transform.ts, alignment.ts, smart guides, marquee selection)_
+_Key Structure: Phase 2a (Rubric Tier 1) + Phase 2b (Figma Transforms) + Phase 4a (Performance) + Phase 4b (Figma Interface)_
+_Figma Integration: Transform operations (8-point resize, rotation, smart guides), marquee selection, layers panel, properties panel_
+_Strategic Separation: ✅ Rubric-Required (85 pts baseline) + 🎨 Figma-Inspired (15 pts polish + bonus)_
+_Custom Implementations: All Figma features achievable with Konva.js primitives (transform.ts, alignment.ts, useSmartGuides.ts, MarqueeSelection.tsx)_
+_Deferred: Pen tool & vector editing (5-7 days complexity, marked as future enhancement)_
+_AI Strategy: Hybrid approach (OpenAI SDK Phase 3 + LangSmith Phase 5) based on AI School evaluation_
+_Timeline: October 14-17, 2025 (Submission Friday EOD) - MAINTAINED_
+_Rubric Target: 95-107/105 points (>90% success rate MAINTAINED)_
+_Aligned With: TaskList v5.0, WBS v5.0, TechStack v5.0_

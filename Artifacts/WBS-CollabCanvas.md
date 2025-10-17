@@ -17,19 +17,22 @@
 
 ### Sprint Structure
 
-| Day | Phase | PRs | Duration | Rubric Target | Points | Status |
-|-----|-------|-----|----------|---------------|--------|--------|
-| **Pre-Sprint** | Phase 1 | PR-1 to PR-7 | Completed | Section 1 (Collab) | 20 pts | ✅ |
-| **Day 1** | Phase 2 | PR-8 | 8 hours | Sections 2 & 3 | +20 pts | ⏳ |
-| **Day 2** | Phase 3 | PR-9 | 8 hours | Section 4 (AI) | +25 pts | ⏳ |
-| **Day 3 AM** | Phase 4 | PR-10 | 4 hours | Sections 2,3,5 | +20 pts | ⏳ |
-| **Day 3 PM** | Phase 5 | PR-11 | 4 hours | Sections 6,7,8 | +15 pts | ⏳ |
-| **TOTAL** | 5 Phases | 11 PRs | MVP + 24 hrs | All sections | 100 pts | 20% ✅ |
+| Day | Phase | PRs | Duration | Rubric Target | Points | Type | Status |
+|-----|-------|-----|----------|---------------|--------|------|--------|
+| **Pre-Sprint** | Phase 1 | PR-1 to PR-7 | Completed | Section 1 (Collab) | 20 pts | ✅ Rubric | ✅ |
+| **Day 1 AM** | Phase 2a | PR-8a | 4 hours | Sections 2 & 3 (Tier 1) | +15 pts | ✅ Rubric | ⏳ |
+| **Day 1 PM** | Phase 2b | PR-8b | 4 hours | Sections 2 & 3 (UX) | +5 pts | 🎨 Figma | ⏳ |
+| **Day 2** | Phase 3 | PR-9 | 8 hours | Section 4 (AI) | +25 pts | ✅ Rubric | ⏳ |
+| **Day 3 AM (1)** | Phase 4a | PR-10a | 2 hours | Sections 2,3,5 (Perf) | +10 pts | ✅ Rubric | ⏳ |
+| **Day 3 AM (2)** | Phase 4b | PR-10b | 2 hours | Sections 3,5 (Figma) | +10 pts | 🎨 Figma | ⏳ |
+| **Day 3 PM** | Phase 5 | PR-11 | 4 hours | Sections 6,7,8 | +15 pts | ✅ Rubric | ⏳ |
+| **TOTAL** | 6 Subphases | 12 PRs | MVP + 24 hrs | All sections | 100 pts | - | 17% ✅ |
 
 **Current Score**: 20/105 points (Phase 1 MVP complete)
 **Target Score**: 95-107/105 points (includes +2 LangSmith bonus)
 **Required Points**: 75-87 points across 3 days
-**Progress**: 1 of 5 phases complete (20% done)
+**Progress**: 1 of 6 subphases complete (17% done)
+**Strategy**: ✅ Rubric-Required (85 pts baseline) + 🎨 Figma-Inspired (15 pts polish + bonus)
 
 ---
 
@@ -157,102 +160,156 @@
 
 ---
 
-## 8. PR-8: CANVAS ENHANCEMENTS & TIER 1 FEATURES (Day 1 - October 15)
+## 8. PHASE 2: CANVAS FEATURES & FIGMA-INSPIRED TOOLS (Day 1 - October 15)
 
-**Total Effort**: 480 minutes (8 hours) | **Risk Level**: MEDIUM | **Branch**: `feat/canvas-enhancements-tier1`
-**Rubric Target**: Sections 2 (20 pts) & 3 Tier 1 (6 pts) = +20 points total
+**Total Day 1 Effort**: 480 minutes (8 hours) | **Split**: Phase 2a (Rubric) + Phase 2b (Figma)
+**Combined Points**: +20 points (Phase 2a: +15 pts + Phase 2b: +5 pts)
 
-### 8.1 Additional Shape Types (90 min)
+---
 
-- **8.1.1** Create Line.tsx component with Konva Line (20 min)
-- **8.1.2** Create Arrow.tsx component with arrowhead (20 min)
-- **8.1.3** Update helpers.ts with shape creators (15 min)
-- **8.1.4** Update types.ts with new shape types (10 min)
-- **8.1.5** Update Toolbar with Line/Arrow buttons (15 min)
-- **8.1.6** Update Canvas.tsx rendering logic (10 min)
+### 8a. PR-8a: RUBRIC-REQUIRED TIER 1 FEATURES (Day 1 Morning - October 15)
 
-**Files**: 6 modified | **Success**: 5+ shape types available
+**Total Effort**: 240 minutes (4 hours) | **Risk Level**: MEDIUM | **Branch**: `PR8a-feat/rubric-tier1-features`
+**Rubric Target**: Sections 2 (Canvas Features) & 3 Tier 1 (6 pts) = +15 points
+**Type**: ✅ Rubric-Required
 
-### 8.2 Color Picker System (75 min) **TIER 1 - 2 POINTS**
+### 8a.1 Additional Shape Types (90 min)
 
-- **8.2.1** Create ColorPaletteModal.tsx with grid (25 min)
-- **8.2.2** Create colorPalette.ts utilities (10 min)
-- **8.2.3** Add color picker trigger to Toolbar (10 min)
-- **8.2.4** Integrate color updates with Firestore (15 min)
-- **8.2.5** Add color to shape creation flow (10 min)
-- **8.2.6** Test multi-user color sync (5 min)
+- **8a.1.1** Create Line.tsx component with Konva Line (20 min)
+- **8a.1.2** Create Arrow.tsx component with arrowhead (20 min)
+- **8a.1.3** Update helpers.ts with shape creators (15 min)
+- **8a.1.4** Update types.ts with new shape types (10 min)
+- **8a.1.5** Update Toolbar with Line/Arrow buttons (15 min)
+- **8a.1.6** Update Canvas.tsx rendering logic (10 min)
+
+**Files**: 2 created, 4 modified | **Success**: 5+ shape types available
+
+### 8a.2 Color Picker System (75 min) **TIER 1 - 2 POINTS**
+
+- **8a.2.1** Create ColorPaletteModal.tsx with grid (25 min)
+- **8a.2.2** Create colorPalette.ts utilities (10 min)
+- **8a.2.3** Add color picker trigger to Toolbar (10 min)
+- **8a.2.4** Integrate color updates with Firestore (15 min)
+- **8a.2.5** Add color to shape creation flow (10 min)
+- **8a.2.6** Test multi-user color sync (5 min)
 
 **Files**: 2 created, 4 modified | **Success**: 20+ colors with sync
 
-### 8.3 Undo/Redo Functionality (105 min) **TIER 1 - 2 POINTS**
+### 8a.3 Undo/Redo Functionality (105 min) **TIER 1 - 2 POINTS**
 
-- **8.3.1** Create useUndoRedo.ts hook with stacks (35 min)
-- **8.3.2** Define action types in canvas.types.ts (10 min)
-- **8.3.3** Integrate undo/redo into useShapes (25 min)
-- **8.3.4** Add keyboard shortcuts (Cmd+Z) (15 min)
-- **8.3.5** Add undo/redo buttons to Toolbar (10 min)
-- **8.3.6** Handle multi-user undo conflicts (10 min)
+- **8a.3.1** Create useUndoRedo.ts hook with stacks (35 min)
+- **8a.3.2** Define action types in canvas.types.ts (10 min)
+- **8a.3.3** Integrate undo/redo into useShapes (25 min)
+- **8a.3.4** Add keyboard shortcuts (Cmd+Z) (15 min)
+- **8a.3.5** Add undo/redo buttons to Toolbar (10 min)
+- **8a.3.6** Handle multi-user undo conflicts (10 min)
 
 **Files**: 3 created, 3 modified | **Success**: Undo/redo with Cmd+Z working
 
-### 8.4 Enhanced Keyboard Shortcuts (60 min) **TIER 1 - 2 POINTS**
+### 8a.4 Enhanced Keyboard Shortcuts (60 min) **TIER 1 - 2 POINTS**
 
-- **8.4.1** Extend useKeyboardShortcuts hook (20 min)
-- **8.4.2** Add keyboard shortcut display panel (15 min)
-- **8.4.3** Implement shape duplication (Cmd+D) (15 min)
-- **8.4.4** Implement select all (Cmd+A) (10 min)
+- **8a.4.1** Extend useKeyboardShortcuts hook (20 min)
+- **8a.4.2** Add keyboard shortcut display panel (15 min)
+- **8a.4.3** Implement shape duplication (Cmd+D) (15 min)
+- **8a.4.4** Implement select all (Cmd+A) (10 min)
 
 **Files**: 4 modified | **Success**: 10+ shortcuts working
 
-### 8.5 Multi-Select & Transform (90 min)
+### 8a.5 Export Functionality (75 min)
 
-- **8.5.1** Implement shift-click multi-select (25 min)
-- **8.5.2** Add drag-to-select rectangle (30 min)
-- **8.5.3** Implement group move (20 min)
-- **8.5.4** Add resize handles with Transformer (15 min)
-
-**Files**: 3 modified | **Success**: Multi-select with group operations
-
-### 8.6 Export Functionality (75 min)
-
-- **8.6.1** Create export.ts utilities (25 min)
-- **8.6.2** Create ExportModal.tsx component (20 min)
-- **8.6.3** Add Export button to Toolbar (10 min)
-- **8.6.4** Implement PNG export (10 min)
-- **8.6.5** Implement SVG export (optional) (10 min)
+- **8a.5.1** Create export.ts utilities (25 min)
+- **8a.5.2** Create ExportModal.tsx component (20 min)
+- **8a.5.3** Add Export button to Toolbar (10 min)
+- **8a.5.4** Implement PNG export (10 min)
+- **8a.5.5** Implement SVG export (optional) (10 min)
 
 **Files**: 2 created, 2 modified | **Success**: PNG export working
 
-### 8.7 Text Formatting Enhancements (45 min)
+### 8a.6 Phase 2a Integration & Testing (60 min)
 
-- **8.7.1** Add text formatting toolbar (20 min)
-- **8.7.2** Update Text.tsx with formatting (15 min)
-- **8.7.3** Add font family selector (10 min)
+- **8a.6.1** Test all shape types integration (15 min)
+- **8a.6.2** Test undo/redo integration (15 min)
+- **8a.6.3** Test keyboard shortcuts (10 min)
+- **8a.6.4** Test export functionality (10 min)
+- **8a.6.5** Multi-user testing (4-5 users) (10 min)
 
-**Files**: 2 modified | **Success**: Text with size/bold/italic/align
+**Success**: All Rubric Tier 1 features working together
 
-### 8.8 Performance Optimization (60 min)
+**Checkpoint 8a** (Day 1 Midday): ✅ Rubric Tier 1 features complete (+15 points)
 
-- **8.8.1** Implement viewport culling (25 min)
-- **8.8.2** Optimize Firestore listeners (15 min)
-- **8.8.3** Add shape count indicator (10 min)
-- **8.8.4** Test with 300+ shapes (10 min)
+---
 
-**Files**: 1 created, 3 modified | **Success**: 300+ objects at 60 FPS
+### 8b. PR-8b: FIGMA-INSPIRED TRANSFORM OPERATIONS (Day 1 Afternoon - October 15)
 
-### 8.9 Phase 2 Integration & Testing (90 min)
+**Total Effort**: 240 minutes (4 hours) | **Risk Level**: MEDIUM | **Branch**: `PR8b-feat/figma-transform-operations`
+**Rubric Target**: Sections 2 & 3 (UX Enhancement) = +5 points
+**Type**: 🎨 Figma-Inspired Enhancement
 
-- **8.9.1** Test all shape types integration (15 min)
-- **8.9.2** Test undo/redo integration (15 min)
-- **8.9.3** Test keyboard shortcuts (10 min)
-- **8.9.4** Test multi-select operations (15 min)
-- **8.9.5** Test export functionality (10 min)
-- **8.9.6** Multi-user testing (4-5 users) (15 min)
-- **8.9.7** Performance testing (10 min)
+### 8b.1 8-Point Resize Handles (60 min)
 
-**Success**: All Phase 2 features working together
+- **8b.1.1** Create TransformHandles.tsx component (25 min)
+- **8b.1.2** Implement corner resize logic in transform.ts (20 min)
+- **8b.1.3** Implement edge resize logic (10 min)
+- **8b.1.4** Add resize handles to all shape types (5 min)
 
-**Checkpoint 8** (Day 1 EOD): ✅ Canvas features + 3 Tier 1 features complete (+20 points)
+**Files**: 2 created, 3 modified | **Success**: 8-point resize on all shapes
+
+### 8b.2 Rotation Handle (45 min)
+
+- **8b.2.1** Add rotation handle to TransformHandles (20 min)
+- **8b.2.2** Implement rotation logic (15 min)
+- **8b.2.3** Sync rotation to Firestore (10 min)
+
+**Files**: 3 modified | **Success**: Rotation with Shift-snap working
+
+### 8b.3 Smart Guides (75 min)
+
+- **8b.3.1** Create SmartGuides.tsx component (25 min)
+- **8b.3.2** Create useSmartGuides.ts hook (30 min)
+- **8b.3.3** Integrate smart guides with Canvas drag (15 min)
+- **8b.3.4** Style smart guides (5 min)
+
+**Files**: 2 created, 2 modified | **Success**: Alignment guides during drag
+
+### 8b.4 Marquee Selection Box (60 min)
+
+- **8b.4.1** Create MarqueeSelection.tsx component (20 min)
+- **8b.4.2** Implement marquee selection logic (25 min)
+- **8b.4.3** Integrate with Canvas component (10 min)
+- **8b.4.4** Visual feedback for multi-selection (5 min)
+
+**Files**: 1 created, 3 modified | **Success**: Drag-to-select working
+
+### 8b.5 Multi-Select Transform Operations (45 min)
+
+- **8b.5.1** Implement group move (15 min)
+- **8b.5.2** Implement group resize (15 min)
+- **8b.5.3** Implement group rotation (optional) (10 min)
+- **8b.5.4** Add Shift+click and Cmd+click multi-select (5 min)
+
+**Files**: 2 modified | **Success**: Multi-select transforms working
+
+### 8b.6 Aspect Ratio Locking (30 min)
+
+- **8b.6.1** Implement Shift-lock logic (15 min)
+- **8b.6.2** Add aspect ratio toggle button (optional) (10 min)
+- **8b.6.3** Test aspect ratio on all shape types (5 min)
+
+**Files**: 2 modified | **Success**: Shift+drag maintains aspect ratio
+
+### 8b.7 Phase 2b Integration & Testing (60 min)
+
+- **8b.7.1** Test resize handles (all 8 points) (15 min)
+- **8b.7.2** Test rotation with Shift-snap (10 min)
+- **8b.7.3** Test smart guides (alignment, snap) (15 min)
+- **8b.7.4** Test marquee selection (10 min)
+- **8b.7.5** Performance testing (50+ shapes) (10 min)
+
+**Success**: All Figma transform features working professionally
+
+**Checkpoint 8b** (Day 1 EOD): ✅ Figma transform operations complete (+5 points)
+
+**Combined Phase 2 Score**: +20 points (Phase 2a: 15 + Phase 2b: 5)
 
 ---
 
@@ -381,74 +438,111 @@
 
 ---
 
-## 10. PR-10: PERFORMANCE OPTIMIZATION & TIER 2 FEATURES (Day 3 Morning - October 17)
+## 10. PHASE 4: PERFORMANCE OPTIMIZATION & FIGMA INTERFACE (Day 3 Morning - October 17)
 
-**Total Effort**: 240 minutes (4 hours) | **Risk Level**: MEDIUM | **Branch**: `feat/performance-tier2`
-**Rubric Target**: Sections 2 (Performance), 3 (Tier 2), 5 (Technical) = +20 points
+**Total Day 3 AM Effort**: 240 minutes (4 hours) | **Split**: Phase 4a (Performance) + Phase 4b (Figma)
+**Combined Points**: +20 points (Phase 4a: +10 pts + Phase 4b: +10 pts)
 
-### 10.1 Advanced Performance Optimization (75 min)
+---
 
-- **10.1.1** Implement advanced viewport culling (25 min)
-- **10.1.2** Implement shape pooling/recycling (20 min)
-- **10.1.3** Optimize Firestore batching (15 min)
-- **10.1.4** Add performance monitoring (15 min)
+### 10a. PR-10a: PERFORMANCE OPTIMIZATION (Day 3 Morning, First Half - October 17, 9-11 AM)
 
-**Files**: 4 modified | **Success**: 500+ objects at 60 FPS
+**Total Effort**: 120 minutes (2 hours) | **Risk Level**: MEDIUM | **Branch**: `PR10a-feat/performance-optimization`
+**Rubric Target**: Sections 2 (Performance - 10 pts), 5 (Technical - partial) = +10 points
+**Type**: ✅ Rubric-Required
 
-### 10.2 Layers Panel (90 min) **TIER 2 - 3 POINTS**
+### 10a.1 Advanced Performance Optimization (45 min)
 
-- **10.2.1** Create LayersPanel.tsx component (40 min)
-- **10.2.2** Implement z-index management (25 min)
-- **10.2.3** Implement show/hide functionality (15 min)
-- **10.2.4** Implement lock/unlock functionality (10 min)
+- **10a.1.1** Implement advanced viewport culling (20 min)
+- **10a.1.2** Implement shape pooling/recycling (15 min)
+- **10a.1.3** Add performance monitoring (10 min)
+
+**Files**: 3 modified | **Success**: 500+ objects at 60 FPS
+
+### 10a.2 Optimize Firestore Batching (30 min)
+
+- **10a.2.1** Implement Firestore batching (20 min)
+- **10a.2.2** Optimize security rules (10 min)
+
+**Files**: 2 modified | **Success**: Reduced writes, faster sync
+
+### 10a.3 Real-Time Sync Optimization (45 min)
+
+- **10a.3.1** Optimize Firestore sync latency (20 min)
+- **10a.3.2** Optimize cursor tracking (15 min)
+- **10a.3.3** Add sync latency monitoring (10 min)
+
+**Files**: 3 modified | **Success**: <100ms objects, <50ms cursors confirmed
+
+### 10a.4 Code Quality & Architecture (30 min)
+
+- **10a.4.1** Code refactoring for clean architecture (15 min)
+- **10a.4.2** Add comprehensive error handling (10 min)
+- **10a.4.3** Security audit (5 min)
+
+**Files**: 10+ modified | **Success**: Clean code with error handling
+
+### 10a.5 Phase 4a Testing & Validation (30 min)
+
+- **10a.5.1** Performance validation (500+ shapes) (15 min)
+- **10a.5.2** Sync latency testing (15 min)
+
+**Success**: All performance targets met
+
+**Checkpoint 10a** (Day 3, 11 AM): ✅ Performance optimization complete (+10 points)
+
+---
+
+### 10b. PR-10b: FIGMA-INSPIRED INTERFACE STRUCTURE (Day 3 Morning, Second Half - October 17, 11 AM-1 PM)
+
+**Total Effort**: 120 minutes (2 hours) | **Risk Level**: MEDIUM | **Branch**: `PR10b-feat/figma-interface-structure`
+**Rubric Target**: Section 3 (Tier 2 - 6 pts), Section 5 (Polish - partial 4 pts) = +10 points
+**Type**: 🎨 Figma-Inspired Enhancement
+
+### 10b.1 Left Sidebar - Layers Panel (60 min) **TIER 2 - 3 POINTS**
+
+- **10b.1.1** Create LayersPanel.tsx component (30 min)
+- **10b.1.2** Implement z-index management (15 min)
+- **10b.1.3** Implement show/hide functionality (10 min)
+- **10b.1.4** Implement lock/unlock functionality (5 min)
 
 **Files**: 1 created, 4 modified | **Success**: Layers with drag-to-reorder
 
-### 10.3 Alignment Tools (75 min) **TIER 2 - 3 POINTS**
+### 10b.2 Right Sidebar - Properties Panel (60 min)
 
-- **10.3.1** Create AlignmentTools.tsx component (25 min)
-- **10.3.2** Create alignment.ts utilities (35 min)
-- **10.3.3** Integrate with Canvas (15 min)
+- **10b.2.1** Create PropertiesPanel.tsx component (25 min)
+- **10b.2.2** Implement position/size inputs (20 min)
+- **10b.2.3** Implement alignment tools section (10 min)
+- **10b.2.4** Add fill and stroke controls (5 min)
 
-**Files**: 2 created, 2 modified | **Success**: 9 alignment operations
+**Files**: 1 created, 3 modified | **Success**: Properties panel functional
 
-### 10.4 Real-Time Sync Optimization (60 min)
+### 10b.3 Alignment Tools (9 Operations) (30 min) **TIER 2 - 3 POINTS**
 
-- **10.4.1** Optimize Firestore sync latency (20 min)
-- **10.4.2** Optimize cursor tracking (15 min)
-- **10.4.3** Add sync latency monitoring (15 min)
-- **10.4.4** Test sync performance (10 min)
+- **10b.3.1** Create alignment.ts utilities (20 min)
+- **10b.3.2** Integrate with PropertiesPanel and Toolbar (10 min)
 
-**Files**: 3 modified | **Success**: <100ms objects, <50ms cursors
+**Files**: 1 created, 2 modified | **Success**: 9 alignment operations working
 
-### 10.5 Conflict Resolution Enhancement (45 min)
+### 10b.4 Dual-Sidebar Layout Integration (30 min)
 
-- **10.5.1** Enhance object locking system (20 min)
-- **10.5.2** Document conflict resolution strategy (10 min)
-- **10.5.3** Test conflict scenarios (15 min)
+- **10b.4.1** Update App.tsx layout (15 min)
+- **10b.4.2** Style sidebars consistently (10 min)
+- **10b.4.3** Test dual-sidebar interaction (5 min)
 
-**Files**: 3 modified | **Success**: 90%+ consistent state
+**Files**: 3 modified | **Success**: Professional dual-sidebar layout
 
-### 10.6 Code Quality & Architecture (60 min)
+### 10b.5 Phase 4b Integration & Testing (30 min)
 
-- **10.6.1** Code refactoring (25 min)
-- **10.6.2** Add error handling (15 min)
-- **10.6.3** Add code comments (10 min)
-- **10.6.4** Security audit (10 min)
+- **10b.5.1** Integration testing: Layers panel (10 min)
+- **10b.5.2** Integration testing: Properties panel (10 min)
+- **10b.5.3** Integration testing: Alignment tools (10 min)
 
-**Files**: 10+ modified | **Success**: Clean, maintainable code
+**Success**: All Figma interface features working professionally
 
-### 10.7 Phase 4 Testing & Validation (75 min)
+**Checkpoint 10b** (Day 3, 1 PM): ✅ Figma interface structure complete (+10 points)
 
-- **10.7.1** Performance validation (500+ shapes) (20 min)
-- **10.7.2** Layers panel testing (15 min)
-- **10.7.3** Alignment tools testing (15 min)
-- **10.7.4** Sync latency testing (15 min)
-- **10.7.5** Conflict resolution testing (10 min)
-
-**Success**: All Phase 4 features working, targets met
-
-**Checkpoint 10** (Day 3 Midday): ✅ Performance targets + Tier 2 features (+20 points)
+**Combined Phase 4 Score**: +20 points (Phase 4a: 10 + Phase 4b: 10)
 
 ---
 
@@ -570,12 +664,12 @@
 
 ---
 
-## GANTT CHART - COMPLETE 5-PHASE SPRINT
+## GANTT CHART - COMPLETE 6-SUBPHASE SPRINT
 
 ```text
 Phase & Task                              | Pre-Sprint | Day:    1         2         3
-                                          | (MVP)      | Hours: 8  16  24  32  40  48  56  64  72
-======================================================================================================
+                                          | (MVP)      | Hours: 4  8   16  24  32  40  48  52  56  60  64  68  72
+=============================================================================================================
 7. PR-1 to PR-7: Phase 1 MVP ✅          | [✅✅✅✅]
    Foundation: Authentication            | [✅]
    Foundation: Canvas (3 shapes)         | [✅]
@@ -585,58 +679,69 @@ Phase & Task                              | Pre-Sprint | Day:    1         2    
    Foundation: Production deploy         | [✅]
    **MVP SCORE: 20/105 points**          |
 
-8. PR-8: Canvas & Tier 1 (480 min)       |            [████████████████████████]
-   8.1 Shape Types (90m)                 | [█████]
-   8.2 Color Picker (75m) ⭐             | [████]
-   8.3 Undo/Redo (105m) ⭐               | [██████]
-   8.4 Keyboard Shortcuts (60m) ⭐       | [████]
-   8.5 Multi-Select (90m)                | [█████]
-   8.6 Export (75m)                      | [████]
-   8.7 Text Formatting (45m)             | [███]
-   8.8 Performance (60m)                 | [████]
-   8.9 Testing (90m)                     | [█████]
+8a. PR-8a: Rubric Tier 1 (240m) ✅       |            [████████████]
+   8a.1 Shape Types (90m)                | [█████]
+   8a.2 Color Picker (75m) ⭐             | [████]
+   8a.3 Undo/Redo (105m) ⭐               | [██████]
+   8a.4 Keyboard Shortcuts (60m) ⭐       | [████]
+   8a.5 Export (75m)                     | [████]
+   8a.6 Testing (60m)                    | [███]
 
-9. PR-9: AI Agent (480 min) **CRITICAL** |                         [████████████████████████]
-   9.1 AI Setup - Tool Calling (45m)     |                         [███]
-   9.2 Define Canvas Tools (90m)         |                         [█████]
-   9.3 AI Panel UI (75m)                 |                         [████]
-   9.4 Integrate Tool Calling (90m) 🚨   |                         [█████]
-   9.5 Test Creation Tools (40m)         |                         [███]
-   9.6 Test Manipulation Tools (40m)     |                         [███]
-   9.7 Test Layout Tools (45m)           |                         [███]
-   9.8 Test Complex Tools (60m)          |                         [████]
-   9.9 AI Performance - Hybrid (45m)     |                         [███]
-   9.10 Command History (45m)            |                         [███]
-   9.11 Testing (90m)                    |                         [█████]
+8b. PR-8b: Figma Transform (240m) 🎨    |                        [████████████]
+   8b.1 8-Point Resize (60m)             |                        [███]
+   8b.2 Rotation Handle (45m)            |                        [██]
+   8b.3 Smart Guides (75m)               |                        [████]
+   8b.4 Marquee Selection (60m)          |                        [███]
+   8b.5 Multi-Select Transform (45m)     |                        [██]
+   8b.6 Aspect Ratio Lock (30m)          |                        [██]
+   8b.7 Testing (60m)                    |                        [███]
 
-10. PR-10: Performance & Tier 2 (240m)  |                                                   [████████████]
-   10.1 Advanced Performance (75m)      |                                                   [████]
-   10.2 Layers Panel (90m) ⭐            |                                                   [█████]
-   10.3 Alignment Tools (75m) ⭐         |                                                   [████]
-   10.4 Sync Optimization (60m)         |                                                   [███]
-   10.5 Conflict Resolution (45m)       |                                                   [███]
-   10.6 Code Quality (60m)              |                                                   [███]
-   10.7 Testing (75m)                   |                                                   [████]
+9. PR-9: AI Agent (480 min) **CRITICAL** |                                     [████████████████████████]
+   9.1 AI Setup - Tool Calling (45m)     |                                     [███]
+   9.2 Define Canvas Tools (90m)         |                                     [█████]
+   9.3 AI Panel UI (75m)                 |                                     [████]
+   9.4 Integrate Tool Calling (90m) 🚨   |                                     [█████]
+   9.5 Test Creation Tools (40m)         |                                     [███]
+   9.6 Test Manipulation Tools (40m)     |                                     [███]
+   9.7 Test Layout Tools (45m)           |                                     [███]
+   9.8 Test Complex Tools (60m)          |                                     [████]
+   9.9 AI Performance - Hybrid (45m)     |                                     [███]
+   9.10 Command History (45m)            |                                     [███]
+   9.11 Testing (90m)                    |                                     [█████]
 
-11. PR-11: Documentation (270m)         |                                                                     [█████████████]
-   11.1 LangSmith Observability (30m) 🎁 |                                                                     [██]
-   11.2 README Update (60m)             |                                                                     [███]
-   11.3 Architecture Docs (45m)         |                                                                     [██]
-   11.4 AI Dev Log (30m) ✅             |                                                                     [██]
-   11.5 Video Script (45m)              |                                                                     [██]
-   11.6 Video Recording (90m) 📹        |                                                                     [█████]
-   11.7 Production Deploy (45m)         |                                                                     [██]
-   11.8 Final Review (45m)              |                                                                     [██]
-   11.9 Bonus Features (30m)            |                                                                     [██]
+10a. PR-10a: Performance (120m) ✅      |                                                                          [██████]
+   10a.1 Advanced Performance (45m)     |                                                                          [██]
+   10a.2 Firestore Batching (30m)       |                                                                          [██]
+   10a.3 Sync Optimization (45m)        |                                                                          [██]
+   10a.4 Code Quality (30m)             |                                                                          [██]
+   10a.5 Testing (30m)                  |                                                                          [██]
 
-CRITICAL CHECKPOINTS                    | ▲ CP7 (✅)             ▲                       ▲                                          ▲              ▲
-                                        | 20 pts                | CP8                    CP9 (CRITICAL)                             CP10          CP11
-                                        | MVP                   | +20 pts               +25 pts (AI)                                +20 pts       +15 pts
+10b. PR-10b: Figma Interface (120m) 🎨  |                                                                                  [██████]
+   10b.1 Layers Panel (60m) ⭐           |                                                                                  [███]
+   10b.2 Properties Panel (60m)         |                                                                                  [███]
+   10b.3 Alignment Tools (30m) ⭐        |                                                                                  [██]
+   10b.4 Dual-Sidebar Layout (30m)      |                                                                                  [██]
+   10b.5 Testing (30m)                  |                                                                                  [██]
 
-RUBRIC SCORE PROGRESSION                | 0→20 ✅               | 20→40                  40→65                                      65→85         85→107
-                                        | (19%)                 | (38%)                 (62%)                                      (81%)         (100%+)
+11. PR-11: Documentation (270m)         |                                                                                          [█████████████]
+   11.1 LangSmith Observability (30m) 🎁 |                                                                                          [██]
+   11.2 README Update (60m)             |                                                                                          [███]
+   11.3 Architecture Docs (45m)         |                                                                                          [██]
+   11.4 AI Dev Log (30m) ✅             |                                                                                          [██]
+   11.5 Video Script (45m)              |                                                                                          [██]
+   11.6 Video Recording (90m) 📹        |                                                                                          [█████]
+   11.7 Production Deploy (45m)         |                                                                                          [██]
+   11.8 Final Review (45m)              |                                                                                          [██]
+   11.9 Bonus Features (30m)            |                                                                                          [██]
 
-Legend: [████] = Scheduled Work | ⭐ = Tier 1/2 Feature | 🚨 = Critical | ✅ = Required | 📹 = Video
+CRITICAL CHECKPOINTS                    | ▲ CP7 (✅)         ▲           ▲                                   ▲                                  ▲            ▲              ▲
+                                        | 20 pts            | CP8a      | CP8b                           CP9 (CRITICAL)                      CP10a        CP10b          CP11
+                                        | MVP               | +15 pts   | +5 pts                        +25 pts (AI)                        +10 pts      +10 pts        +15 pts
+
+RUBRIC SCORE PROGRESSION                | 0→20 ✅           | 20→35     | 35→40                          40→65                               65→75        75→85          85→107
+                                        | (19%)             | (33%)     | (38%)                         (62%)                               (71%)        (81%)          (100%+)
+
+Legend: [████] = Scheduled Work | ⭐ = Tier 1/2 Feature | 🚨 = Critical | ✅ = Required | 📹 = Video | 🎨 = Figma-Inspired
         CP = Checkpoint | ▲ = Major Milestone
 ```
 
@@ -646,14 +751,20 @@ Legend: [████] = Scheduled Work | ⭐ = Tier 1/2 Feature | 🚨 = Critic
 
 ### ✅ **MUST HAVE** (Rubric Requirements)
 
-**Phase 2 (20 points)**:
-1. 3+ shape types (Line, Arrow, Text enhancements)
-2. Color picker with palettes (Tier 1)
-3. Undo/redo with Cmd+Z (Tier 1)
-4. Keyboard shortcuts (Tier 1)
-5. Multi-select and transforms
-6. Export functionality (PNG)
-7. 300+ objects performance
+**Phase 2a - Rubric Tier 1 (15 points)**:
+1. 5+ shape types (Rectangle, Circle, Text, Line, Arrow)
+2. Color picker with palettes (Tier 1 - 2 pts)
+3. Undo/redo with Cmd+Z (Tier 1 - 2 pts)
+4. Keyboard shortcuts (Tier 1 - 2 pts)
+5. Export functionality (PNG)
+
+**Phase 2b - Figma Transform Operations (5 points)**:
+1. 8-point resize handles (corners + edges)
+2. Rotation handle with Shift-snap
+3. Smart guides (alignment during drag)
+4. Marquee selection box (drag-to-select)
+5. Multi-select transform operations
+6. Aspect ratio locking
 
 **Phase 3 (25 points - HIGHEST VALUE)**:
 1. OpenAI SDK integration with Tool Calling (direct approach)
@@ -664,12 +775,17 @@ Legend: [████] = Scheduled Work | ⭐ = Tier 1/2 Feature | 🚨 = Critic
 6. 90%+ accuracy rate
 7. Command caching for performance
 
-**Phase 4 (20 points)**:
-1. 500+ objects at 60 FPS
-2. Layers panel (Tier 2)
-3. Alignment tools (Tier 2)
-4. <100ms object sync, <50ms cursor sync
-5. Clean code architecture
+**Phase 4a - Performance Optimization (10 points)**:
+1. 500+ objects at 60 FPS (viewport culling, shape pooling)
+2. Optimize Firestore batching
+3. <100ms object sync, <50ms cursor sync
+4. Clean code architecture and error handling
+
+**Phase 4b - Figma Interface Structure (10 points)**:
+1. Left sidebar: Layers panel with drag-to-reorder (Tier 2 - 3 pts)
+2. Right sidebar: Properties panel with position/size inputs
+3. 9 alignment operations (Tier 2 - 3 pts)
+4. Dual-sidebar professional layout
 
 **Phase 5 (15 points + bonus)**:
 1. LangSmith observability wrapper (+2 bonus points)
@@ -785,15 +901,17 @@ Legend: [████] = Scheduled Work | ⭐ = Tier 1/2 Feature | 🚨 = Critic
 
 ### Detailed Time Distribution
 
-| Phase | PR | Duration | Tasks | Percentage | Risk | Rubric Points | Status |
-|-------|----|----------:|------:|------------:|------|---------------|--------|
-| **Phase 1** | PR-1 to PR-7 | ~2400 min | 100+ | ✅ Complete | 🟢 DONE | 20 pts | ✅ |
-| **Phase 2** | PR-8 | 480 min | 50+ | 33.3% | 🟡 MEDIUM | +20 pts | ⏳ |
-| **Phase 3** | PR-9 | 480 min | 60+ | 33.3% | 🔴 **CRITICAL** | +25 pts | ⏳ |
-| **Phase 4** | PR-10 | 240 min | 30+ | 16.7% | 🟡 MEDIUM | +20 pts | ⏳ |
-| **Phase 5** | PR-11 | 270 min | 31+ | 18.8% | 🟢 LOW | +15 pts | ⏳ |
-| **PHASES 2-5** | **4 PRs** | **1470 min** | **171+** | **100%** | - | **+80 pts** | ⏳ |
-| **GRAND TOTAL** | **11 PRs** | **~3870 min** | **271+** | - | - | **100 pts** | 20% ✅ |
+| Phase | PR | Duration | Tasks | Percentage | Risk | Rubric Points | Type | Status |
+|-------|----|----------:|------:|------------:|------|---------------|------|--------|
+| **Phase 1** | PR-1 to PR-7 | ~2400 min | 100+ | ✅ Complete | 🟢 DONE | 20 pts | ✅ Rubric | ✅ |
+| **Phase 2a** | PR-8a | 240 min | 30+ | 16.7% | 🟡 MEDIUM | +15 pts | ✅ Rubric | ⏳ |
+| **Phase 2b** | PR-8b | 240 min | 25+ | 16.7% | 🟡 MEDIUM | +5 pts | 🎨 Figma | ⏳ |
+| **Phase 3** | PR-9 | 480 min | 60+ | 33.3% | 🔴 **CRITICAL** | +25 pts | ✅ Rubric | ⏳ |
+| **Phase 4a** | PR-10a | 120 min | 15+ | 8.3% | 🟡 MEDIUM | +10 pts | ✅ Rubric | ⏳ |
+| **Phase 4b** | PR-10b | 120 min | 15+ | 8.3% | 🟡 MEDIUM | +10 pts | 🎨 Figma | ⏳ |
+| **Phase 5** | PR-11 | 270 min | 31+ | 18.8% | 🟢 LOW | +15 pts | ✅ Rubric | ⏳ |
+| **PHASES 2-5** | **6 PRs** | **1470 min** | **176+** | **100%** | - | **+80 pts** | - | ⏳ |
+| **GRAND TOTAL** | **12 PRs** | **~3870 min** | **276+** | - | - | **100 pts** | - | 17% ✅ |
 
 ### Risk-Time Allocation
 
@@ -943,11 +1061,13 @@ Core technical validation: Prove that AI-powered collaborative canvas with profe
 - **Score**: **20/105 points** ✅
 - **Live URL**: <https://collabcanvas-mvp-53120.web.app>
 
-**Day 1 (Phase 2) - October 15**:
-- **Hour 2**: 8.1-8.2 complete (15 tasks) - ~10% of day
-- **Hour 4**: 8.1-8.4 complete (30 tasks) - ~40% of day
-- **Hour 6**: 8.1-8.6 complete (40 tasks) - ~70% of day
-- **Hour 8**: PR-8 complete (50 tasks) - **+20 points** ✅
+**Day 1 Morning (Phase 2a) - October 15, 9 AM-1 PM**:
+- **Hour 2**: 8a.1-8a.2 complete (10 tasks) - ~50% of half-day
+- **Hour 4**: PR-8a complete (30 tasks) - **+15 points** ✅
+
+**Day 1 Afternoon (Phase 2b) - October 15, 2 PM-6 PM**:
+- **Hour 2**: 8b.1-8b.3 complete (15 tasks) - ~50% of half-day
+- **Hour 4**: PR-8b complete (25 tasks) - **+5 points** ✅
 
 **Day 2 (Phase 3) - October 16**:
 - **Hour 2**: 9.1-9.3 complete (11 tasks) - ~18% of day
@@ -955,13 +1075,17 @@ Core technical validation: Prove that AI-powered collaborative canvas with profe
 - **Hour 6**: 9.1-9.7 complete (35 tasks) - ~58% of day
 - **Hour 8**: PR-9 complete (60 tasks) - **+25 points** ✅ **CRITICAL**
 
-**Day 3 AM (Phase 4) - October 17**:
-- **Hour 2**: 10.1-10.3 complete (11 tasks) - ~50% of half-day
-- **Hour 4**: PR-10 complete (30 tasks) - **+20 points** ✅
+**Day 3 AM First Half (Phase 4a) - October 17, 9-11 AM**:
+- **Hour 1**: 10a.1-10a.2 complete (8 tasks) - ~50% of 2 hours
+- **Hour 2**: PR-10a complete (15 tasks) - **+10 points** ✅
 
-**Day 3 PM (Phase 5) - October 17**:
+**Day 3 AM Second Half (Phase 4b) - October 17, 11 AM-1 PM**:
+- **Hour 1**: 10b.1-10b.2 complete (8 tasks) - ~50% of 2 hours
+- **Hour 2**: PR-10b complete (15 tasks) - **+10 points** ✅
+
+**Day 3 PM (Phase 5) - October 17, 2-6 PM**:
 - **Hour 2**: 11.1-11.5 complete (18 tasks) - ~50% of half-day
-- **Hour 4.5**: PR-11 complete (31 tasks) - **+15 points + 2 bonus** ✅
+- **Hour 4**: PR-11 complete (31 tasks) - **+15 points + 2 bonus** ✅
 
 **Final Score**: 95-107/105 points ✅
 
@@ -984,14 +1108,19 @@ Core technical validation: Prove that AI-powered collaborative canvas with profe
 
 ---
 
-*Document Version: 2.0 (Complete 5-Phase Journey)*
+*Document Version: 5.0 (Complete 6-Subphase Journey with Tech Stack Alignment)*
 *Created: October 15, 2025*
-*Updated: October 15, 2025 (Added Phase 1 MVP + Hybrid AI Strategy)*
-*Timeline: October 9-17, 2025 (9 days total: 5 days MVP + 3 days sprint)*
-*Total Tasks: 272+ granular tasks across 11 PRs (5 phases)*
+*Updated: October 16, 2025 (Added Phase 2a/2b & 4a/4b subphases + Figma features)*
+*Updated: October 16, 2025 (Aligned with TechStack v5.0 - custom utilities documented)*
+*Timeline: October 9-17, 2025 (9 days total: 5 days MVP + 4 days sprint)*
+*Total Tasks: 276+ granular tasks across 12 PRs (6 subphases)*
 *Current Score: 20/105 points (Phase 1 complete) ✅*
 *Target: 95-107/105 rubric points (includes +2 LangSmith bonus)*
 *Foundation: Phase 1 MVP @ <https://collabcanvas-mvp-53120.web.app> ✅*
-*Strategy: OpenAI Tool Calling (Phase 3) + LangSmith Observability (Phase 5)*
-*Progress: 1 of 5 phases complete (20% done)*
-*Philosophy: "Strategic rubric focus: AI agent = 25 points, hybrid approach = speed + observability"*
+*Strategy: ✅ Rubric-Required (85 pts baseline) + 🎨 Figma-Inspired (15 pts polish + bonus)*
+*AI Approach: OpenAI Tool Calling (Phase 3) + LangSmith Observability (Phase 5)*
+*Custom Implementations: transform.ts, alignment.ts, useSmartGuides.ts, MarqueeSelection.tsx*
+*Progress: 1 of 6 subphases complete (17% done)*
+*Subphase Structure: Phase 2a/2b (Rubric/Figma), Phase 4a/4b (Performance/Figma)*
+*Philosophy: "Strategic separation: Rubric baseline protected, Figma features add polish"*
+*Aligned With: PRD v5.0, TaskList v5.0, TechStack v5.0*
