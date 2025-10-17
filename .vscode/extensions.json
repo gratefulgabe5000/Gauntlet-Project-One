@@ -1,20 +1,37 @@
 {
   "recommendations": [
+    // React/TypeScript Development (High Priority for CollabCanvas)
     "ms-vscode.vscode-typescript-next",
     "bradlc.vscode-tailwindcss",
     "esbenp.prettier-vscode",
+    "ms-vscode.vscode-eslint",
+    "formulahendry.auto-rename-tag",
+    
+    // React/JSX Support
+    "dsznajder.es7-react-js-snippets",
+    "ms-vscode.vscode-react-native",
+    
+    // Firebase Development
+    "toba.vsfire",
+    
+    // Canvas/Konva.js Development
     "ms-vscode.vscode-json",
+    
+    // Code Quality & Git
+    "eamodio.gitlens",
+    "ms-vscode.vscode-git-graph",
+    "christian-kohler.path-intellisense",
+    
+    // Additional Utilities
     "redhat.vscode-yaml",
     "ms-python.python",
     "ms-vscode.powershell",
+    
+    // AI Assistance (if available)
     "github.copilot",
     "github.copilot-chat",
-    "ms-vscode.vscode-eslint",
-    "ms-vscode.vscode-prettier",
-    "formulahendry.auto-rename-tag",
-    "christian-kohler.path-intellisense",
-    "ms-vscode.vscode-git-graph",
-    "eamodio.gitlens",
+    
+    // C++ Development (from prior chats)
     "ms-vscode.cpptools",
     "ms-vscode.cpptools-extension-pack",
     "ms-vscode.cmake-tools",
