@@ -69,6 +69,12 @@ function App() {
   // PR5: User presence and cursor tracking
   const { activeUsers, currentUserColor, currentUserName, updateCursor } = usePresence()
 
+  // Help panel state for H and ? key shortcuts (must be declared before useKeyboardShortcuts)
+  const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false)
+  const toggleHelpPanel = useCallback(() => {
+    setIsHelpPanelOpen(!isHelpPanelOpen)
+  }, [isHelpPanelOpen])
+
   // PR8a.4: Enhanced keyboard shortcuts
   useKeyboardShortcuts({
     selectedShapeId,
@@ -76,6 +82,7 @@ function App() {
     onMoveShape: moveShapeByDelta,
     onDuplicateShape: duplicateShape,
     onSelectShape: selectShape,
+    onToggleHelp: toggleHelpPanel,
     enabled: true,
   })
 
@@ -90,6 +97,7 @@ function App() {
 
   // PR8a.5: Export modal state (Phase 2a)
   const [isExportModalOpen, setIsExportModalOpen] = useState(false)
+
   const [canvasStage, setCanvasStage] = useState<Konva.Stage | null>(null)
 
   // PR6.3: Toast notification system
@@ -482,6 +490,8 @@ function App() {
           onSelectAll={selectAllShapes}
           onUndo={undo}
           onRedo={redo}
+          isOpen={isHelpPanelOpen}
+          onToggle={toggleHelpPanel}
         />
 
         {/* PR8a.2.4: Color picker modal for shape colors (Phase 2a) */}

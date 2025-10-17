@@ -170,22 +170,42 @@ export function useShapes(): UseShapesReturn {
           case ActionType.CREATE:
             // Redo CREATE: Recreate the shape with original ID
             console.log('⏩ Redoing CREATE:', action.shapeId);
+            console.log('🔍 Action data:', JSON.stringify(action, null, 2));
             const createAction = action as any;
             if (createAction.shape) {
+              // Build shape data, filtering out undefined values
+              const shapeData: any = {
+                type: createAction.shape.type,
+                x: createAction.shape.x,
+                y: createAction.shape.y,
+                width: createAction.shape.width,
+                height: createAction.shape.height,
+                fill: createAction.shape.fill,
+              };
+              
+              // Only add optional properties if they exist
+              if (createAction.shape.text !== undefined) {
+                shapeData.text = createAction.shape.text;
+              }
+              if (createAction.shape.points !== undefined) {
+                shapeData.points = createAction.shape.points;
+              }
+              if (createAction.shape.pointerLength !== undefined) {
+                shapeData.pointerLength = createAction.shape.pointerLength;
+              }
+              if (createAction.shape.pointerWidth !== undefined) {
+                shapeData.pointerWidth = createAction.shape.pointerWidth;
+              }
+              
+              // Call createShape directly to bypass undo recording
+              // Use current user ID since the action might not have createdBy
               const result = await createShape(
-                {
-                  type: createAction.shape.type,
-                  x: createAction.shape.x,
-                  y: createAction.shape.y,
-                  width: createAction.shape.width,
-                  height: createAction.shape.height,
-                  fill: createAction.shape.fill,
-                  text: createAction.shape.text,
-                },
-                createAction.shape.createdBy,
+                shapeData,
+                user?.uid || 'unknown', // Use current user ID
                 undefined, // Use default canvasId
                 createAction.shape.id // Preserve original ID
               );
+              console.log('✅ Redo CREATE result:', result);
               return result.success;
             }
             return false;
@@ -278,7 +298,11 @@ export function useShapes(): UseShapesReturn {
     // Subscribe to real-time updates
     const unsubscribe = subscribeToCanvas((updatedShapes) => {
       console.log('🔄 Received shape update:', updatedShapes.length, 'shapes');
-      setShapes(updatedShapes);
+      
+      // Sort shapes by creation time for consistent Tab cycling order
+      const sortedShapes = [...updatedShapes].sort((a, b) => a.createdAt - b.createdAt);
+      
+      setShapes(sortedShapes);
       setIsLoading(false);
       setError(null);
     });
@@ -309,19 +333,22 @@ export function useShapes(): UseShapesReturn {
           console.log('✅ Shape added successfully:', result.shapeId);
 
           // PR8a.3.3: Record CREATE action for undo
-          // Wait for the shape to appear in state before recording
-          setTimeout(() => {
-            const createdShape = shapes.find(s => s.id === result.shapeId);
-            if (createdShape) {
-              addAction({
-                type: ActionType.CREATE,
-                userId: user.uid,
-                timestamp: Date.now(),
-                shapeId: result.shapeId!,
-                shape: createdShape,
-              });
-            }
-          }, 100);
+          // Record immediately - we have all the shape data we need
+          const createdShape: Shape = {
+            id: result.shapeId,
+            ...shapeData,
+            userId: user.uid,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+          };
+          
+          addAction({
+            type: ActionType.CREATE,
+            userId: user.uid,
+            timestamp: Date.now(),
+            shapeId: result.shapeId!,
+            shape: createdShape,
+          });
 
           return result.shapeId;
         } else {

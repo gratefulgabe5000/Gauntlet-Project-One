@@ -27,6 +27,7 @@ interface ExportModalProps {
 const ExportModal = ({ stage, onClose, onSuccess }: ExportModalProps) => {
   const [format, setFormat] = useState<'png' | 'svg'>('png');
   const [filename, setFilename] = useState('collabcanvas-export');
+  const [pngQuality, setPngQuality] = useState<'low' | 'medium' | 'high'>('medium');
   const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -40,10 +41,15 @@ const ExportModal = ({ stage, onClose, onSuccess }: ExportModalProps) => {
     setError(null);
 
     try {
+      // Convert quality setting to pixel ratio
+      const pixelRatio = format === 'png' ? 
+        (pngQuality === 'low' ? 1 : pngQuality === 'medium' ? 2 : 3) : 
+        2; // SVG doesn't use pixel ratio
+
       await exportCanvas(stage, {
         format,
         filename,
-        pixelRatio: 2, // High quality
+        pixelRatio,
       });
 
       // Success!
@@ -125,6 +131,61 @@ const ExportModal = ({ stage, onClose, onSuccess }: ExportModalProps) => {
           </div>
         </div>
 
+        {/* PNG Quality Selection (only show for PNG) */}
+        {format === 'png' && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              PNG Quality
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setPngQuality('low')}
+                className={`p-3 rounded-lg border-2 transition-all duration-200 ${
+                  pngQuality === 'low'
+                    ? 'border-orange-500 bg-orange-50 text-orange-700'
+                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                }`}
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <span className="font-semibold text-sm">Low</span>
+                  <span className="text-xs">1x resolution</span>
+                  <span className="text-xs text-gray-500">Smaller file</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setPngQuality('medium')}
+                className={`p-3 rounded-lg border-2 transition-all duration-200 ${
+                  pngQuality === 'medium'
+                    ? 'border-blue-500 bg-blue-50 text-blue-700'
+                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                }`}
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <span className="font-semibold text-sm">Medium</span>
+                  <span className="text-xs">2x resolution</span>
+                  <span className="text-xs text-gray-500">Recommended</span>
+                </div>
+              </button>
+
+              <button
+                onClick={() => setPngQuality('high')}
+                className={`p-3 rounded-lg border-2 transition-all duration-200 ${
+                  pngQuality === 'high'
+                    ? 'border-green-500 bg-green-50 text-green-700'
+                    : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                }`}
+              >
+                <div className="flex flex-col items-center gap-1">
+                  <span className="font-semibold text-sm">High</span>
+                  <span className="text-xs">3x resolution</span>
+                  <span className="text-xs text-gray-500">Crisp details</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Filename Input */}
         <div className="mb-4">
           <label htmlFor="filename" className="block text-sm font-medium text-gray-700 mb-2">
@@ -148,7 +209,7 @@ const ExportModal = ({ stage, onClose, onSuccess }: ExportModalProps) => {
           <p className="text-sm text-gray-600">
             {format === 'png' && (
               <>
-                <strong>PNG:</strong> High-quality raster image. Best for sharing and viewing. Exports at 2x resolution for crisp details.
+                <strong>PNG:</strong> High-quality raster image. Best for sharing and viewing. Choose quality level: Low (1x), Medium (2x), or High (3x) resolution.
               </>
             )}
             {format === 'svg' && (

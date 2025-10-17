@@ -18,10 +18,26 @@ interface KeyboardHelpProps {
   // PR8a.3.6: Undo/Redo shortcuts
   onUndo?: () => void;
   onRedo?: () => void;
+  // External control for H and ? key shortcuts
+  isOpen?: boolean;
+  onToggle?: () => void;
 }
 
-const KeyboardHelp = ({ onDeleteSelected, onClearAll, onDeselectAll, onSelectAll, onUndo, onRedo }: KeyboardHelpProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const KeyboardHelp = ({ 
+  onDeleteSelected, 
+  onClearAll, 
+  onDeselectAll, 
+  onSelectAll, 
+  onUndo, 
+  onRedo,
+  isOpen: externalIsOpen,
+  onToggle 
+}: KeyboardHelpProps) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  
+  // Use external control if provided, otherwise use internal state
+  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
+  const handleToggle = onToggle || (() => setInternalIsOpen(!internalIsOpen));
 
   const shortcuts = [
     // PR8a.3.6: Undo/Redo shortcuts
@@ -94,6 +110,12 @@ const KeyboardHelp = ({ onDeleteSelected, onClearAll, onDeselectAll, onSelectAll
       actionLabel: 'Deselect'
     },
     {
+      key: 'H or ?',
+      description: 'Show/hide keyboard shortcuts',
+      action: handleToggle,
+      actionLabel: 'Toggle Help'
+    },
+    {
       key: 'Mouse Wheel',
       description: 'Zoom in/out',
       action: null,
@@ -111,9 +133,9 @@ const KeyboardHelp = ({ onDeleteSelected, onClearAll, onDeselectAll, onSelectAll
     <div className="fixed bottom-6 left-6 z-50">
       {/* Help Button - PR6.6.2: Enhanced with animations */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-md hover:shadow-lg hover:border-gray-400 transition-smooth group button-lift"
-        title="Keyboard shortcuts"
+        title="Keyboard shortcuts (Press H or ?)"
       >
         <svg
           className="w-5 h-5 text-gray-600 group-hover:text-blue-600 transition-smooth icon-scale"

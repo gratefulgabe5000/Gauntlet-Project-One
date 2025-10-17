@@ -29,6 +29,9 @@ export interface UseKeyboardShortcutsOptions {
   /** Callback to select a shape */
   onSelectShape: (shapeId: string | null) => void;
 
+  /** Callback to toggle help panel */
+  onToggleHelp?: () => void;
+
   /** Whether shortcuts are enabled */
   enabled?: boolean;
 }
@@ -42,6 +45,7 @@ export function useKeyboardShortcuts({
   onMoveShape,
   onDuplicateShape,
   onSelectShape,
+  onToggleHelp,
   enabled = true,
 }: UseKeyboardShortcutsOptions) {
   /**
@@ -81,10 +85,14 @@ export function useKeyboardShortcuts({
    * Handle Tab key - cycle through shapes
    */
   const handleTabKey = useCallback(() => {
-    if (shapes.length === 0) return;
+    if (shapes.length === 0) {
+      console.log('🔄 Tab cycling: No shapes to cycle through');
+      return;
+    }
 
     if (!selectedShapeId) {
       // No selection, select first shape
+      console.log('🔄 Tab cycling: No selection, selecting first shape:', shapes[0].id);
       onSelectShape(shapes[0].id);
       return;
     }
@@ -93,12 +101,14 @@ export function useKeyboardShortcuts({
     const currentIndex = shapes.findIndex((s) => s.id === selectedShapeId);
     if (currentIndex === -1) {
       // Current shape not found, select first
+      console.log('🔄 Tab cycling: Current shape not found, selecting first shape:', shapes[0].id);
       onSelectShape(shapes[0].id);
       return;
     }
 
     // Select next shape (wrap around)
     const nextIndex = (currentIndex + 1) % shapes.length;
+    console.log(`🔄 Tab cycling: ${currentIndex} → ${nextIndex} (${shapes[currentIndex].id} → ${shapes[nextIndex].id})`);
     onSelectShape(shapes[nextIndex].id);
   }, [shapes, selectedShapeId, onSelectShape]);
 
@@ -111,6 +121,16 @@ export function useKeyboardShortcuts({
     if (!selectedShapeId) return;
     onDuplicateShape(selectedShapeId);
   }, [selectedShapeId, onDuplicateShape]);
+
+  /**
+   * Handle H and ? keys - toggle help panel
+   */
+  const handleToggleHelp = useCallback(() => {
+    if (onToggleHelp) {
+      console.log('🆘 Toggling help panel');
+      onToggleHelp();
+    }
+  }, [onToggleHelp]);
 
   /**
    * Set up keyboard event listeners
@@ -156,6 +176,13 @@ export function useKeyboardShortcuts({
         return;
       }
 
+      // H or ? - toggle help panel
+      if (e.key === 'h' || e.key === 'H' || e.key === '?') {
+        e.preventDefault();
+        handleToggleHelp();
+        return;
+      }
+
       // PR8a: Ctrl+A is now handled at App level
     };
 
@@ -164,11 +191,12 @@ export function useKeyboardShortcuts({
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [enabled, selectedShapeId, handleArrowKey, handleTabKey, handleDuplicate]);
+  }, [enabled, selectedShapeId, handleArrowKey, handleTabKey, handleDuplicate, handleToggleHelp]);
 
   return {
     handleArrowKey,
     handleTabKey,
     handleDuplicate,
+    handleToggleHelp,
   };
 }

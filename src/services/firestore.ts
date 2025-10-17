@@ -104,7 +104,8 @@ export async function createShape(
     const shapeId = customId || `shape_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const now = Date.now();
 
-    const newShape: Shape = {
+    // Build shape object explicitly to avoid undefined values in Firestore
+    const newShape: any = {
       id: shapeId,
       type: shapeData.type,
       x: shapeData.x,
@@ -120,6 +121,22 @@ export async function createShape(
       lockedBy: null,
       lockedAt: null,
     };
+
+    // Only add optional properties if they have actual values
+    if (shapeData.text !== undefined && shapeData.text !== null) {
+      newShape.text = shapeData.text;
+    }
+    if (shapeData.points !== undefined && shapeData.points !== null) {
+      newShape.points = shapeData.points;
+    }
+    if (shapeData.pointerLength !== undefined && shapeData.pointerLength !== null) {
+      newShape.pointerLength = shapeData.pointerLength;
+    }
+    if (shapeData.pointerWidth !== undefined && shapeData.pointerWidth !== null) {
+      newShape.pointerWidth = shapeData.pointerWidth;
+    }
+
+    // Shape object built - ready for Firestore
 
     // Add shape to canvas document
     await updateDoc(canvasRef, {
