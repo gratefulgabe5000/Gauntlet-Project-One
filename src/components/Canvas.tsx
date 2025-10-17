@@ -3,8 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
 import type { UserPresence } from '../services/types';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../utils/helpers';
+import Arrow from './Arrow';
 import Circle from './Circle';
 import Cursor from './Cursor';
+import Line from './Line';
 import Rectangle, { type RectangleShape } from './Rectangle';
 import ShapeContextMenu from './ShapeContextMenu';
 import Text from './Text';
@@ -28,7 +30,8 @@ const MAX_SCALE = 3;
 interface CanvasProps {
   shapes: RectangleShape[];
   selectedShapeId: string | null;
-  onSelectShape: (shapeId: string | null) => void;
+  selectedShapeIds?: string[]; // PR8a: Multi-select support
+  onSelectShape: (shapeId: string | null, addToSelection?: boolean) => void;
   onUpdateShapePosition: (shapeId: string, x: number, y: number) => void;
   onTextChange: (shapeId: string, text: string) => void;
   onColorChange: (shapeId: string, color: string) => void;
@@ -36,14 +39,19 @@ interface CanvasProps {
   onZoomOut?: () => void;
   onShapeDragStart?: () => void;
   onShapeDragEnd?: () => void;
+  // PR8a: Shift-drag to duplicate
+  onDuplicateShape?: (shapeId: string) => Promise<string | null>;
   // PR5: User presence
   activeUsers?: UserPresence[];
   onCursorMove?: (x: number, y: number) => void;
+  // PR8a.5: Stage reference callback for export
+  onStageReady?: (stage: Konva.Stage | null) => void;
 }
 
 const Canvas = ({
   shapes,
   selectedShapeId,
+  selectedShapeIds = [], // PR8a: Multi-select
   onSelectShape,
   onUpdateShapePosition,
   onTextChange,
@@ -52,14 +60,23 @@ const Canvas = ({
   onZoomOut,
   onShapeDragStart,
   onShapeDragEnd,
+  onDuplicateShape,
   activeUsers = [],
   onCursorMove,
+  onStageReady,
 }: CanvasProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
 
   // Viewport dimensions (browser window size)
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+
+  // PR8a.5: Notify parent when stage is ready
+  useEffect(() => {
+    if (onStageReady && stageRef.current) {
+      onStageReady(stageRef.current);
+    }
+  }, [onStageReady]);
 
   // Stage position and scale for pan/zoom (Task 3.1.1)
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 });
@@ -329,17 +346,31 @@ const Canvas = ({
           />
         </Layer>
 
-        {/* Shapes Layer - User-created rectangles (PR3.2) */}
+        {/* Shapes Layer - User-created shapes (PR3.2, PR8a.1.6) */}
         <Layer>
           {shapes.map((shape) => {
             const shapeProps = {
               key: shape.id,
               shape: shape,
-              isSelected: shape.id === selectedShapeId,
-              onSelect: () => onSelectShape(shape.id),
-              onDragStart: () => {
+              isSelected: selectedShapeIds.includes(shape.id), // PR8a: Multi-select check
+              onSelect: (e?: any) => {
+                // PR8a: Multi-select with Shift key
+                const shiftKey = e?.evt?.shiftKey || false;
+                onSelectShape(shape.id, shiftKey);
+              },
+              onDragStart: async (e?: any) => {
                 isShapeDraggingRef.current = true;
                 onShapeDragStart?.();
+
+                // PR8a: Shift-drag to duplicate
+                if (e?.evt?.shiftKey && onDuplicateShape) {
+                  const duplicateId = await onDuplicateShape(shape.id);
+                  if (duplicateId) {
+                    // Select the duplicate so it becomes the one being dragged
+                    onSelectShape(duplicateId);
+                    console.log('🔄 Shift-drag: Created duplicate', duplicateId);
+                  }
+                }
               },
               onDragEnd: (id: string, x: number, y: number) => {
                 // Note: Reset flag in handleStageDragEnd to ensure it runs first
@@ -373,6 +404,12 @@ const Canvas = ({
                   onTextChange={onTextChange}
                 />
               );
+            } else if (shape.type === 'line') {
+              // PR8a.1.6: Line shape rendering (Phase 2a)
+              return <Line {...shapeProps} />;
+            } else if (shape.type === 'arrow') {
+              // PR8a.1.6: Arrow shape rendering (Phase 2a)
+              return <Arrow {...shapeProps} />;
             } else {
               return <Rectangle {...shapeProps} />;
             }

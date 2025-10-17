@@ -14,12 +14,61 @@ interface KeyboardHelpProps {
   onDeleteSelected: () => void;
   onClearAll: () => void;
   onDeselectAll: () => void;
+  onSelectAll?: () => void; // PR8a: Select all shapes
+  // PR8a.3.6: Undo/Redo shortcuts
+  onUndo?: () => void;
+  onRedo?: () => void;
 }
 
-const KeyboardHelp = ({ onDeleteSelected, onClearAll, onDeselectAll }: KeyboardHelpProps) => {
+const KeyboardHelp = ({ onDeleteSelected, onClearAll, onDeselectAll, onSelectAll, onUndo, onRedo }: KeyboardHelpProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const shortcuts = [
+    // PR8a.3.6: Undo/Redo shortcuts
+    ...(onUndo ? [{
+      key: 'Cmd/Ctrl+Z',
+      description: 'Undo last action',
+      action: onUndo,
+      actionLabel: 'Undo'
+    }] : []),
+    ...(onRedo ? [{
+      key: 'Cmd/Ctrl+Shift+Z',
+      description: 'Redo last undone action',
+      action: onRedo,
+      actionLabel: 'Redo'
+    }] : []),
+    // PR8a.4: Enhanced keyboard shortcuts
+    {
+      key: 'Arrow Keys',
+      description: 'Move selected shape (10px)',
+      action: null,
+      actionLabel: null
+    },
+    {
+      key: 'Shift+Arrows',
+      description: 'Move selected shape (1px)',
+      action: null,
+      actionLabel: null
+    },
+    {
+      key: 'Cmd/Ctrl+D',
+      description: 'Duplicate selected shape',
+      action: null,
+      actionLabel: null
+    },
+    {
+      key: 'Tab',
+      description: 'Select next shape',
+      action: null,
+      actionLabel: null
+    },
+    // PR8a: Select all shapes
+    ...(onSelectAll ? [{
+      key: 'Cmd/Ctrl+A',
+      description: 'Select all shapes',
+      action: onSelectAll,
+      actionLabel: 'Select All'
+    }] : []),
     {
       key: 'Delete',
       description: 'Delete selected shape',

@@ -89,7 +89,8 @@ export async function getOrCreateCanvas(
 export async function createShape(
   shapeData: CreateShapeData,
   userId: string,
-  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID
+  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID,
+  customId?: string // PR8a.3: Optional custom ID for undo/redo
 ): Promise<ShapeOperationResult> {
   try {
     const canvasRef = doc(db, CONSTANTS.COLLECTIONS.CANVASES, canvasId);
@@ -99,8 +100,8 @@ export async function createShape(
       await getOrCreateCanvas(canvasId);
     }
 
-    // Generate unique shape ID
-    const shapeId = `shape_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    // Generate unique shape ID or use custom ID (for undo/redo)
+    const shapeId = customId || `shape_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const now = Date.now();
 
     const newShape: Shape = {
@@ -183,6 +184,56 @@ export async function updateShape(
     return { success: true, shapeId };
   } catch (error) {
     console.error('❌ Error updating shape:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+}
+
+/**
+ * PR8a: Update multiple shapes at once (for multi-select operations)
+ * This avoids race conditions when updating multiple shapes in parallel
+ */
+export async function updateMultipleShapes(
+  updates: Array<{ shapeId: string; updates: UpdateShapeData }>,
+  userId: string,
+  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID
+): Promise<ShapeOperationResult> {
+  try {
+    const canvasRef = doc(db, CONSTANTS.COLLECTIONS.CANVASES, canvasId);
+    const canvasSnap = await getDoc(canvasRef);
+
+    if (!canvasSnap.exists()) {
+      return { success: false, error: 'Canvas not found' };
+    }
+
+    const canvasData = canvasSnap.data() as CanvasDocument;
+    let updatedShapes = [...canvasData.shapes];
+    const now = Date.now();
+
+    // Apply all updates
+    updates.forEach(({ shapeId, updates: shapeUpdates }) => {
+      const shapeIndex = updatedShapes.findIndex((s) => s.id === shapeId);
+      if (shapeIndex !== -1) {
+        updatedShapes[shapeIndex] = {
+          ...updatedShapes[shapeIndex],
+          ...shapeUpdates,
+          lastModifiedBy: userId,
+          lastModifiedAt: now,
+        };
+      }
+    });
+
+    await updateDoc(canvasRef, {
+      shapes: updatedShapes,
+      'metadata.lastModifiedAt': now,
+    });
+
+    console.log(`✅ ${updates.length} shapes updated`);
+    return { success: true };
+  } catch (error) {
+    console.error('❌ Error updating multiple shapes:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',

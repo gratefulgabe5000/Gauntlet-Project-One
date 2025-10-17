@@ -79,10 +79,10 @@ export interface SignupData extends LoginCredentials {
 /**
  * Shape Type Enumeration
  *
- * Supports rectangles, circles, and text
- * Future: arrows, lines
+ * PR8a.1.4: Added line and arrow shape types (Phase 2a)
+ * Supports rectangles, circles, text, lines, and arrows
  */
-export type ShapeType = 'rectangle' | 'circle' | 'text';
+export type ShapeType = 'rectangle' | 'circle' | 'text' | 'line' | 'arrow';
 
 /**
  * Shape Interface
@@ -114,6 +114,15 @@ export interface Shape {
 
   /** Text content (only for text shapes) */
   text?: string;
+
+  /** Line points array (only for line/arrow shapes) - PR8a.1.4 */
+  points?: number[];
+
+  /** Arrow pointer length (only for arrow shapes) - PR8a.1.4 */
+  pointerLength?: number;
+
+  /** Arrow pointer width (only for arrow shapes) - PR8a.1.4 */
+  pointerWidth?: number;
 
   /** User ID who created this shape */
   createdBy: string;

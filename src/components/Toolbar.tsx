@@ -16,9 +16,21 @@ interface ToolbarProps {
   onAddRectangle: () => void;
   onAddCircle: () => void;
   onAddText: () => void;
+  onAddLine: () => void; // PR8a.1.5: Line shape button
+  onAddArrow: () => void; // PR8a.1.5: Arrow shape button
   onClearCanvas: () => void;
   onZoomIn?: () => void;
   onZoomOut?: () => void;
+  // PR8a.2.3: Color picker for selected shape
+  selectedShapeColor?: string | null;
+  onChangeColor?: () => void;
+  // PR8a.3.5: Undo/Redo buttons
+  onUndo?: () => void;
+  onRedo?: () => void;
+  canUndo?: boolean;
+  canRedo?: boolean;
+  // PR8a.5: Export button
+  onExport?: () => void;
   user: {
     displayName?: string | null;
     email?: string | null;
@@ -30,9 +42,18 @@ const Toolbar = ({
   onAddRectangle,
   onAddCircle,
   onAddText,
+  onAddLine,
+  onAddArrow,
   onClearCanvas,
   onZoomIn,
   onZoomOut,
+  selectedShapeColor,
+  onChangeColor,
+  onUndo,
+  onRedo,
+  canUndo,
+  canRedo,
+  onExport,
   user,
   onLogout,
 }: ToolbarProps) => {
@@ -147,6 +168,80 @@ const Toolbar = ({
         </button>
 
         <button
+          className="relative p-2 md:p-2.5 bg-white border-2 border-gray-300 rounded-lg hover:border-orange-500 hover:bg-orange-50 hover:shadow-lg active:scale-95 transition-all duration-200 group"
+          onClick={onAddLine}
+          title="Add Line (150x150px)"
+        >
+          {/* Line Icon with Plus Overlay - PR8a.1.5 */}
+          <svg className="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 48 48" fill="none">
+            {/* Diagonal Line */}
+            <path
+              d="M12 36L36 12"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              className="text-gray-700 group-hover:text-orange-600 transition-colors"
+            />
+            {/* Plus Circle Overlay */}
+            <circle
+              cx="16"
+              cy="20"
+              r="8"
+              className="fill-orange-600 group-hover:fill-orange-700 transition-colors"
+            />
+            {/* Plus Sign */}
+            <path
+              d="M16 16v8M12 20h8"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
+        <button
+          className="relative p-2 md:p-2.5 bg-white border-2 border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 hover:shadow-lg active:scale-95 transition-all duration-200 group"
+          onClick={onAddArrow}
+          title="Add Arrow (150x150px)"
+        >
+          {/* Arrow Icon with Plus Overlay - PR8a.1.5 */}
+          <svg className="w-8 h-8 md:w-10 md:h-10" viewBox="0 0 48 48" fill="none">
+            {/* Arrow Line */}
+            <path
+              d="M12 36L36 12"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              className="text-gray-700 group-hover:text-purple-600 transition-colors"
+            />
+            {/* Arrowhead */}
+            <path
+              d="M36 12L30 12L36 18"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-gray-700 group-hover:text-purple-600 transition-colors"
+              fill="none"
+            />
+            {/* Plus Circle Overlay */}
+            <circle
+              cx="16"
+              cy="20"
+              r="8"
+              className="fill-purple-600 group-hover:fill-purple-700 transition-colors"
+            />
+            {/* Plus Sign */}
+            <path
+              d="M16 16v8M12 20h8"
+              stroke="white"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+
+        <button
           className="flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 md:py-2.5 bg-orange-500 text-white rounded-lg hover:bg-orange-600 hover:shadow-lg active:scale-95 transition-all duration-200 font-semibold text-xs md:text-sm shadow-md hover:-translate-y-0.5"
           onClick={onClearCanvas}
           title="Clear all shapes (Ctrl+Shift+Delete)"
@@ -157,6 +252,68 @@ const Toolbar = ({
           <span className="hidden sm:inline">Clear Canvas</span>
           <span className="sm:hidden">Clear</span>
         </button>
+
+        {/* PR8a.2.3: Color picker button for selected shape */}
+        {onChangeColor && (
+          <button
+            onClick={onChangeColor}
+            disabled={!selectedShapeColor}
+            className={`
+              flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 rounded-lg transition-all duration-200 font-semibold text-xs md:text-sm shadow-md
+              ${selectedShapeColor
+                ? 'bg-white border-2 border-gray-300 hover:border-blue-500 hover:shadow-lg hover:-translate-y-0.5 active:scale-95'
+                : 'bg-gray-200 border-2 border-gray-300 text-gray-500 cursor-not-allowed'
+              }
+            `}
+            title={selectedShapeColor ? `Change color (current: ${selectedShapeColor})` : 'Select a shape to change color'}
+          >
+            {/* Color preview circle */}
+            <div
+              className={`w-5 h-5 rounded-full border-2 ${selectedShapeColor ? 'border-gray-400' : 'border-gray-300'}`}
+              style={{ backgroundColor: selectedShapeColor || '#E5E7EB' }}
+            />
+            <span className="hidden sm:inline text-gray-700">Change Color</span>
+            <span className="sm:hidden text-gray-700">Color</span>
+          </button>
+        )}
+
+        {/* PR8a.3.5: Undo/Redo buttons */}
+        {onUndo && onRedo && (
+          <div className="flex gap-2 border-l border-gray-300 pl-3">
+            <button
+              onClick={onUndo}
+              disabled={!canUndo}
+              className={`
+                p-2.5 rounded-lg transition-all duration-200 border shadow-md
+                ${canUndo
+                  ? 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-500 hover:shadow-lg hover:-translate-y-0.5 active:scale-95'
+                  : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                }
+              `}
+              title={canUndo ? 'Undo (Cmd/Ctrl+Z)' : 'Nothing to undo'}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+              </svg>
+            </button>
+            <button
+              onClick={onRedo}
+              disabled={!canRedo}
+              className={`
+                p-2.5 rounded-lg transition-all duration-200 border shadow-md
+                ${canRedo
+                  ? 'bg-white text-gray-700 border-gray-300 hover:bg-blue-50 hover:border-blue-500 hover:shadow-lg hover:-translate-y-0.5 active:scale-95'
+                  : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                }
+              `}
+              title={canRedo ? 'Redo (Cmd/Ctrl+Shift+Z)' : 'Nothing to redo'}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6" />
+              </svg>
+            </button>
+          </div>
+        )}
 
         {/* Task 3.4.4: Zoom controls */}
         {onZoomIn && onZoomOut && (
@@ -180,6 +337,20 @@ const Toolbar = ({
               </svg>
             </button>
           </div>
+        )}
+
+        {/* PR8a.5: Export button */}
+        {onExport && (
+          <button
+            onClick={onExport}
+            className="flex items-center gap-1 md:gap-2 px-3 md:px-4 py-2 md:py-2.5 bg-green-500 text-white rounded-lg hover:bg-green-600 hover:shadow-lg active:scale-95 transition-all duration-200 font-semibold text-xs md:text-sm shadow-md hover:-translate-y-0.5 border-l border-gray-300 ml-3"
+            title="Export canvas as PNG or SVG"
+          >
+            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            <span className="hidden sm:inline">Export</span>
+          </button>
         )}
       </div>
 

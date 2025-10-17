@@ -122,6 +122,84 @@ export const createTextShape = (
 };
 
 /**
+ * Create a new line shape with default properties
+ * PR8a.1.3: Line shape creator (Phase 2a)
+ *
+ * @param x1 - Starting X coordinate (optional, defaults to centered)
+ * @param y1 - Starting Y coordinate (optional, defaults to centered)
+ * @param x2 - Ending X coordinate (optional, defaults to centered + 150px)
+ * @param y2 - Ending Y coordinate (optional, defaults to centered + 150px)
+ * @param overrides - Additional properties to override defaults
+ */
+export const createLineShape = (
+  x1?: number,
+  y1?: number,
+  x2?: number,
+  y2?: number,
+  overrides?: Partial<Omit<RectangleShape, 'id'>>
+): Omit<RectangleShape, 'id'> => {
+  // Default to diagonal line from center
+  const centeredPos = getCenteredPosition(150, 150);
+  const startX = x1 ?? centeredPos.x;
+  const startY = y1 ?? centeredPos.y;
+  const endX = x2 ?? (startX + 150);
+  const endY = y2 ?? (startY + 150);
+
+  // Calculate bounding box
+  const width = Math.abs(endX - startX);
+  const height = Math.abs(endY - startY);
+
+  return {
+    x: startX,
+    y: startY,
+    width: width,
+    height: height,
+    fill: '#333333', // Default dark gray stroke
+    ...overrides,
+  };
+};
+
+/**
+ * Create a new arrow shape with default properties
+ * PR8a.1.3: Arrow shape creator (Phase 2a)
+ *
+ * @param x1 - Starting X coordinate (optional, defaults to centered)
+ * @param y1 - Starting Y coordinate (optional, defaults to centered)
+ * @param x2 - Ending X coordinate (optional, defaults to centered + 150px)
+ * @param y2 - Ending Y coordinate (optional, defaults to centered + 150px)
+ * @param overrides - Additional properties to override defaults
+ */
+export const createArrowShape = (
+  x1?: number,
+  y1?: number,
+  x2?: number,
+  y2?: number,
+  overrides?: Partial<Omit<RectangleShape, 'id'>>
+): Omit<RectangleShape, 'id'> => {
+  // Default to diagonal arrow from center
+  const centeredPos = getCenteredPosition(150, 150);
+  const startX = x1 ?? centeredPos.x;
+  const startY = y1 ?? centeredPos.y;
+  const endX = x2 ?? (startX + 150);
+  const endY = y2 ?? (startY + 150);
+
+  // Calculate bounding box
+  const width = Math.abs(endX - startX);
+  const height = Math.abs(endY - startY);
+
+  return {
+    x: startX,
+    y: startY,
+    width: width,
+    height: height,
+    fill: '#000000', // Default black color
+    pointerLength: 10,
+    pointerWidth: 10,
+    ...overrides,
+  };
+};
+
+/**
  * Calculate the center point of a shape
  */
 export const getShapeCenter = (shape: RectangleShape): { x: number; y: number } => {

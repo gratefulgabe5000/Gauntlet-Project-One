@@ -18,8 +18,8 @@ import { constrainShapePosition } from '../utils/helpers';
 interface TextProps {
   shape: Shape;
   isSelected: boolean;
-  onSelect: () => void;
-  onDragStart: () => void;
+  onSelect: (e?: any) => void; // PR8a: Pass event for shift-click detection
+  onDragStart: (e?: any) => void; // PR8a: Pass event for shift-drag duplication
   onDragEnd: (id: string, x: number, y: number) => void;
   onTextChange: (id: string, text: string) => void;
   onRightClick?: (e: any) => void;
@@ -51,7 +51,7 @@ const Text = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onTextChang
 
   const handleDragStart = (e: any) => {
     e.cancelBubble = true;
-    onDragStart();
+    onDragStart(e);
   };
 
   const handleDragEnd = (e: any) => {

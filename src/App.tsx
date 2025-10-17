@@ -1,19 +1,23 @@
+import type Konva from 'konva'
 import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { useAuth } from './auth/AuthContext'
 import AuthGuard from './auth/AuthGuard'
 import Canvas from './components/Canvas'
+import ColorPaletteModal from './components/ColorPaletteModal'
 import EmptyState from './components/EmptyState'
+import ExportModal from './components/ExportModal'
 import KeyboardHelp from './components/KeyboardHelp'
 import MobileWarning from './components/MobileWarning'
 import ToastContainer from './components/ToastContainer'
 import Toolbar from './components/Toolbar'
 import UserPresence from './components/UserPresence'
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 import { usePresence } from './hooks/usePresence'
 import { useShapes } from './hooks/useShapes'
 import { useToast } from './hooks/useToast'
 import { getFriendlyErrorMessage, getSuccessMessage } from './utils/errorMessages'
-import { createCircleShape, createRectangleShape, createTextShape } from './utils/helpers'
+import { createArrowShape, createCircleShape, createLineShape, createRectangleShape, createTextShape } from './utils/helpers'
 
 /**
  * CollabCanvas MVP - Main Application Component
@@ -38,26 +42,55 @@ function App() {
   const {
     shapes,
     selectedShapeId,
+    selectedShapeIds, // PR8a: Multi-select
     isLoading,
     error,
     addShape,
     selectShape,
+    selectAllShapes, // PR8a: Select all at once
     updateShapePosition,
     updateShapeText,
     updateShapeColor,
+    updateMultipleShapeColors, // PR8a: Multi-select color change
     clearSelection,
     removeSelectedShape,
+    removeSelectedShapes, // PR8a: Multi-select
     clearAllShapes,
+    // PR8a.3.4: Undo/Redo functionality
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+    // PR8a.4: Enhanced keyboard shortcuts
+    moveShapeByDelta,
+    duplicateShape,
   } = useShapes()
 
   // PR5: User presence and cursor tracking
   const { activeUsers, currentUserColor, currentUserName, updateCursor } = usePresence()
+
+  // PR8a.4: Enhanced keyboard shortcuts
+  useKeyboardShortcuts({
+    selectedShapeId,
+    shapes,
+    onMoveShape: moveShapeByDelta,
+    onDuplicateShape: duplicateShape,
+    onSelectShape: selectShape,
+    enabled: true,
+  })
 
   // PR6.2: Loading state for shape creation
   const [isCreatingShape, setIsCreatingShape] = useState(false)
 
   // PR6.2: Connection status tracking
   const [isConnected, setIsConnected] = useState(true)
+
+  // PR8a.2.4: Color picker modal state (Phase 2a)
+  const [isColorPickerOpen, setIsColorPickerOpen] = useState(false)
+
+  // PR8a.5: Export modal state (Phase 2a)
+  const [isExportModalOpen, setIsExportModalOpen] = useState(false)
+  const [canvasStage, setCanvasStage] = useState<Konva.Stage | null>(null)
 
   // PR6.3: Toast notification system
   const { toasts, showSuccess, showError, dismissToast } = useToast()
@@ -115,8 +148,41 @@ function App() {
   }, [shapes, clearAllShapes, showError, showSuccess])
 
   // Task 3.5: Keyboard interactions (Delete, Escape, Clear Canvas keys)
+  // PR8a.3.4: Undo/Redo keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+      const cmdOrCtrl = isMac ? e.metaKey : e.ctrlKey
+
+      // PR8a.3.4: Undo (Cmd/Ctrl+Z)
+      if (cmdOrCtrl && e.key === 'z' && !e.shiftKey) {
+        if (canUndo) {
+          e.preventDefault()
+          undo()
+          console.log('↶ Undo action')
+          return
+        }
+      }
+
+      // PR8a.3.4: Redo (Cmd/Ctrl+Shift+Z)
+      if (cmdOrCtrl && e.shiftKey && (e.key === 'z' || e.key === 'Z')) {
+        if (canRedo) {
+          e.preventDefault()
+          redo()
+          console.log('↷ Redo action')
+          return
+        }
+      }
+
+      // PR8a: Select All (Cmd/Ctrl+A)
+      if (cmdOrCtrl && e.key === 'a') {
+        if (shapes.length > 0) {
+          e.preventDefault()
+          selectAllShapes()
+          return
+        }
+      }
+
       // Clear Canvas: Ctrl+Shift+Delete
       if (e.ctrlKey && e.shiftKey && (e.key === 'Delete' || e.key === 'Backspace')) {
         e.preventDefault()
@@ -124,9 +190,13 @@ function App() {
         return
       }
 
-      // Task 3.5.2: Delete key to remove selected shape
+      // Task 3.5.2: Delete key to remove selected shape(s) - PR8a: Multi-select support
       if (e.key === 'Delete' || e.key === 'Backspace') {
-        if (selectedShapeId) {
+        if (selectedShapeIds.length > 1) {
+          e.preventDefault()
+          removeSelectedShapes()
+          console.log('🗑️ Deleted ' + selectedShapeIds.length + ' shapes')
+        } else if (selectedShapeId) {
           e.preventDefault()
           removeSelectedShape()
           console.log('🗑️ Deleted shape:', selectedShapeId)
@@ -150,7 +220,7 @@ function App() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [selectedShapeId, removeSelectedShape, clearSelection, handleClearCanvas])
+  }, [selectedShapeId, selectedShapeIds, removeSelectedShape, removeSelectedShapes, clearSelection, handleClearCanvas, selectAllShapes, undo, redo, canUndo, canRedo, shapes])
 
   // Task 3.4.3 & 3.6.2 & 4.5 + PR6.2.1 + PR6.3.2: Create rectangle with loading state and toast feedback
   const handleAddRectangle = async () => {
@@ -193,6 +263,84 @@ function App() {
       showError('Failed to create text. Please try again', 5000)
     }
     setIsCreatingShape(false)
+  }
+
+  // PR8a.1.6: Line shape creation handler (Phase 2a)
+  const handleAddLine = async () => {
+    setIsCreatingShape(true)
+    const newShape = createLineShape()
+    const shapeId = await addShape({ ...newShape, type: 'line' })
+    if (shapeId) {
+      console.log('✅ Line created (Firestore):', shapeId)
+      showSuccess('Line created successfully!', 3000)
+    } else {
+      console.error('❌ Failed to create line')
+      showError('Failed to create line. Please try again', 5000)
+    }
+    setIsCreatingShape(false)
+  }
+
+  // PR8a.1.6: Arrow shape creation handler (Phase 2a)
+  const handleAddArrow = async () => {
+    setIsCreatingShape(true)
+    const newShape = createArrowShape()
+    const shapeId = await addShape({ ...newShape, type: 'arrow' })
+    if (shapeId) {
+      console.log('✅ Arrow created (Firestore):', shapeId)
+      showSuccess('Arrow created successfully!', 3000)
+    } else {
+      console.error('❌ Failed to create arrow')
+      showError('Failed to create arrow. Please try again', 5000)
+    }
+    setIsCreatingShape(false)
+  }
+
+  // PR8a.2.4: Open color picker modal for selected shape (Phase 2a)
+  const handleOpenColorPicker = () => {
+    if (selectedShapeId) {
+      setIsColorPickerOpen(true)
+    }
+  }
+
+  // PR8a.2.4: Apply color from color picker modal to selected shape(s) (Phase 2a)
+  const handleColorPickerApply = async (color: string) => {
+    if (!selectedShapeId) return
+
+    // PR8a: Handle multi-select - update all selected shapes
+    if (selectedShapeIds.length > 1) {
+      // Use dedicated multi-update function to avoid race conditions
+      const result = await updateMultipleShapeColors(selectedShapeIds, color)
+
+      if (result.successCount === result.totalCount) {
+        console.log(`✅ ${result.successCount} shape colors updated:`, color)
+        showSuccess(`Color changed for ${result.successCount} shapes`, 2000)
+      } else if (result.successCount > 0) {
+        console.warn(`⚠️ Only ${result.successCount}/${result.totalCount} shapes updated`)
+        showError(`Only updated ${result.successCount} of ${result.totalCount} shapes`, 5000)
+      } else {
+        console.error('❌ Failed to update any shape colors')
+        showError('Failed to change color. Please try again', 5000)
+      }
+    } else {
+      // Single shape update
+      const success = await updateShapeColor(selectedShapeId, color)
+      if (success) {
+        console.log('✅ Shape color updated:', selectedShapeId, color)
+        showSuccess(`Color changed to ${color}`, 2000)
+      } else {
+        console.error('❌ Failed to update shape color')
+        showError('Failed to change color. Please try again', 5000)
+      }
+    }
+  }
+
+  // PR8a.5: Export modal handlers (Phase 2a)
+  const handleOpenExportModal = () => {
+    setIsExportModalOpen(true)
+  }
+
+  const handleExportSuccess = () => {
+    showSuccess('Canvas exported successfully!', 3000)
   }
 
   const handleTextChange = async (shapeId: string, text: string) => {
@@ -253,9 +401,18 @@ function App() {
           onAddRectangle={handleAddRectangle}
           onAddCircle={handleAddCircle}
           onAddText={handleAddText}
+          onAddLine={handleAddLine}
+          onAddArrow={handleAddArrow}
           onClearCanvas={handleClearCanvas}
           onZoomIn={handleZoomIn}
           onZoomOut={handleZoomOut}
+          selectedShapeColor={shapes.find(s => s.id === selectedShapeId)?.fill || null}
+          onChangeColor={handleOpenColorPicker}
+          onUndo={undo}
+          onRedo={redo}
+          canUndo={canUndo}
+          canRedo={canRedo}
+          onExport={handleOpenExportModal}
           user={user}
           onLogout={handleLogout}
         />
@@ -303,14 +460,17 @@ function App() {
           <Canvas
             shapes={shapes}
             selectedShapeId={selectedShapeId}
+            selectedShapeIds={selectedShapeIds}
             onSelectShape={selectShape}
             onUpdateShapePosition={updateShapePosition}
             onTextChange={handleTextChange}
             onColorChange={handleColorChange}
             onZoomIn={handleZoomIn}
             onZoomOut={handleZoomOut}
+            onDuplicateShape={duplicateShape}
             activeUsers={activeUsers}
             onCursorMove={updateCursor}
+            onStageReady={setCanvasStage}
           />
         </div>
 
@@ -319,7 +479,28 @@ function App() {
           onDeleteSelected={removeSelectedShape}
           onClearAll={handleClearCanvas}
           onDeselectAll={clearSelection}
+          onSelectAll={selectAllShapes}
+          onUndo={undo}
+          onRedo={redo}
         />
+
+        {/* PR8a.2.4: Color picker modal for shape colors (Phase 2a) */}
+        {isColorPickerOpen && selectedShapeId && (
+          <ColorPaletteModal
+            currentColor={shapes.find(s => s.id === selectedShapeId)?.fill || '#CCCCCC'}
+            onSelectColor={handleColorPickerApply}
+            onClose={() => setIsColorPickerOpen(false)}
+          />
+        )}
+
+        {/* PR8a.5: Export modal (Phase 2a) */}
+        {isExportModalOpen && (
+          <ExportModal
+            stage={canvasStage}
+            onClose={() => setIsExportModalOpen(false)}
+            onSuccess={handleExportSuccess}
+          />
+        )}
       </div>
     </AuthGuard>
   )

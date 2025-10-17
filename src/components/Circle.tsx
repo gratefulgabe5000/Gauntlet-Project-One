@@ -16,8 +16,8 @@ import { constrainShapePosition } from '../utils/helpers';
 interface CircleProps {
   shape: Shape;
   isSelected: boolean;
-  onSelect: () => void;
-  onDragStart: () => void;
+  onSelect: (e?: any) => void; // PR8a: Pass event for shift-click detection
+  onDragStart: (e?: any) => void; // PR8a: Pass event for shift-drag duplication
   onDragEnd: (id: string, x: number, y: number) => void;
   onRightClick?: (e: any) => void;
 }
@@ -26,8 +26,8 @@ const Circle = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onRightCl
   const handleDragStart = (e: any) => {
     // Prevent event from bubbling to stage
     e.cancelBubble = true;
-    // Notify parent that shape dragging started
-    onDragStart();
+    // Notify parent that shape dragging started (pass event for shift-drag detection)
+    onDragStart(e);
   };
 
   const handleDragEnd = (e: any) => {
