@@ -484,7 +484,333 @@ Key insights from MVP sprint inform Phase 2+ approach:
 
 ---
 
-*Last Updated: October 15, 2025 - Phase 2 Preparation Complete*
-*Sprint Status: **24-Hour MVP COMPLETE** ✅ | **Phase 2 Prep COMPLETE** ✅*
+## 📋 Documentation v5.0 Update (October 16, 2025)
+
+Comprehensive documentation review, crash recovery, and strategic alignment across all project documents to v5.0.
+
+### Critical Recovery & Analysis
+
+#### Document Recovery from Chat History ✅
+
+**Challenge**: Chat history crash caused loss of recent work on PRD, TaskList, and WBS updates.
+
+**Recovery Actions**:
+
+- Extracted PRD-CollabCanvas.md, TaskList-CollabCanvas.md, WBS-CollabCanvas.md from chat transcripts using PowerShell
+- Created `Artifacts/2025.10.16-RECOVERY-COMPLETE.md` documenting the full recovery process
+- Recovered `Artifacts/1. Notes/PRD-Figma-Feature-Gap-Analysis.md` (Figma feature integration analysis)
+- Verified all recovered files matched latest versions with Phase 2a/2b and 4a/4b subphases
+
+**Recovery Tools Used**:
+
+```powershell
+Get-Content "chat-transcript.md" | Select-Object -Skip [START] -First [COUNT] | Out-File "recovered-file.md" -Encoding UTF8
+```
+
+**Outcome**: ✅ All critical documents recovered with zero data loss
+
+#### Strategic Phase Structure Refinement ✅
+
+**File**: `Artifacts/1. Notes/PRD-Figma-Feature-Gap-Analysis.md` (recovered)
+
+**Key Strategic Decision**: Split Phases 2 and 4 to separate rubric-required features from Figma-inspired enhancements:
+
+**Phase 2 Split**:
+
+- **Phase 2a (Rubric Tier 1)**: Color picker, undo/redo, keyboard shortcuts, export, text formatting
+- **Phase 2b (Figma Transforms) 🎨**: 8-point resize, rotation handle, smart guides, marquee selection
+
+**Phase 4 Split**:
+
+- **Phase 4a (Performance Optimization)**: Viewport culling, shape pooling, 60 FPS target
+- **Phase 4b (Figma Interface) 🎨**: Layers panel, properties panel, alignment tools (9 operations)
+
+**Strategic Rationale**:
+
+- ✅ **Protects Rubric Baseline**: 85 points from rubric-required features isolated
+- 🎨 **Figma Polish Adds 15+ Points**: Professional interface enhancements for bonus points
+- ⏱️ **Time Flexibility**: Can deprioritize 2b/4b if time-constrained without risking core rubric points
+- 🎯 **Clear Scope**: "Rubric baseline protected, Figma features add polish"
+
+### Version 5.0 Documentation Alignment
+
+All core project documents updated to v5.0 with complete cross-document alignment:
+
+#### 1. **PRD-CollabCanvas.md v5.0** ✅
+
+**File**: `Artifacts/PRD-CollabCanvas.md`
+
+**Updates**:
+
+- Version updated from 2.2 → 5.0 ("Complete Technology Stack Alignment")
+- Latest Update: "Aligned with TechStack v5.0 (custom utilities documented)"
+- Metadata updated with custom implementations: `transform.ts`, `alignment.ts`, `useSmartGuides.ts`, `MarqueeSelection.tsx`
+- Aligned With: TaskList v5.0, WBS v5.0, TechStack v5.0
+
+**Key Changes**:
+
+- Documented all Figma-inspired features achievable with Konva.js primitives
+- Added explicit reference to custom utility implementations
+- Updated strategic separation: ✅ Rubric-Required (85 pts) + 🎨 Figma-Inspired (15 pts polish + bonus)
+
+#### 2. **TaskList-CollabCanvas.md v5.0** ✅
+
+**File**: `Artifacts/TaskList-CollabCanvas.md`
+
+**Updates**:
+
+- Version updated from 4.0 → 5.0 ("Complete with Subphases & Tech Stack Alignment")
+- Added custom utilities line: `transform.ts`, `alignment.ts`, `useSmartGuides.ts`, `MarqueeSelection.tsx`
+- Based on: PRD v5.0, WBS v5.0, TechStack v5.0 & CollabCanvas Rubric
+- Detailed task breakdowns for all Phase 2a/2b and 4a/4b features
+
+**Task Count**: 276+ granular tasks across 12 PRs (6 subphases)
+
+#### 3. **WBS-CollabCanvas.md v5.0** ✅
+
+**File**: `Artifacts/WBS-CollabCanvas.md`
+
+**Updates**:
+
+- Version updated from 3.0 → 5.0 ("Complete 6-Subphase Journey with Tech Stack Alignment")
+- Added custom implementations line documenting all four utility files
+- Updated Aligned With: PRD v5.0, TaskList v5.0, TechStack v5.0
+- Split Phase 2 and Phase 4 in Gantt chart and resource allocation
+
+**Structure**: 6 subphases (Phase 1, 2a, 2b, 3, 4a, 4b, 5) with 12 PRs
+
+#### 4. **TECH-TechStack.md v5.0** ✅
+
+**File**: `Artifacts/TECH-TechStack.md`
+
+**Analysis File**: `Artifacts/TECH-TechStack-Analysis-v4.0.md` (evaluation report)
+
+**Tech Stack Evaluation Results**:
+
+✅ **Overall Verdict**: Tech stack is SUFFICIENT (90/100 Score) - No new libraries needed!
+
+**Fully Supported** (100% Coverage):
+
+- Phase 1 (MVP): Complete ✅
+- Phase 2a (Rubric Tier 1): All features covered (color picker, undo/redo, keyboard shortcuts, export) ✅
+- Phase 3 (AI Agent): Hybrid approach (OpenAI SDK → LangSmith) is excellent ✅
+- Phase 4a (Performance): Konva.js + Performance API covers all targets ✅
+
+**Documentation Clarifications Needed** (addressed in v5.0):
+
+**Phase 2b (Figma Transform Operations)**:
+
+- ✅ 8-point resize handles → Konva.js Transformer (built-in)
+- ✅ Rotation handle → Konva.js Transformer (built-in)
+- ⚠️ Smart guides → Custom implementation: `src/utils/transform.ts` + `src/hooks/useSmartGuides.ts`
+- ⚠️ Marquee selection → Custom implementation: `src/components/MarqueeSelection.tsx`
+- ⚠️ Transform utilities → Custom implementation: `src/utils/transform.ts`
+
+**Phase 4b (Figma Interface Structure)**:
+
+- ✅ Layers panel → @dnd-kit (already specified)
+- ✅ Properties panel → React + Tailwind
+- ⚠️ Alignment utilities → Custom implementation: `src/utils/alignment.ts` (9 operations)
+
+**Custom Utilities Documented** (v5.0):
+
+1. **`src/utils/transform.ts`** - Phase 2b
+   - `calculateBounds()` - Compute bounding boxes for shapes
+   - `getRotatedBounds()` - Calculate bounds with rotation
+   - `snapToGrid()` - Grid snapping functionality
+   - `constrainAspectRatio()` - Maintain shape proportions
+
+2. **`src/utils/alignment.ts`** - Phase 4b
+   - `alignLeft()`, `alignCenter()`, `alignRight()` - Horizontal alignment
+   - `alignTop()`, `alignMiddle()`, `alignBottom()` - Vertical alignment
+   - `distributeHorizontally()`, `distributeVertically()` - Even spacing
+   - `alignToCanvasCenter()` - Center on canvas
+
+3. **`src/hooks/useSmartGuides.ts`** - Phase 2b
+   - 5px tolerance detection for alignment
+   - Red dashed line rendering with Konva Line shapes
+   - Snap-to-align behavior
+
+4. **`src/components/MarqueeSelection.tsx`** - Phase 2b
+   - Drag-to-select rectangle with Konva Rect
+   - Collision detection for multi-select
+   - Integration with existing selection system
+
+**Strategic Outcome**: All Figma-inspired features achievable with existing Konva.js primitives + custom utility functions. No additional libraries required beyond what's already specified for MVP/Phase 2-5.
+
+#### 5. **ARCH-CollabCanvas-Complete.mermaid v5.0** ✅
+
+**File**: `Artifacts/ARCH-CollabCanvas-Complete.mermaid`
+
+**Updates**:
+
+- Updated main title from v2.0 → v5.0
+- Split Phase 2 into 2a (Rubric Tier 1) and 2b (Figma Transform Operations) 🎨
+- Split Phase 4 into 4a (Performance Optimization) and 4b (Figma Interface Structure) 🎨
+- Added custom utility references: `TransformUtils`, `AlignmentUtilsLib`, `TransformUtilsRef`, `AlignmentUtilsRef`
+- Updated Git Repo to show 12 PRs (Phase 1: 7 Complete ✅, Phases 2a/2b/3/4a/4b/5: 5 Pending ⏳)
+- Added Phase 2b components: `TransformerEnhanced`, `SmartGuides`, `MarqueeSelection`
+- Added Phase 4b components: `PropertiesPanel` (NEW!), `LayersPanel` (updated with @dnd-kit), `AlignmentTools`
+- Updated styling classes to differentiate Phase 2a/2b and 4a/4b with distinct colors
+- Added connections for custom utilities to components
+
+**New Visual Elements**:
+
+- 🎨 Emoji indicator for Figma-inspired features
+- Distinct color coding: Phase 2a (yellow), Phase 2b (bright green), Phase 4a (purple), Phase 4b (deep purple)
+- Custom utility class (yellow) for transform.ts and alignment.ts
+
+#### 6. **ARCH-FullStack-System-Integration.mermaid v5.0** ✅
+
+**File**: `Artifacts/ARCH-FullStack-System-Integration.mermaid`
+
+**Updates**:
+
+- Added v5.0 header comments with alignment references and phase structure
+- Updated "Frontend Layer" to v5.0
+- Split Phase 2 Components into 2a (Rubric Tier 1) and 2b (Figma Transforms) 🎨
+- Split Phase 4 Components into 4a (Performance) and 4b (Figma Interface) 🎨
+- Updated Canvas Rendering Engine to v5.0 with Phase 2b/4a references
+- Added custom utilities: `TransformUtils` (Phase 2b) and `AlignmentUtils` (Phase 4b)
+- Updated Services Layer: Phase 2a Services, Phase 4a Services (removed duplicate AlignmentService)
+- Added `PropertiesPanel` component to Phase 4b
+- Updated Firebase Hosting to v5.0 with bundle size estimates
+- Updated Build Tools to v5.0 with Vite 7.1.7 and TypeScript 5.9.3 references
+- Updated Additional Libraries to v5.0 with phase-specific mappings
+- Enhanced AI Command flow with rubric point annotations
+- Updated styling classes to match CollabCanvas Complete diagram
+
+**Flow Enhancements**:
+
+- Added custom utilities connections section
+- Updated real-time data flows with v5.0 optimization notes
+- Enhanced AI Command flow with detailed annotations (25 points Phase 3, +2 bonus Phase 5)
+- Added library integrations for SmartGuides and MarqueeSelection
+
+### Documentation Organization Updates
+
+#### Artifact Structure v5.0
+
+```text
+📁 Artifacts/
+├── 📁 0. Requirements/          # Original assignment and rubric
+├── 📁 1. Notes/                 # Analysis & development logs
+│   ├── 📄 AI-Development-Log.md
+│   ├── 📄 AI-Development-LessonsLearned.md
+│   ├── 📄 TECH-AnalysisForPhase2.md
+│   ├── 📄 ARCH-Comparison-MVP-vs-Complete.md
+│   ├── 📄 ARCH-FullStack-System-Integration-Analysis.md
+│   ├── 📄 PRD-PHASE3-IMPLEMENTATION-GUIDE.md
+│   ├── 📄 PRD-Figma-Feature-Gap-Analysis.md ✨ RECOVERED
+│   └── 📄 TECH-Evaluate-AI-Stack-Options.md
+├── 📁 MVP/                      # Phase 1 documentation snapshots
+├── 📄 PRD-CollabCanvas.md       # v5.0 ✨ UPDATED
+├── 📄 TaskList-CollabCanvas.md  # v5.0 ✨ UPDATED
+├── 📄 WBS-CollabCanvas.md       # v5.0 ✨ UPDATED
+├── 📄 TECH-TechStack.md         # v5.0 ✨ UPDATED
+├── 📄 TECH-TechStack-Analysis-v4.0.md ✨ NEW
+├── 📄 ARCH-CollabCanvas-Complete.mermaid # v5.0 ✨ UPDATED
+├── 📄 ARCH-FullStack-System-Integration.mermaid # v5.0 ✨ UPDATED
+├── 📄 2025.10.16-RECOVERY-COMPLETE.md ✨ NEW
+└── 📄 README.md                 # v5.0 ✨ UPDATED
+```
+
+### Key Documentation Improvements
+
+#### 1. **Cross-Document Alignment** ✅
+
+All v5.0 documents explicitly reference each other:
+
+- PRD v5.0: Aligned With TaskList v5.0, WBS v5.0, TechStack v5.0
+- TaskList v5.0: Based on PRD v5.0, WBS v5.0, TechStack v5.0
+- WBS v5.0: Aligned With PRD v5.0, TaskList v5.0, TechStack v5.0
+- Architecture diagrams: Reference all v5.0 core documents
+
+#### 2. **Custom Implementations Documented** ✅
+
+Every document now explicitly lists the four custom utility implementations:
+
+- `transform.ts` - Phase 2b Figma transform operations
+- `alignment.ts` - Phase 4b Figma alignment operations
+- `useSmartGuides.ts` - Phase 2b smart guides hook
+- `MarqueeSelection.tsx` - Phase 2b marquee selection component
+
+#### 3. **Strategic Separation Clarified** ✅
+
+All documents now use consistent terminology:
+
+- ✅ **Rubric-Required** (85 pts baseline) - Phases 2a, 3, 4a
+- 🎨 **Figma-Inspired** (15 pts polish + bonus) - Phases 2b, 4b
+- Clear visual distinction with checkmark (✅) and artist palette (🎨) emojis
+
+#### 4. **Architecture Visualization Enhanced** ✅
+
+Both mermaid diagrams now include:
+
+- Distinct color coding for rubric vs Figma features
+- Custom utility nodes with connections to components
+- Phase-specific annotations (2a/2b/3/4a/4b/5)
+- Rubric point references in AI components
+
+### Version 5.0 Summary
+
+| Document | Version | Status | Key Update |
+|----------|---------|--------|------------|
+| **PRD-CollabCanvas.md** | v5.0 | ✅ Updated | TechStack alignment, custom utilities documented |
+| **TaskList-CollabCanvas.md** | v5.0 | ✅ Updated | Tech stack alignment, 276+ tasks with subphases |
+| **WBS-CollabCanvas.md** | v5.0 | ✅ Updated | 6-subphase structure, custom implementations |
+| **TECH-TechStack.md** | v5.0 | ✅ Evaluated | 90/100 score, no new libraries needed |
+| **ARCH-CollabCanvas-Complete.mermaid** | v5.0 | ✅ Updated | Subphases, custom utilities, Figma indicators |
+| **ARCH-FullStack-System-Integration.mermaid** | v5.0 | ✅ Updated | Full alignment with all v5.0 documents |
+| **README.md** | v5.0 | ✅ Updated | Complete documentation of Oct 16 work |
+
+### Strategic Outcomes
+
+**✅ Risk Mitigation**:
+
+- Rubric baseline (85 points) isolated in Phases 2a/3/4a
+- Figma features (15 points) in Phases 2b/4b can be deprioritized if time-constrained
+- All custom implementations documented with clear specifications
+
+**✅ Implementation Clarity**:
+
+- 4 custom utility files fully specified with function signatures
+- No ambiguity about what needs to be built vs library-provided
+- Clear separation between Konva.js built-ins and custom code
+
+**✅ Documentation Quality**:
+
+- Complete cross-document alignment across 6 core documents
+- Consistent versioning (v5.0) throughout
+- Strategic decisions clearly documented and justified
+
+**✅ Development Readiness**:
+
+- Phase 2a can begin immediately (all rubric-required features)
+- Phase 2b specifications ready for Figma enhancements
+- Phase 3 has comprehensive implementation guide (PRD-PHASE3-IMPLEMENTATION-GUIDE.md)
+- Phases 4a/4b fully specified with performance targets and interface requirements
+
+### Time Investment vs Value
+
+**Time Invested**: ~4-5 hours (October 16, 2025)
+
+- Document recovery: ~1 hour
+- Tech stack evaluation: ~1 hour
+- Version 5.0 updates across 6 documents: ~2-3 hours
+
+**Value Delivered**:
+
+- ✅ Zero data loss from crash recovery
+- ✅ Strategic clarity on rubric vs Figma feature separation
+- ✅ Complete tech stack validation (no surprises in Phases 2-5)
+- ✅ All custom implementations specified upfront
+- ✅ Professional-grade documentation alignment
+- ✅ Clear roadmap for remaining 85+ rubric points
+
+---
+
+*Last Updated: October 16, 2025 - Documentation v5.0 Complete*
+*Sprint Status: **24-Hour MVP COMPLETE** ✅ | **Phase 2 Prep COMPLETE** ✅ | **Documentation v5.0 COMPLETE** ✅*
 *Production: **LIVE** 🚀*
-*Next Phase: Phase 2 - Enhanced Drawing Tools (Ready to Execute)*
+*Next Phase: Phase 2a - Rubric Tier 1 Features (Immediate Priority) / Phase 2b - Figma Transforms (Polish)*
