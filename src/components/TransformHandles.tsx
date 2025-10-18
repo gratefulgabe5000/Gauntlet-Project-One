@@ -3,15 +3,18 @@
  * 
  * Phase 2b: Figma-Inspired Transform Operations
  * Task 8b.1.1: Professional 8-point resize handles
+ * Task 8b.2: Rotation handle
  * 
  * Features:
  * - 8 resize handles: 4 corners + 4 edges
- * - Visual indicators: 8px × 8px squares
+ * - Rotation handle with visual connection line
+ * - Visual indicators: 8px × 8px squares, 6px radius circle for rotation
  * - Proper resize cursors for each direction
  * - Real-time positioning based on shape bounds
+ * - Handles rotate with the shape
  */
 
-import { Rect } from 'react-konva';
+import { Group, Rect, Circle, Line } from 'react-konva';
 import type Konva from 'konva';
 
 interface TransformHandlesProps {
@@ -26,6 +29,15 @@ interface TransformHandlesProps {
   /** Whether handles are visible */
   visible: boolean;
 
+  /** Shape rotation in degrees (for rotating handles with shape) */
+  rotation?: number;
+
+  /** Which handles to show (defaults to all) */
+  visibleHandles?: HandleType[];
+
+  /** Position rotation handle at center (for Line/Arrow) */
+  rotationHandleAtCenter?: boolean;
+
   /** Callback when handle drag starts */
   onHandleDragStart?: (handleType: HandleType, e: Konva.KonvaEventObject<DragEvent>) => void;
 
@@ -36,7 +48,7 @@ interface TransformHandlesProps {
   onHandleDragEnd?: (handleType: HandleType, e: Konva.KonvaEventObject<DragEvent>) => void;
 }
 
-export type HandleType = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w';
+export type HandleType = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'rotate';
 
 interface HandleConfig {
   type: HandleType;
@@ -47,10 +59,15 @@ interface HandleConfig {
 
 const HANDLE_SIZE = 8;
 const HANDLE_HALF = HANDLE_SIZE / 2;
+const ROTATION_HANDLE_RADIUS = 6;
+const ROTATION_HANDLE_OFFSET = 20;
 
 const TransformHandles = ({
   bounds,
   visible,
+  rotation = 0,
+  visibleHandles,
+  rotationHandleAtCenter = false,
   onHandleDragStart,
   onHandleDragMove,
   onHandleDragEnd,
@@ -112,13 +129,121 @@ const TransformHandles = ({
     },
   ];
 
+  // Calculate shape center and rotation handle position
+  const centerX = bounds.x + bounds.width / 2;
+  const centerY = bounds.y + bounds.height / 2;
+  
+  // Rotation handle position
+  const rotationHandleX = rotationHandleAtCenter ? 0 : 0;
+  const rotationHandleY = rotationHandleAtCenter ? 0 : -(bounds.height / 2 + ROTATION_HANDLE_OFFSET);
+  
+  // Connection line from shape to rotation handle (only if not at center)
+  const connectionLinePoints = !rotationHandleAtCenter 
+    ? [0, -bounds.height / 2, 0, rotationHandleY]
+    : null;
+
+  // Filter handles if visibleHandles is specified
+  const filteredHandles = visibleHandles 
+    ? handleConfigs.filter(config => visibleHandles.includes(config.type))
+    : handleConfigs;
+
+  // Helper to get cursor for handle type
+  const getCursorForHandle = (handleType: HandleType, isDragging: boolean): string => {
+    if (handleType === 'rotate') {
+      return isDragging ? 'grabbing' : 'grab';
+    }
+    const config = handleConfigs.find(h => h.type === handleType);
+    return config?.cursor || 'default';
+  };
+
   return (
-    <>
-      {handleConfigs.map((config) => (
+    <Group
+      x={centerX}
+      y={centerY}
+      offsetX={0}
+      offsetY={0}
+      rotation={rotation}
+    >
+      {/* Rotation handle connection line (rendered first for z-order) */}
+      {connectionLinePoints && (
+        <Line
+          points={connectionLinePoints}
+          stroke="#666666"
+          strokeWidth={1}
+          listening={false}
+        />
+      )}
+
+      {/* Rotation handle (rendered second for z-order) */}
+      {(!visibleHandles || visibleHandles.includes('rotate')) && (
+        <Circle
+          x={rotationHandleX}
+          y={rotationHandleY}
+          radius={ROTATION_HANDLE_RADIUS}
+          fill="white"
+          stroke="#666666"
+          strokeWidth={1}
+          draggable={true}
+          onMouseEnter={(e) => {
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = 'grab';
+            }
+          }}
+          onMouseLeave={(e) => {
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = 'default';
+            }
+          }}
+          onDragStart={(e) => {
+            // Lock position
+            e.target.x(rotationHandleX);
+            e.target.y(rotationHandleY);
+            
+            // Set grabbing cursor
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = 'grabbing';
+            }
+            
+            if (onHandleDragStart) {
+              onHandleDragStart('rotate', e);
+            }
+          }}
+          onDragMove={(e) => {
+            // Lock position
+            e.target.x(rotationHandleX);
+            e.target.y(rotationHandleY);
+            
+            if (onHandleDragMove) {
+              onHandleDragMove('rotate', e);
+            }
+          }}
+          onDragEnd={(e) => {
+            // Lock position
+            e.target.x(rotationHandleX);
+            e.target.y(rotationHandleY);
+            
+            // Reset cursor
+            const container = e.target.getStage()?.container();
+            if (container) {
+              container.style.cursor = 'grab';
+            }
+            
+            if (onHandleDragEnd) {
+              onHandleDragEnd('rotate', e);
+            }
+          }}
+        />
+      )}
+
+      {/* Resize handles (rendered last for z-order - on top) */}
+      {filteredHandles.map((config) => (
         <Rect
           key={config.type}
-          x={config.x}
-          y={config.y}
+          x={config.x - centerX}
+          y={config.y - centerY}
           width={HANDLE_SIZE}
           height={HANDLE_SIZE}
           fill="white"
@@ -126,46 +251,45 @@ const TransformHandles = ({
           strokeWidth={1}
           draggable={true}
           onMouseEnter={(e) => {
-            // Set cursor for resize direction
             const container = e.target.getStage()?.container();
             if (container) {
               container.style.cursor = config.cursor;
             }
           }}
           onMouseLeave={(e) => {
-            // Reset cursor
             const container = e.target.getStage()?.container();
             if (container) {
               container.style.cursor = 'default';
             }
           }}
           onDragStart={(e) => {
-            // Prevent handle from actually moving - reset position immediately
-            e.target.x(config.x);
-            e.target.y(config.y);
+            // Lock position
+            e.target.x(config.x - centerX);
+            e.target.y(config.y - centerY);
             
             if (onHandleDragStart) {
               onHandleDragStart(config.type, e);
             }
           }}
           onDragMove={(e) => {
-            // Keep handle locked to its calculated position
-            e.target.x(config.x);
-            e.target.y(config.y);
+            // Lock position
+            e.target.x(config.x - centerX);
+            e.target.y(config.y - centerY);
             
             if (onHandleDragMove) {
               onHandleDragMove(config.type, e);
             }
           }}
           onDragEnd={(e) => {
-            // Ensure handle stays at correct position
-            e.target.x(config.x);
-            e.target.y(config.y);
+            // Lock position
+            e.target.x(config.x - centerX);
+            e.target.y(config.y - centerY);
             
             if (onHandleDragEnd) {
               onHandleDragEnd(config.type, e);
             }
-            // Reset cursor after drag
+            
+            // Reset cursor
             const container = e.target.getStage()?.container();
             if (container) {
               container.style.cursor = 'default';
@@ -173,7 +297,7 @@ const TransformHandles = ({
           }}
         />
       ))}
-    </>
+    </Group>
   );
 };
 

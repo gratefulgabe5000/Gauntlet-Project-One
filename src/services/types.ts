@@ -112,6 +112,9 @@ export interface Shape {
   /** Fill color (fixed #cccccc for MVP) */
   fill: string;
 
+  /** Rotation angle in degrees (0-360) - Task 8b.2.2 */
+  rotation?: number;
+
   /** Text content (only for text shapes) */
   text?: string;
 
@@ -163,6 +166,10 @@ export interface CreateShapeData {
   fill?: string;
   text?: string;
   fontSize?: number;
+  rotation?: number; // Task 8b.2.3: Rotation angle in degrees
+  points?: number[]; // For line/arrow shapes
+  pointerLength?: number; // For arrow shapes
+  pointerWidth?: number; // For arrow shapes
 }
 
 /**

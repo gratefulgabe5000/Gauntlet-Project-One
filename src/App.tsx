@@ -54,6 +54,7 @@ function App() {
     updateShapeText,
     updateShapeColor,
     updateShapeFontSize,
+    updateShapeProperties, // Task 8b.2.3: Generic property update (rotation, etc.)
     updateMultipleShapeColors, // PR8a: Multi-select color change
     clearSelection,
     removeSelectedShape,
@@ -487,6 +488,7 @@ function App() {
             onUpdateShapePosition={updateShapePosition}
             onUpdateShapeDimensions={updateShapeDimensions}
             onUpdateShapePositionAndDimensions={updateShapePositionAndDimensions}
+            onUpdateShapeProperties={updateShapeProperties}
             onTextChange={handleTextChange}
             onColorChange={handleColorChange}
             onFontSizeChange={handleFontSizeChange}

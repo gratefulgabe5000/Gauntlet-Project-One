@@ -710,6 +710,52 @@ export function useShapes(): UseShapesReturn {
   );
 
   /**
+   * Update shape properties (Task 8b.2.3: Generic update for rotation, position, etc.)
+   * Handles any combination of shape properties including rotation
+   */
+  const updateShapeProperties = useCallback(
+    async (shapeId: string, updates: Partial<Shape>): Promise<boolean> => {
+      if (!user) {
+        console.error('❌ Cannot update shape: no user authenticated');
+        return false;
+      }
+
+      try {
+        // Find shape to validate it exists
+        const shapeToUpdate = shapes.find(s => s.id === shapeId);
+        if (!shapeToUpdate) {
+          console.error('❌ Cannot find shape to update:', shapeId);
+          return false;
+        }
+
+        console.log('📝 Updating shape properties:', shapeId, updates);
+
+        // Optimistically update local state
+        setShapes((prev) =>
+          prev.map((shape) => (shape.id === shapeId ? { ...shape, ...updates } : shape))
+        );
+
+        // Update in Firestore
+        const result = await updateShape(shapeId, updates, user.uid);
+
+        if (result.success) {
+          console.log('✅ Shape properties updated:', shapeId, updates);
+          return true;
+        } else {
+          console.error('❌ Failed to update shape properties:', result.error);
+          setError(result.error || 'Failed to update shape properties');
+          return false;
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape properties:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return false;
+      }
+    },
+    [user, shapes]
+  );
+
+  /**
    * Update multiple shapes' colors at once (PR8a: Multi-select color change)
    * This avoids race conditions that occur when calling updateShapeColor in parallel
    */
@@ -936,6 +982,9 @@ export function useShapes(): UseShapesReturn {
 
       // Create duplicate with offset position
       const offset = 20;
+      
+      console.log('🔄 Duplicating shape:', shapeId, 'with original rotation:', shapeToDuplicate.rotation);
+      
       const newShape: CreateShapeData = {
         type: shapeToDuplicate.type,
         x: shapeToDuplicate.x + offset,
@@ -944,11 +993,18 @@ export function useShapes(): UseShapesReturn {
         height: shapeToDuplicate.height,
         fill: shapeToDuplicate.fill,
         text: shapeToDuplicate.text,
+        fontSize: shapeToDuplicate.fontSize, // Preserve font size for text shapes
+        rotation: shapeToDuplicate.rotation, // Task 8b.2.3: Preserve rotation
+        points: shapeToDuplicate.points, // Preserve points for line/arrow shapes
+        pointerLength: shapeToDuplicate.pointerLength, // Preserve arrow pointer length
+        pointerWidth: shapeToDuplicate.pointerWidth, // Preserve arrow pointer width
       };
+      
+      console.log('📝 New shape data to create:', newShape);
 
       const newShapeId = await addShape(newShape);
       if (newShapeId) {
-        console.log('✅ Shape duplicated:', shapeId, '→', newShapeId);
+        console.log('✅ Shape duplicated:', shapeId, '→', newShapeId, 'with rotation:', newShape.rotation);
         // Select the new duplicate
         setSelectedShapeId(newShapeId);
       }
@@ -1009,6 +1065,7 @@ export function useShapes(): UseShapesReturn {
     updateShapeText,
     updateShapeColor,
     updateShapeFontSize,
+    updateShapeProperties, // Task 8b.2.3: Generic property update (rotation, etc.)
     updateMultipleShapeColors, // PR8a: Multi-select color change
     clearAllShapes,
 

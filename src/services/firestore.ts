@@ -129,6 +129,10 @@ export async function createShape(
     if (shapeData.fontSize !== undefined && shapeData.fontSize !== null) {
       newShape.fontSize = shapeData.fontSize;
     }
+    if (shapeData.rotation !== undefined && shapeData.rotation !== null) {
+      newShape.rotation = shapeData.rotation; // Task 8b.2.3: Preserve rotation on create
+      console.log('💾 Saving shape with rotation:', shapeData.rotation);
+    }
     if (shapeData.points !== undefined && shapeData.points !== null) {
       newShape.points = shapeData.points;
     }
@@ -140,6 +144,7 @@ export async function createShape(
     }
 
     // Shape object built - ready for Firestore
+    console.log('📦 Final shape object for Firestore:', { id: newShape.id, rotation: newShape.rotation });
 
     // Add shape to canvas document
     await updateDoc(canvasRef, {

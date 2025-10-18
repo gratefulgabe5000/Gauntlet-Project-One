@@ -35,6 +35,7 @@ interface CanvasProps {
   onUpdateShapePosition: (shapeId: string, x: number, y: number) => void;
   onUpdateShapeDimensions: (shapeId: string, width: number, height: number) => void;
   onUpdateShapePositionAndDimensions: (shapeId: string, x: number, y: number, width: number, height: number) => void;
+  onUpdateShapeProperties?: (shapeId: string, updates: Partial<Shape>) => Promise<boolean>; // Task 8b.2.3: Generic property update
   onTextChange: (shapeId: string, text: string) => void;
   onColorChange: (shapeId: string, color: string) => void;
   onFontSizeChange: (shapeId: string, fontSize: number) => void;
@@ -59,6 +60,7 @@ const Canvas = ({
   onUpdateShapePosition,
   onUpdateShapeDimensions,
   onUpdateShapePositionAndDimensions,
+  onUpdateShapeProperties,
   onTextChange,
   onColorChange,
   onFontSizeChange,
@@ -385,13 +387,18 @@ const Canvas = ({
                 onShapeDragEnd?.();
               },
               onUpdateShape: (id: string, updates: any) => {
-                // Phase 2b: Handle resize updates from TransformHandles
-                console.log('🎯 Shape resized:', id, updates);
+                // Phase 2b: Handle resize/rotate updates from TransformHandles
+                console.log('🎯 Shape updated:', id, updates);
                 
                 const hasPositionChange = updates.x !== undefined || updates.y !== undefined;
                 const hasDimensionChange = updates.width !== undefined || updates.height !== undefined;
+                const hasRotation = updates.rotation !== undefined;
                 
-                if (hasPositionChange && hasDimensionChange) {
+                // Task 8b.2.3: If rotation is included, use generic property update
+                if (hasRotation && onUpdateShapeProperties) {
+                  console.log('🔄 Updating with rotation:', updates.rotation);
+                  onUpdateShapeProperties(id, updates);
+                } else if (hasPositionChange && hasDimensionChange) {
                   // Atomic operation for N/W handles that change both position and dimensions
                   onUpdateShapePositionAndDimensions(
                     id, 
