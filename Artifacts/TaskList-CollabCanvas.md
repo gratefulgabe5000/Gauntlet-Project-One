@@ -13,14 +13,14 @@
 ## 📊 **SPRINT PROGRESS SUMMARY**
 
 **Last Updated**: October 18, 2025
-**Sprint Status**: 🔄 **PHASE 2b IN PROGRESS** (Tasks 8b.1 & 8b.2 complete, Smart Guides next)
-**Overall Progress**: 42% complete (Phase 1 complete, Phase 2a complete, Phase 2b Tasks 8b.1-8b.2 complete)
+**Sprint Status**: ✅ **PHASE 2b COMPLETE** → 🎯 **READY FOR PHASE 3** (AI Canvas Agent - 25 pts)
+**Overall Progress**: 35% complete (Phase 1: 20 pts, Phase 2a: 15 pts, Phase 2b: Core transforms complete)
 **MVP Status**: ✅ **PRODUCTION LIVE** - <https://collabcanvas-mvp-53120.web.app>
-**Development Branch**: `PR8-feat/canvas-enhancements-tier1`
+**Development Branch**: `PR8-feat/canvas-enhancements-tier1` (ready to merge)
 
 ### **Phase Completion Overview**
 
-**✅ COMPLETED (2/6 Subphases) - 33%**
+**✅ COMPLETED (3/6 Subphases) - 35%**
 
 - ✅ Phase 1 (MVP): Foundation with basic collaboration (20 rubric points earned)
 - ✅ **Phase 2a**: Rubric-Required Canvas Features - ALL 15/15 points earned
@@ -30,27 +30,23 @@
   - ✅ 8a.4: Enhanced Keyboard Shortcuts (10+ shortcuts) - COMPLETE
   - ✅ 8a.5: Export Functionality (PNG/SVG) - COMPLETE
   - ✅ 8a.6: Phase 2a Integration & Testing - COMPLETE
-
-**🔄 IN PROGRESS (1/4 Subphases) - Tasks 8b.1 & 8b.2 Complete**
-
-- 🔄 **Phase 2b**: Figma-Inspired Transform Operations - Target: +5 points
+- ✅ **Phase 2b**: Core Figma Transform Operations - COMPLETE
   - ✅ **Task 8b.1**: 8-Point Resize Handles - COMPLETE (all 5 shape types + font size feature)
   - ✅ **Task 8b.2**: Rotation Handle - COMPLETE (full rotation with scale-aware sensitivity)
-  - ⏳ **Task 8b.3**: Smart Guides (75 min) - NEXT
-  - ⏳ Task 8b.4: Marquee Selection (60 min) - Pending
-  - ⏳ Task 8b.5: Multi-Select Transforms (45 min) - Pending
+  - 📌 **Note**: Additional Figma polish features (Smart Guides, Marquee, Multi-Select) deferred to Phase 4b
 
-**⏳ PENDING (3/4 Subphases)**
+**⏳ PENDING (3/6 Subphases)**
 
-- ⏳ **Phase 3**: AI Canvas Agent - Target: +25 points (HIGHEST VALUE)
+- 🎯 **Phase 3**: AI Canvas Agent - Target: +25 points (HIGHEST VALUE - NEXT)
 - ⏳ **Phase 4a**: Performance Optimization - Target: +10 points
-- ⏳ **Phase 4b**: Figma-Inspired Interface Structure - Target: +10 points
+- ⏳ **Phase 4b**: Figma Polish Features - Target: +2-3 points (deferred Phase 2b, optional)
+- ⏳ **Phase 4c**: Figma Interface Structure - Target: +10 points (Tier 2 rubric features)
 - ⏳ **Phase 5**: Documentation & Submission - Target: +15 points
 
 **🎯 Target Rubric Score**: 95-107/105 points (includes +2 LangSmith bonus)
-**Current Score**: 35/105 points (Phase 1: 20 + Phase 2a: 15 + Phase 2b progress)
-**Remaining Points**: 70 points across Phase 2b completion + Phases 3-5
-**Phase 2b Progress**: Tasks 8b.1 & 8b.2 complete (professional resize & rotation)
+**Current Score**: 35/105 points (Phase 1: 20 + Phase 2a: 15 + Phase 2b core transforms)
+**Remaining Points**: 70 points across Phases 3, 4a, 4b, 4c, and 5
+**Ready for Phase 3**: AI Canvas Agent (25 points - highest value feature)
 
 ---
 
@@ -250,19 +246,20 @@
 | **PR-6** | Phase 1 | Oct 13 | `feat: user presence system with online users` | Section 1 (partial) | ~2 pts | ✅ Rubric | ✅ Merged |
 | **PR-7** | Phase 1 | Oct 14 | `feat: ui polish and production deployment` | Section 1 (partial) | ~2 pts | ✅ Rubric | ✅ Merged |
 | **PR-8a** | Phase 2a | Oct 16-17 | `feat: rubric tier-1 features (color/undo/keyboard)` | Sections 2 & 3 (Tier 1) | +15 pts | ✅ Rubric | ✅ Complete |
-| **PR-8b** | Phase 2b | Oct 17 | `feat: figma transform operations (8-point resize handles)` | Sections 2 & 3 (UX) | +5 pts | 🎨 Figma | 🔄 Partial (Task 8b.1 complete) |
-| **PR-9** | Phase 3 | Oct 16 | `feat: ai canvas agent with multi-user sync` | Section 4 | +25 pts | ✅ Rubric | ⏳ Pending |
-| **PR-10a** | Phase 4a | Oct 17 9-11 AM | `feat: performance optimization (500+ objects, 5+ users)` | Sections 2, 3, 5 | +10 pts | ✅ Rubric | ⏳ Pending |
-| **PR-10b** | Phase 4b | Oct 17 11 AM-1 PM | `feat: figma interface structure (layers/properties panels)` | Sections 3, 5 | +10 pts | 🎨 Figma | ⏳ Pending |
-| **PR-11** | Phase 5 | Oct 17 PM | `feat: final documentation and demo video` | Sections 6, 7, 8 | +15 pts | ✅ Rubric | ⏳ Pending |
+| **PR-8b** | Phase 2b | Oct 17-18 | `feat: core figma transforms (resize/rotation)` | Sections 2 & 3 (UX) | +3 pts | 🎨 Figma | ✅ Complete |
+| **PR-9** | Phase 3 | Oct 18+ | `feat: ai canvas agent with multi-user sync` | Section 4 | +25 pts | ✅ Rubric | 🎯 Next |
+| **PR-10a** | Phase 4a | Oct 18+ | `feat: performance optimization (500+ objects, 5+ users)` | Sections 2, 3, 5 | +10 pts | ✅ Rubric | ⏳ Pending |
+| **PR-10b** | Phase 4b | Oct 18+ | `feat: figma polish features (deferred 2b)` | Section 5 | +2-3 pts | 🎨 Figma | ⏳ Pending |
+| **PR-10c** | Phase 4c | Oct 18+ | `feat: figma interface structure (layers/properties)` | Sections 3, 5 | +10 pts | 🎨 Figma | ⏳ Pending |
+| **PR-11** | Phase 5 | Oct 18+ | `feat: final documentation and demo video` | Sections 6, 7, 8 | +15 pts | ✅ Rubric | ⏳ Pending |
 
 **Phase 1 MVP Score**: 20/105 points ✅ **COMPLETE**
 **Live URL**: <https://collabcanvas-mvp-53120.web.app>
 **Foundation Status**: All core collaborative infrastructure deployed and tested
 **Phase 2a Status**: 15/15 points earned ✅ **COMPLETE** (All features implemented and tested)
-**Phase 2b Status**: Task 8b.1 complete (8-point resize handles) ✅ **PARTIAL COMPLETE**
-**Development Branch**: `PR8-feat/canvas-enhancements-tier1`
-**Next Step**: Phase 2b Task 8b.2 (Rotation Handle) → remaining Phase 2b tasks → Phase 3
+**Phase 2b Status**: Core transforms complete (resize + rotation) ✅ **COMPLETE**
+**Development Branch**: `PR8-feat/canvas-enhancements-tier1` (ready to merge)
+**Next Step**: Phase 3 (AI Canvas Agent - 25 points) → Phase 4a → Phase 4b (includes deferred 2b polish)
 
 **Key Strategy**:
 
@@ -605,14 +602,16 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-## 🎨 **PHASE 2b: FIGMA-INSPIRED TRANSFORM OPERATIONS** (October 17)
+## 🎨 **PHASE 2b: CORE FIGMA TRANSFORM OPERATIONS** (October 17-18)
 
 **Branch**: `PR8-feat/canvas-enhancements-tier1` (combined with Phase 2a)
 **Rubric Target**: Sections 2 & 3 (UX Enhancement)
-**Points Goal**: +5 points
-**Duration**: Partial completion (Task 8b.1 complete, remaining tasks pending)
+**Points Goal**: +3 points (core transforms only)
+**Duration**: Complete (Tasks 8b.1 & 8b.2)
 **Type**: 🎨 Figma-Inspired Enhancement
-**Status**: 🔄 **IN PROGRESS** (Task 8b.1 complete, Task 8b.2 next)
+**Status**: ✅ **COMPLETE** (Resize + Rotation operational)
+
+**Note**: Additional Figma polish features (Smart Guides, Marquee Selection, Multi-Select Transforms, Aspect Ratio Locking) have been **deferred to Phase 4b** to prioritize Phase 3 AI Canvas Agent (25 points).
 
 ### **PR-8b: Figma Transform Operations** ✨
 
@@ -701,191 +700,33 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-#### **8b.3 Smart Guides** (75 minutes) ⏳
-
-**Goal**: Figma-style alignment guides during drag operations
-
-- [ ] **8b.3.1** Create `src/components/SmartGuides.tsx` component (25 min)
-  - Render red/blue guide lines on canvas
-  - Vertical and horizontal alignment lines
-  - Distance measurement tooltips
-  - Auto-hide after 1 second
-
-- [ ] **8b.3.2** Create `src/hooks/useSmartGuides.ts` hook (30 min)
-  - Calculate alignment with other shapes during drag
-  - Detect when edges align (threshold: 5px)
-  - Detect when centers align (vertical/horizontal)
-  - Calculate equal spacing between shapes
-  - Return guide line positions and measurements
-
-- [ ] **8b.3.3** Integrate smart guides with Canvas drag (15 min)
-  - Show guides during shape drag operations
-  - Snap to alignment when within threshold
-  - Update guide positions in real-time
-  - Hide guides on drag end
-
-- [ ] **8b.3.4** Style smart guides (5 min)
-  - Red lines for edge alignment
-  - Blue lines for center alignment
-  - Orange lines for equal spacing
-  - Semi-transparent (opacity: 0.7)
-
-**Files Created**: 2 new files (SmartGuides.tsx, useSmartGuides.ts)
-**Files Modified**: 2 files (Canvas.tsx, useShapes.ts)
-**Success Criteria**: Smart guides show alignment during drag, snap to guides ✅
-
----
-
-#### **8b.4 Marquee Selection Box** (60 minutes) ⏳
-
-**Goal**: Figma-style drag-to-select with selection rectangle
-
-- [ ] **8b.4.1** Create `src/components/MarqueeSelection.tsx` component (20 min)
-  - Dashed rectangle visualization
-  - Semi-transparent blue fill (opacity: 0.1)
-  - Blue border (2px dashed)
-  - Render during drag-to-select operation
-
-- [ ] **8b.4.2** Implement marquee selection logic (25 min)
-  - Detect mouse drag on empty canvas (no shape clicked)
-  - Calculate selection rectangle bounds
-  - Find all shapes within rectangle bounds
-  - Update selected shapes state
-  - Works with Shift to add to selection
-
-- [ ] **8b.4.3** Integrate with Canvas component (10 min)
-  - Add marquee mode to Canvas state
-  - Show MarqueeSelection during drag
-  - Update selection on drag end
-  - Clear marquee on mouse up
-
-- [ ] **8b.4.4** Visual feedback for multi-selection (5 min)
-  - Blue outline around all selected shapes
-  - Selection count indicator ("3 objects selected")
-  - Show transform handles for bounding box of all selected
-
-**Files Created**: 1 new file (MarqueeSelection.tsx)
-**Files Modified**: 3 files (Canvas.tsx, useShapes.ts, Toolbar.tsx)
-**Success Criteria**: Marquee selection box working, multi-select functional ✅
-
----
-
-#### **8b.5 Multi-Select Transform Operations** (45 minutes) ⏳
-
-**Goal**: Transform multiple selected shapes together
-
-- [ ] **8b.5.1** Implement group move (15 min)
-  - Move all selected shapes together
-  - Maintain relative positions
-  - Update Firestore for all shapes in batch
-
-- [ ] **8b.5.2** Implement group resize (15 min)
-  - Calculate bounding box of selected shapes
-  - Scale all shapes proportionally
-  - Maintain relative positions during resize
-
-- [ ] **8b.5.3** Implement group rotation (optional) (10 min)
-  - Rotate all shapes around group center
-  - Maintain relative positions and orientations
-
-- [ ] **8b.5.4** Add Shift+click and Cmd+click multi-select (5 min)
-  - Shift+click: Add to selection
-  - Cmd/Ctrl+click: Toggle selection
-  - Visual feedback for each click
-
-**Files Modified**: 2 files (Canvas.tsx, useShapes.ts)
-**Success Criteria**: Multi-select transforms working smoothly ✅
-
----
-
-#### **8b.6 Aspect Ratio Locking** (30 minutes) ⏳
-
-**Goal**: Maintain aspect ratio during resize with Shift key
-
-- [ ] **8b.6.1** Implement Shift-lock logic (15 min)
-  - Detect Shift key during corner resize
-  - Calculate proportional width/height
-  - Apply locked aspect ratio
-  - Visual indicator when locked (cursor change)
-
-- [ ] **8b.6.2** Add aspect ratio toggle button (optional) (10 min)
-  - Toggle button in properties panel
-  - Lock icon indicator
-  - Persist lock state per shape
-
-- [ ] **8b.6.3** Test aspect ratio on all shape types (5 min)
-  - Test on rectangles, circles, text
-  - Verify maintains proportions
-  - Test with multi-select
-
-**Files Modified**: 2 files (transform.ts, TransformHandles.tsx)
-**Success Criteria**: Shift+drag maintains aspect ratio on all shapes ✅
-
----
-
-#### **8b.7 Phase 2b Integration & Testing** (60 minutes) ⏳
-
-**Goal**: Ensure all Figma transform features work together
-
-- [ ] **8b.7.1** Integration testing: Resize handles (15 min)
-  - Test all 8 resize handles
-  - Test corner resize with Shift (aspect ratio lock)
-  - Test edge resize (single dimension)
-  - Verify handles on all shape types
-
-- [ ] **8b.7.2** Integration testing: Rotation (10 min)
-  - Test rotation handle on all shapes
-  - Test Shift-snap to 15° increments
-  - Verify angle display during rotation
-  - Test multi-user rotation sync
-
-- [ ] **8b.7.3** Integration testing: Smart guides (15 min)
-  - Drag shapes and verify alignment guides appear
-  - Test edge alignment (red lines)
-  - Test center alignment (blue lines)
-  - Test equal spacing (orange lines)
-  - Verify snap-to behavior
-
-- [ ] **8b.7.4** Integration testing: Marquee selection (10 min)
-  - Drag-to-select multiple shapes
-  - Test Shift+marquee to add to selection
-  - Verify selection count display
-  - Test transform on multi-selection
-
-- [ ] **8b.7.5** Performance testing (10 min)
-  - Test with 50+ shapes on canvas
-  - Verify smooth resize/rotate at 60 FPS
-  - Test smart guides performance during drag
-  - Verify multi-user sync performance
-
-**Success Criteria**: All Figma transform features working together professionally ✅
-
----
-
 ### **Phase 2b Success Criteria** ✅
 
-**Rubric Alignment - Section 2 (UX Enhancement - 5 points)**:
+**Rubric Alignment - Section 2 (UX Enhancement - Core Transforms)**:
 
-- [ ] 8-point resize handles on all shapes ✓
-- [ ] Rotation handle with Shift-snap ✓
-- [ ] Smart alignment guides during drag ✓
-- [ ] Marquee selection box (drag-to-select) ✓
-- [ ] Multi-select transform operations ✓
-- [ ] Aspect ratio locking with Shift ✓
-- [ ] Professional Figma-like interaction feel ✓
+- [x] 8-point resize handles on all shapes ✅ **COMPLETE**
+- [x] Rotation handle with Shift-snap ✅ **COMPLETE**
+- [x] Professional Figma-like transform operations ✅ **COMPLETE**
 
-**Phase 2b Points Earned**: +5 points (UX enhancement)
-**Cumulative Score**: 40/105 points (Phase 1: 20 + Phase 2a: 15 + Phase 2b: 5)
-**Next Phase**: Phase 3 (AI Canvas Agent - highest value feature)
+**Deferred to Phase 4b** (Figma Polish & Interface):
+- [ ] Smart alignment guides during drag → Task 10b.1 (from 2b.3)
+- [ ] Marquee selection box (drag-to-select) → Task 10b.2 (from 2b.4)
+- [ ] Multi-select transform operations → Task 10b.3 (from 2b.5)
+- [ ] Enhanced aspect ratio locking → Task 10b.4 (from 2b.6)
+
+**Phase 2b Points Earned**: +3 points (core transforms complete)
+**Cumulative Score**: 35/105 points (Phase 1: 20 + Phase 2a: 15 + Phase 2b: 3 core)
+**Next Phase**: Phase 3 (AI Canvas Agent - 25 points, highest value feature)
 
 ---
 
 ### **Phase 2 Combined Success Criteria** ✅
 
-**Total Phase 2 Points**: +20 points (Phase 2a: 15 + Phase 2b: 5)
-**Cumulative Score After Phase 2**: 40/105 points
-**Timeline**: 1 full day (October 15) - COMPLETE
-**Deployment**: Stage environment ready for Phase 3 AI development
+**Total Phase 2 Points**: +18 points (Phase 2a: 15 + Phase 2b: 3 core transforms)
+**Cumulative Score After Phase 2**: 35/105 points
+**Timeline**: October 16-18 - COMPLETE
+**Deployment**: Production live with professional transform operations
+**Strategic Decision**: Deferred 4 Figma polish features to Phase 4b to prioritize AI Agent (25 pts)
 
 ---
 
@@ -1195,21 +1036,181 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-## 🎨 **PHASE 4b: FIGMA-INSPIRED INTERFACE STRUCTURE** (October 17, 11 AM-1 PM)
+## 🎨 **PHASE 4b: FIGMA POLISH FEATURES** (October 18+)
 
-**Branch**: `PR10b-feat/figma-interface-structure`
-**Rubric Target**: Section 3 (Tier 2 - 6 pts), Section 5 (Polish - partial 5 pts)
+**Branch**: `PR10b-feat/figma-polish-features`
+**Rubric Target**: Section 5 (Polish - partial 2-3 pts)
+**Points Goal**: +2-3 points (deferred Phase 2b features)
+**Duration**: 3.5 hours estimated (210 minutes)
+**Type**: 🎨 Figma-Inspired Enhancement (Non-Rubric Polish)
+
+**Strategic Note**: This phase contains **deferred Phase 2b features** (originally Tasks 8b.3-8b.6):
+- Smart Guides, Marquee Selection, Multi-Select Transforms, Enhanced Aspect Ratio Locking
+- These are optional polish features that can be skipped if time-constrained
+- Original Phase 4b interface features (Layers Panel, Properties Panel, etc.) moved to Phase 4c
+
+### **PR-10b: Figma Polish Features** ✨
+
+---
+
+#### **10b.1 Smart Guides** (75 minutes) ⏳ **[Deferred from Phase 2b Task 8b.3]**
+
+**Goal**: Figma-style alignment guides during drag operations
+
+- [ ] **10b.1.1** Create `src/components/SmartGuides.tsx` component (25 min)
+  - Render red/blue guide lines on canvas
+  - Vertical and horizontal alignment lines
+  - Distance measurement tooltips
+  - Auto-hide after 1 second
+
+- [ ] **10b.1.2** Create `src/hooks/useSmartGuides.ts` hook (30 min)
+  - Calculate alignment with other shapes during drag
+  - Detect when edges align (threshold: 5px)
+  - Detect when centers align (vertical/horizontal)
+  - Calculate equal spacing between shapes
+  - Return guide line positions and measurements
+
+- [ ] **10b.1.3** Integrate smart guides with Canvas drag (15 min)
+  - Show guides during shape drag operations
+  - Snap to alignment when within threshold
+  - Update guide positions in real-time
+  - Hide guides on drag end
+
+- [ ] **10b.1.4** Style smart guides (5 min)
+  - Red lines for edge alignment
+  - Blue lines for center alignment
+  - Orange lines for equal spacing
+  - Semi-transparent (opacity: 0.7)
+
+**Files Created**: 2 new files (SmartGuides.tsx, useSmartGuides.ts)
+**Files Modified**: 2 files (Canvas.tsx, useShapes.ts)
+**Success Criteria**: Smart guides show alignment during drag, snap to guides ✅
+
+---
+
+#### **10b.2 Marquee Selection Box** (60 minutes) ⏳ **[Deferred from Phase 2b Task 8b.4]**
+
+**Goal**: Figma-style drag-to-select with selection rectangle
+
+- [ ] **10b.2.1** Create `src/components/MarqueeSelection.tsx` component (20 min)
+  - Dashed rectangle visualization
+  - Semi-transparent blue fill (opacity: 0.1)
+  - Blue border (2px dashed)
+  - Render during drag-to-select operation
+
+- [ ] **10b.2.2** Implement marquee selection logic (25 min)
+  - Detect mouse drag on empty canvas (no shape clicked)
+  - Calculate selection rectangle bounds
+  - Find all shapes within rectangle bounds
+  - Update selected shapes state
+  - Works with Shift to add to selection
+
+- [ ] **10b.2.3** Integrate with Canvas component (10 min)
+  - Add marquee mode to Canvas state
+  - Show MarqueeSelection during drag
+  - Update selection on drag end
+  - Clear marquee on mouse up
+
+- [ ] **10b.2.4** Visual feedback for multi-selection (5 min)
+  - Blue outline around all selected shapes
+  - Selection count indicator ("3 objects selected")
+  - Show transform handles for bounding box of all selected
+
+**Files Created**: 1 new file (MarqueeSelection.tsx)
+**Files Modified**: 3 files (Canvas.tsx, useShapes.ts, Toolbar.tsx)
+**Success Criteria**: Marquee selection box working, multi-select functional ✅
+
+---
+
+#### **10b.3 Multi-Select Transform Operations** (45 minutes) ⏳ **[Deferred from Phase 2b Task 8b.5]**
+
+**Goal**: Transform multiple selected shapes together
+
+- [ ] **10b.3.1** Implement group move (15 min)
+  - Move all selected shapes together
+  - Maintain relative positions
+  - Update Firestore for all shapes in batch
+
+- [ ] **10b.3.2** Implement group resize (15 min)
+  - Calculate bounding box of selected shapes
+  - Scale all shapes proportionally
+  - Maintain relative positions during resize
+
+- [ ] **10b.3.3** Implement group rotation (optional) (10 min)
+  - Rotate all shapes around group center
+  - Maintain relative positions and orientations
+
+- [ ] **10b.3.4** Add Shift+click and Cmd+click multi-select (5 min)
+  - Shift+click: Add to selection
+  - Cmd/Ctrl+click: Toggle selection
+  - Visual feedback for each click
+
+**Files Modified**: 2 files (Canvas.tsx, useShapes.ts)
+**Success Criteria**: Multi-select transforms working smoothly ✅
+
+---
+
+#### **10b.4 Enhanced Aspect Ratio Locking** (30 minutes) ⏳ **[Deferred from Phase 2b Task 8b.6]**
+
+**Goal**: Enhanced aspect ratio controls beyond basic Shift-lock
+
+- [ ] **10b.4.1** Add aspect ratio toggle button (15 min)
+  - Toggle button in properties panel
+  - Lock icon indicator
+  - Persist lock state per shape
+
+- [ ] **10b.4.2** Add visual indicators for locked aspect ratio (10 min)
+  - Chain icon on properties panel
+  - Tooltip showing current ratio
+  - Visual feedback during resize
+
+- [ ] **10b.4.3** Test aspect ratio on all shape types (5 min)
+  - Test on rectangles, circles, text
+  - Verify maintains proportions
+  - Test with multi-select
+
+**Files Modified**: 3 files (PropertiesPanel.tsx, transform.ts, TransformHandles.tsx)
+**Success Criteria**: Persistent aspect ratio locking with visual feedback ✅
+
+---
+
+### **Phase 4b Success Criteria** ✅
+
+**Deferred Phase 2b Features (Figma Polish)**:
+
+- [ ] Smart guides with alignment snapping ✓
+- [ ] Marquee selection box (drag-to-select) ✓
+- [ ] Multi-select transform operations ✓
+- [ ] Enhanced aspect ratio locking ✓
+
+**Phase 4b Points Earned**: +2-3 points (optional polish features)
+**Cumulative Score After Phase 4b**: 77-78/105 points
+**Next Phase**: Phase 4c (Figma Interface Structure)
+
+---
+
+## 🎨 **PHASE 4c: FIGMA INTERFACE STRUCTURE** (October 18+)
+
+**Branch**: `PR10c-feat/figma-interface-structure`
+**Rubric Target**: Section 3 (Tier 2 - 6 pts), Section 5 (Polish - partial 4 pts)
 **Points Goal**: +10 points
-**Duration**: 2 hours (11 AM to 1 PM)
-**Type**: 🎨 Figma-Inspired Enhancement
+**Duration**: 3.5 hours estimated (210 minutes)
+**Type**: 🎨 Figma-Inspired Enhancement (Tier 2 Rubric Features)
 
-### **PR-10b: Figma Interface Structure** ✨
+**Strategic Note**: This phase contains the **original Phase 4b interface features**:
+- Layers Panel, Properties Panel, Alignment Tools, Dual-Sidebar Layout
+- These features align with Rubric Section 3 Tier 2 (6 points)
+- Professional interface polish adds Section 5 points (4 points)
 
-#### **10b.1 Left Sidebar - Layers Panel** (60 minutes) ⏳
+### **PR-10c: Figma Interface Structure** ✨
+
+---
+
+#### **10c.1 Left Sidebar - Layers Panel** (60 minutes) ⏳
 
 **Goal**: Tier 2 feature (3 points) - Professional layer management (Figma Critical Feature 1.1)
 
-- [ ] **10b.1.1** Create `src/components/LayersPanel.tsx` (30 min)
+- [ ] **10c.1.1** Create `src/components/LayersPanel.tsx` (30 min)
   - Left sidebar panel (280px width)
   - List all canvas shapes with icons and names
   - Drag-to-reorder functionality (react-beautiful-dnd or native)
@@ -1217,18 +1218,18 @@ Gauntlet Project One/collabcanvas-mvp/
   - Lock/unlock toggle per shape (lock icon)
   - Hierarchical display
 
-- [ ] **10b.1.2** Implement z-index management (15 min)
+- [ ] **10c.1.2** Implement z-index management (15 min)
   - Add zIndex property to Shape interface
   - Update Firestore schema
   - Reorder shapes in Canvas based on zIndex
   - Sync z-index changes across users
 
-- [ ] **10b.1.3** Implement show/hide functionality (10 min)
+- [ ] **10c.1.3** Implement show/hide functionality (10 min)
   - Add visible property to Shape interface
   - Filter visible shapes in Canvas rendering
   - Sync visibility state to Firestore
 
-- [ ] **10b.1.4** Implement lock/unlock functionality (5 min)
+- [ ] **10c.1.4** Implement lock/unlock functionality (5 min)
   - Add locked property to Shape interface
   - Disable drag/edit for locked shapes
   - Visual indicator on locked shapes
@@ -1239,11 +1240,11 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-#### **10b.2 Right Sidebar - Properties Panel** (60 minutes) ⏳
+#### **10c.2 Right Sidebar - Properties Panel** (60 minutes) ⏳
 
 **Goal**: Tier 2 feature enhancement - Professional properties editing (Figma Critical Feature 1.2)
 
-- [ ] **10b.2.1** Create `src/components/PropertiesPanel.tsx` (25 min)
+- [ ] **10c.2.1** Create `src/components/PropertiesPanel.tsx` (25 min)
   - Right sidebar panel (280px width)
   - Position & Size section (X, Y, Width, Height inputs)
   - Rotation input (0-360 degrees)
@@ -1251,19 +1252,19 @@ Gauntlet Project One/collabcanvas-mvp/
   - Fill color picker integration
   - Stroke properties (weight, color)
 
-- [ ] **10b.2.2** Implement position/size inputs (20 min)
+- [ ] **10c.2.2** Implement position/size inputs (20 min)
   - Numeric inputs for X, Y coordinates
   - Numeric inputs for Width, Height
   - Update shape on input change
   - Sync changes to Firestore
   - Real-time updates from other users
 
-- [ ] **10b.2.3** Implement alignment tools section (10 min)
+- [ ] **10c.2.3** Implement alignment tools section (10 min)
   - 9 alignment buttons in properties panel
   - Visual icons for each alignment operation
   - Enable only when shape(s) selected
 
-- [ ] **10b.2.4** Add fill and stroke controls (5 min)
+- [ ] **10c.2.4** Add fill and stroke controls (5 min)
   - Enhanced color picker for fill
   - Stroke toggle (on/off)
   - Stroke weight slider (1-20px)
@@ -1275,11 +1276,11 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-#### **10b.3 Alignment Tools (9 Operations)** (30 minutes) ⏳
+#### **10c.3 Alignment Tools (9 Operations)** (30 minutes) ⏳
 
 **Goal**: Tier 2 feature (3 points) - Professional alignment capabilities
 
-- [ ] **10b.3.1** Create `src/utils/alignment.ts` utilities (20 min)
+- [ ] **10c.3.1** Create `src/utils/alignment.ts` utilities (20 min)
   - `alignLeft(shapes: Shape[])` - Align to leftmost x
   - `alignCenter(shapes: Shape[])` - Align to average x center
   - `alignRight(shapes: Shape[])` - Align to rightmost x + width
@@ -1290,7 +1291,7 @@ Gauntlet Project One/collabcanvas-mvp/
   - `distributeVertically(shapes: Shape[])` - Even vertical spacing
   - `alignToCanvasCenter(shapes: Shape[])` - Center on canvas
 
-- [ ] **10b.3.2** Integrate with PropertiesPanel and Toolbar (10 min)
+- [ ] **10c.3.2** Integrate with PropertiesPanel and Toolbar (10 min)
   - Add alignment buttons to PropertiesPanel
   - Enable only when 2+ shapes selected
   - Apply alignment and update Firestore
@@ -1302,23 +1303,23 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-#### **10b.4 Dual-Sidebar Layout Integration** (30 minutes) ⏳
+#### **10c.4 Dual-Sidebar Layout Integration** (30 minutes) ⏳
 
 **Goal**: Professional Figma-like interface with left + right sidebars
 
-- [ ] **10b.4.1** Update App.tsx layout (15 min)
+- [ ] **10c.4.1** Update App.tsx layout (15 min)
   - Three-column layout: LayersPanel (left) + Canvas (center) + PropertiesPanel (right)
   - Responsive sidebar widths (resizable optional)
   - Smooth sidebar animations
   - Collapsible sidebars (toggle buttons)
 
-- [ ] **10b.4.2** Style sidebars consistently (10 min)
+- [ ] **10c.4.2** Style sidebars consistently (10 min)
   - Consistent visual design language
   - Professional icon set (Lucide React)
   - Tooltips on all buttons
   - Dark/light theme support
 
-- [ ] **10b.4.3** Test dual-sidebar interaction (5 min)
+- [ ] **10c.4.3** Test dual-sidebar interaction (5 min)
   - Click layer in LayersPanel → updates PropertiesPanel
   - Change property in PropertiesPanel → updates Canvas + LayersPanel
   - Verify smooth UX flow
@@ -1328,32 +1329,38 @@ Gauntlet Project One/collabcanvas-mvp/
 
 ---
 
-#### **10b.5 Phase 4b Integration & Testing** (30 minutes) ⏳
+#### **10c.5 Phase 4c Integration & Testing** (30 minutes) ⏳
 
-**Goal**: Ensure Figma interface features work together
+**Goal**: Ensure all Figma interface features work together professionally
 
-- [ ] **10b.5.1** Integration testing: Layers panel (10 min)
+- [ ] **10c.5.1** Integration testing: Layers panel (10 min)
   - Test drag-to-reorder z-index
   - Test show/hide functionality
   - Test lock/unlock functionality
   - Verify multi-user sync
 
-- [ ] **10b.5.2** Integration testing: Properties panel (10 min)
+- [ ] **10c.5.2** Integration testing: Properties panel (10 min)
   - Test position/size inputs
   - Test rotation input
   - Test fill and stroke controls
   - Verify real-time updates
 
-- [ ] **10b.5.3** Integration testing: Alignment tools (10 min)
+- [ ] **10c.5.3** Integration testing: Alignment tools (5 min)
   - Test all 9 alignment operations
   - Test with various shape selections (2+, 5+, 10+ shapes)
   - Verify multi-user sync
+
+- [ ] **10c.5.4** Integration testing: Dual-sidebar layout (5 min)
+  - Test sidebar interactions
+  - Verify responsive layout
+  - Test collapsible sidebars
+  - Confirm professional UX flow
 
 **Success Criteria**: All Figma interface features working together professionally ✅
 
 ---
 
-### **Phase 4b Success Criteria** ✅
+### **Phase 4c Success Criteria** ✅
 
 **Rubric Alignment - Section 3 Tier 2 (6 points)**:
 
@@ -1362,25 +1369,29 @@ Gauntlet Project One/collabcanvas-mvp/
 - [ ] 9 alignment operations working ✓
 - [ ] Show/hide and lock/unlock layers ✓
 
-**Rubric Alignment - Section 5 (Polish - partial 5 points)**:
+**Rubric Alignment - Section 5 (Polish - partial 4 points)**:
 
 - [ ] Professional dual-sidebar interface ✓
 - [ ] Properties panel with position/size/rotation inputs ✓
 - [ ] Consistent visual design ✓
 - [ ] Smooth UX flow ✓
 
-**Phase 4b Points Earned**: +10 points (6 Tier 2 + 4 Polish)
-**Cumulative Score After Phase 4b**: 85/105 points
+**Phase 4c Points Earned**: +10 points (6 Tier 2 + 4 Polish)
+**Cumulative Score After Phase 4c**: 87-88/105 points
 **Next Phase**: Phase 5 (Final Documentation & Submission)
 
 ---
 
 ### **Phase 4 Combined Success Criteria** ✅
 
-**Total Phase 4 Points**: +20 points (Phase 4a: 10 + Phase 4b: 10)
-**Cumulative Score After Phase 4**: 85/105 points
-**Timeline**: Half day morning (October 17, 9 AM-1 PM) - Target completion
-**Deployment**: Pre-production environment ready for final documentation
+**Total Phase 4 Points**: +22-23 points (Phase 4a: 10 + Phase 4b: 2-3 + Phase 4c: 10)
+**Cumulative Score After Phase 4**: 87-88/105 points
+**Timeline**: Target October 18+ (after Phase 3 AI Agent complete)
+**Deployment**: Pre-production environment with full Figma polish and rubric features
+**Strategic Note**:
+- Phase 4a: Performance optimization (rubric-required)
+- Phase 4b: Figma polish features (deferred from Phase 2b, optional)
+- Phase 4c: Figma interface structure (Tier 2 rubric features)
 
 ---
 
@@ -1504,49 +1515,60 @@ Target: +35 points | Status: ⏳ Pending
 
 ---
 
-*Task List Version: 5.3 - Phase 2a Complete, Phase 2b Tasks 8b.1 & 8b.2 Complete*
+*Task List Version: 5.5 - Phase 4 Split into 3 Subphases (4a/4b/4c)*
 *Created: October 15, 2025*
 *Updated: October 16, 2025 - Added Phase 2a/2b and 4a/4b subphase structure*
 *Updated: October 16, 2025 - Aligned with TechStack v5.0 (custom utilities documented)*
 *Updated: October 17, 2025 - Phase 2a COMPLETE (15/15 points earned), Phase 2b Task 8b.1 COMPLETE*
 *Updated: October 18, 2025 - Phase 2b Task 8b.2 COMPLETE (Rotation Handle with full feature set)*
-*Complete Timeline: October 9-18, 2025 (10 days: 5 days MVP + 5 days sprint)*
+*Updated: October 18, 2025 - **RESTRUCTURED**: Phase 2b core complete, deferred Smart Guides/Marquee/Multi-Select to Phase 4b*
+*Updated: October 18, 2025 - **SPLIT PHASE 4**: Separated Phase 4b into 4b (Polish) and 4c (Interface Structure)*
+*Complete Timeline: October 9-18+, 2025 (MVP + rubric sprint)*
 *Phase 1 Status: ✅ COMPLETE (20/105 points, 7 PRs merged)*
 *Phase 2a Status: ✅ COMPLETE (15/15 points earned, all features tested and integrated)*
-*Phase 2b Status: 🔄 PARTIAL (Tasks 8b.1 & 8b.2 complete: resize + rotation with mirroring)*
+*Phase 2b Status: ✅ COMPLETE (3 points - core transforms: resize + rotation)*
 *Current Score: 35/105 points | Target: 95-107/105 points (includes +2 LangSmith bonus)*
-*Development Branch: PR8-feat/canvas-enhancements-tier1*
+*Development Branch: PR8-feat/canvas-enhancements-tier1 (ready to merge)*
+*Next Priority: Phase 3 - AI Canvas Agent (25 points, highest value)*
 *Based on: PRD v5.0, WBS v5.0, TechStack v5.0 & CollabCanvas Rubric*
 *AI Strategy: Phase 3 OpenAI SDK (fast) → Phase 5 LangSmith (polish)*
-*Figma Integration: Phases 2b & 4b (Transform operations + Dual-sidebar interface)*
+*Figma Integration: Phase 2b (core transforms) + Phase 4b (polish) + Phase 4c (interface)*
+*Phase 4 Structure: 4a (Performance) + 4b (Deferred 2b Polish, 10b.1-10b.4) + 4c (Interface Structure, 10c.1-10c.5)*
 *Custom Utilities: transform.ts, alignment.ts, useSmartGuides.ts, MarqueeSelection.tsx*
 *MVP Foundation: <https://collabcanvas-mvp-53120.web.app> ✅*
-*Phase 2a+2b.1+2b.2 Implementation: 15+ new files, 20+ modified files, ~3,800+ LOC added ✅*
+*Phase 2a+2b Implementation: 15+ new files, 20+ modified files, ~3,800+ LOC added ✅*
 
 ---
 
-## 🏆 **CURRENT STATUS SUMMARY - OCTOBER 18, 2025**
+## 🏆 **CURRENT STATUS SUMMARY - OCTOBER 18, 2025 (Post-Restructure)**
 
 **✅ COMPLETED ACHIEVEMENTS**:
 - ✅ **Phase 1 MVP**: Full real-time collaborative canvas (20 points)
 - ✅ **Phase 2a Complete**: All Rubric Tier 1 features (15 points)
   - Color picker, undo/redo, keyboard shortcuts, export, additional shapes
   - Integration testing complete (Task 8a.6)
-- ✅ **Phase 2b Task 8b.1**: Professional 8-point resize handles
-  - Unified behavior across all 5 shapes, perfect cursor tracking, aspect ratio locking
-  - Bonus: Font size feature for text shapes
-- ✅ **Phase 2b Task 8b.2**: Full rotation system with advanced features
-  - Rotation handle with natural cursor following (12 o'clock reference)
-  - Shift-snap to 15° increments, scale-aware sensitivity (1.75x / zoom)
+- ✅ **Phase 2b Complete**: Core Figma Transform Operations (3 points)
+  - **Task 8b.1**: Professional 8-point resize handles (all 5 shapes + font size)
+  - **Task 8b.2**: Full rotation system with scale-aware sensitivity
+  - Unified behavior across all shapes, perfect cursor tracking, aspect ratio locking
   - Rotation-aware resize with coordinate transformations
-  - Line/Arrow flattening on resize for simplified UX
-  - Negative resizing (mirroring) with fixed anchor for Line/Arrow
+  - Line/Arrow flattening and negative resizing (mirroring)
 
-**🎯 READY FOR NEXT**: 
-- **Task 8b.3**: Smart Guides (75 minutes) - Alignment guides during drag
-- **Phase 3**: AI Canvas Agent (highest value: 25 points)
+**🎯 READY FOR NEXT**:
+
+- **Phase 3**: AI Canvas Agent (25 points - HIGHEST VALUE, NEXT PRIORITY)
 - **Phase 4a**: Performance Optimization (10 points)
+- **Phase 4b**: Figma Polish Features (2-3 points, deferred 2b, optional)
+- **Phase 4c**: Figma Interface Structure (10 points, Tier 2 rubric)
+
+**📌 STRATEGIC DECISION**:
+
+- **Deferred to Phase 4b** (Tasks 10b.1-10b.4, originally 8b.3-8b.6):
+  - Smart Guides (75 min)
+  - Marquee Selection (60 min)
+  - Multi-Select Transforms (45 min)
+  - Enhanced Aspect Ratio Locking (30 min)
+- **Rationale**: Prioritize Phase 3 AI Agent (25 pts) over polish features (3-5 pts)
 
 **📊 PROGRESS**: 35/105 points (33% complete) | 70 points remaining
-**📈 Phase 2b Progress**: Tasks 8b.1 & 8b.2 complete (40% of Phase 2b)
-**🚀 MOMENTUM**: Strong foundation with professional Figma-like transform operations working
+**🚀 MOMENTUM**: Phase 2 complete (35 pts), ready for highest-value feature (Phase 3 AI Agent)

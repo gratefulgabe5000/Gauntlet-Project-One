@@ -2,13 +2,14 @@
 
 A real-time collaborative digital whiteboard application for modern teams.
 
-## 🎯 Project Status: **PHASES 1 & 2a COMPLETE, Phase 2b PROGRESSING** 🚀
+## 🎯 Project Status: **PHASES 1, 2a & 2b COMPLETE** → 🎯 **READY FOR PHASE 3** 🚀
 
 **Live Application**: <https://collabcanvas-mvp-53120.web.app>
-**Current Phase**: Phase 2b (Figma Transform Operations) - **Tasks 8b.1 & 8b.2 COMPLETE**
-**Sprint Status**: Phase 1 MVP complete (~22 hours) | Phase 2a complete (15/15 points) | Phase 2b Tasks 8b.1 & 8b.2 complete (resize + rotation)
+**Current Phase**: Ready to begin Phase 3 (AI Canvas Agent - 25 points, highest value)
+**Sprint Status**: Phase 1 MVP complete | Phase 2a complete (15/15 points) | Phase 2b complete (3 points - core transforms)
 **Deployment**: Live on Firebase Hosting with professional transform operations
-**Current Score**: 35/105 rubric points (33% complete) + significant Phase 2b progress
+**Current Score**: 35/105 rubric points (33% complete)
+**Next Priority**: AI Canvas Agent implementation (25 points - highest ROI)
 
 ### ✅ **Phase 1 MVP PRs Complete (Hours 0-22):**
 
@@ -24,11 +25,20 @@ A real-time collaborative digital whiteboard application for modern teams.
 
 - **✅ PR8a: Rubric Tier 1 Features** - Color picker, undo/redo, keyboard shortcuts, export, additional shapes (15/15 points)
 
-### 🔄 **Phase 2b In Progress (October 17-18):**
+### ✅ **Phase 2b Complete (October 17-18):**
 
-- **✅ Task 8b.1: 8-Point Resize Handles** - Professional resize with unified behavior across all 5 shape types
-- **✅ Task 8b.2: Rotation Handle** - Complete rotation system with scale-aware sensitivity
-- **⏳ Task 8b.3: Smart Guides** - Next (75 minutes estimated)
+- **✅ PR8b: Core Figma Transforms** - Professional resize and rotation on all 5 shape types (3 points)
+  - **Task 8b.1**: 8-Point Resize Handles - Professional resize with unified behavior
+  - **Task 8b.2**: Rotation Handle - Complete rotation system with scale-aware sensitivity
+- **📌 Note**: Additional Figma polish features (Smart Guides, Marquee Selection, Multi-Select Transforms) deferred to Phase 4b for strategic prioritization
+
+### 🎯 **Next: Phase 3 (AI Canvas Agent - 25 Points):**
+
+Phase 3 is the highest-value feature remaining (25 rubric points):
+- Natural language canvas commands via OpenAI
+- 8-12 canvas tools (create, move, resize, arrange, etc.)
+- Multi-user sync for AI-created shapes
+- Tool calling pattern for structured operations
 
 ### 🎨 **Key Features Live in Production:**
 
@@ -243,35 +253,47 @@ This workspace is configured with:
 - Firebase Hosting deployment ✅
 - **Result**: Live at <https://collabcanvas-mvp-53120.web.app> ✅
 
-### **Post-MVP Development Phases**
+### **Rubric-Aligned Development Phases**
 
-#### **Phase 2: Enhanced Drawing Tools**
+#### **Phase 3: AI Canvas Agent** (October 18+) - 🎯 NEXT
 
-- Advanced shape system (circles, arrows, text)
-- Freehand drawing and pen tools
-- Shape styling and colors
-- Export functionality (PNG/PDF)
+**Target**: +25 points (highest value feature)
+- Natural language canvas commands (OpenAI integration)
+- 8-12 canvas tools with function calling pattern
+- Multi-user sync for AI-created shapes
+- Command history and preview system
 
-#### **Phase 3: Advanced Collaboration**
+#### **Phase 4a: Performance Optimization** (October 18+)
 
-- Canvas commenting system
-- @mentions and notifications
-- Voice/video integration
-- Multiple canvas support
+**Target**: +10 points (rubric-required)
+- Viewport culling for 500+ objects at 60 FPS
+- Firestore batching and sync optimization
+- Sub-100ms object sync, sub-50ms cursor sync
+- Performance monitoring and metrics
 
-#### **Phase 4: Enterprise & Scale**
+#### **Phase 4b: Figma Polish Features** (October 18+) - Optional
 
-- Single Sign-On (SSO) integration
-- Advanced analytics and reporting
-- AI-powered features (shape recognition, layout suggestions)
-- Team workspaces and advanced permissions
+**Target**: +2-3 points (deferred from Phase 2b)
+- Smart alignment guides during drag
+- Marquee selection box (drag-to-select)
+- Multi-select transform operations
+- Enhanced aspect ratio locking
 
-#### **Phase 5: Platform Extensions (Future)**
+#### **Phase 4c: Figma Interface Structure** (October 18+)
 
-- Plugin/extension system
-- Mobile apps (iOS/Android)
-- AR/VR integration
-- Third-party marketplace
+**Target**: +10 points (Tier 2 rubric features)
+- Layers panel with drag-to-reorder (3 pts)
+- Properties panel with position/size inputs
+- Alignment tools (9 operations, 3 pts)
+- Dual-sidebar Figma-like layout
+
+#### **Phase 5: Documentation & Submission** (October 18+)
+
+**Target**: +15 points + bonus
+- Comprehensive README and architecture docs
+- AI development log (rubric requirement)
+- Demo video (3-5 minutes)
+- LangSmith observability integration (+2 bonus)
 
 ## 🎯 MVP Success Criteria
 
@@ -330,11 +352,16 @@ npm run build
 | **PR6** | Phase 1 Essential UI | ✅ **COMPLETE** | ~2 pts |
 | **PR7** | Phase 1 Production Deploy | ✅ **COMPLETE** | ~1 pt 🚀 |
 | **PR8a** | Phase 2a Rubric Tier 1 | ✅ **COMPLETE** | +15 pts 🎯 |
-| **Task 8b.1** | Phase 2b Resize Handles | ✅ **COMPLETE** | Partial 2b progress |
-| **Task 8b.2** | Phase 2b Rotation Handle | ✅ **COMPLETE** | Partial 2b progress |
+| **PR8b** | Phase 2b Core Transforms | ✅ **COMPLETE** | +3 pts 🎨 |
+| **PR9** | Phase 3 AI Canvas Agent | 🎯 **NEXT** | +25 pts 🤖 |
+| **PR10a** | Phase 4a Performance | ⏳ Pending | +10 pts |
+| **PR10b** | Phase 4b Figma Polish | ⏳ Pending (Optional) | +2-3 pts |
+| **PR10c** | Phase 4c Figma Interface | ⏳ Pending | +10 pts |
+| **PR11** | Phase 5 Documentation | ⏳ Pending | +15 pts |
 
 **Current Status**: 35/105 points earned | 70 points remaining
-**Sprint Status**: Phase 1 MVP (~22 hours) + Phase 2a complete + Phase 2b Tasks 8b.1 & 8b.2 complete
+**Completed**: Phase 1 MVP (20 pts) + Phase 2a (15 pts) + Phase 2b (3 pts) = 38 pts
+**Next Priority**: Phase 3 (AI Canvas Agent - 25 points, highest ROI)
 **Live Application**: <https://collabcanvas-mvp-53120.web.app>
 
 ---
@@ -1244,8 +1271,9 @@ All 5 shape components now share identical resize patterns:
 
 ---
 
-*Last Updated: October 18, 2025 - Phase 2a COMPLETE, Phase 2b Tasks 8b.1 & 8b.2 COMPLETE*
-*Sprint Status: **Phase 1 MVP COMPLETE** ✅ | **Phase 2a COMPLETE** ✅ | **Phase 2b Tasks 8b.1 & 8b.2 COMPLETE** ✅*
-*Production: **LIVE** 🚀 (Professional transform operations) | **Development Branch**: PR8-feat/canvas-enhancements-tier1*
-*Current Progress: 35/105 rubric points (33% complete) + 40% of Phase 2b*
-*Next Milestone: Task 8b.3 Smart Guides → Phase 3 AI Canvas Agent (25 pts)*
+*Last Updated: October 18, 2025 - Phase 2b COMPLETE, TaskList Restructured (v5.5)*
+*Sprint Status: **Phase 1 MVP COMPLETE** ✅ | **Phase 2a COMPLETE** ✅ | **Phase 2b COMPLETE** ✅ | **Ready for Phase 3** 🎯*
+*Production: **LIVE** 🚀 (Professional transform operations) | **Development Branch**: PR8-feat/canvas-enhancements-tier1 (ready to merge)*
+*Current Progress: 35/105 rubric points (33% complete)*
+*Strategic Restructure: Phase 4 split into 4a (Performance), 4b (Polish - optional), 4c (Interface - Tier 2)*
+*Next Milestone: Phase 3 - AI Canvas Agent (25 points, highest value)*
