@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import './App.css'
 import { useAuth } from './auth/AuthContext'
 import AuthGuard from './auth/AuthGuard'
+import { AICommandPanel } from './components/AICommandPanel'
 import Canvas from './components/Canvas'
 import ColorPaletteModal from './components/ColorPaletteModal'
 import EmptyState from './components/EmptyState'
@@ -12,10 +13,12 @@ import MobileWarning from './components/MobileWarning'
 import ToastContainer from './components/ToastContainer'
 import Toolbar from './components/Toolbar'
 import UserPresence from './components/UserPresence'
+import { useAICommands } from './hooks/useAICommands'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
 import { usePresence } from './hooks/usePresence'
 import { useShapes } from './hooks/useShapes'
 import { useToast } from './hooks/useToast'
+import { getAPIKeyStatus } from './services/openai'
 import { getFriendlyErrorMessage, getSuccessMessage } from './utils/errorMessages'
 import { createArrowShape, createCircleShape, createLineShape, createRectangleShape, createTextShape } from './utils/helpers'
 
@@ -72,6 +75,22 @@ function App() {
 
   // PR5: User presence and cursor tracking
   const { activeUsers, currentUserColor, currentUserName, updateCursor } = usePresence()
+
+  // PR9: AI Canvas Agent (Phase 3)
+  const apiKeyStatus = getAPIKeyStatus()
+  const { executeCommand: executeAICommand, isExecuting: isAIExecuting } = useAICommands({
+    userId: user?.uid || null,
+    canvasId: 'default', // Using default canvas for MVP
+    shapes,
+    addShape,
+    updateShapePosition,
+    updateShapeColor,
+    updateShapeDimensions,
+    updateShapeProperties,
+  })
+
+  // PR9: AI Command Panel state
+  const [isAICommandPanelOpen, setIsAICommandPanelOpen] = useState(false)
 
   // Help panel state for H and ? key shortcuts (must be declared before useKeyboardShortcuts)
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false)
@@ -412,6 +431,33 @@ function App() {
     }
   }
 
+  // PR9: AI Command execution with toast feedback
+  const handleAICommandExecution = async (userInput: string) => {
+    try {
+      const result = await executeAICommand(userInput)
+      
+      if (result.success && result.result.success) {
+        showSuccess(
+          result.result.message || `AI executed ${result.toolCalls.length} command(s)`,
+          3000
+        )
+        console.log('✨ AI command executed:', result)
+      } else {
+        showError(
+          result.result.error || 'AI command failed',
+          5000
+        )
+        console.error('❌ AI command error:', result)
+      }
+      
+      return result
+    } catch (error) {
+      showError('Failed to execute AI command', 5000)
+      console.error('❌ AI command exception:', error)
+      throw error
+    }
+  }
+
   // Task 2.5.2: Wrap entire canvas content with AuthGuard
   return (
     <AuthGuard>
@@ -530,6 +576,14 @@ function App() {
             onSuccess={handleExportSuccess}
           />
         )}
+
+        {/* PR9: AI Command Panel (Phase 3) */}
+        <div className="ai-command-panel-container">
+          <AICommandPanel
+            onExecuteCommand={handleAICommandExecution}
+            isDisabled={!apiKeyStatus.configured}
+          />
+        </div>
       </div>
     </AuthGuard>
   )

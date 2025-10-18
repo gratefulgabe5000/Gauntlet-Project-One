@@ -55,3 +55,26 @@ body.canvas-mode {
   padding: 0;
   overflow: hidden;
 }
+
+/* PR9: AI Command Panel (Phase 3) */
+.ai-command-panel-container {
+  position: fixed;
+  top: 80px; /* Below toolbar */
+  right: 20px;
+  width: 400px;
+  max-height: calc(100vh - 100px); /* Leave space for toolbar and margin */
+  z-index: 100;
+  pointer-events: none; /* Allow clicking through empty space */
+}
+
+.ai-command-panel-container > * {
+  pointer-events: auto; /* Re-enable clicking on panel content */
+}
+
+@media (max-width: 768px) {
+  .ai-command-panel-container {
+    width: calc(100vw - 40px);
+    right: 20px;
+    left: 20px;
+  }
+}
