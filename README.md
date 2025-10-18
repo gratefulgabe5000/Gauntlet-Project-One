@@ -2,13 +2,13 @@
 
 A real-time collaborative digital whiteboard application for modern teams.
 
-## 🎯 Project Status: **PHASES 1 & 2a COMPLETE** 🚀
+## 🎯 Project Status: **PHASES 1 & 2a COMPLETE, Phase 2b PROGRESSING** 🚀
 
 **Live Application**: <https://collabcanvas-mvp-53120.web.app>
-**Current Phase**: Phase 2b (Figma Transform Operations) - **Task 8b.1 COMPLETE**
-**Sprint Status**: Phase 1 MVP complete (~22 hours) | Phase 2a complete (15/15 points) | Phase 2b Task 8b.1 complete (8-point resize handles)
-**Deployment**: Live on Firebase Hosting with enhanced canvas features operational
-**Current Score**: 35/105 rubric points (33% complete)
+**Current Phase**: Phase 2b (Figma Transform Operations) - **Tasks 8b.1 & 8b.2 COMPLETE**
+**Sprint Status**: Phase 1 MVP complete (~22 hours) | Phase 2a complete (15/15 points) | Phase 2b Tasks 8b.1 & 8b.2 complete (resize + rotation)
+**Deployment**: Live on Firebase Hosting with professional transform operations
+**Current Score**: 35/105 rubric points (33% complete) + significant Phase 2b progress
 
 ### ✅ **Phase 1 MVP PRs Complete (Hours 0-22):**
 
@@ -24,10 +24,11 @@ A real-time collaborative digital whiteboard application for modern teams.
 
 - **✅ PR8a: Rubric Tier 1 Features** - Color picker, undo/redo, keyboard shortcuts, export, additional shapes (15/15 points)
 
-### 🔄 **Phase 2b In Progress (October 17):**
+### 🔄 **Phase 2b In Progress (October 17-18):**
 
 - **✅ Task 8b.1: 8-Point Resize Handles** - Professional resize with unified behavior across all 5 shape types
-- **⏳ Task 8b.2: Rotation Handle** - Next (45 minutes estimated)
+- **✅ Task 8b.2: Rotation Handle** - Complete rotation system with scale-aware sensitivity
+- **⏳ Task 8b.3: Smart Guides** - Next (75 minutes estimated)
 
 ### 🎨 **Key Features Live in Production:**
 
@@ -52,6 +53,13 @@ A real-time collaborative digital whiteboard application for modern teams.
 - **Unified Resize Behavior**: Perfect cursor tracking, aspect ratio locking with Shift
 - **Ellipse Support**: Circles can become ellipses, maintain perfect circles with Shift
 - **Font Size Controls**: Right-click text for font size options (12px-32px)
+- **Rotation System**: Full rotation with circular handle and connection line
+- **Natural Rotation**: Angle measured from 12 o'clock, follows cursor smoothly
+- **Shift-Snap Rotation**: Snap to 15° increments for precise alignment
+- **Scale-Aware Rotation**: Speed adjusts with zoom (1.75x / scale) for consistent feel
+- **Rotation-Aware Resize**: Handles rotate with shape, resize works in rotated space
+- **Line/Arrow Flattening**: Rotation flattens on resize for intuitive endpoint control
+- **Negative Resizing**: Full mirroring support with fixed anchor (Line/Arrow)
 
 ## Project Overview
 
@@ -323,9 +331,10 @@ npm run build
 | **PR7** | Phase 1 Production Deploy | ✅ **COMPLETE** | ~1 pt 🚀 |
 | **PR8a** | Phase 2a Rubric Tier 1 | ✅ **COMPLETE** | +15 pts 🎯 |
 | **Task 8b.1** | Phase 2b Resize Handles | ✅ **COMPLETE** | Partial 2b progress |
+| **Task 8b.2** | Phase 2b Rotation Handle | ✅ **COMPLETE** | Partial 2b progress |
 
 **Current Status**: 35/105 points earned | 70 points remaining
-**Sprint Status**: Phase 1 MVP (~22 hours) + Phase 2a complete + Phase 2b Task 8b.1 complete
+**Sprint Status**: Phase 1 MVP (~22 hours) + Phase 2a complete + Phase 2b Tasks 8b.1 & 8b.2 complete
 **Live Application**: <https://collabcanvas-mvp-53120.web.app>
 
 ---
@@ -1171,14 +1180,16 @@ All 5 shape components now share identical resize patterns:
 
 **✅ COMPLETED**:
 - Phase 1 MVP: 20 points  
-- Phase 2a: 15 points
-- Phase 2b Task 8b.1: Professional resize handles (partial Phase 2b progress)
+- Phase 2a: 15 points (Integration testing complete)
+- Phase 2b Task 8b.1: Professional resize handles
+- Phase 2b Task 8b.2: Full rotation system (partial Phase 2b progress)
 
 **📊 CURRENT SCORE**: 35/105 points (33% complete)
 **🎯 REMAINING**: 70 points across Phase 2b completion + Phases 3-5
+**📈 Phase 2b Progress**: Tasks 8b.1 & 8b.2 complete (40% of Phase 2b)
 
 **Next Priorities**:
-1. **Task 8b.2**: Rotation Handle (45 min)
+1. **Task 8b.3**: Smart Guides (75 min)
 2. **Phase 3**: AI Canvas Agent (25 points - highest value)
 3. **Phase 4a**: Performance Optimization (10 points)
 4. **Phase 4b**: Figma Interface Structure (10 points)  
@@ -1186,8 +1197,55 @@ All 5 shape components now share identical resize patterns:
 
 ---
 
-*Last Updated: October 17, 2025 - Phase 2a COMPLETE, Phase 2b Task 8b.1 COMPLETE*
-*Sprint Status: **Phase 1 MVP COMPLETE** ✅ | **Phase 2a COMPLETE** ✅ | **Phase 2b Task 8b.1 COMPLETE** ✅*
-*Production: **LIVE** 🚀 (Enhanced features) | **Development Branch**: PR8-feat/canvas-enhancements-tier1*
-*Current Progress: 35/105 rubric points (33% complete)*
-*Next Milestone: Task 8b.2 Rotation Handle → Phase 3 AI Canvas Agent (25 pts)*
+## 📋 **OCTOBER 18, 2025 - ROTATION HANDLE COMPLETE** ✅
+
+### **Phase 2b Task 8b.2: Rotation Handle Implementation**
+
+**Duration**: ~4 hours (incremental development with user testing)
+**Status**: ✅ **COMPLETE** - Professional rotation system operational
+
+#### **Key Features Implemented**:
+
+**Rotation Handle UI** ✅
+- Circular handle (6px radius) with connection line to shape
+- Positioned above shape (20px offset) or at center for Line/Arrow
+- Handles rotate with shape using Group wrapper
+- Z-order: Connection line → Rotation handle → Resize handles
+
+**Natural Rotation Logic** ✅
+- Delta-based rotation from 12 o'clock reference
+- Shift key snapping to 15° increments
+- Scale-aware sensitivity (1.75x / zoom) for consistent feel at any zoom level
+- Rotation persists through drag, resize, and duplication
+
+**Advanced Transform Features** ✅
+- **Center-Pivot Rendering**: All shapes rotate around center (offsetX/offsetY)
+- **Rotation-Aware Resize**: Handles rotate with shape, resize works in rotated local space
+- **Line/Arrow Flattening**: Rotation flattens to 0° on resize for intuitive UX
+- **Negative Resizing**: Full mirroring support with fixed anchor for Line/Arrow
+- **Coordinate Transforms**: Proper translation between top-left (storage) and center-pivot (rendering)
+
+#### **Files Modified**: 15 files
+- Components: TransformHandles.tsx, Rectangle.tsx, Circle.tsx, Text.tsx, Line.tsx, Arrow.tsx, Canvas.tsx
+- Utilities: transform.ts (snapRotationAngle, calculateRotationAwareResize, normalizeBounds, normalizeBoundsWithAnchor)
+- Types: types.ts (Shape, CreateShapeData with rotation property)
+- Services: firestore.ts (rotation persistence)
+- Hooks: useShapes.ts (updateShapeProperties, duplication)
+- App Integration: App.tsx, Canvas.tsx
+
+#### **Testing Completed**:
+- ✅ All 5 shape types (Rectangle, Circle, Text, Line, Arrow)
+- ✅ Rotation with drag, resize, and duplication
+- ✅ Multi-user sync verification
+- ✅ Scale-aware rotation at different zoom levels
+- ✅ Line/Arrow mirroring with fixed anchor
+
+**Lines of Code**: ~800-1000 lines added/modified
+
+---
+
+*Last Updated: October 18, 2025 - Phase 2a COMPLETE, Phase 2b Tasks 8b.1 & 8b.2 COMPLETE*
+*Sprint Status: **Phase 1 MVP COMPLETE** ✅ | **Phase 2a COMPLETE** ✅ | **Phase 2b Tasks 8b.1 & 8b.2 COMPLETE** ✅*
+*Production: **LIVE** 🚀 (Professional transform operations) | **Development Branch**: PR8-feat/canvas-enhancements-tier1*
+*Current Progress: 35/105 rubric points (33% complete) + 40% of Phase 2b*
+*Next Milestone: Task 8b.3 Smart Guides → Phase 3 AI Canvas Agent (25 pts)*
