@@ -1,11 +1,15 @@
 /**
  * OpenAI Service
  * Phase 3: AI Canvas Agent Implementation
+ * Phase 4a: Enhanced with LangSmith Observability
  * 
  * OpenAI client initialization and AI command execution with tool calling
+ * Now includes LangSmith tracing for AI observability (+2 bonus points!)
  */
 
 import OpenAI from 'openai';
+import { traceable } from 'langsmith/traceable';
+import { wrapOpenAI } from 'langsmith/wrappers';
 import type {
   AICommandRequest,
   AICommandResponse,
@@ -26,7 +30,7 @@ const DEFAULT_CONFIG: AIAgentConfig = {
 };
 
 /**
- * Initialize OpenAI Client
+ * Initialize OpenAI Client with LangSmith Tracing
  * Note: dangerouslyAllowBrowser is true for MVP development
  * TODO: Move to backend API in production (Phase 5)
  */
@@ -42,10 +46,22 @@ function getOpenAIClient(): OpenAI {
       );
     }
 
-    openaiClient = new OpenAI({
+    // Create base OpenAI client
+    const baseClient = new OpenAI({
       apiKey,
       dangerouslyAllowBrowser: true, // For MVP development only
     });
+
+    // Wrap with LangSmith for observability (Phase 4a)
+    // If LANGCHAIN_API_KEY is not set, this still works but without tracing
+    try {
+      openaiClient = wrapOpenAI(baseClient);
+      console.log('✅ LangSmith tracing enabled for AI commands');
+    } catch (error) {
+      // Fallback to base client if LangSmith not configured
+      openaiClient = baseClient;
+      console.log('ℹ️ LangSmith not configured, using OpenAI without tracing');
+    }
   }
 
   return openaiClient;
@@ -53,15 +69,17 @@ function getOpenAIClient(): OpenAI {
 
 /**
  * Execute AI Command with Tool Calling
+ * Enhanced with LangSmith tracing for observability
  * 
  * @param request - AI command request with user input and context
  * @param config - Optional configuration overrides
  * @returns AI command response with tool calls and results
  */
-export async function executeAICommand(
-  request: AICommandRequest,
-  config: Partial<AIAgentConfig> = {}
-): Promise<AICommandResponse> {
+export const executeAICommand = traceable(
+  async (
+    request: AICommandRequest,
+    config: Partial<AIAgentConfig> = {}
+  ): Promise<AICommandResponse> => {
   const startTime = Date.now();
   const finalConfig = { ...DEFAULT_CONFIG, ...config };
   
@@ -183,7 +201,9 @@ export async function executeAICommand(
       error: error.message,
     };
   }
-}
+  },
+  { name: 'executeAICommand', tags: ['ai', 'canvas', 'tool-calling'] }
+);
 
 /**
  * Build System Prompt with Canvas Context
