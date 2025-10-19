@@ -105,13 +105,14 @@ function App() {
     setIsHelpPanelOpen(!isHelpPanelOpen)
   }, [isHelpPanelOpen])
 
-  // PR10a: Performance Investigation - Track App.tsx render count (DISABLED for testing)
+  // PR10a: Performance Investigation - Track App.tsx render count (DISABLED - useMemo fix confirmed working)
   // const renderCountRef = useRef(0)
   // useEffect(() => {
   //   renderCountRef.current++
   //   console.log(`🏠 App render #${renderCountRef.current}`, {
   //     shapesCount: shapes.length,
   //     selectedCount: selectedShapeIds.size,
+  //     timestamp: Date.now()
   //   })
   // })
 

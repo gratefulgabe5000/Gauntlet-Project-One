@@ -73,15 +73,16 @@ const Canvas = ({
   onCursorMove,
   onStageReady,
 }: CanvasProps) => {
-  // PR10a: Performance Investigation - Track Canvas render count (DISABLED for testing)
+  // PR10a: Performance Investigation - Track Canvas render count (DISABLED - useMemo fix confirmed working)
   // const renderCountRef = useRef(0);
   // renderCountRef.current++;
   // console.log(`🎨 Canvas render #${renderCountRef.current}`, {
   //   shapeCount: shapes.length,
   //   selectedCount: selectedShapeIds.size,
+  //   timestamp: Date.now()
   // });
 
-  // PR10a: Track shapes reference stability (DISABLED for testing)
+  // PR10a: Track shapes reference stability (DISABLED - useMemo fix confirmed working)
   // const prevShapesRef = useRef(shapes);
   // if (prevShapesRef.current !== shapes) {
   //   console.log('⚠️ Shapes reference CHANGED');

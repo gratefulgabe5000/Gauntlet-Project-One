@@ -12,7 +12,7 @@
  * Replaces the local-only useCanvas hook from PR3
  */
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
 import {
     acquireShapeLock,
@@ -27,7 +27,7 @@ import {
 } from '../services/firestore';
 import type { CreateShapeData, Shape } from '../services/types';
 import { ActionType, type CanvasAction } from '../types/canvas.types';
-import { globalSyncMonitor } from '../utils/performance';
+import { debounce, globalSyncMonitor } from '../utils/performance';
 import { useUndoRedo } from './useUndoRedo';
 
 interface UseShapesReturn {
@@ -86,6 +86,9 @@ export function useShapes(): UseShapesReturn {
 
   // Track pending operations for optimistic updates
   const pendingOperationsRef = useRef<Set<string>>(new Set());
+  
+  // PR10a: Quick Win #4 - Track pending position updates for debouncing
+  const pendingPositionUpdatesRef = useRef<Map<string, { x: number; y: number; syncId: string }>>(new Map());
 
   /**
    * PR8a.3.3: Undo/Redo handlers (Phase 2a)
@@ -497,8 +500,58 @@ export function useShapes(): UseShapesReturn {
   );
 
   /**
+   * PR10a: Quick Win #4 - Debounced Firestore write for position updates
+   * Reduces Firestore writes during rapid position changes (e.g., rapid drags)
+   * FIXED: Use useMemo instead of useRef to prevent stale closures
+   */
+  const debouncedFirestorePositionUpdate = useMemo(
+    () => debounce(async (params: {
+      shapeId: string;
+      x: number;
+      y: number;
+      userId: string;
+      oldPosition: { x: number; y: number };
+      syncId: string;
+      onSuccess: (params: { shapeId: string; x: number; y: number; oldPosition: { x: number; y: number } }) => void;
+      onError: (error: string) => void;
+    }) => {
+      try {
+        // Start sync latency tracking
+        globalSyncMonitor.startSync(params.syncId);
+        
+        // Update in Firestore
+        const result = await updateShape(params.shapeId, { x: params.x, y: params.y }, params.userId);
+        
+        // Record sync latency
+        globalSyncMonitor.endSync(params.syncId);
+
+        if (result.success) {
+          console.log('✅ Shape position updated (debounced):', params.shapeId, { x: params.x, y: params.y });
+          params.onSuccess({
+            shapeId: params.shapeId,
+            x: params.x,
+            y: params.y,
+            oldPosition: params.oldPosition
+          });
+          
+          // Clear from pending updates
+          pendingPositionUpdatesRef.current.delete(params.shapeId);
+        } else {
+          console.error('❌ Failed to update shape:', result.error);
+          params.onError(result.error || 'Failed to update shape');
+        }
+      } catch (err) {
+        console.error('❌ Error updating shape:', err);
+        params.onError(err instanceof Error ? err.message : 'Unknown error');
+      }
+    }, 200), // 200ms debounce delay
+    [] // Empty deps - debounce function is stable, params provide fresh values
+  );
+
+  /**
    * Update shape position (after drag)
    * PR8a.3.3: Record MOVE action for undo
+   * PR10a: Quick Win #4 - Debounced Firestore writes for better performance
    */
   const updateShapePosition = useCallback(
     async (shapeId: string, x: number, y: number): Promise<boolean> => {
@@ -516,47 +569,52 @@ export function useShapes(): UseShapesReturn {
         }
         const oldPosition = { x: shapeToUpdate.x, y: shapeToUpdate.y };
 
-        // Optimistically update local state
+        // Optimistically update local state IMMEDIATELY (smooth UX)
         setShapes((prev) =>
           prev.map((shape) => (shape.id === shapeId ? { ...shape, x, y } : shape))
         );
 
-        // PR10a: Track sync latency (Phase 4a Block 2)
+        // PR10a: Quick Win #4 - Debounce the Firestore write
         const syncId = `update-pos-${shapeId}-${Date.now()}`;
-        globalSyncMonitor.startSync(syncId);
         
-        // Update in Firestore
-        const result = await updateShape(shapeId, { x, y }, user.uid);
+        // Store this update as pending
+        pendingPositionUpdatesRef.current.set(shapeId, { x, y, syncId });
         
-        // Record sync latency
-        globalSyncMonitor.endSync(syncId);
+        // Debounced Firestore write (waits 200ms before writing)
+        debouncedFirestorePositionUpdate({
+          shapeId,
+          x,
+          y,
+          userId: user.uid,
+          oldPosition,
+          syncId,
+          // Success callback
+          onSuccess: (params) => {
+            // PR8a.3.3: Record MOVE action only after successful Firestore write
+            addAction({
+              type: ActionType.MOVE,
+              userId: user.uid,
+              timestamp: Date.now(),
+              shapeId: params.shapeId,
+              oldPosition: params.oldPosition,
+              newPosition: { x: params.x, y: params.y },
+            });
+          },
+          // Error callback
+          onError: (error) => {
+            setError(error);
+          }
+        });
 
-        if (result.success) {
-          console.log('✅ Shape position updated:', shapeId, { x, y });
-
-          // PR8a.3.3: Record MOVE action
-          addAction({
-            type: ActionType.MOVE,
-            userId: user.uid,
-            timestamp: Date.now(),
-            shapeId: shapeId,
-            oldPosition: oldPosition,
-            newPosition: { x, y },
-          });
-
-          return true;
-        } else {
-          console.error('❌ Failed to update shape:', result.error);
-          setError(result.error || 'Failed to update shape');
-          return false;
-        }
+        // Return true immediately for optimistic response
+        return true;
       } catch (err) {
         console.error('❌ Error updating shape:', err);
         setError(err instanceof Error ? err.message : 'Unknown error');
         return false;
       }
     },
-    [user, shapes, addAction]
+    [user, shapes, addAction, debouncedFirestorePositionUpdate]
   );
 
   /**

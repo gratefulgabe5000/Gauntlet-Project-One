@@ -122,10 +122,12 @@ export function usePresence(): UsePresenceReturn {
           return !prevUser || u.userId !== prevUser.userId;
         });
       
+      // PR10a: Only update state if users actually changed (prevent unnecessary re-renders)
       if (usersChanged) {
         activeUsersRef.current = otherUsers;
         setActiveUsers(otherUsers);
       }
+      // Diagnostic logging disabled - presence confirmed working perfectly
     });
 
     // Cleanup on unmount
