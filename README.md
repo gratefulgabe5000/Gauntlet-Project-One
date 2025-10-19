@@ -1,6 +1,99 @@
 # CollabCanvas - Gauntlet Project One
 
-A real-time collaborative digital whiteboard application for modern teams.
+> A real-time collaborative digital whiteboard application powered by AI, built for modern teams.
+
+[![Live Demo](https://img.shields.io/badge/demo-live-success)](https://collabcanvas-mvp-53120.web.app)
+[![Firebase](https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Live Demo](#live-demo)
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage Guide](#usage-guide)
+- [Technology Stack](#technology-stack)
+- [Performance Metrics](#performance-metrics)
+- [Project Status](#project-status)
+- [Development Journey](#development-journey)
+- [Contributing](#contributing)
+- [License](#license)
+
+## 🎯 Overview
+
+CollabCanvas is a **production-ready collaborative canvas platform** that enables teams to brainstorm, design, and work together visually in real-time. Built with modern web technologies and featuring **AI-powered natural language commands**, it delivers professional-grade performance with 60 FPS rendering and sub-50ms synchronization.
+
+**Key Differentiators:**
+- 🤖 **AI Canvas Agent**: Create and manipulate shapes using natural language
+- ⚡ **60 FPS Performance**: Smooth interactions at all scales
+- 🔄 **Real-Time Collaboration**: Multiple users with live cursor tracking
+- 🎨 **Professional Transform Operations**: Figma-like resize and rotation
+- 📊 **Performance Monitoring**: Real-time FPS and sync latency tracking
+
+---
+
+## 🌐 Live Demo
+
+**Production URL**: **[collabcanvas-mvp-53120.web.app](https://collabcanvas-mvp-53120.web.app)**
+
+**Test Credentials** (or create your own account):
+- Email: `demo@collabcanvas.com`
+- Password: `demo1234`
+
+**Try These AI Commands:**
+- "Create 5 blue circles in a row"
+- "Add a red rectangle in the center"
+- "Arrange all shapes in a grid"
+
+---
+
+## ✨ Features
+
+### 🎨 **Canvas Operations**
+- **5 Shape Types**: Rectangle, Circle, Text, Line, Arrow
+- **8-Point Resize Handles**: Professional Figma-like resizing
+- **Rotation System**: Full 360° rotation with Shift-snap to 15° increments
+- **Aspect Ratio Locking**: Shift+corner maintains proportions
+- **Undo/Redo**: 50-action history with Ctrl+Z/Shift+Z
+- **Export**: PNG/SVG export with quality options
+
+### 🤖 **AI Canvas Agent** (Phase 3 - 25 Points)
+- **Natural Language Commands**: Plain English shape creation and manipulation
+- **10 AI Tools**: Creation, manipulation, and layout operations
+- **Multi-User Sync**: AI-created shapes sync across all users in real-time
+- **Command History**: Track all AI operations with timestamps
+- **Response Time**: <2s for 90% of commands
+
+### 🔄 **Real-Time Collaboration** (Phase 1 - 15 Points)
+- **Multi-User Canvas**: 5+ concurrent users supported
+- **Live Cursor Tracking**: See other users' cursors in real-time
+- **User Presence**: Online status indicators and user colors
+- **Sub-50ms Sync**: Shape updates sync across browsers in 30-50ms
+- **Conflict Prevention**: Basic object locking system
+
+### ⚡ **Performance Optimization** (Phase 4a - 10 Points)
+- **60 FPS Consistently**: Smooth interactions at all scales
+- **460% FPS Improvement**: Optimized from 15 → 60 FPS for multi-select
+- **React.memo()**: All shape components memoized
+- **Firestore Batch Writes**: 50-70% fewer writes during drag operations
+- **Real-Time Monitoring**: Press `P` to toggle performance panel
+
+### 🎯 **Advanced Features** (Phase 2a/2b - 20 Points)
+- **Advanced Color Picker**: 20+ Material Design colors with recent colors
+- **Keyboard Shortcuts**: 10+ shortcuts (R/C/T/L/A for shapes, Ctrl+Z/Y, Delete, etc.)
+- **Font Size Controls**: Right-click text for 12px-32px options
+- **Context Menus**: Right-click shapes for quick operations
+- **Shift-Drag Duplication**: Figma-style duplication workflow
+
+### 🔒 **Code Quality & Security** (Phase 4a Block 3 - NEW!)
+- **Code Refactoring**: ~1,183 lines eliminated with `useShapeTransform` hook
+- **Input Validation**: Comprehensive validation and sanitization
+- **Rate Limiting**: Client-side AI command throttling (10 requests/minute)
+- **Security Audit**: API keys in environment variables only
+
+---
 
 ## 🎯 Project Status: **PHASE 4a COMPLETE** → 🎉 **70/100 POINTS ACHIEVED** 🚀
 
@@ -432,23 +525,108 @@ This workspace is configured with:
 - **Browser Support**: Chrome 90+ desktop (mobile shows "desktop required")
 - **Canvas Size**: 2000x2000px with pan/zoom boundaries
 
-## 🛠️ Quick Start
+## 🚀 Getting Started
+
+### **Prerequisites**
+
+- **Node.js**: v18+ ([Download](https://nodejs.org/))
+- **npm** or **yarn**: v9+ (comes with Node.js)
+- **Firebase Account**: [Sign up for free](https://firebase.google.com/)
+- **OpenAI API Key**: [Get your API key](https://platform.openai.com/api-keys) (for AI features)
+
+### **Installation Steps**
+
+#### 1️⃣ **Clone the Repository**
+
+```bash
+git clone https://github.com/yourusername/GratefulGabe5000.git
+cd GratefulGabe5000/Gauntlet-Project-One
+```
+
+#### 2️⃣ **Install Dependencies**
+
+```bash
+npm install
+```
+
+#### 3️⃣ **Configure Firebase**
+
+Create a `.env` file in the project root (copy from `.env.example`):
+
+```env
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+
+# OpenAI Configuration
+VITE_OPENAI_API_KEY=your_openai_api_key
+```
+
+**Firebase Setup Instructions:**
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project or select existing one
+3. Enable **Authentication** → Email/Password
+4. Enable **Firestore** → Start in production mode
+5. Enable **Realtime Database** → Start in locked mode
+6. Enable **Hosting**
+7. Go to **Project Settings** → Copy your config to `.env`
+
+#### 4️⃣ **Firestore Security Rules**
+
+Add these security rules in Firebase Console → Firestore:
+
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /canvases/{canvasId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+#### 5️⃣ **Start Development Server**
+
+```bash
+npm run dev
+```
+
+The app will open at `http://localhost:5173`
+
+#### 6️⃣ **Create Your First Account**
+
+1. Navigate to `http://localhost:5173`
+2. Click "Sign Up"
+3. Enter email and password (min 6 characters)
+4. Start creating shapes!
+
+---
 
 ### **Development Commands**
 
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
+# Start development server (with hot reload)
 npm run dev
 
-# Run TypeScript checks
+# Run TypeScript type checking
 npm run type-check
 
 # Build for production
 npm run build
+
+# Preview production build locally
+npm run preview
+
+# Deploy to Firebase Hosting
+firebase deploy --only hosting
 ```
+
+---
 
 ### **Firebase Services Status**
 
@@ -457,6 +635,242 @@ npm run build
 - **Firestore**: Ready for shape persistence ✅
 - **Realtime Database**: Ready for cursor tracking ✅
 - **Hosting**: Configured for deployment ✅
+
+---
+
+## 📖 Usage Guide
+
+### **Basic Shape Creation**
+
+#### **Method 1: Toolbar Buttons**
+1. Click shape buttons in the top toolbar:
+   - 🟦 **Rectangle** (R) - Default: 150x100px
+   - ⭕ **Circle** (C) - Default: 100x100px
+   - 📝 **Text** (T) - Click to add, double-click to edit
+   - ➖ **Line** (L) - Drag from start to end point
+   - ➡️ **Arrow** (A) - Drag with arrowhead at endpoint
+
+#### **Method 2: Keyboard Shortcuts**
+- Press `R` → Click canvas to create rectangle
+- Press `C` → Click canvas to create circle
+- Press `T` → Click canvas to create text
+- Press `L` → Drag to create line
+- Press `A` → Drag to create arrow
+
+#### **Method 3: AI Commands** 🤖
+Type in the AI panel (bottom-left):
+- "Create a red rectangle"
+- "Add 5 blue circles in a row"
+- "Make a green square in the center"
+
+### **Shape Manipulation**
+
+#### **Moving Shapes**
+- **Click & Drag**: Select and move shapes
+- **Multi-Select**: Hold Shift + click multiple shapes
+- **Arrow Keys**: Fine-tune position (10px increments)
+- **Shift + Arrow**: Large adjustments (50px increments)
+
+#### **Resizing Shapes**
+- **8-Point Handles**: Click shape → Drag corner/edge handles
+- **Aspect Ratio Lock**: Hold `Shift` while resizing corners
+- **Center Resize**: Hold `Alt` (not yet implemented)
+- **Negative Resize**: Drag past opposite side to mirror (Line/Arrow)
+
+#### **Rotating Shapes**
+- **Rotation Handle**: Click shape → Drag circular handle above it
+- **Shift-Snap**: Hold `Shift` for 15° increments (0°, 15°, 30°, ...)
+- **Natural Rotation**: Measured from 12 o'clock position
+- **AI Rotation**: "Rotate the square 45 degrees"
+
+#### **Text Editing**
+- **Create**: Press `T` → Click canvas → Type text
+- **Edit**: Double-click text shape → Edit inline
+- **Font Size**: Right-click text → Choose 12px - 32px
+- **Finish**: Click outside or press `Esc`
+
+### **🤖 AI Canvas Agent Commands**
+
+The AI understands natural language! Try these examples:
+
+#### **Creation Commands**
+```
+"Create a blue rectangle at 100,200"
+"Add a red circle with size 80"
+"Make a green square in the center"
+"Draw 10 purple circles in a row"
+"Create a yellow text that says Hello"
+```
+
+#### **Manipulation Commands**
+```
+"Move the blue rectangle to 300,400"
+"Resize the red circle to 120"
+"Change the green square to orange"
+"Rotate the yellow rectangle 45 degrees"
+"Make all shapes purple"
+```
+
+#### **Layout Commands**
+```
+"Arrange all shapes in a grid"
+"Align all rectangles horizontally"
+"Distribute shapes vertically"
+"Create a 3x3 grid of circles"
+```
+
+**Tips:**
+- Be specific: Include colors, sizes, and positions
+- Reference shapes by color or type
+- Use "all" to affect multiple shapes
+- Commands execute in ~2 seconds
+
+### **⌨️ Keyboard Shortcuts**
+
+#### **Shape Creation**
+- `R` - Rectangle tool
+- `C` - Circle tool
+- `T` - Text tool
+- `L` - Line tool
+- `A` - Arrow tool
+- `V` - Selection tool (default)
+
+#### **Editing**
+- `Ctrl + Z` - Undo (50-step history)
+- `Ctrl + Shift + Z` or `Ctrl + Y` - Redo
+- `Delete` or `Backspace` - Delete selected shapes
+- `Shift + Drag` - Duplicate shape
+- `Shift + Click` - Multi-select
+
+#### **View Controls**
+- `Mouse Wheel` - Zoom in/out
+- `Ctrl + 0` - Reset zoom to 100%
+- `Space + Drag` - Pan canvas
+- `P` - Toggle performance stats panel
+
+#### **Other**
+- `Escape` - Deselect all / Cancel current tool
+- `Ctrl + A` - Select all shapes
+- `Ctrl + D` - Duplicate selected shapes
+
+### **🎨 Styling & Customization**
+
+#### **Color Picker**
+1. Select a shape
+2. Click the color picker in the toolbar
+3. Choose from 20+ Material Design colors
+4. Recent colors appear at the top
+
+#### **Fill vs Stroke**
+- **Rectangle/Circle/Text**: Use fill color
+- **Line/Arrow**: Use stroke color and stroke width
+
+#### **Right-Click Context Menu**
+- **Text**: Change font size (12px - 32px)
+- **All Shapes**: Bring to front, send to back, duplicate, delete
+- **Canvas**: Deselect all, paste
+
+### **🔄 Real-Time Collaboration**
+
+#### **Joining a Session**
+1. Share the canvas URL with teammates
+2. They sign in with their account
+3. Everyone sees the same canvas in real-time
+4. Live cursor tracking shows who's where
+
+#### **User Presence**
+- **Top-Right Corner**: See online users
+- **Colored Cursors**: Each user has a unique color
+- **Live Updates**: Changes sync in 30-50ms
+- **Conflict Prevention**: Basic locking system
+
+#### **Collaborative Best Practices**
+- **Communicate**: Use external chat for coordination
+- **Avoid Conflicts**: Don't edit the same shape simultaneously
+- **Use AI Together**: AI commands sync for all users
+- **Check Performance**: Press `P` to monitor sync latency
+
+### **📤 Export & Sharing**
+
+#### **Export as PNG**
+1. Click **Export** button in toolbar
+2. Select **PNG** format
+3. Choose quality (default: 1.0)
+4. Download saves to your device
+
+#### **Export as SVG**
+1. Click **Export** button
+2. Select **SVG** format
+3. Vector graphics for infinite scaling
+4. Compatible with design tools
+
+#### **Sharing Your Canvas**
+- **Live Link**: Share `https://collabcanvas-mvp-53120.web.app`
+- **Collaboration**: All authenticated users see the same canvas
+- **Persistence**: Canvas auto-saves to Firestore
+
+### **📊 Performance Monitoring**
+
+#### **Toggle Performance Panel**
+Press `P` to show/hide real-time performance stats:
+
+- **FPS**: Frames per second (target: 60)
+- **Render Time**: Average, max, min (target: <2ms)
+- **Dropped Frames**: Count of frames slower than 16.67ms
+- **Sync Latency**: Firestore round-trip time (target: <100ms)
+
+#### **Performance Tiers**
+- **🟢 Excellent**: FPS 50-60, Sync <100ms
+- **🟡 Good**: FPS 30-50, Sync 100-300ms
+- **🔴 Poor**: FPS <30, Sync >300ms
+
+**Optimization Tips:**
+- Close other browser tabs
+- Reduce zoom level for complex canvases
+- Limit to <50 shapes for best performance
+- Use AI batch commands ("Create 20 shapes" vs 20 commands)
+
+---
+
+## 🛠️ Technology Stack
+
+### **Frontend**
+- **React 18** - UI framework with concurrent rendering
+- **TypeScript** - Type-safe development
+- **Vite** - Lightning-fast build tool (3s builds)
+- **Tailwind CSS** - Utility-first styling
+- **Konva.js** - High-performance canvas rendering
+- **React-Konva** - React bindings for Konva
+
+### **Backend & Services**
+- **Firebase Authentication** - Email/password auth
+- **Firestore** - Real-time NoSQL database for shapes
+- **Firebase Realtime Database** - Live cursor tracking
+- **Firebase Hosting** - Production deployment
+- **OpenAI API** - AI-powered canvas agent (gpt-4o-mini)
+
+### **State Management**
+- **React Context API** - Global auth state
+- **Custom Hooks** - Encapsulated business logic
+  - `useShapes` - Shape CRUD operations
+  - `usePresence` - User presence tracking
+  - `useUndoRedo` - History management
+  - `useShapeTransform` - Unified transform logic (NEW!)
+
+### **Performance Optimizations**
+- **React.memo()** - Memoized shape components
+- **useMemo** - Cached computed values
+- **Firestore Batch Writes** - Atomic operations
+- **Debounced Updates** - Throttled Firestore writes
+- **Set-Based Selection** - O(1) lookup performance
+
+### **Development Tools**
+- **ESLint** - Code quality linting
+- **Prettier** - Code formatting (planned)
+- **TypeScript Compiler** - Type checking
+- **Vite DevTools** - Hot module replacement
+
+---
 
 ## 📊 Project Progress
 
@@ -1567,6 +1981,168 @@ All 5 shape components now share identical resize patterns:
 - ✅ Multi-user sync: All optimizations work across users
 
 **Lines of Code**: ~1,500+ lines added/modified
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to CollabCanvas! Whether you're fixing bugs, adding features, or improving documentation, your help is appreciated.
+
+### **How to Contribute**
+
+1. **Fork the Repository**
+   ```bash
+   git clone https://github.com/yourusername/GratefulGabe5000.git
+   cd GratefulGabe5000/Gauntlet-Project-One
+   ```
+
+2. **Create a Feature Branch**
+   ```bash
+   git checkout -b feat/your-feature-name
+   # or
+   git checkout -b fix/bug-description
+   ```
+
+3. **Make Your Changes**
+   - Follow the existing code style
+   - Add TypeScript types for all new code
+   - Test your changes thoroughly
+   - Update documentation as needed
+
+4. **Test Locally**
+   ```bash
+   npm run dev          # Start dev server
+   npm run type-check   # Check for TypeScript errors
+   ```
+
+5. **Commit Your Changes**
+   ```bash
+   git add .
+   git commit -m "feat: Add your feature description"
+   # Use conventional commits: feat:, fix:, docs:, chore:, refactor:
+   ```
+
+6. **Push and Create Pull Request**
+   ```bash
+   git push origin feat/your-feature-name
+   ```
+   Then create a PR on GitHub with a clear description.
+
+### **Code Style Guidelines**
+
+- **TypeScript**: Use strict types, avoid `any`
+- **React**: Functional components with hooks
+- **Naming**: camelCase for variables, PascalCase for components
+- **Comments**: Document complex logic and business rules
+- **Performance**: Always memoize expensive computations
+
+### **Testing Checklist**
+
+Before submitting a PR, verify:
+
+- [ ] Dev server runs without errors
+- [ ] TypeScript type checking passes (`npm run type-check`)
+- [ ] No console errors or warnings
+- [ ] Multi-user collaboration works (test in 2 browser windows)
+- [ ] Performance stays at 60 FPS (press `P` to check)
+- [ ] Works on Chrome 90+ desktop
+- [ ] Changes are documented in README/code comments
+
+### **Bug Reports**
+
+Found a bug? Please [open an issue](https://github.com/yourusername/GratefulGabe5000/issues) with:
+
+- **Title**: Clear, concise description
+- **Steps to Reproduce**: Numbered list
+- **Expected Behavior**: What should happen
+- **Actual Behavior**: What actually happens
+- **Screenshots**: If applicable
+- **Environment**: Browser version, OS
+
+### **Feature Requests**
+
+Have an idea? [Open an issue](https://github.com/yourusername/GratefulGabe5000/issues) with:
+
+- **Title**: Feature name
+- **Problem**: What problem does it solve?
+- **Solution**: Your proposed solution
+- **Alternatives**: Other approaches considered
+- **Mockups**: Visual examples if applicable
+
+### **Priority Areas**
+
+We're especially interested in contributions for:
+
+- 🐛 **Bug Fixes**: See [Bug Tracking Document](Artifacts/1.%20Notes/2.%20Planning%20Docs/BUG-2025.10.19-Phase-4b-Bug-Tracking.md)
+- 🎨 **Figma Polish Features**: Smart guides, marquee selection, multi-select transforms
+- 📱 **Mobile Support**: Responsive layout and touch interactions
+- ♿ **Accessibility**: ARIA labels, keyboard navigation improvements
+- 🌐 **Internationalization**: Multi-language support
+- 🧪 **Testing**: Unit tests, integration tests, E2E tests
+
+---
+
+## 📄 License
+
+This project is developed as part of the **AI Engineer Gauntlet Program** and is licensed under the **MIT License**.
+
+### MIT License
+
+```
+MIT License
+
+Copyright (c) 2025 CollabCanvas / GratefulGabe5000
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 📞 Contact & Support
+
+- **Live Demo**: [collabcanvas-mvp-53120.web.app](https://collabcanvas-mvp-53120.web.app)
+- **GitHub Repository**: [GratefulGabe5000](https://github.com/yourusername/GratefulGabe5000)
+- **Issues**: [Report bugs or request features](https://github.com/yourusername/GratefulGabe5000/issues)
+- **Discussions**: [Ask questions or share ideas](https://github.com/yourusername/GratefulGabe5000/discussions)
+
+### **Acknowledgments**
+
+Built with ❤️ as part of the **AI Engineer Gauntlet Program**
+
+**Special Thanks To:**
+- **Cursor AI** - For AI-powered development assistance
+- **Firebase** - For real-time infrastructure
+- **OpenAI** - For AI Canvas Agent capabilities
+- **Konva.js** - For high-performance canvas rendering
+- **React & TypeScript Communities** - For excellent tooling and documentation
+
+---
+
+## 🎯 Project Milestones
+
+- **✅ October 15, 2025**: Phase 1 MVP Complete (22 hours)
+- **✅ October 16-17, 2025**: Phase 2a Complete (Tier 1 features)
+- **✅ October 17-18, 2025**: Phase 2b Complete (Core transforms)
+- **✅ October 18, 2025**: Phase 3 Complete (AI Canvas Agent - 25 points)
+- **✅ October 19, 2025**: Phase 4a Complete (Performance & Code Quality - 10 points)
+- **🔄 October 19, 2025**: Phase 5 In Progress (Documentation & Demo Video - 15 points)
+- **🎯 Target**: 95+ rubric points by October 20, 2025
 
 ---
 
