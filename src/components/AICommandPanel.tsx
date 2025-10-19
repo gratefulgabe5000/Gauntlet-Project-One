@@ -518,3 +518,4 @@ export function AICommandPanel({ onExecuteCommand, isDisabled = false }: AIComma
   );
 }
 
+
