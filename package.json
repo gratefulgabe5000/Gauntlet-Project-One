@@ -29,6 +29,7 @@
   "dependencies": {
     "firebase": "^12.4.0",
     "konva": "^10.0.2",
+    "langsmith": "^0.3.74",
     "lucide-react": "^0.546.0",
     "openai": "^6.5.0",
     "react": "^19.1.1",
