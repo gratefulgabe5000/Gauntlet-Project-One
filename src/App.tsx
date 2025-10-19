@@ -22,6 +22,8 @@ import { useToast } from './hooks/useToast'
 import { getAPIKeyStatus } from './services/openai'
 import { getFriendlyErrorMessage, getSuccessMessage } from './utils/errorMessages'
 import { createArrowShape, createCircleShape, createLineShape, createRectangleShape, createTextShape } from './utils/helpers'
+import { validateShapeData, sanitizeShapeData } from './utils/validation'
+import { checkRateLimit, RATE_LIMITS } from './utils/rateLimiter'
 
 /**
  * CollabCanvas MVP - Main Application Component
@@ -273,76 +275,184 @@ function App() {
   }, [selectedShapeId, selectedShapeIds, removeSelectedShape, removeSelectedShapes, clearSelection, handleClearCanvas, selectAllShapes, undo, redo, canUndo, canRedo, shapes])
 
   // Task 3.4.3 & 3.6.2 & 4.5 + PR6.2.1 + PR6.3.2: Create rectangle with loading state and toast feedback
+  // Phase 4a Block 3 - Task 2: Added input validation
   const handleAddRectangle = async () => {
     setIsCreatingShape(true)
-    const newShape = createRectangleShape()
-    const shapeId = await addShape({ ...newShape, type: 'rectangle' })
-    if (shapeId) {
-      console.log('✅ Rectangle created (Firestore):', shapeId)
-      showSuccess(getSuccessMessage('shape-created'), 3000)
-    } else {
-      console.error('❌ Failed to create rectangle')
-      showError('Failed to create rectangle. Please try again', 5000)
+    try {
+      const newShape = createRectangleShape()
+      const shapeData = { ...newShape, type: 'rectangle' as const }
+      
+      // Validate shape data
+      const validation = validateShapeData(shapeData)
+      if (!validation.isValid) {
+        showError(validation.errors.join('; '), 5000)
+        setIsCreatingShape(false)
+        return
+      }
+      
+      // Show warnings if any
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Shape warnings:', validation.warnings)
+      }
+      
+      // Sanitize data before creation
+      const sanitizedData = sanitizeShapeData(shapeData)
+      const shapeId = await addShape(sanitizedData)
+      
+      if (shapeId) {
+        console.log('✅ Rectangle created (Firestore):', shapeId)
+        showSuccess(getSuccessMessage('shape-created'), 3000)
+      } else {
+        showError('Failed to create rectangle. Please try again', 5000)
+      }
+    } catch (error) {
+      console.error('❌ Error creating rectangle:', error)
+      showError('An error occurred while creating the rectangle', 5000)
+    } finally {
+      setIsCreatingShape(false)
     }
-    setIsCreatingShape(false)
   }
 
+  // Phase 4a Block 3 - Task 2: Added input validation
   const handleAddCircle = async () => {
     setIsCreatingShape(true)
-    const newShape = createCircleShape()
-    const shapeId = await addShape({ ...newShape, type: 'circle' })
-    if (shapeId) {
-      console.log('✅ Circle created (Firestore):', shapeId)
-      showSuccess('Circle created successfully!', 3000)
-    } else {
-      console.error('❌ Failed to create circle')
-      showError('Failed to create circle. Please try again', 5000)
+    try {
+      const newShape = createCircleShape()
+      const shapeData = { ...newShape, type: 'circle' as const }
+      
+      const validation = validateShapeData(shapeData)
+      if (!validation.isValid) {
+        showError(validation.errors.join('; '), 5000)
+        setIsCreatingShape(false)
+        return
+      }
+      
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Shape warnings:', validation.warnings)
+      }
+      
+      const sanitizedData = sanitizeShapeData(shapeData)
+      const shapeId = await addShape(sanitizedData)
+      
+      if (shapeId) {
+        console.log('✅ Circle created (Firestore):', shapeId)
+        showSuccess('Circle created successfully!', 3000)
+      } else {
+        showError('Failed to create circle. Please try again', 5000)
+      }
+    } catch (error) {
+      console.error('❌ Error creating circle:', error)
+      showError('An error occurred while creating the circle', 5000)
+    } finally {
+      setIsCreatingShape(false)
     }
-    setIsCreatingShape(false)
   }
 
+  // Phase 4a Block 3 - Task 2: Added input validation
   const handleAddText = async () => {
     setIsCreatingShape(true)
-    const newShape = createTextShape()
-    const shapeId = await addShape({ ...newShape, type: 'text', text: 'Double-click to edit' })
-    if (shapeId) {
-      console.log('✅ Text created (Firestore):', shapeId)
-      showSuccess('Text created successfully!', 3000)
-    } else {
-      console.error('❌ Failed to create text')
-      showError('Failed to create text. Please try again', 5000)
+    try {
+      const newShape = createTextShape()
+      const shapeData = { ...newShape, type: 'text' as const, text: 'Double-click to edit' }
+      
+      const validation = validateShapeData(shapeData)
+      if (!validation.isValid) {
+        showError(validation.errors.join('; '), 5000)
+        setIsCreatingShape(false)
+        return
+      }
+      
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Shape warnings:', validation.warnings)
+      }
+      
+      const sanitizedData = sanitizeShapeData(shapeData)
+      const shapeId = await addShape(sanitizedData)
+      
+      if (shapeId) {
+        console.log('✅ Text created (Firestore):', shapeId)
+        showSuccess('Text created successfully!', 3000)
+      } else {
+        showError('Failed to create text. Please try again', 5000)
+      }
+    } catch (error) {
+      console.error('❌ Error creating text:', error)
+      showError('An error occurred while creating the text', 5000)
+    } finally {
+      setIsCreatingShape(false)
     }
-    setIsCreatingShape(false)
   }
 
   // PR8a.1.6: Line shape creation handler (Phase 2a)
+  // Phase 4a Block 3 - Task 2: Added input validation
   const handleAddLine = async () => {
     setIsCreatingShape(true)
-    const newShape = createLineShape()
-    const shapeId = await addShape({ ...newShape, type: 'line' })
-    if (shapeId) {
-      console.log('✅ Line created (Firestore):', shapeId)
-      showSuccess('Line created successfully!', 3000)
-    } else {
-      console.error('❌ Failed to create line')
-      showError('Failed to create line. Please try again', 5000)
+    try {
+      const newShape = createLineShape()
+      const shapeData = { ...newShape, type: 'line' as const }
+      
+      const validation = validateShapeData(shapeData)
+      if (!validation.isValid) {
+        showError(validation.errors.join('; '), 5000)
+        setIsCreatingShape(false)
+        return
+      }
+      
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Shape warnings:', validation.warnings)
+      }
+      
+      const sanitizedData = sanitizeShapeData(shapeData)
+      const shapeId = await addShape(sanitizedData)
+      
+      if (shapeId) {
+        console.log('✅ Line created (Firestore):', shapeId)
+        showSuccess('Line created successfully!', 3000)
+      } else {
+        showError('Failed to create line. Please try again', 5000)
+      }
+    } catch (error) {
+      console.error('❌ Error creating line:', error)
+      showError('An error occurred while creating the line', 5000)
+    } finally {
+      setIsCreatingShape(false)
     }
-    setIsCreatingShape(false)
   }
 
   // PR8a.1.6: Arrow shape creation handler (Phase 2a)
+  // Phase 4a Block 3 - Task 2: Added input validation
   const handleAddArrow = async () => {
     setIsCreatingShape(true)
-    const newShape = createArrowShape()
-    const shapeId = await addShape({ ...newShape, type: 'arrow' })
-    if (shapeId) {
-      console.log('✅ Arrow created (Firestore):', shapeId)
-      showSuccess('Arrow created successfully!', 3000)
-    } else {
-      console.error('❌ Failed to create arrow')
-      showError('Failed to create arrow. Please try again', 5000)
+    try {
+      const newShape = createArrowShape()
+      const shapeData = { ...newShape, type: 'arrow' as const }
+      
+      const validation = validateShapeData(shapeData)
+      if (!validation.isValid) {
+        showError(validation.errors.join('; '), 5000)
+        setIsCreatingShape(false)
+        return
+      }
+      
+      if (validation.warnings.length > 0) {
+        console.warn('⚠️ Shape warnings:', validation.warnings)
+      }
+      
+      const sanitizedData = sanitizeShapeData(shapeData)
+      const shapeId = await addShape(sanitizedData)
+      
+      if (shapeId) {
+        console.log('✅ Arrow created (Firestore):', shapeId)
+        showSuccess('Arrow created successfully!', 3000)
+      } else {
+        showError('Failed to create arrow. Please try again', 5000)
+      }
+    } catch (error) {
+      console.error('❌ Error creating arrow:', error)
+      showError('An error occurred while creating the arrow', 5000)
+    } finally {
+      setIsCreatingShape(false)
     }
-    setIsCreatingShape(false)
   }
 
   // PR8a.2.4: Open color picker modal for selected shape (Phase 2a)
@@ -451,7 +561,28 @@ function App() {
   }
 
   // PR9: AI Command execution with toast feedback
+  // Phase 4a Block 3 - Task 3: Added rate limiting
   const handleAICommandExecution = async (userInput: string) => {
+    // Check rate limit
+    const rateLimitKey = `ai-command:${user?.uid || 'anonymous'}`
+    const rateLimit = checkRateLimit(rateLimitKey, RATE_LIMITS.AI_COMMANDS)
+    
+    if (!rateLimit.allowed) {
+      showError(
+        `Rate limit exceeded. Please wait ${rateLimit.retryAfter} seconds before trying again.`,
+        5000
+      )
+      return {
+        success: false,
+        result: {
+          success: false,
+          error: `Rate limit exceeded. Retry after ${rateLimit.retryAfter}s`,
+        },
+        toolCalls: [],
+        duration: 0,
+      }
+    }
+    
     try {
       const result = await executeAICommand(userInput)
       
