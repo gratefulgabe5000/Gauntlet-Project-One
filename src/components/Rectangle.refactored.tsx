@@ -143,3 +143,4 @@ export default React.memo(Rectangle, (prevProps, nextProps) => {
   );
 });
 
+
