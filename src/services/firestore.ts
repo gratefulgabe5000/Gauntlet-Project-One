@@ -25,6 +25,7 @@ import {
     onSnapshot,
     setDoc,
     updateDoc,
+    writeBatch,
     type Unsubscribe
 } from 'firebase/firestore';
 import { db } from './firebase';
@@ -157,6 +158,125 @@ export async function createShape(
     return { success: true, shapeId };
   } catch (error) {
     console.error('❌ Error creating shape:', error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+}
+
+/**
+ * PR10a: Phase 4a Block 4 - Batch Create Shapes
+ * 
+ * Creates multiple shapes in a single Firestore batch write
+ * Dramatically improves performance for bulk operations (AI commands, imports, etc.)
+ * 
+ * @param shapesData - Array of shape data to create
+ * @param userId - ID of user creating shapes
+ * @param canvasId - Canvas document ID
+ * @returns Array of shape IDs created
+ */
+export async function createShapesBatch(
+  shapesData: CreateShapeData[],
+  userId: string,
+  canvasId: string = CONSTANTS.GLOBAL_CANVAS_ID
+): Promise<{ success: boolean; shapeIds?: string[]; error?: string }> {
+  try {
+    if (shapesData.length === 0) {
+      return { success: true, shapeIds: [] };
+    }
+
+    // Firestore batch write limit is 500 operations
+    // We're doing 1 operation per shape, so limit to 400 to be safe
+    if (shapesData.length > 400) {
+      return {
+        success: false,
+        error: 'Batch size exceeds maximum (400 shapes)',
+      };
+    }
+
+    const canvasRef = doc(db, CONSTANTS.COLLECTIONS.CANVASES, canvasId);
+    const canvasSnap = await getDoc(canvasRef);
+
+    if (!canvasSnap.exists()) {
+      await getOrCreateCanvas(canvasId);
+    }
+
+    const now = Date.now();
+    const newShapes: Shape[] = [];
+    const shapeIds: string[] = [];
+
+    // Build all shape objects
+    for (const shapeData of shapesData) {
+      const shapeId = `shape_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      shapeIds.push(shapeId);
+
+      const newShape: any = {
+        id: shapeId,
+        type: shapeData.type,
+        x: shapeData.x,
+        y: shapeData.y,
+        width: shapeData.width,
+        height: shapeData.height,
+        fill: shapeData.fill || CONSTANTS.DEFAULT_SHAPE_FILL,
+        createdBy: userId,
+        createdAt: now,
+        lastModifiedBy: userId,
+        lastModifiedAt: now,
+        isLocked: false,
+        lockedBy: null,
+        lockedAt: null,
+      };
+
+      // Add optional properties
+      if (shapeData.text !== undefined && shapeData.text !== null) {
+        newShape.text = shapeData.text;
+      }
+      if (shapeData.fontSize !== undefined && shapeData.fontSize !== null) {
+        newShape.fontSize = shapeData.fontSize;
+      }
+      if (shapeData.rotation !== undefined && shapeData.rotation !== null) {
+        newShape.rotation = shapeData.rotation;
+      }
+      if (shapeData.points !== undefined && shapeData.points !== null) {
+        newShape.points = shapeData.points;
+      }
+      if (shapeData.pointerLength !== undefined && shapeData.pointerLength !== null) {
+        newShape.pointerLength = shapeData.pointerLength;
+      }
+      if (shapeData.pointerWidth !== undefined && shapeData.pointerWidth !== null) {
+        newShape.pointerWidth = shapeData.pointerWidth;
+      }
+      if (shapeData.stroke !== undefined && shapeData.stroke !== null) {
+        newShape.stroke = shapeData.stroke;
+      }
+      if (shapeData.strokeWidth !== undefined && shapeData.strokeWidth !== null) {
+        newShape.strokeWidth = shapeData.strokeWidth;
+      }
+
+      newShapes.push(newShape as Shape);
+    }
+
+    // Use batch write to add all shapes at once
+    const batch = writeBatch(db);
+    
+    // Get current shapes array
+    const currentShapes = (canvasSnap.data()?.shapes || []) as Shape[];
+    const updatedShapes = [...currentShapes, ...newShapes];
+    
+    // Single update with all shapes
+    batch.update(canvasRef, {
+      shapes: updatedShapes,
+      'metadata.lastModifiedAt': now,
+      'metadata.shapeCount': updatedShapes.length,
+    });
+
+    await batch.commit();
+
+    console.log(`✅ Batch created ${newShapes.length} shapes in single write`);
+    return { success: true, shapeIds };
+  } catch (error) {
+    console.error('❌ Error creating shapes batch:', error);
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error',

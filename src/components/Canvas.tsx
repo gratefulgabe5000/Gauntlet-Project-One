@@ -1,7 +1,7 @@
 import type Konva from 'konva';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
-import type { UserPresence } from '../services/types';
+import type { Shape, UserPresence } from '../services/types';
 import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../utils/helpers';
 import Arrow from './Arrow';
 import Circle from './Circle';
@@ -30,7 +30,7 @@ const MAX_SCALE = 3;
 interface CanvasProps {
   shapes: RectangleShape[];
   selectedShapeId: string | null;
-  selectedShapeIds?: string[]; // PR8a: Multi-select support
+  selectedShapeIds?: Set<string>; // PR8a: Multi-select support, PR10a: Set for O(1) lookup
   onSelectShape: (shapeId: string | null, addToSelection?: boolean) => void;
   onUpdateShapePosition: (shapeId: string, x: number, y: number) => void;
   onUpdateShapeDimensions: (shapeId: string, width: number, height: number) => void;
@@ -55,7 +55,7 @@ interface CanvasProps {
 const Canvas = ({
   shapes,
   selectedShapeId,
-  selectedShapeIds = [], // PR8a: Multi-select
+  selectedShapeIds = new Set(), // PR8a: Multi-select, PR10a: Set optimization
   onSelectShape,
   onUpdateShapePosition,
   onUpdateShapeDimensions,
@@ -73,6 +73,21 @@ const Canvas = ({
   onCursorMove,
   onStageReady,
 }: CanvasProps) => {
+  // PR10a: Performance Investigation - Track Canvas render count (DISABLED for testing)
+  // const renderCountRef = useRef(0);
+  // renderCountRef.current++;
+  // console.log(`🎨 Canvas render #${renderCountRef.current}`, {
+  //   shapeCount: shapes.length,
+  //   selectedCount: selectedShapeIds.size,
+  // });
+
+  // PR10a: Track shapes reference stability (DISABLED for testing)
+  // const prevShapesRef = useRef(shapes);
+  // if (prevShapesRef.current !== shapes) {
+  //   console.log('⚠️ Shapes reference CHANGED');
+  //   prevShapesRef.current = shapes;
+  // }
+
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
 
@@ -314,6 +329,111 @@ const Canvas = ({
     }
   };
 
+  // PR10a: Memoize shape rendering to prevent unnecessary re-renders
+  const renderedShapes = useMemo(() => {
+    // console.log(`🔨 useMemo re-ran - creating ${shapes.length} shape elements`); // DISABLED for testing
+    return shapes.map((shape) => {
+      const isSelected = selectedShapeIds.has(shape.id);
+      
+      const shapeProps = {
+        shape: shape,
+        isSelected: isSelected,
+        onSelect: (e?: any) => {
+          const shiftKey = e?.evt?.shiftKey || false;
+          onSelectShape(shape.id, shiftKey);
+        },
+        onDragStart: async (e?: any) => {
+          isShapeDraggingRef.current = true;
+          onShapeDragStart?.();
+
+          if (e?.evt?.shiftKey && onDuplicateShape) {
+            const duplicateId = await onDuplicateShape(shape.id);
+            if (duplicateId) {
+              onSelectShape(duplicateId);
+              console.log('🔄 Shift-drag: Created duplicate', duplicateId);
+            }
+          }
+        },
+        onDragEnd: (id: string, x: number, y: number) => {
+          onUpdateShapePosition(id, x, y);
+          onShapeDragEnd?.();
+        },
+        onUpdateShape: (id: string, updates: any) => {
+          console.log('🎯 Shape updated:', id, updates);
+          
+          const hasPositionChange = updates.x !== undefined || updates.y !== undefined;
+          const hasDimensionChange = updates.width !== undefined || updates.height !== undefined;
+          const hasRotation = updates.rotation !== undefined;
+          
+          if (hasRotation && onUpdateShapeProperties) {
+            console.log('🔄 Updating with rotation:', updates.rotation);
+            onUpdateShapeProperties(id, updates);
+          } else if (hasPositionChange && hasDimensionChange) {
+            onUpdateShapePositionAndDimensions(
+              id, 
+              updates.x ?? shape.x, 
+              updates.y ?? shape.y, 
+              updates.width ?? shape.width, 
+              updates.height ?? shape.height
+            );
+          } else if (hasPositionChange) {
+            onUpdateShapePosition(id, updates.x || shape.x, updates.y || shape.y);
+          } else if (hasDimensionChange) {
+            onUpdateShapeDimensions(id, updates.width || shape.width, updates.height || shape.height);
+          }
+        },
+        onRightClick: (e: any) => {
+          e.evt.preventDefault();
+          const stage = e.target.getStage();
+          if (stage) {
+            const pointerPosition = stage.getPointerPosition();
+            if (pointerPosition) {
+              setContextMenu({
+                visible: true,
+                x: pointerPosition.x + stage.container().offsetLeft,
+                y: pointerPosition.y + stage.container().offsetTop,
+                shapeId: shape.id,
+                shapeType: shape.type,
+                currentColor: shape.fill,
+                currentFontSize: shape.fontSize || 16,
+              });
+            }
+          }
+        },
+      };
+
+      if (shape.type === 'circle') {
+        return <Circle key={shape.id} {...shapeProps} />;
+      } else if (shape.type === 'text') {
+        return (
+          <Text
+            key={shape.id}
+            {...shapeProps}
+            onTextChange={onTextChange}
+          />
+        );
+      } else if (shape.type === 'line') {
+        return <Line key={shape.id} {...shapeProps} />;
+      } else if (shape.type === 'arrow') {
+        return <Arrow key={shape.id} {...shapeProps} />;
+      } else {
+        return <Rectangle key={shape.id} {...shapeProps} />;
+      }
+    });
+  }, [
+    shapes,
+    selectedShapeIds,
+    onSelectShape,
+    onShapeDragStart,
+    onDuplicateShape,
+    onShapeDragEnd,
+    onUpdateShapePosition,
+    onUpdateShapePositionAndDimensions,
+    onUpdateShapeDimensions,
+    onUpdateShapeProperties,
+    onTextChange,
+  ]);
+
   return (
     <div
       ref={containerRef}
@@ -356,105 +476,9 @@ const Canvas = ({
           />
         </Layer>
 
-        {/* Shapes Layer - User-created shapes (PR3.2, PR8a.1.6) */}
+        {/* Shapes Layer - User-created shapes (PR3.2, PR8a.1.6, PR10a: Memoized) */}
         <Layer>
-          {shapes.map((shape) => {
-            const shapeProps = {
-              shape: shape,
-              isSelected: selectedShapeIds.includes(shape.id), // PR8a: Multi-select check
-              onSelect: (e?: any) => {
-                // PR8a: Multi-select with Shift key
-                const shiftKey = e?.evt?.shiftKey || false;
-                onSelectShape(shape.id, shiftKey);
-              },
-              onDragStart: async (e?: any) => {
-                isShapeDraggingRef.current = true;
-                onShapeDragStart?.();
-
-                // PR8a: Shift-drag to duplicate
-                if (e?.evt?.shiftKey && onDuplicateShape) {
-                  const duplicateId = await onDuplicateShape(shape.id);
-                  if (duplicateId) {
-                    // Select the duplicate so it becomes the one being dragged
-                    onSelectShape(duplicateId);
-                    console.log('🔄 Shift-drag: Created duplicate', duplicateId);
-                  }
-                }
-              },
-              onDragEnd: (id: string, x: number, y: number) => {
-                // Note: Reset flag in handleStageDragEnd to ensure it runs first
-                onUpdateShapePosition(id, x, y);
-                onShapeDragEnd?.();
-              },
-              onUpdateShape: (id: string, updates: any) => {
-                // Phase 2b: Handle resize/rotate updates from TransformHandles
-                console.log('🎯 Shape updated:', id, updates);
-                
-                const hasPositionChange = updates.x !== undefined || updates.y !== undefined;
-                const hasDimensionChange = updates.width !== undefined || updates.height !== undefined;
-                const hasRotation = updates.rotation !== undefined;
-                
-                // Task 8b.2.3: If rotation is included, use generic property update
-                if (hasRotation && onUpdateShapeProperties) {
-                  console.log('🔄 Updating with rotation:', updates.rotation);
-                  onUpdateShapeProperties(id, updates);
-                } else if (hasPositionChange && hasDimensionChange) {
-                  // Atomic operation for N/W handles that change both position and dimensions
-                  onUpdateShapePositionAndDimensions(
-                    id, 
-                    updates.x ?? shape.x, 
-                    updates.y ?? shape.y, 
-                    updates.width ?? shape.width, 
-                    updates.height ?? shape.height
-                  );
-                } else if (hasPositionChange) {
-                  // Position-only update (regular drag)
-                  onUpdateShapePosition(id, updates.x || shape.x, updates.y || shape.y);
-                } else if (hasDimensionChange) {
-                  // Dimension-only update (E/S handles)
-                  onUpdateShapeDimensions(id, updates.width || shape.width, updates.height || shape.height);
-                }
-              },
-              onRightClick: (e: any) => {
-                e.evt.preventDefault();
-                const stage = e.target.getStage();
-                if (stage) {
-                  const pointerPosition = stage.getPointerPosition();
-                  if (pointerPosition) {
-                    setContextMenu({
-                      visible: true,
-                      x: pointerPosition.x + stage.container().offsetLeft,
-                      y: pointerPosition.y + stage.container().offsetTop,
-                      shapeId: shape.id,
-                      shapeType: shape.type,
-                      currentColor: shape.fill,
-                      currentFontSize: shape.fontSize || 16,
-                    });
-                  }
-                }
-              },
-            };
-
-            if (shape.type === 'circle') {
-              return <Circle key={shape.id} {...shapeProps} />;
-            } else if (shape.type === 'text') {
-              return (
-                <Text
-                  key={shape.id}
-                  {...shapeProps}
-                  onTextChange={onTextChange}
-                />
-              );
-            } else if (shape.type === 'line') {
-              // PR8a.1.6: Line shape rendering (Phase 2a)
-              return <Line key={shape.id} {...shapeProps} />;
-            } else if (shape.type === 'arrow') {
-              // PR8a.1.6: Arrow shape rendering (Phase 2a)
-              return <Arrow key={shape.id} {...shapeProps} />;
-            } else {
-              return <Rectangle key={shape.id} {...shapeProps} />;
-            }
-          })}
+          {renderedShapes}
         </Layer>
 
         {/* Cursors Layer - Other users' cursors (PR5.6) */}

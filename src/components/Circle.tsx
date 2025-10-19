@@ -469,4 +469,22 @@ const Circle = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateS
   );
 };
 
-export default Circle;
+// PR10a: Phase 4a Block 4 - Memoize to prevent unnecessary re-renders
+export default React.memo(Circle, (prevProps, nextProps) => {
+  if (prevProps.isSelected !== nextProps.isSelected) return false;
+  if (prevProps.shape === nextProps.shape) return true;
+  
+  return (
+    prevProps.shape.id === nextProps.shape.id &&
+    prevProps.shape.x === nextProps.shape.x &&
+    prevProps.shape.y === nextProps.shape.y &&
+    prevProps.shape.width === nextProps.shape.width &&
+    prevProps.shape.height === nextProps.shape.height &&
+    prevProps.shape.fill === nextProps.shape.fill &&
+    prevProps.shape.rotation === nextProps.shape.rotation &&
+    prevProps.shape.stroke === nextProps.shape.stroke &&
+    prevProps.shape.strokeWidth === nextProps.shape.strokeWidth &&
+    prevProps.shape.opacity === nextProps.shape.opacity &&
+    prevProps.shape.locked === nextProps.shape.locked
+  );
+});

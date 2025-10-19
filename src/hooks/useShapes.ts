@@ -17,6 +17,7 @@ import { useAuth } from '../auth/AuthContext';
 import {
     acquireShapeLock,
     createShape,
+    createShapesBatch,
     deleteShape,
     getOrCreateCanvas,
     releaseShapeLock,
@@ -26,18 +27,20 @@ import {
 } from '../services/firestore';
 import type { CreateShapeData, Shape } from '../services/types';
 import { ActionType, type CanvasAction } from '../types/canvas.types';
+import { globalSyncMonitor } from '../utils/performance';
 import { useUndoRedo } from './useUndoRedo';
 
 interface UseShapesReturn {
   // State
   shapes: Shape[];
   selectedShapeId: string | null; // Primary selection for backwards compatibility
-  selectedShapeIds: string[]; // PR8a: Multi-select support
+  selectedShapeIds: Set<string>; // PR10a: Phase 4a Block 4 - Optimized with Set for O(1) lookups
   isLoading: boolean;
   error: string | null;
 
   // Shape operations
   addShape: (shapeData: CreateShapeData) => Promise<string | null>;
+  addShapesBatch: (shapesData: CreateShapeData[]) => Promise<string[]>; // PR10a: Phase 4a Block 4
   removeShape: (shapeId: string) => Promise<boolean>;
   updateShapePosition: (shapeId: string, x: number, y: number) => Promise<boolean>;
   updateShapeText: (shapeId: string, text: string) => Promise<boolean>;
@@ -77,7 +80,7 @@ export function useShapes(): UseShapesReturn {
   const { user } = useAuth();
   const [shapes, setShapes] = useState<Shape[]>([]);
   const [selectedShapeId, setSelectedShapeId] = useState<string | null>(null);
-  const [selectedShapeIds, setSelectedShapeIds] = useState<string[]>([]); // PR8a: Multi-select
+  const [selectedShapeIds, setSelectedShapeIds] = useState<Set<string>>(new Set()); // PR10a: Phase 4a Block 4 - Optimized Set
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -327,8 +330,15 @@ export function useShapes(): UseShapesReturn {
       }
 
       try {
+        // PR10a: Track sync latency (Phase 4a Block 2)
+        const syncId = `create-${Date.now()}`;
+        globalSyncMonitor.startSync(syncId);
+        
         // Create shape in Firestore
         const result = await createShape(shapeData, user.uid);
+        
+        // Record sync latency
+        globalSyncMonitor.endSync(syncId);
 
         if (result.success && result.shapeId) {
           console.log('✅ Shape added successfully:', result.shapeId);
@@ -364,6 +374,71 @@ export function useShapes(): UseShapesReturn {
       }
     },
     [user, shapes, addAction]
+  );
+
+  /**
+   * PR10a: Phase 4a Block 4 - Batch Add Shapes
+   * Creates multiple shapes in a single Firestore write for performance
+   * Ideal for AI commands that create multiple shapes at once
+   */
+  const addShapesBatch = useCallback(
+    async (shapesData: CreateShapeData[]): Promise<string[]> => {
+      if (!user) {
+        console.error('❌ Cannot add shapes batch: no user authenticated');
+        return [];
+      }
+
+      if (shapesData.length === 0) {
+        return [];
+      }
+
+      try {
+        // PR10a: Track sync latency (Phase 4a Block 2)
+        const syncId = `create-batch-${Date.now()}`;
+        globalSyncMonitor.startSync(syncId);
+        
+        // Create shapes in batch
+        const result = await createShapesBatch(shapesData, user.uid);
+        
+        // Record sync latency
+        globalSyncMonitor.endSync(syncId);
+
+        if (result.success && result.shapeIds) {
+          console.log(`✅ Batch created ${result.shapeIds.length} shapes successfully`);
+
+          // PR8a.3.3: Record CREATE action for each shape for undo
+          // Note: Batch undo will undo all shapes created in this batch
+          result.shapeIds.forEach((shapeId, index) => {
+            const createdShape: Shape = {
+              id: shapeId,
+              ...shapesData[index],
+              userId: user.uid,
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            };
+            
+            addAction({
+              type: ActionType.CREATE,
+              userId: user.uid,
+              timestamp: Date.now(),
+              shapeId: shapeId,
+              shape: createdShape,
+            });
+          });
+
+          return result.shapeIds;
+        } else {
+          console.error('❌ Failed to create shapes batch:', result.error);
+          setError(result.error || 'Failed to create shapes batch');
+          return [];
+        }
+      } catch (err) {
+        console.error('❌ Error adding shapes batch:', err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
+        return [];
+      }
+    },
+    [user, addAction]
   );
 
   /**
@@ -446,8 +521,15 @@ export function useShapes(): UseShapesReturn {
           prev.map((shape) => (shape.id === shapeId ? { ...shape, x, y } : shape))
         );
 
+        // PR10a: Track sync latency (Phase 4a Block 2)
+        const syncId = `update-pos-${shapeId}-${Date.now()}`;
+        globalSyncMonitor.startSync(syncId);
+        
         // Update in Firestore
         const result = await updateShape(shapeId, { x, y }, user.uid);
+        
+        // Record sync latency
+        globalSyncMonitor.endSync(syncId);
 
         if (result.success) {
           console.log('✅ Shape position updated:', shapeId, { x, y });
@@ -630,8 +712,15 @@ export function useShapes(): UseShapesReturn {
           prev.map((shape) => (shape.id === shapeId ? { ...shape, fill: color } : shape))
         );
 
+        // PR10a: Track sync latency (Phase 4a Block 2)
+        const syncId = `update-color-${shapeId}-${Date.now()}`;
+        globalSyncMonitor.startSync(syncId);
+        
         // Update in Firestore
         const result = await updateShape(shapeId, { fill: color }, user.uid);
+        
+        // Record sync latency
+        globalSyncMonitor.endSync(syncId);
 
         if (result.success) {
           console.log('✅ Shape color updated:', shapeId, color);
@@ -820,35 +909,37 @@ export function useShapes(): UseShapesReturn {
   );
 
   /**
-   * Select a shape (PR8a: Updated for multi-select)
+   * Select a shape (PR10a: Phase 4a Block 4 - Optimized with Set for O(1) performance)
    */
   const selectShape = useCallback((shapeId: string | null, addToSelection: boolean = false) => {
     if (shapeId === null) {
       // Clear selection
       setSelectedShapeId(null);
-      setSelectedShapeIds([]);
+      setSelectedShapeIds(new Set());
       return;
     }
 
     if (addToSelection) {
       // Add to or toggle in selection
       setSelectedShapeIds((prev) => {
-        if (prev.includes(shapeId)) {
+        const newSelection = new Set(prev);
+        if (newSelection.has(shapeId)) {
           // Remove from selection
-          const newSelection = prev.filter(id => id !== shapeId);
-          setSelectedShapeId(newSelection.length > 0 ? newSelection[newSelection.length - 1] : null);
-          return newSelection;
+          newSelection.delete(shapeId);
+          // Set last item as primary
+          const lastId = Array.from(newSelection).pop();
+          setSelectedShapeId(lastId || null);
         } else {
           // Add to selection
-          const newSelection = [...prev, shapeId];
+          newSelection.add(shapeId);
           setSelectedShapeId(shapeId); // Set as primary
-          return newSelection;
         }
+        return newSelection;
       });
     } else {
       // Replace selection
       setSelectedShapeId(shapeId);
-      setSelectedShapeIds([shapeId]);
+      setSelectedShapeIds(new Set([shapeId]));
     }
   }, []);
 
@@ -857,18 +948,18 @@ export function useShapes(): UseShapesReturn {
    */
   const clearSelection = useCallback(() => {
     setSelectedShapeId(null);
-    setSelectedShapeIds([]);
+    setSelectedShapeIds(new Set());
   }, []);
 
   /**
-   * Select all shapes (PR8a: Multi-select)
+   * Select all shapes (PR10a: Phase 4a Block 4 - Optimized with Set)
    */
   const selectAllShapes = useCallback(() => {
     if (shapes.length === 0) return;
 
-    const allIds = shapes.map(s => s.id);
+    const allIds = new Set(shapes.map(s => s.id));
     setSelectedShapeIds(allIds);
-    setSelectedShapeId(allIds[allIds.length - 1]); // Set last as primary
+    setSelectedShapeId(shapes[shapes.length - 1].id); // Set last as primary
 
     console.log('📋 Selected all ' + shapes.length + ' shapes');
   }, [shapes]);
@@ -882,10 +973,10 @@ export function useShapes(): UseShapesReturn {
   }, [selectedShapeId, shapes]);
 
   /**
-   * Get all selected shapes (PR8a: Multi-select)
+   * Get all selected shapes (PR10a: Phase 4a Block 4 - O(1) Set lookup)
    */
   const getSelectedShapes = useCallback((): Shape[] => {
-    return shapes.filter((s) => selectedShapeIds.includes(s.id));
+    return shapes.filter((s) => selectedShapeIds.has(s.id));
   }, [selectedShapeIds, shapes]);
 
   /**
@@ -1058,6 +1149,7 @@ export function useShapes(): UseShapesReturn {
 
     // Shape operations
     addShape,
+    addShapesBatch, // PR10a: Phase 4a Block 4 - Batch create
     removeShape,
     updateShapePosition,
     updateShapeDimensions,

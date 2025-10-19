@@ -447,4 +447,21 @@ const Arrow = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateSh
   );
 };
 
-export default Arrow;
+// PR10a: Phase 4a Block 4 - Memoize to prevent unnecessary re-renders
+export default React.memo(Arrow, (prevProps, nextProps) => {
+  if (prevProps.isSelected !== nextProps.isSelected) return false;
+  if (prevProps.shape === nextProps.shape) return true;
+  
+  return (
+    prevProps.shape.id === nextProps.shape.id &&
+    prevProps.shape.x === nextProps.shape.x &&
+    prevProps.shape.y === nextProps.shape.y &&
+    prevProps.shape.width === nextProps.shape.width &&
+    prevProps.shape.height === nextProps.shape.height &&
+    prevProps.shape.stroke === nextProps.shape.stroke &&
+    prevProps.shape.strokeWidth === nextProps.shape.strokeWidth &&
+    prevProps.shape.rotation === nextProps.shape.rotation &&
+    prevProps.shape.opacity === nextProps.shape.opacity &&
+    prevProps.shape.locked === nextProps.shape.locked
+  );
+});

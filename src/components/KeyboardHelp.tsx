@@ -116,6 +116,12 @@ const KeyboardHelp = ({
       actionLabel: 'Toggle Help'
     },
     {
+      key: 'P',
+      description: 'Show/hide performance stats',
+      action: null,
+      actionLabel: 'Toggle Stats'
+    },
+    {
       key: 'Mouse Wheel',
       description: 'Zoom in/out',
       action: null,

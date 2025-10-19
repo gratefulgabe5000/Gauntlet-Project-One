@@ -32,6 +32,9 @@ export interface UseKeyboardShortcutsOptions {
   /** Callback to toggle help panel */
   onToggleHelp?: () => void;
 
+  /** Callback to toggle performance stats panel (PR10a: Phase 4a Block 2) */
+  onTogglePerformanceStats?: () => void;
+
   /** Whether shortcuts are enabled */
   enabled?: boolean;
 }
@@ -46,6 +49,7 @@ export function useKeyboardShortcuts({
   onDuplicateShape,
   onSelectShape,
   onToggleHelp,
+  onTogglePerformanceStats,
   enabled = true,
 }: UseKeyboardShortcutsOptions) {
   /**
@@ -133,6 +137,16 @@ export function useKeyboardShortcuts({
   }, [onToggleHelp]);
 
   /**
+   * Handle P key - toggle performance stats panel (PR10a: Phase 4a Block 2)
+   */
+  const handleTogglePerformanceStats = useCallback(() => {
+    if (onTogglePerformanceStats) {
+      console.log('📊 Toggling performance stats panel');
+      onTogglePerformanceStats();
+    }
+  }, [onTogglePerformanceStats]);
+
+  /**
    * Set up keyboard event listeners
    */
   useEffect(() => {
@@ -180,6 +194,13 @@ export function useKeyboardShortcuts({
       if (e.key === 'h' || e.key === 'H' || e.key === '?') {
         e.preventDefault();
         handleToggleHelp();
+        return;
+      }
+
+      // P - toggle performance stats panel (PR10a: Phase 4a Block 2)
+      if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        handleTogglePerformanceStats();
         return;
       }
 

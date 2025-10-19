@@ -1,5 +1,5 @@
 import type Konva from 'konva'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import './App.css'
 import { useAuth } from './auth/AuthContext'
 import AuthGuard from './auth/AuthGuard'
@@ -10,6 +10,7 @@ import EmptyState from './components/EmptyState'
 import ExportModal from './components/ExportModal'
 import KeyboardHelp from './components/KeyboardHelp'
 import MobileWarning from './components/MobileWarning'
+import { PerformanceStats } from './components/PerformanceStats'
 import ToastContainer from './components/ToastContainer'
 import Toolbar from './components/Toolbar'
 import UserPresence from './components/UserPresence'
@@ -92,11 +93,27 @@ function App() {
   // PR9: AI Command Panel state
   const [isAICommandPanelOpen, setIsAICommandPanelOpen] = useState(false)
 
+  // PR10a: Performance Stats Panel state (Phase 4a Block 2)
+  const [isPerformanceStatsOpen, setIsPerformanceStatsOpen] = useState(false)
+  const togglePerformanceStats = useCallback(() => {
+    setIsPerformanceStatsOpen(!isPerformanceStatsOpen)
+  }, [isPerformanceStatsOpen])
+
   // Help panel state for H and ? key shortcuts (must be declared before useKeyboardShortcuts)
   const [isHelpPanelOpen, setIsHelpPanelOpen] = useState(false)
   const toggleHelpPanel = useCallback(() => {
     setIsHelpPanelOpen(!isHelpPanelOpen)
   }, [isHelpPanelOpen])
+
+  // PR10a: Performance Investigation - Track App.tsx render count (DISABLED for testing)
+  // const renderCountRef = useRef(0)
+  // useEffect(() => {
+  //   renderCountRef.current++
+  //   console.log(`🏠 App render #${renderCountRef.current}`, {
+  //     shapesCount: shapes.length,
+  //     selectedCount: selectedShapeIds.size,
+  //   })
+  // })
 
   // PR8a.4: Enhanced keyboard shortcuts
   useKeyboardShortcuts({
@@ -106,6 +123,7 @@ function App() {
     onDuplicateShape: duplicateShape,
     onSelectShape: selectShape,
     onToggleHelp: toggleHelpPanel,
+    onTogglePerformanceStats: togglePerformanceStats, // PR10a: Phase 4a Block 2
     enabled: true,
   })
 
@@ -584,6 +602,12 @@ function App() {
             isDisabled={!apiKeyStatus.configured}
           />
         </div>
+
+        {/* PR10a: Performance Stats Panel (Phase 4a Block 2) */}
+        <PerformanceStats
+          show={isPerformanceStatsOpen}
+          onClose={() => setIsPerformanceStatsOpen(false)}
+        />
       </div>
     </AuthGuard>
   )

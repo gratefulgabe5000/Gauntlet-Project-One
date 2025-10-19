@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Group, Rect } from 'react-konva';
 import type { Shape } from '../services/types';
 import { constrainShapePosition } from '../utils/helpers';
@@ -476,4 +476,29 @@ const Rectangle = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpda
   );
 };
 
-export default Rectangle;
+// PR10a: Phase 4a Block 4 - Memoize to prevent unnecessary re-renders
+// Only re-render if shape props or selection state actually changed
+export default React.memo(Rectangle, (prevProps, nextProps) => {
+  // If selection state changed, re-render
+  if (prevProps.isSelected !== nextProps.isSelected) return false;
+  
+  // If shape reference is the same, skip re-render (no changes)
+  if (prevProps.shape === nextProps.shape) return true;
+  
+  // Compare shape properties that affect rendering
+  return (
+    prevProps.shape.id === nextProps.shape.id &&
+    prevProps.shape.x === nextProps.shape.x &&
+    prevProps.shape.y === nextProps.shape.y &&
+    prevProps.shape.width === nextProps.shape.width &&
+    prevProps.shape.height === nextProps.shape.height &&
+    prevProps.shape.fill === nextProps.shape.fill &&
+    prevProps.shape.rotation === nextProps.shape.rotation &&
+    prevProps.shape.stroke === nextProps.shape.stroke &&
+    prevProps.shape.strokeWidth === nextProps.shape.strokeWidth &&
+    prevProps.shape.opacity === nextProps.shape.opacity &&
+    prevProps.shape.text === nextProps.shape.text &&
+    prevProps.shape.fontSize === nextProps.shape.fontSize &&
+    prevProps.shape.locked === nextProps.shape.locked
+  );
+});

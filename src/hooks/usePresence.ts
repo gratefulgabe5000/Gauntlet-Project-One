@@ -50,6 +50,17 @@ export function usePresence(): UsePresenceReturn {
   const lastCursorUpdateRef = useRef<number>(0);
   const cursorThrottleMs = CONSTANTS.CURSOR_UPDATE_THROTTLE_MS;
 
+  // PR10a: Use refs to prevent stale closures in presence subscription
+  const currentUserColorRef = useRef<string>(currentUserColor);
+  const currentUserNameRef = useRef<string>(currentUserName);
+  const activeUsersRef = useRef<UserPresence[]>([]); // PR10a: Track active users to prevent unnecessary array re-creation
+
+  // Update refs when state changes
+  useEffect(() => {
+    currentUserColorRef.current = currentUserColor;
+    currentUserNameRef.current = currentUserName;
+  }, [currentUserColor, currentUserName]);
+
   /**
    * Task 5.4.2: Initialize user presence on mount
    */
@@ -65,10 +76,12 @@ export function usePresence(): UsePresenceReturn {
     // Get user color
     const color = getUserColor(user.uid);
     setCurrentUserColor(color);
+    currentUserColorRef.current = color;
 
     // Get display name
     const displayName = formatUserDisplayName(user.displayName, user.email);
     setCurrentUserName(displayName);
+    currentUserNameRef.current = displayName;
 
     // Initialize presence
     initializeUserPresence(user.uid, displayName, color)
@@ -85,19 +98,34 @@ export function usePresence(): UsePresenceReturn {
       // Find current user to update their color and name in real-time
       const currentUser = users.find((u) => u.userId === user.uid);
       if (currentUser) {
-        if (currentUser.cursorColor !== currentUserColor) {
+        // PR10a: Use refs to get current values and prevent unnecessary updates
+        if (currentUser.cursorColor !== currentUserColorRef.current) {
           setCurrentUserColor(currentUser.cursorColor);
+          currentUserColorRef.current = currentUser.cursorColor;
           console.log('🎨 Current user color updated:', currentUser.cursorColor);
         }
-        if (currentUser.displayName !== currentUserName) {
+        if (currentUser.displayName !== currentUserNameRef.current) {
           setCurrentUserName(currentUser.displayName);
+          currentUserNameRef.current = currentUser.displayName;
           console.log('👤 Current user name updated:', currentUser.displayName);
         }
       }
 
       // Filter out current user from the list
       const otherUsers = users.filter((u) => u.userId !== user.uid);
-      setActiveUsers(otherUsers);
+      
+      // PR10a: Only update if users have actually changed (prevent unnecessary re-renders)
+      const usersChanged = 
+        otherUsers.length !== activeUsersRef.current.length ||
+        otherUsers.some((u, i) => {
+          const prevUser = activeUsersRef.current[i];
+          return !prevUser || u.userId !== prevUser.userId;
+        });
+      
+      if (usersChanged) {
+        activeUsersRef.current = otherUsers;
+        setActiveUsers(otherUsers);
+      }
     });
 
     // Cleanup on unmount
