@@ -1,8 +1,8 @@
-%% CollabCanvas Full-Stack System Integration Architecture v5.0
-%% Aligned with: PRD v5.0, TaskList v5.0, WBS v5.0, TechStack v5.0
-%% Updated: October 16, 2025
-%% Phase Structure: 2a/2b (Rubric/Figma), 3 (AI), 4a/4b (Performance/Figma), 5 (LangSmith)
-%% Custom Utilities: transform.ts, alignment.ts
+%% CollabCanvas Full-Stack System Integration Architecture v5.1
+%% Aligned with: PRD v5.0, TaskList v5.8, WBS v5.0, TechStack v5.0, ARCHITECTURE.md v1.0
+%% Updated: October 19, 2025
+%% Phase Status: Phase 1 ✅ | Phase 2a/2b ✅ | Phase 3 ✅ | Phase 4a ✅ | Phase 4b/5 ⏳
+%% Custom Utilities: transform.ts, alignment.ts, validation.ts, rateLimiter.ts, useShapeTransform.ts
 
 graph TB
     subgraph "👤 USER LAYER - Multi-Device Access"
@@ -51,12 +51,15 @@ graph TB
                 MarqueeSelection[MarqueeSelection.tsx<br/>Drag-to-select<br/>Collision detection<br/>Multi-select integration]
             end
 
-            subgraph "Phase 3 AI Components ⏳ 🤖"
-                AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display<br/>Loading/Error States<br/>25 RUBRIC POINTS]
+            subgraph "Phase 3 AI Components ✅ 🤖"
+                AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display<br/>Loading/Error States<br/>25 RUBRIC POINTS ✅]
             end
 
-            subgraph "Phase 4a Performance ⏳"
-                PerformanceMonitor[PerformanceMonitor<br/>FPS Tracker<br/>Render Time<br/>Sync Latency<br/>Shape Count<br/>60 FPS target]
+            subgraph "Phase 4a Performance & Code Quality ✅"
+                PerformanceMonitor[PerformanceMonitor<br/>FPS Tracker<br/>Render Time<br/>Sync Latency<br/>Shape Count<br/>60 FPS target ✅]
+                useShapeTransformHook[useShapeTransform Hook<br/>~1,183 lines eliminated<br/>Unified transform logic<br/>All 5 shape types<br/>Aspect ratio locking ✅]
+                ValidationUtil[validation.ts<br/>validateShapeData<br/>sanitizeShapeData<br/>Prevents invalid data ✅]
+                RateLimiterUtil[rateLimiter.ts<br/>10 AI requests/min<br/>Client-side protection<br/>Cost control ✅]
                 ViewportCullingComp[Viewport Culling<br/>Render visible only<br/>500px buffer<br/>500+ shapes at 60 FPS]
                 ShapePoolingComp[Shape Pooling<br/>Konva recycling<br/>Memory optimization<br/>Reduce GC overhead]
             end
@@ -77,14 +80,18 @@ graph TB
                 useToast[useToast<br/>Toast Notifications<br/>Success/Error]
             end
 
-            subgraph "Phase 2 Hooks ⏳"
+            subgraph "Phase 2 Hooks ✅"
                 useUndoRedo[useUndoRedo<br/>Action History Stack<br/>Max 50 Actions<br/>Per-user Isolation<br/>Tier 1: 2pts]
                 useKeyboardShortcuts[useKeyboardShortcuts<br/>10+ Global Shortcuts<br/>Cmd+Z, Cmd+D, Arrows<br/>Tier 1: 2pts]
             end
 
-            subgraph "Phase 3 AI Hooks ⏳ 🤖"
-                useAIAgent[useAIAgent<br/>executeAICommand<br/>OpenAI Chat Completions<br/>Tool Calling Integration<br/>Command History<br/>Response Time Tracking]
-                useCommandHistory[useCommandHistory<br/>Last 20 Commands<br/>localStorage Persistence<br/>Re-execute Capability]
+            subgraph "Phase 4a Hooks ✅"
+                useShapeTransform[useShapeTransform<br/>~1,183 lines eliminated<br/>Unified drag/resize/rotate<br/>All 5 shape types<br/>Aspect ratio locking ✅]
+            end
+
+            subgraph "Phase 3 AI Hooks ✅ 🤖"
+                useAIAgent[useAIAgent<br/>executeAICommand<br/>OpenAI Chat Completions<br/>Tool Calling Integration<br/>Command History<br/>Response Time Tracking ✅]
+                useCommandHistory[useCommandHistory<br/>Last 20 Commands<br/>localStorage Persistence<br/>Re-execute Capability ✅]
             end
         end
 
@@ -96,17 +103,19 @@ graph TB
                 AuthService[AuthContext.tsx<br/>Email/Password<br/>Session Management<br/>No Google OAuth]
             end
 
-            subgraph "Phase 2a Services ⏳"
-                ExportService[export.ts<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>Canvas-to-Image]
+            subgraph "Phase 2a Services ✅"
+                ExportService[export.ts<br/>exportCanvasAsPNG<br/>exportCanvasAsSVG<br/>Canvas-to-Image ✅]
             end
 
-            subgraph "Phase 3 AI Services ⏳ 🤖"
-                OpenAIService[openai.ts<br/>OpenAI Client<br/>dangerouslyAllowBrowser<br/>gpt-4o-mini<br/>Tool Calling API<br/>Phase 5: Wrapped by LangSmith]
-                AIAgentService[aiAgent.ts<br/>executeToolCall Function<br/>Switch-based Router<br/>Canvas Integration<br/>Returns CommandResult]
+            subgraph "Phase 3 AI Services ✅ 🤖"
+                OpenAIService[openai.ts<br/>OpenAI Client<br/>dangerouslyAllowBrowser<br/>gpt-4o-mini<br/>Tool Calling API<br/>Phase 5: Wrapped by LangSmith ✅]
+                AIAgentService[aiAgent.ts<br/>executeToolCall Function<br/>Switch-based Router<br/>Canvas Integration<br/>Returns CommandResult ✅]
             end
 
-            subgraph "Phase 4a Services ⏳"
-                PerformanceService[performance.ts<br/>Viewport Culling<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
+            subgraph "Phase 4a Services ✅"
+                PerformanceService[performance.ts<br/>Viewport Culling<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking<br/>debounce utility ✅]
+                ValidationService[validation.ts<br/>validateShapeData<br/>sanitizeShapeData<br/>Comprehensive validation ✅]
+                RateLimiterService[rateLimiter.ts<br/>RateLimiter class<br/>10 AI requests/min<br/>tryRequest/getRemainingRequests ✅]
             end
         end
 
@@ -174,7 +183,7 @@ graph TB
 
     subgraph "📦 ADDITIONAL LIBRARIES v5.0"
         ColorPicker[react-colorful<br/>2.8kb Library<br/>Zero Dependencies<br/>Phase 2a: Color palette]
-        DnDKit[@dnd-kit/core<br/>@dnd-kit/sortable<br/>Modern Drag & Drop<br/>Phase 4b: Layers Panel<br/>Z-index reordering]
+        DnDKit[dnd-kit/core<br/>dnd-kit/sortable<br/>Modern Drag & Drop<br/>Phase 4b: Layers Panel<br/>Z-index reordering]
         PerfAPI[Performance API<br/>Built-in Browser API<br/>FPS Tracking<br/>Render Time<br/>Phase 4a: Performance Monitor]
     end
 
@@ -232,15 +241,22 @@ graph TB
     LayersPanel --> useShapes
     PropertiesPanel --> useShapes
     AlignmentTools --> useShapes
+    Rectangle --> useShapeTransform
+    Circle --> useShapeTransform
+    Text --> useShapeTransform
+    Line --> useShapeTransform
+    Arrow --> useShapeTransform
 
     %% Services connections
     useAuth --> AuthService
     useShapes --> FirestoreService
+    useShapes --> ValidationService
     usePresence --> RealtimeService
     useCanvas --> Helpers
     useCanvas --> PerformanceService
     useAIAgent --> OpenAIService
     useAIAgent --> AIAgentService
+    useAIAgent --> RateLimiterService
     ExportModal --> ExportService
 
     %% Custom utilities connections (v5.0)
@@ -351,7 +367,7 @@ graph TB
     class Line,Arrow,ColorPaletteModal,ExportModal,KeyboardShortcutsPanel,ShapeStylePanel,useUndoRedo,useKeyboardShortcuts,ExportService componentPhase2a
     class TransformerEnhanced,SmartGuides,MarqueeSelection componentPhase2bFigma
     class AICommandPanel,useAIAgent,useCommandHistory,OpenAIService,AIAgentService,AICommands,AITypes componentPhase3AI
-    class PerformanceMonitor,ViewportCullingComp,ShapePoolingComp,PerformanceService componentPhase4aPerformance
+    class PerformanceMonitor,ViewportCullingComp,ShapePoolingComp,PerformanceService,useShapeTransform,useShapeTransformHook,ValidationService,ValidationUtil,RateLimiterService,RateLimiterUtil componentPhase4aPerformance
     class LayersPanel,PropertiesPanel,AlignmentTools componentPhase4bFigma
     class FirebaseConfig,FirestoreService,RealtimeService,AuthService servicesLayer
     class FBAuth,CanvasCollection,ShapeSchema,SecurityRules,SessionsPath,CursorData,PresenceSystem,Hosting firebaseService

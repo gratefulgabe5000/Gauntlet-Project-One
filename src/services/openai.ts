@@ -109,16 +109,23 @@ export async function executeAICommand(
     }
 
     // Parse tool calls
-    const toolCalls: ToolCallResult[] = message.tool_calls.map(tc => ({
-      function: tc.function.name,
-      arguments: JSON.parse(tc.function.arguments),
-      responseTime: duration,
-      usage: {
-        prompt_tokens: completion.usage?.prompt_tokens || 0,
-        completion_tokens: completion.usage?.completion_tokens || 0,
-        total_tokens: completion.usage?.total_tokens || 0,
-      },
-    }));
+    const toolCalls: ToolCallResult[] = message.tool_calls.map(tc => {
+      // Type guard: ensure we have a function tool call
+      if (tc.type === 'function' && 'function' in tc) {
+        return {
+          function: tc.function.name,
+          arguments: JSON.parse(tc.function.arguments),
+          responseTime: duration,
+          usage: {
+            prompt_tokens: completion.usage?.prompt_tokens || 0,
+            completion_tokens: completion.usage?.completion_tokens || 0,
+            total_tokens: completion.usage?.total_tokens || 0,
+          },
+        };
+      }
+      // Fallback for non-function tool calls (shouldn't happen with our setup)
+      throw new Error(`Unsupported tool call type: ${tc.type}`);
+    });
 
     // Tool execution happens in the calling code (Canvas component)
     // This service only handles AI communication

@@ -169,7 +169,7 @@ export class ToolExecutionError extends Error {
   constructor(
     message: string,
     public toolName: string,
-    public arguments: any
+    public toolArguments: any
   ) {
     super(message);
     this.name = 'ToolExecutionError';

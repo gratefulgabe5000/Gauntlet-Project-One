@@ -6,7 +6,7 @@ graph TB
         BuildPipeline[Production Build Pipeline<br/>Code Splitting + esbuild Minification<br/>~335 KB gzipped bundle Phase 1<br/>Est. ~450 KB with Phase 2-5]
     end
 
-    subgraph "Client Browser - CollabCanvas Complete v5.0 Phase 1-5"
+    subgraph "Client Browser - CollabCanvas Complete v5.1 Phase 1-4a"
         subgraph "React 19 Application Layer"
             subgraph "Core UI Components Phase 1 ✅"
                 App[App.tsx<br/>Main Application Shell<br/>Wrapped in ErrorBoundary]
@@ -41,8 +41,8 @@ graph TB
                 TransformUtils[src/utils/transform.ts<br/>calculateBounds function<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio]
             end
 
-            subgraph "Phase 3 AI Canvas Agent NEW ⏳ CRITICAL"
-                AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display last 5<br/>Loading/Error States<br/>25 RUBRIC POINTS]
+            subgraph "Phase 3 AI Canvas Agent ✅ COMPLETE"
+                AICommandPanel[AICommandPanel.tsx<br/>Natural Language Input<br/>Command Suggestions<br/>History Display last 5<br/>Loading/Error States<br/>25 RUBRIC POINTS ✅]
                 AIService[src/services/openai.ts<br/>OpenAI SDK Client<br/>dangerouslyAllowBrowser: true<br/>gpt-4o-mini for speed<br/>Tool Calling Implementation]
                 AIAgent[src/services/aiAgent.ts<br/>executeToolCall Function<br/>Switch-based Tool Router<br/>Returns CommandResult<br/>Canvas Integration]
                 AICommands[src/utils/aiCommands.ts<br/>CANVAS_TOOLS Array<br/>12+ Function Schemas<br/>OpenAI Tool Calling Format<br/>Creation/Manipulation/Layout/Complex]
@@ -51,8 +51,11 @@ graph TB
                 useCommandHistory[useCommandHistory Hook<br/>Last 20 Commands<br/>Success/Error Tracking<br/>Re-execute Capability<br/>localStorage Persistence]
             end
 
-            subgraph "Phase 4a Performance Optimization NEW ⏳"
-                PerformanceMonitor[Performance Monitor<br/>FPS Tracker real-time<br/>Render Time per Frame<br/>Sync Latency Display<br/>Shape Count Indicator<br/>60 FPS target]
+            subgraph "Phase 4a Performance & Code Quality ✅ COMPLETE"
+                PerformanceMonitor[Performance Monitor<br/>FPS Tracker real-time<br/>Render Time per Frame<br/>Sync Latency Display<br/>Shape Count Indicator<br/>60 FPS target ✅]
+                useShapeTransform[useShapeTransform Hook NEW<br/>Unified Transform Logic<br/>~1,183 lines eliminated<br/>Drag/Resize/Rotate<br/>All 5 shape types<br/>Aspect ratio locking]
+                ValidationUtils[validation.ts NEW<br/>validateShapeData<br/>sanitizeShapeData<br/>Comprehensive checks<br/>Prevents invalid data]
+                RateLimiterUtils[rateLimiter.ts NEW<br/>Rate Limiting<br/>10 AI requests/min<br/>Client-side protection<br/>User-friendly errors]
                 ViewportCullingComponent[Viewport Culling System<br/>useCanvas optimization<br/>Render only visible shapes<br/>500px buffer zone<br/>500+ shapes at 60 FPS]
                 ShapePoolingComponent[Shape Pooling Manager<br/>Konva instance recycling<br/>Reduce GC overhead<br/>Memory optimization]
             end
@@ -94,8 +97,9 @@ graph TB
                 useShapes[useShapes Hook Phase 1+2<br/>Multi-Shape CRUD Operations<br/>Real-time Sync Integration<br/>updateShapeText/updateShapeColor<br/>Phase 2: Undo/Redo Integration]
                 usePresence[usePresence Hook<br/>User Presence Tracking<br/>Cursor Position Updates<br/>Heartbeat System 5sec<br/>Offline Detection 30sec<br/>Phase 4: 50ms optimization]
                 useToast[useToast Hook<br/>Toast Notification Manager<br/>Add/Remove/Auto-dismiss]
-                useUndoRedo[useUndoRedo Hook NEW Phase 2<br/>Action History Stack max 50<br/>Redo Stack<br/>CREATE/UPDATE/DELETE/MOVE<br/>Per-user action filtering]
-                useKeyboardShortcuts[useKeyboardShortcuts Hook NEW Phase 2<br/>10+ Global Shortcuts<br/>Arrow keys Move<br/>Cmd+Z Undo, Cmd+Shift+Z Redo<br/>Cmd+D Duplicate, Cmd+A Select All]
+                useUndoRedo[useUndoRedo Hook Phase 2<br/>Action History Stack max 50<br/>Redo Stack<br/>CREATE/UPDATE/DELETE/MOVE<br/>Per-user action filtering]
+                useKeyboardShortcuts[useKeyboardShortcuts Hook Phase 2<br/>10+ Global Shortcuts<br/>Arrow keys Move<br/>Cmd+Z Undo, Cmd+Shift+Z Redo<br/>Cmd+D Duplicate, Cmd+A Select All]
+                useShapeTransformHook[useShapeTransform Hook Phase 4a ✅<br/>Unified Transform Logic<br/>~1,183 lines eliminated<br/>handleDrag/handleResize/handleRotate<br/>All 5 shape types<br/>Aspect ratio locking]
             end
 
             subgraph "Services Layer"
@@ -107,13 +111,15 @@ graph TB
                 PerformanceService[performance.ts NEW Phase 4a<br/>Viewport Culling Logic<br/>getVisibleShapes<br/>FPS Monitoring<br/>Render Time Tracking]
             end
 
-            subgraph "Utilities Layer v5.0"
+            subgraph "Utilities Layer v5.1"
                 TypeDefinitions[types.ts Phase 1+2+3<br/>TypeScript Interfaces<br/>Shape/User/Canvas Types<br/>Multi-shape support<br/>Phase 2: Line/Arrow types<br/>Phase 3: AI command types]
                 ColorUtils[colors.ts<br/>User Color Generation<br/>12 Distinct Colors<br/>Hash-based Assignment<br/>Phase 2: 20+ color palette]
                 Helpers[helpers.ts Phase 1+2<br/>Canvas Calculations<br/>createRectangleShape<br/>createCircleShape<br/>createTextShape<br/>Phase 2: createLineShape<br/>Phase 2: createArrowShape]
                 ErrorMessages[errorMessages.ts<br/>User-friendly Error Messages<br/>Firebase Error Translation<br/>Phase 3: AI Error Messages]
-                TransformUtilsRef[transform.ts NEW Phase 2b<br/>Custom Konva utilities<br/>calculateBounds<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio]
-                AlignmentUtilsRef[alignment.ts NEW Phase 4b<br/>9 alignment functions<br/>alignLeft/Right/Center<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
+                TransformUtilsRef[transform.ts Phase 2b<br/>Custom Konva utilities<br/>calculateBounds<br/>getRotatedBounds<br/>snapToGrid<br/>constrainAspectRatio]
+                ValidationUtilsRef[validation.ts Phase 4a ✅<br/>validateShapeData<br/>sanitizeShapeData<br/>Dimension/Color/Text validation<br/>Prevents invalid Firestore data]
+                RateLimiterUtilsRef[rateLimiter.ts Phase 4a ✅<br/>RateLimiter class<br/>10 AI requests/minute<br/>tryRequest/getRemainingRequests<br/>Client-side protection]
+                AlignmentUtilsRef[alignment.ts Phase 4b<br/>9 alignment functions<br/>alignLeft/Right/Center<br/>alignTop/Middle/Bottom<br/>distributeHorizontally/Vertically<br/>alignToCanvasCenter]
             end
 
             subgraph "Test Infrastructure"
@@ -274,6 +280,11 @@ graph TB
     LayersPanel --> useShapes
     AlignmentTools --> useShapes
     PropertiesPanel --> useShapes
+    Rectangle --> useShapeTransformHook
+    Circle --> useShapeTransformHook
+    Text --> useShapeTransformHook
+    Line --> useShapeTransformHook
+    Arrow --> useShapeTransformHook
 
     %% Services integration
     useAuth --> AuthService
@@ -283,8 +294,11 @@ graph TB
     useCanvas --> ColorUtils
     useCanvas --> PerformanceService
     useShapes --> Helpers
+    useShapes --> ValidationUtilsRef
     useToast --> ErrorMessages
     ExportModal --> ExportService
+    useAIAgent --> RateLimiterUtilsRef
+    AIService --> RateLimiterUtilsRef
 
     %% Utilities integration (v5.0 custom implementations)
     AlignmentTools --> AlignmentUtilsLib
@@ -383,6 +397,6 @@ graph TB
     class AICommandPanel,AIService,AIAgent,AICommands,useAIAgent,useCommandHistory,OpenAI,LangSmithWrapper,LangSmith,AIToolCalling,AIExecution,AIFirestoreSync,AIPerformance aiComponent
     class Line,Arrow,ColorPaletteModal,ExportModal,ShapeStylePanel,KeyboardShortcutsPanel,useUndoRedo,useKeyboardShortcuts,ExportService,UndoRedoSync phase2aComponent
     class TransformerEnhanced,SmartGuides,MarqueeSelection,TransformUtils phase2bFigma
-    class PerformanceMonitor,ViewportCullingComponent,ShapePoolingComponent,PerformanceService,ViewportCulling,ShapePooling,BatchOperations phase4aPerformance
+    class PerformanceMonitor,ViewportCullingComponent,ShapePoolingComponent,PerformanceService,ViewportCulling,ShapePooling,BatchOperations,useShapeTransform,useShapeTransformHook,ValidationUtils,ValidationUtilsRef,RateLimiterUtils,RateLimiterUtilsRef phase4aPerformance
     class LayersPanel,PropertiesPanel,AlignmentTools,AlignmentUtilsLib phase4bFigma
     class TransformUtilsRef,AlignmentUtilsRef,TypeDefinitions,ColorUtils,Helpers,ErrorMessages customUtility

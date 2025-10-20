@@ -7,6 +7,7 @@
  */
 
 import type { RectangleShape } from '../components/Rectangle';
+import type { CreateShapeData } from '../services/types';
 
 // Canvas constants
 export const CANVAS_WIDTH = 2000;
@@ -70,11 +71,12 @@ export const isShapeInBounds = (shape: RectangleShape): boolean => {
  * Create a new rectangle shape with default properties
  */
 export const createRectangleShape = (
-  overrides?: Partial<Omit<RectangleShape, 'id'>>
-): Omit<RectangleShape, 'id'> => {
+  overrides?: Partial<CreateShapeData>
+): CreateShapeData => {
   const centeredPos = getCenteredPosition();
 
   return {
+    type: 'rectangle',
     x: centeredPos.x,
     y: centeredPos.y,
     width: DEFAULT_RECT_WIDTH,
@@ -89,11 +91,12 @@ export const createRectangleShape = (
  * Circle is represented as a square bounding box with width = height = diameter
  */
 export const createCircleShape = (
-  overrides?: Partial<Omit<RectangleShape, 'id'>>
-): Omit<RectangleShape, 'id'> => {
+  overrides?: Partial<CreateShapeData>
+): CreateShapeData => {
   const centeredPos = getCenteredPosition();
 
   return {
+    type: 'circle',
     x: centeredPos.x,
     y: centeredPos.y,
     width: DEFAULT_RECT_WIDTH,
@@ -107,17 +110,19 @@ export const createCircleShape = (
  * Create a new text shape with default properties
  */
 export const createTextShape = (
-  overrides?: Partial<Omit<RectangleShape, 'id'>>
-): Omit<RectangleShape, 'id'> => {
+  overrides?: Partial<CreateShapeData>
+): CreateShapeData => {
   const centeredPos = getCenteredPosition(200, 50);
 
   return {
+    type: 'text',
     x: centeredPos.x,
     y: centeredPos.y,
     width: 200,
     height: 50,
     fill: '#000000',
     fontSize: 16, // Default font size for text shapes
+    text: 'Double-click to edit',
     ...overrides,
   };
 };
@@ -137,8 +142,8 @@ export const createLineShape = (
   y1?: number,
   x2?: number,
   y2?: number,
-  overrides?: Partial<Omit<RectangleShape, 'id'>>
-): Omit<RectangleShape, 'id'> => {
+  overrides?: Partial<CreateShapeData>
+): CreateShapeData => {
   // Default to diagonal line from center
   const centeredPos = getCenteredPosition(150, 150);
   const startX = x1 ?? centeredPos.x;
@@ -151,11 +156,13 @@ export const createLineShape = (
   const height = Math.abs(endY - startY);
 
   return {
+    type: 'line',
     x: startX,
     y: startY,
     width: width,
     height: height,
     fill: '#333333', // Default dark gray stroke
+    points: [0, 0, endX - startX, endY - startY],
     ...overrides,
   };
 };
@@ -175,8 +182,8 @@ export const createArrowShape = (
   y1?: number,
   x2?: number,
   y2?: number,
-  overrides?: Partial<Omit<RectangleShape, 'id'>>
-): Omit<RectangleShape, 'id'> => {
+  overrides?: Partial<CreateShapeData>
+): CreateShapeData => {
   // Default to diagonal arrow from center
   const centeredPos = getCenteredPosition(150, 150);
   const startX = x1 ?? centeredPos.x;
@@ -189,11 +196,13 @@ export const createArrowShape = (
   const height = Math.abs(endY - startY);
 
   return {
+    type: 'arrow',
     x: startX,
     y: startY,
     width: width,
     height: height,
     fill: '#000000', // Default black color
+    points: [0, 0, endX - startX, endY - startY],
     pointerLength: 10,
     pointerWidth: 10,
     ...overrides,

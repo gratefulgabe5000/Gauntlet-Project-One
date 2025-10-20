@@ -112,6 +112,15 @@ export interface Shape {
   /** Fill color (fixed #cccccc for MVP) */
   fill: string;
 
+  /** Stroke/border color (for all shapes, especially line/arrow) */
+  stroke?: string;
+
+  /** Stroke/border width in pixels */
+  strokeWidth?: number;
+
+  /** Opacity/transparency level (0-1) */
+  opacity?: number;
+
   /** Rotation angle in degrees (0-360) - Task 8b.2.2 */
   rotation?: number;
 
@@ -164,6 +173,9 @@ export interface CreateShapeData {
   width: number;
   height: number;
   fill?: string;
+  stroke?: string; // Border/stroke color
+  strokeWidth?: number; // Border/stroke width
+  opacity?: number; // Transparency level
   text?: string;
   fontSize?: number;
   rotation?: number; // Task 8b.2.3: Rotation angle in degrees

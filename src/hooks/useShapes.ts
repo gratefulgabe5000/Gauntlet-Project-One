@@ -26,7 +26,7 @@ import {
     updateShape,
 } from '../services/firestore';
 import type { CreateShapeData, Shape } from '../services/types';
-import { ActionType, type CanvasAction } from '../types/canvas.types';
+import { ActionType, type CanvasAction, type UndoRedoResult } from '../types/canvas.types';
 import { debounce, globalSyncMonitor } from '../utils/performance';
 import { useUndoRedo } from './useUndoRedo';
 
@@ -43,9 +43,12 @@ interface UseShapesReturn {
   addShapesBatch: (shapesData: CreateShapeData[]) => Promise<string[]>; // PR10a: Phase 4a Block 4
   removeShape: (shapeId: string) => Promise<boolean>;
   updateShapePosition: (shapeId: string, x: number, y: number) => Promise<boolean>;
+  updateShapeDimensions: (shapeId: string, width: number, height: number) => Promise<boolean>;
+  updateShapePositionAndDimensions: (shapeId: string, x: number, y: number, width: number, height: number) => Promise<boolean>;
   updateShapeText: (shapeId: string, text: string) => Promise<boolean>;
   updateShapeColor: (shapeId: string, color: string) => Promise<boolean>;
   updateShapeFontSize: (shapeId: string, fontSize: number) => Promise<boolean>;
+  updateShapeProperties: (shapeId: string, properties: Partial<Shape>) => Promise<boolean>;
   updateMultipleShapeColors: (shapeIds: string[], color: string) => Promise<{ successCount: number; totalCount: number }>; // PR8a: Multi-select
   clearAllShapes: () => Promise<boolean>;
 
@@ -63,8 +66,8 @@ interface UseShapesReturn {
   releaseLock: (shapeId: string) => Promise<boolean>;
 
   // PR8a.3.3: Undo/Redo (Phase 2a)
-  undo: () => Promise<void>;
-  redo: () => Promise<void>;
+  undo: () => Promise<UndoRedoResult>;
+  redo: () => Promise<UndoRedoResult>;
   canUndo: boolean;
   canRedo: boolean;
 
@@ -351,9 +354,14 @@ export function useShapes(): UseShapesReturn {
           const createdShape: Shape = {
             id: result.shapeId,
             ...shapeData,
-            userId: user.uid,
+            fill: shapeData.fill ?? '#cccccc', // Ensure fill is always defined
+            createdBy: user.uid,
             createdAt: Date.now(),
-            updatedAt: Date.now(),
+            lastModifiedBy: user.uid,
+            lastModifiedAt: Date.now(),
+            isLocked: false,
+            lockedBy: null,
+            lockedAt: null,
           };
           
           addAction({
@@ -415,9 +423,14 @@ export function useShapes(): UseShapesReturn {
             const createdShape: Shape = {
               id: shapeId,
               ...shapesData[index],
-              userId: user.uid,
+              fill: shapesData[index].fill ?? '#cccccc', // Ensure fill is always defined
+              createdBy: user.uid,
               createdAt: Date.now(),
-              updatedAt: Date.now(),
+              lastModifiedBy: user.uid,
+              lastModifiedAt: Date.now(),
+              isLocked: false,
+              lockedBy: null,
+              lockedAt: null,
             };
             
             addAction({
@@ -1049,9 +1062,9 @@ export function useShapes(): UseShapesReturn {
    * Remove all selected shapes (PR8a: Multi-select)
    */
   const removeSelectedShapes = useCallback(async (): Promise<boolean> => {
-    if (selectedShapeIds.length === 0) return false;
+    if (selectedShapeIds.size === 0) return false;
 
-    const deletePromises = selectedShapeIds.map((id) => removeShape(id));
+    const deletePromises = Array.from(selectedShapeIds).map((id) => removeShape(id));
     const results = await Promise.all(deletePromises);
 
     const allDeleted = results.every((result) => result);

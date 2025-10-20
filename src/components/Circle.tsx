@@ -85,7 +85,7 @@ const Circle = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateS
           container.style.cursor = 'move';
         }
         // Add subtle shadow on hover if not selected
-        if (!isSelected) {
+        if (!isSelected && 'strokeWidth' in e.target && 'stroke' in e.target) {
           e.target.strokeWidth(2);
           e.target.stroke('#94a3b8');
         }
@@ -96,7 +96,7 @@ const Circle = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateS
           container.style.cursor = 'default';
         }
         // Reset to default state if not selected
-        if (!isSelected) {
+        if (!isSelected && 'strokeWidth' in e.target && 'stroke' in e.target) {
           e.target.strokeWidth(1);
           e.target.stroke('#cbd5e1');
         }
@@ -137,6 +137,6 @@ export default React.memo(Circle, (prevProps, nextProps) => {
     prevProps.shape.stroke === nextProps.shape.stroke &&
     prevProps.shape.strokeWidth === nextProps.shape.strokeWidth &&
     prevProps.shape.opacity === nextProps.shape.opacity &&
-    prevProps.shape.locked === nextProps.shape.locked
+    prevProps.shape.isLocked === nextProps.shape.isLocked
   );
 });

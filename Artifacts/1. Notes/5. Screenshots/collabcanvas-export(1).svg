@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2020" height="2020" viewBox="0 0 2020 2020">
+  <title>CollabCanvas Export</title>
+  <desc>Exported from CollabCanvas</desc>
+  <g id="background">
+    <rect x="0" y="0" width="2020" height="2020" fill="#ffffff"/>
+  </g>
+  <g id="shapes">
+    <rect x="0" y="0" width="2000" height="2000" fill="#ffffff" stroke="#e5e7eb" stroke-width="2"/>
+  </g>
+</svg>

@@ -244,10 +244,10 @@ function App() {
 
       // Task 3.5.2: Delete key to remove selected shape(s) - PR8a: Multi-select support
       if (e.key === 'Delete' || e.key === 'Backspace') {
-        if (selectedShapeIds.length > 1) {
+        if (selectedShapeIds.size > 1) {
           e.preventDefault()
           removeSelectedShapes()
-          console.log('🗑️ Deleted ' + selectedShapeIds.length + ' shapes')
+          console.log('🗑️ Deleted ' + selectedShapeIds.size + ' shapes')
         } else if (selectedShapeId) {
           e.preventDefault()
           removeSelectedShape()
@@ -467,9 +467,9 @@ function App() {
     if (!selectedShapeId) return
 
     // PR8a: Handle multi-select - update all selected shapes
-    if (selectedShapeIds.length > 1) {
+    if (selectedShapeIds.size > 1) {
       // Use dedicated multi-update function to avoid race conditions
-      const result = await updateMultipleShapeColors(selectedShapeIds, color)
+      const result = await updateMultipleShapeColors(Array.from(selectedShapeIds), color)
 
       if (result.successCount === result.totalCount) {
         console.log(`✅ ${result.successCount} shape colors updated:`, color)

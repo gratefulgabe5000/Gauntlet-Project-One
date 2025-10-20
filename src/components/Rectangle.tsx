@@ -97,7 +97,7 @@ const Rectangle = ({
           if (container) {
             container.style.cursor = 'move';
           }
-          if (!isSelected) {
+          if (!isSelected && 'strokeWidth' in e.target && 'stroke' in e.target) {
             e.target.strokeWidth(2);
             e.target.stroke('#94a3b8');
           }
@@ -107,7 +107,7 @@ const Rectangle = ({
           if (container) {
             container.style.cursor = 'default';
           }
-          if (!isSelected) {
+          if (!isSelected && 'strokeWidth' in e.target && 'stroke' in e.target) {
             e.target.strokeWidth(1);
             e.target.stroke('#cbd5e1');
           }

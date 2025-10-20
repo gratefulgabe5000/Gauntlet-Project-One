@@ -200,6 +200,6 @@ export default React.memo(Text, (prevProps, nextProps) => {
     prevProps.shape.rotation === nextProps.shape.rotation &&
     prevProps.shape.text === nextProps.shape.text &&
     prevProps.shape.fontSize === nextProps.shape.fontSize &&
-    prevProps.shape.locked === nextProps.shape.locked
+    prevProps.shape.isLocked === nextProps.shape.isLocked
   );
 });

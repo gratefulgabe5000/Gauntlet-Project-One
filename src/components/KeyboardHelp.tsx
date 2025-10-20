@@ -166,7 +166,7 @@ const KeyboardHelp = ({
           <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-200">
             <h3 className="text-sm font-bold text-gray-900">Keyboard Shortcuts</h3>
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={() => onToggle ? onToggle() : setInternalIsOpen(false)}
               className="text-gray-400 hover:text-gray-600 transition-colors"
               aria-label="Close"
             >

@@ -90,7 +90,7 @@ const Arrow = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateSh
             container.style.cursor = 'move';
           }
           // Highlight on hover if not selected
-          if (!isSelected) {
+          if (!isSelected && 'strokeWidth' in e.target) {
             e.target.strokeWidth((shape.strokeWidth || 2) + 1);
           }
         }}
@@ -100,7 +100,7 @@ const Arrow = ({ shape, isSelected, onSelect, onDragStart, onDragEnd, onUpdateSh
             container.style.cursor = 'default';
           }
           // Reset to default state if not selected
-          if (!isSelected) {
+          if (!isSelected && 'strokeWidth' in e.target) {
             e.target.strokeWidth(shape.strokeWidth || 2);
           }
         }}
@@ -134,6 +134,6 @@ export default React.memo(Arrow, (prevProps, nextProps) => {
     prevProps.shape.strokeWidth === nextProps.shape.strokeWidth &&
     prevProps.shape.rotation === nextProps.shape.rotation &&
     prevProps.shape.opacity === nextProps.shape.opacity &&
-    prevProps.shape.locked === nextProps.shape.locked
+    prevProps.shape.isLocked === nextProps.shape.isLocked
   );
 });
